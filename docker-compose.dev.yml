@@ -1,5 +1,7 @@
 services:
   identifier:
+    ports:
+      - "80:80"
     restart: "no"
   dispatcher:
     restart: "no"
