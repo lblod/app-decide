@@ -1,0 +1,5 @@
+(define-resource legal-expression ()
+  :class (s-prefix "eli:LegalExpression")
+  :resource-base (s-url "http://data.lblod.info/id/legal-expressions/")
+  :features '(include-uri)
+  :on-path "legal-expressions")
