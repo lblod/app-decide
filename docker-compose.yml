@@ -32,7 +32,6 @@ services:
     image: redpencil/virtuoso:1.3.0
     environment:
       SPARQL_UPDATE: "true"
-      DEFAULT_GRAPH: "http://mu.semte.ch/application"
     volumes:
       - ./config/virtuoso/virtuoso.ini:/data/virtuoso.ini
       - ./data/db:/data
