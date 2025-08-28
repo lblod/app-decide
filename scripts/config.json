@@ -1,0 +1,20 @@
+{
+  "version": "0.1",
+  "scripts": [
+    {
+      "documentation": {
+        "command": "ttl-to-ntriples",
+        "description": "Convert a ttl-files to corresponding n-triple files.",
+        "arguments": ["-r", "--replace"]
+      },
+      "environment": {
+        "image": "python:3.13.7",
+        "interactive": false,
+        "script": "ttl-to-ntriples/run.sh"
+      },
+      "mounts": {
+        "app": "/app/"
+      }
+    }
+  ]
+}
