@@ -1,0 +1,150 @@
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb3> <http://www.w3.org/ns/shacl#minCount> "0"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<http://mu.semte.ch/vocabularies/ext/lmbMandatarisShape> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/shacl#NodeShape> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb34> <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb21> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb11> <http://www.w3.org/ns/shacl#inversePath> <http://www.w3.org/ns/regorg#orgStatus> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb10> <http://www.w3.org/ns/shacl#path> <http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb11> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb25> <http://www.w3.org/ns/shacl#property> <http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb27> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb5> <http://www.w3.org/ns/shacl#minCount> "0"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<http://mu.semte.ch/vocabularies/ext/allowReadForMandatarisOrg> <http://www.w3.org/ns/odrl/2/assigner> <http://mu.semte.ch/vocabularies/ext/lmbSystem> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb6> <http://www.w3.org/ns/shacl#property> <http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb7> .
+<http://mu.semte.ch/vocabularies/ext/mandaatGebruikerParty> <http://mu.semte.ch/vocabularies/ext/queryParameters> "session_role" .
+<http://mu.semte.ch/vocabularies/ext/lmbPublicSlice> <http://mu.semte.ch/vocabularies/ext/shaclShape> <http://mu.semte.ch/vocabularies/ext/lmbPublicShape> .
+<http://mu.semte.ch/vocabularies/ext/muAuthProfile> <http://purl.org/dc/terms/description> "ODRL profile describing access to mu-auth resources." .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb2> <http://www.w3.org/ns/shacl#property> <http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb4> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb24> <http://www.w3.org/ns/shacl#not> <http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb25> .
+<http://mu.semte.ch/vocabularies/ext/examplePolicyLMB> <http://www.w3.org/ns/odrl/2/permission> <http://mu.semte.ch/vocabularies/ext/allowReadForVendorOnMandatarisOrg> .
+<http://mu.semte.ch/vocabularies/ext/vendorGebruikerParty> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/odrl/2/PartyCollection> .
+<http://mu.semte.ch/vocabularies/ext/policeCouncilParty> <http://mu.semte.ch/vocabularies/ext/queryParameters> "session_group" .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb18> <http://www.w3.org/ns/shacl#path> <http://mu.semte.ch/vocabularies/ext/viewOnlyModules> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb28> <http://www.w3.org/ns/shacl#not> <http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb29> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb23> <http://www.w3.org/ns/shacl#path> <http://data.vlaanderen.be/ns/persoon#registratie> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb14> <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb1> .
+<http://mu.semte.ch/vocabularies/ext/allowReadForAuthenticatedOnViewOnlyModules> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/odrl/2/Permission> .
+<http://mu.semte.ch/vocabularies/ext/mandaatGebruikerParty> <http://purl.org/dc/terms/description> "This party collection represents all users who received the LoketLB-mandaatGebruiker role through ACM/IDM" .
+<http://mu.semte.ch/vocabularies/ext/lmbAuthenticatedPublicSlice> <http://www.w3.org/2006/vcard/ns#fn> "view-only-modules" .
+<http://mu.semte.ch/vocabularies/ext/allowReadForMandatarisOrg> <http://www.w3.org/ns/odrl/2/target> <http://mu.semte.ch/vocabularies/ext/lmbOrganizationMandatesSlice> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb25> <http://www.w3.org/ns/shacl#property> <http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb26> .
+<http://mu.semte.ch/vocabularies/ext/lmbOrganizationMandatesSlice> <http://mu.semte.ch/vocabularies/ext/queryParameters> "session_group" .
+<http://mu.semte.ch/vocabularies/ext/allowReadForAuthenticatedOnViewOnlyModules> <http://www.w3.org/ns/odrl/2/target> <http://mu.semte.ch/vocabularies/ext/lmbAuthenticatedPublicSlice> .
+<http://mu.semte.ch/vocabularies/ext/vendorGebruikerParty> <http://purl.org/dc/terms/description> "This party collection represents all users who can access the information regarding communes or OCMWs through their vendor api key" .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb2> <http://www.w3.org/ns/shacl#property> <http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb5> .
+<http://mu.semte.ch/vocabularies/ext/publicParty> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/odrl/2/PartyCollection> .
+<http://mu.semte.ch/vocabularies/ext/lmbOrganizationMandatesSlice> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/odrl/2/AssetCollection> .
+<http://mu.semte.ch/vocabularies/ext/vendorGebruikerParty> <http://mu.semte.ch/vocabularies/ext/definedBy> "\n  PREFIX ext: <http://mu.semte.ch/vocabularies/ext/>\n  PREFIX muAccount: <http://mu.semte.ch/vocabularies/account/>\n  PREFIX mu: <http://mu.semte.ch/vocabularies/core/>\n  SELECT DISTINCT ?session_group ?session_role WHERE {\n    VALUES ?session {\n      <SESSION_ID>\n    }\n    {{\n      ?session muAccount:canActOnBehalfOf/mu:uuid ?session_group ;\n                    muAccount:account/ext:sessionRole ?session_role .\n    } UNION {\n      ?session muAccount:account ?account .\n      ?session muAccount:canActOnBehalfOf/ext:isOCMWVoor/mu:uuid ?session_group ;\n                              muAccount:account/ext:sessionRole ?session_role .\n      ?session muAccount:canActOnBehalfOf/ext:isOCMWVoor/^<http://lblod.data.gift/vocabularies/lmb/heeftBestuurseenheid>/<http://lblod.data.gift/vocabularies/lmb/hasStatus> <http://data.lblod.info/id/concept/InstallatievergaderingStatus/a40b8f8a-8de2-4710-8d9b-3fc43a4b740e> .\n      VALUES ?account {\n        <http://data.lblod.info/vendors/14db001d-ea0f-4a8a-8453-c48547347588> # Cipal\n        <http://data.lblod.info/vendors/42edb420-08c7-4ede-9961-bc0e527d0f3b> # Green Valley\n        <http://data.lblod.info/vendors/dc62419e-1267-44e7-9562-0114e2708b6f> # Remmicom\n      }\n    }}\n  }\n  " .
+<http://mu.semte.ch/vocabularies/ext/lmbAuthenticatedPublicShape> <http://www.w3.org/ns/shacl#property> <http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb18> .
+<http://mu.semte.ch/vocabularies/ext/allowReadForMandatarisOrg> <http://www.w3.org/ns/odrl/2/assignee> <http://mu.semte.ch/vocabularies/ext/mandaatGebruikerParty> .
+<http://mu.semte.ch/vocabularies/ext/examplePolicyLMB> <http://www.w3.org/ns/odrl/2/permission> <http://mu.semte.ch/vocabularies/ext/allowWriteForMandatarisOrg> .
+<http://mu.semte.ch/vocabularies/ext/allowReadForPublic> <http://www.w3.org/ns/odrl/2/target> <http://mu.semte.ch/vocabularies/ext/lmbPublicSlice> .
+<http://mu.semte.ch/vocabularies/ext/lmbSystem> <http://purl.org/dc/terms/description> "The LMB system party used as an assigner of the permission in this profile" .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb19> <http://www.w3.org/ns/shacl#targetClass> <http://data.vlaanderen.be/ns/mandaat#Mandataris> .
+<http://mu.semte.ch/vocabularies/ext/lmbAuthenticatedPublicSlice> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/odrl/2/AssetCollection> .
+<http://mu.semte.ch/vocabularies/ext/allowReadForMandatarisOrg> <http://www.w3.org/ns/odrl/2/action> <http://www.w3.org/ns/odrl/2/read> .
+<http://mu.semte.ch/vocabularies/ext/allowReadForVendorOnMandatarisOrg> <http://www.w3.org/ns/odrl/2/assigner> <http://mu.semte.ch/vocabularies/ext/lmbSystem> .
+<http://mu.semte.ch/vocabularies/ext/examplePolicyLMB> <http://www.w3.org/ns/odrl/2/permission> <http://mu.semte.ch/vocabularies/ext/allowReadForPublic> .
+<http://mu.semte.ch/vocabularies/ext/vendorGebruikerParty> <http://mu.semte.ch/vocabularies/ext/queryParameters> "session_role" .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb29> <http://www.w3.org/ns/shacl#property> <http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb30> .
+<http://mu.semte.ch/vocabularies/ext/allowReadForPoliceCouncilOnMandatarisOrg> <http://www.w3.org/ns/odrl/2/assigner> <http://mu.semte.ch/vocabularies/ext/lmbSystem> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb6> <http://www.w3.org/ns/shacl#targetClass> <http://data.vlaanderen.be/ns/besluit#Bestuurseenheid> .
+<http://mu.semte.ch/vocabularies/ext/muAuthProfile> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/odrl/2/Profile> .
+<http://mu.semte.ch/vocabularies/ext/examplePolicyLMB> <http://www.w3.org/ns/odrl/2/permission> <http://mu.semte.ch/vocabularies/ext/allowReadForMandatarisOrg> .
+<http://mu.semte.ch/vocabularies/ext/vendorGebruikerParty> <http://www.w3.org/2006/vcard/ns#fn> "Vendor users" .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb1> <http://www.w3.org/ns/shacl#targetClass> <http://mu.semte.ch/vocabularies/ext/GeslachtCode> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb15> <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb2> .
+<http://mu.semte.ch/vocabularies/ext/lmbOrganizationMandatesSlice> <http://purl.org/dc/terms/description> "This asset collection contains all information that is available to users with the LoketLB-mandaatGebruiker role in the context of the LMB app." .
+<http://mu.semte.ch/vocabularies/ext/lmbOrganizationMandatesSlice> <http://www.w3.org/2006/vcard/ns#fn> "organization-mandatendatabank" .
+<http://mu.semte.ch/vocabularies/ext/lmbAuthenticatedPublicShape> <http://www.w3.org/ns/shacl#targetClass> <http://data.vlaanderen.be/ns/besluit#Bestuurseenheid> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb2> <http://www.w3.org/ns/shacl#targetClass> <http://www.w3.org/2004/02/skos/core#ConceptScheme> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb33> <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb34> .
+<http://mu.semte.ch/vocabularies/ext/examplePolicyLMB> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/odrl/2/Set> .
+<http://mu.semte.ch/vocabularies/ext/authenticatedParty> <http://www.w3.org/2006/vcard/ns#fn> "Authenticated user" .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb36> <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb28> .
+<http://mu.semte.ch/vocabularies/ext/allowWriteForMandatarisOrg> <http://www.w3.org/ns/odrl/2/target> <http://mu.semte.ch/vocabularies/ext/lmbOrganizationMandatesSlice> .
+<http://mu.semte.ch/vocabularies/ext/allowReadForVendorOnMandatarisOrg> <http://www.w3.org/ns/odrl/2/target> <http://mu.semte.ch/vocabularies/ext/lmbOrganizationMandatesSlice> .
+<http://mu.semte.ch/vocabularies/ext/lmbAuthenticatedPublicSlice> <http://mu.semte.ch/vocabularies/ext/shaclShape> <http://mu.semte.ch/vocabularies/ext/lmbAuthenticatedPublicShape> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb2> <http://www.w3.org/ns/shacl#property> <http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb3> .
+<http://mu.semte.ch/vocabularies/ext/allowReadForPoliceCouncilOnMandatarisOrg> <http://www.w3.org/ns/odrl/2/target> <http://mu.semte.ch/vocabularies/ext/lmbOrganizationMandatesSlice> .
+<http://mu.semte.ch/vocabularies/ext/policeCouncilParty> <http://www.w3.org/2006/vcard/ns#fn> "Politieraad lezer" .
+<http://mu.semte.ch/vocabularies/ext/policeCouncilParty> <http://purl.org/dc/terms/description> "This party collection represents all users who can access the information regarding police council mandates. This is defined by the members of communes that share the control of this police council." .
+<http://mu.semte.ch/vocabularies/ext/allowWriteForMandatarisOrg> <http://www.w3.org/ns/odrl/2/assignee> <http://mu.semte.ch/vocabularies/ext/mandaatGebruikerParty> .
+<http://mu.semte.ch/vocabularies/ext/mandaatGebruikerParty> <http://mu.semte.ch/vocabularies/ext/queryParameters> "session_group" .
+<http://mu.semte.ch/vocabularies/ext/allowWriteForMandatarisOrg> <http://www.w3.org/ns/odrl/2/action> <http://www.w3.org/ns/odrl/2/modify> .
+<http://mu.semte.ch/vocabularies/ext/allowReadForVendorOnMandatarisOrg> <http://www.w3.org/ns/odrl/2/action> <http://www.w3.org/ns/odrl/2/read> .
+<http://mu.semte.ch/vocabularies/ext/lmbOrganizationMandatesSlice> <http://mu.semte.ch/vocabularies/ext/graphPrefix> <http://mu.semte.ch/graphs/organizations/> .
+<http://mu.semte.ch/vocabularies/ext/lmbPublicShape> <http://www.w3.org/ns/shacl#or> <http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb14> .
+<http://mu.semte.ch/vocabularies/ext/lmbSystem> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/odrl/2/Party> .
+<http://mu.semte.ch/vocabularies/ext/allowReadForPublic> <http://www.w3.org/ns/odrl/2/action> <http://www.w3.org/ns/odrl/2/read> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb8> <http://www.w3.org/ns/shacl#inversePath> <http://mu.semte.ch/vocabularies/ext/all> .
+<http://mu.semte.ch/vocabularies/ext/policeCouncilParty> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/odrl/2/PartyCollection> .
+<http://mu.semte.ch/vocabularies/ext/allowReadForPublic> <http://www.w3.org/ns/odrl/2/assigner> <http://mu.semte.ch/vocabularies/ext/lmbSystem> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb26> <http://www.w3.org/ns/shacl#path> <http://data.vlaanderen.be/ns/persoon#registratie> .
+<http://mu.semte.ch/vocabularies/ext/authenticatedParty> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/odrl/2/PartyCollection> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb21> <http://www.w3.org/ns/shacl#not> <http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb22> .
+<http://mu.semte.ch/vocabularies/ext/lmbPublicSlice> <http://purl.org/dc/terms/description> "This asset collection contains all information that is available to the public in the context of the LMB app." .
+<http://mu.semte.ch/vocabularies/ext/examplePolicyLMB> <http://www.w3.org/ns/odrl/2/permission> <http://mu.semte.ch/vocabularies/ext/allowReadForAuthenticatedOnViewOnlyModules> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb33> <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb20> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb32> <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb33> .
+<http://mu.semte.ch/vocabularies/ext/publicParty> <http://purl.org/dc/terms/description> "This party represent all (possibly not logged in) users of the system." .
+<http://mu.semte.ch/vocabularies/ext/publicParty> <http://mu.semte.ch/vocabularies/ext/definedBy> "\n  PREFIX ext: <http://mu.semte.ch/vocabularies/ext/>\n  PREFIX muAccount: <http://mu.semte.ch/vocabularies/account/>\n  PREFIX mu: <http://mu.semte.ch/vocabularies/core/>\n  SELECT DISTINCT * WHERE {\n    VALUES ?session {\n      <SESSION_ID>\n    }\n    ?session a ?thing .\n  }\n  " .
+<http://mu.semte.ch/vocabularies/ext/allowReadForVendorOnMandatarisOrg> <http://www.w3.org/ns/odrl/2/assignee> <http://mu.semte.ch/vocabularies/ext/vendorGebruikerParty> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb16> <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb17> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb9> <http://www.w3.org/ns/shacl#property> <http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb12> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb34> <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb35> .
+<http://mu.semte.ch/vocabularies/ext/authenticatedParty> <http://mu.semte.ch/vocabularies/ext/definedBy> "\n  PREFIX ext: <http://mu.semte.ch/vocabularies/ext/>\n  PREFIX mu: <http://mu.semte.ch/vocabularies/core/>\n  SELECT DISTINCT ?session_group ?session_role WHERE {\n    <SESSION_ID> ext:sessionGroup/mu:uuid ?session_group ;\n                 ext:sessionRole ?session_role .\n  }\n  " .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb15> <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb16> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb32> <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb19> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb17> <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb9> .
+<http://mu.semte.ch/vocabularies/ext/examplePolicyLMB> <http://www.w3.org/ns/odrl/2/profile> <http://mu.semte.ch/vocabularies/ext/muAuthProfile> .
+<http://mu.semte.ch/vocabularies/ext/policeCouncilParty> <http://mu.semte.ch/vocabularies/ext/definedBy> "\n  PREFIX ext: <http://mu.semte.ch/vocabularies/ext/>\n  PREFIX mu: <http://mu.semte.ch/vocabularies/core/>\n  SELECT DISTINCT ?session_group ?session_role WHERE {\n    <SESSION_ID> ext:sessionGroup ?original_session_group ;\n                  ext:sessionRole ?session_role .\n    ?original_session_group ext:deeltBestuurVan/mu:uuid ?session_group .\n\n    FILTER( ?session_role = \"LoketLB-mandaatGebruiker\" )\n  }\n  " .
+<http://mu.semte.ch/vocabularies/ext/lmbPublicSlice> <http://www.w3.org/2006/vcard/ns#fn> "public" .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb17> <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
+<http://mu.semte.ch/vocabularies/ext/allowReadForVendorOnMandatarisOrg> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/odrl/2/Permission> .
+<http://mu.semte.ch/vocabularies/ext/vendorGebruikerParty> <http://mu.semte.ch/vocabularies/ext/queryParameters> "session_group" .
+<http://mu.semte.ch/vocabularies/ext/allowReadForPublic> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/odrl/2/Permission> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb30> <http://www.w3.org/ns/shacl#path> <http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb31> .
+<http://mu.semte.ch/vocabularies/ext/lmbAuthenticatedPublicSlice> <http://purl.org/dc/terms/description> "This asset collection contains all information that is available to all authenticated users in the context of the LMB app." .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb36> <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb28> <http://www.w3.org/ns/shacl#targetClass> <http://data.vlaanderen.be/ns/persoon#Persoon> .
+<http://mu.semte.ch/vocabularies/ext/allowReadForMandatarisOrg> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/odrl/2/Permission> .
+<http://mu.semte.ch/vocabularies/ext/allowReadForAuthenticatedOnViewOnlyModules> <http://www.w3.org/ns/odrl/2/action> <http://www.w3.org/ns/odrl/2/read> .
+<http://mu.semte.ch/vocabularies/ext/authenticatedParty> <http://purl.org/dc/terms/description> "This represents all logged in users of the system." .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb27> <http://www.w3.org/ns/shacl#path> <http://data.vlaanderen.be/ns/persoon#heeftGeboorte> .
+<http://mu.semte.ch/vocabularies/ext/lmbAuthenticatedPublicSlice> <http://mu.semte.ch/vocabularies/ext/graphPrefix> <http://mu.semte.ch/graphs/authenticated/public> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb12> <http://www.w3.org/ns/shacl#path> <http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb13> .
+<http://mu.semte.ch/vocabularies/ext/policeCouncilParty> <http://mu.semte.ch/vocabularies/ext/queryParameters> "session_role" .
+<http://mu.semte.ch/vocabularies/ext/lmbOrganizationMandatesSlice> <http://mu.semte.ch/vocabularies/ext/shaclShape> <http://mu.semte.ch/vocabularies/ext/lmbMandatarisShape> .
+<http://mu.semte.ch/vocabularies/ext/examplePolicyLMB> <http://www.w3.org/ns/odrl/2/permission> <http://mu.semte.ch/vocabularies/ext/allowReadForPoliceCouncilOnMandatarisOrg> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb4> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/2004/02/skos/core#prefLabel> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb13> <http://www.w3.org/ns/shacl#inversePath> <http://lblod.data.gift/vocabularies/lmb/InstallatievergaderingStatus> .
+<http://mu.semte.ch/vocabularies/ext/allowReadForAuthenticatedOnViewOnlyModules> <http://www.w3.org/ns/odrl/2/assignee> <http://mu.semte.ch/vocabularies/ext/authenticatedParty> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb5> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb9> <http://www.w3.org/ns/shacl#property> <http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb10> .
+<http://mu.semte.ch/vocabularies/ext/lmbMandatarisShape> <http://www.w3.org/ns/shacl#or> <http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb32> .
+<http://mu.semte.ch/vocabularies/ext/lmbOrganizationMandatesSlice> <http://mu.semte.ch/vocabularies/ext/queryParameters> "session_role" .
+<http://mu.semte.ch/vocabularies/ext/lmbAuthenticatedPublicShape> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/shacl#NodeShape> .
+<http://mu.semte.ch/vocabularies/ext/allowReadForPoliceCouncilOnMandatarisOrg> <http://www.w3.org/ns/odrl/2/action> <http://www.w3.org/ns/odrl/2/read> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb24> <http://www.w3.org/ns/shacl#targetClass> <http://data.vlaanderen.be/ns/persoon#Persoon> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb22> <http://www.w3.org/ns/shacl#property> <http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb23> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb7> <http://www.w3.org/ns/shacl#path> <http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb8> .
+<http://mu.semte.ch/vocabularies/ext/mandaatGebruikerParty> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/odrl/2/PartyCollection> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb4> <http://www.w3.org/ns/shacl#minCount> "0"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb3> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/2004/02/skos/core#inScheme> .
+<http://mu.semte.ch/vocabularies/ext/allowReadForPublic> <http://www.w3.org/ns/odrl/2/assignee> <http://mu.semte.ch/vocabularies/ext/publicParty> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb14> <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb15> .
+<http://mu.semte.ch/vocabularies/ext/allowReadForPoliceCouncilOnMandatarisOrg> <http://www.w3.org/ns/odrl/2/assignee> <http://mu.semte.ch/vocabularies/ext/policeCouncilParty> .
+<http://mu.semte.ch/vocabularies/ext/allowWriteForMandatarisOrg> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/odrl/2/Permission> .
+<http://mu.semte.ch/vocabularies/ext/lmbPublicSlice> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/odrl/2/AssetCollection> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb20> <http://www.w3.org/ns/shacl#targetClass> <http://data.vlaanderen.be/ns/mandaat#Fractie> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb9> <http://www.w3.org/ns/shacl#targetClass> <http://www.w3.org/2004/02/skos/core#Concept> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb21> <http://www.w3.org/ns/shacl#targetClass> <http://data.vlaanderen.be/ns/persoon#Persoon> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb16> <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb6> .
+<http://mu.semte.ch/vocabularies/ext/allowReadForPoliceCouncilOnMandatarisOrg> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/odrl/2/Permission> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb35> <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb36> .
+<http://mu.semte.ch/vocabularies/ext/publicParty> <http://www.w3.org/2006/vcard/ns#fn> "Public user" .
+<http://mu.semte.ch/vocabularies/ext/lmbSystem> <http://www.w3.org/2006/vcard/ns#fn> "LMB System" .
+<http://mu.semte.ch/vocabularies/ext/lmbPublicSlice> <http://mu.semte.ch/vocabularies/ext/graphPrefix> <http://mu.semte.ch/graphs/public> .
+<http://mu.semte.ch/vocabularies/ext/lmbPublicShape> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/shacl#NodeShape> .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb31> <http://www.w3.org/ns/shacl#inversePath> <http://data.vlaanderen.be/ns/mandaat#isBestuurlijkeAliasVan> .
+<http://mu.semte.ch/vocabularies/ext/allowWriteForMandatarisOrg> <http://www.w3.org/ns/odrl/2/assigner> <http://mu.semte.ch/vocabularies/ext/lmbSystem> .
+<http://mu.semte.ch/vocabularies/ext/mandaatGebruikerParty> <http://mu.semte.ch/vocabularies/ext/definedBy> "\n  PREFIX ext: <http://mu.semte.ch/vocabularies/ext/>\n  PREFIX mu: <http://mu.semte.ch/vocabularies/core/>\n  SELECT DISTINCT ?session_group ?session_role WHERE {\n    <SESSION_ID> ext:sessionGroup/mu:uuid ?session_group ;\n                  ext:sessionRole ?session_role .\n    FILTER( ?session_role = \"LoketLB-mandaatGebruiker\" )\n  }\n  " .
+<http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb35> <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://lblod.data.gift/bnode/nd5733fd560c44ad6a7f66569b7604e5eb24> .
+<http://mu.semte.ch/vocabularies/ext/mandaatGebruikerParty> <http://www.w3.org/2006/vcard/ns#fn> "Mandaten users" .
