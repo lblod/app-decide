@@ -95,7 +95,7 @@
                 (:created :datetime ,(s-prefix "dct:created"))
                 (:modified :datetime ,(s-prefix "dct:modified"))
                 (:web :url ,(s-prefix "oparl:web"))
-                (:deleted :boolean ,(s-prefix "oparl:deleted"))
+                (:deleted :boolean ,(s-prefix "oparl:deleted")))
   :has-one `((organization :via ,(s-prefix "oparl:body")
                            :as "body")
              (location :via ,(s-prefix "oparl:location")
