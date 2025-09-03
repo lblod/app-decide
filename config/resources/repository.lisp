@@ -1,3 +1,11 @@
 (in-package :mu-cl-resources)
 
 (add-prefix "eli" "http://data.europa.eu/eli/ontology#")
+(add-prefix "eli-dl" "http://data.europa.eu/eli/eli-draft-legislation-ontology#")
+(add-prefix "org" "http://www.w3.org/ns/org#")
+(add-prefix "skos" "http://www.w3.org/2004/02/skos/core#")
+(add-prefix "dcterms" "http://purl.org/dc/terms/")
+(add-prefix "rdfs" "http://www.w3.org/2000/01/rdf-schema#")
+(add-prefix "schema" "https://schema.org/")
+(add-prefix "foaf" "http://xmlns.com/foaf/0.1/")
+(add-prefix "org" "http://www.w3.org/ns/org#")
