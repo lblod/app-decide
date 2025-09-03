@@ -10,3 +10,5 @@
 (add-prefix "foaf" "http://xmlns.com/foaf/0.1/")
 (add-prefix "org" "http://www.w3.org/ns/org#")
 (add-prefix "dcat" "http://www.w3.org/ns/dcat#")
+(add-prefix "vcard" "http://www.w3.org/2006/vcard/ns#")
+(add-prefix "oparl" "http://mu.semte.ch/vocabularies/ext/oparl/")
