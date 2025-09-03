@@ -11,4 +11,5 @@
 (add-prefix "org" "http://www.w3.org/ns/org#")
 (add-prefix "dcat" "http://www.w3.org/ns/dcat#")
 (add-prefix "vcard" "http://www.w3.org/2006/vcard/ns#")
+(add-prefix "epvoc" "https://data.europarl.europa.eu/def/epvoc#")
 (add-prefix "oparl" "http://mu.semte.ch/vocabularies/ext/oparl/")
