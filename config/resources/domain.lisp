@@ -9,4 +9,6 @@
 (defparameter *cache-model-properties* t)
 (defparameter *max-group-sorted-properties* nil)
 
+(read-domain-file "eli-misc.lisp")
 (read-domain-file "eli.lisp")
+(read-domain-file "eli-dl.lisp")
