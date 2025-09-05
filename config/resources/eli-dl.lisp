@@ -32,7 +32,7 @@
                                 :as "consists-of")
               (foreseenActivity :via ,(s-prefix "eli-dl:executed")
                                 :as "executed")
-              (participant :via ,(s-prefix "eli-dl:had_participation")
+              (participation :via ,(s-prefix "eli-dl:had_participation")
                            :as "had-participation")
               (vote :via ,(s-prefix "eli-dl:consists_of")
                     :as "consists-of")
