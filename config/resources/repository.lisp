@@ -13,4 +13,4 @@
 (add-prefix "vcard" "http://www.w3.org/2006/vcard/ns#")
 (add-prefix "epvoc" "https://data.europarl.europa.eu/def/epvoc#")
 (add-prefix "euvoc" "http://publications.europa.eu/ontology/euvoc#")
-(add-prefix "oparl" "http://mu.semte.ch/vocabularies/ext/oparl/")
+(add-prefix "oparl-temp" "http://mu.semte.ch/vocabularies/ext/oparl/")
