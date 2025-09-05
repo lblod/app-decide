@@ -133,6 +133,6 @@
 
 (define-resource processStage ()
   :class (s-prefix "eli-dl:ProcessStage")
-  :resource-base (s-url "http://data.lblod.info/id/process-stage/")
+  :resource-base (s-url "http://data.lblod.info/id/process-stages/")
   :features '(include-uri)
-  :on-path "process-stage")
+  :on-path "process-stages")
