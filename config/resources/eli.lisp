@@ -10,9 +10,17 @@
 
 (define-resource expression ()
   :class (s-prefix "eli:Expression")
+  :properties `((:expression-content :string ,(s-prefix "epvoc:expressionContent")))
   :has-many `((manifestation :via ,(s-prefix "eli:is_embodied_by")
                              :as "is-embodied-by"))
   :resource-base (s-url "http://data.lblod.info/id/expressions/"))
+
+(define-resource legalExpression (expression)
+  :class (s-prefix "eli:LegalExpression")
+  :properties `((:jurisdiction :uri ,(s-prefix "eli:jurisdiction")))
+  :resource-base (s-url "http://data.lblod.info/id/legal-expressions/")
+  :features '(include-uri)
+  :on-path "legal-expressions")
 
 (define-resource manifestation ()
   :class (s-prefix "eli:Manifestation")
@@ -34,7 +42,9 @@
                                 :as "agenda-items")
               (complexWork :via ,(s-prefix "eli:embodies")
                            :as "embodies"))
-  :resource-base (s-url "http://data.lblod.info/id/manifestations/"))
+  :resource-base (s-url "http://data.lblod.info/id/manifestations/")
+  :features '(include-uri)
+  :on-path "manifestations")
 
 (define-resource complexWork ()
   :class (s-prefix "eli:ComplexWork")
