@@ -1,0 +1,12 @@
+services:
+  identifier:
+    image: benfidlers/mu-identifier:1.10.3-arm64
+  dispatcher:
+    platform: linux/amd64
+  virtuoso:
+    platform: linux/arm64
+  database:
+    platform: linux/amd64
+  harvesting-oparl-scraper:
+    platform: linux/arm64
+
