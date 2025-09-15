@@ -55,6 +55,10 @@ defmodule Dispatcher do
     Proxy.forward conn, [], "http://vc-issuer/issuer_metadata"
   end
 
+  match "/.well-known/oauth-authorization-server/", %{ accept: [:json], layer: :api_services } do
+    Proxy.forward conn, [], "http://vc-issuer/authorization_metadata"
+  end
+
 
   #################
   # RESOURCES
