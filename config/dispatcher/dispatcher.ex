@@ -8,7 +8,19 @@ defmodule Dispatcher do
     any: ["*/*"]
   ]
 
-  define_layers [ :resources, :not_found ]
+  define_layers [ :api, :resources, :not_found ]
+
+  #################
+  # API Services
+  #################
+  match "/vc-issuer/*path", %{ accept: [:json], layer: :api } do
+    Proxy.forward conn, path, "http://vc-issuer/"
+  end
+
+  match "/.well-known/openid-credential-issuer", %{ accept: [:json], layer: :api } do
+    Proxy.forward conn, [], "http://vc-issuer/issuer_metadata"
+  end
+
 
   #################
   # RESOURCES
