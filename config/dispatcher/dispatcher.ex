@@ -8,16 +8,50 @@ defmodule Dispatcher do
     any: ["*/*"]
   ]
 
-  define_layers [ :api, :resources, :not_found ]
+  define_layers([:static, :sparql, :api_services, :frontend_fallback, :resources, :not_found])
+
+  options "/*path", _ do
+    conn
+    |> Plug.Conn.put_resp_header("access-control-allow-headers", "content-type,accept")
+    |> Plug.Conn.put_resp_header("access-control-allow-methods", "*")
+    |> send_resp(200, "{ \"message\": \"ok\" }")
+  end
+
+  ###############
+  # STATIC
+  ###############
+
+  # self-service
+  match "/index.html", %{layer: :static} do
+    forward(conn, [], "http://frontend/index.html")
+  end
+
+  get "/assets/*path", %{layer: :static} do
+    forward(conn, path, "http://frontend/assets/")
+  end
+
+  get "/@appuniversum/*path", %{layer: :static} do
+    forward(conn, path, "http://frontend/@appuniversum/")
+  end
+
+  #################
+  # FRONTEND PAGES
+  #################
+
+  # self-service
+  match "/*path", %{layer: :frontend_fallback, accept: %{html: true}} do
+    # we don't forward the path, because the app should take care of this in the browser.
+    forward(conn, [], "http://frontend/index.html")
+  end
 
   #################
   # API Services
   #################
-  match "/vc-issuer/*path", %{ accept: [:json], layer: :api } do
+  match "/vc-issuer/*path", %{ accept: [:json], layer: :api_services } do
     Proxy.forward conn, path, "http://vc-issuer/"
   end
 
-  match "/.well-known/openid-credential-issuer", %{ accept: [:json], layer: :api } do
+  match "/.well-known/openid-credential-issuer", %{ accept: [:json], layer: :api_services } do
     Proxy.forward conn, [], "http://vc-issuer/issuer_metadata"
   end
 
