@@ -60,3 +60,7 @@ services:
     volumes:
       - ./scripts/:/app/scripts/
     restart: "no"
+  odrl-parser:
+    image: lblod/odrl-parser-service:0.0.1
+    volumes:
+      - ./config/odrl-parser:/config
