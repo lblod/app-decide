@@ -55,3 +55,29 @@ services:
       - "logging=true"
     restart: always
     logging: *default-logging
+  consumer-1:
+    image: lblod/delta-consumer:0.0.26
+    depends_on:
+      - database
+      - virtuoso
+    restart: always
+    volumes:
+      - ./config/consumer/besluiten:/config/triples-dispatching/custom-dispatching
+    environment:
+      DCR_SERVICE_NAME: consumer-1
+      DCR_CRON_PATTERN_DELTA_SYNC: 0 * * * * # Every hour
+      DCR_START_FROM_DELTA_TIMESTAMP: 2025-09-01T00:00:00
+      DCR_SYNC_BASE_URL: https://lokaalbeslist-harvester-1.s.redhost.be/
+      DCR_SYNC_FILES_PATH: /sync/besluiten/files
+      DCR_SYNC_DATASET_SUBJECT: http://data.lblod.info/datasets/delta-producer/dumps/lblod-harvester/BesluitenCacheGraphDump
+      DCR_INITIAL_SYNC_JOB_OPERATION: http://redpencil.data.gift/id/jobs/concept/JobOperation/deltas/consumer/initialSync/besluiten
+      DCR_DELTA_SYNC_JOB_OPERATION: http://redpencil.data.gift/id/jobs/concept/JobOperation/deltas/consumer/besluitenSyncing
+      DCR_JOB_CREATOR_URI: http://data.lblod.info/services/id/besluiten-consumer
+      DCR_DISABLE_INITIAL_SYNC: true
+      DCR_WAIT_FOR_INITIAL_SYNC: false
+      DCR_DISABLE_DELTA_INGEST: false
+      INGEST_GRAPH: http://mu.semte.ch/graphs/public
+      BATCH_SIZE: 500
+    logging: *default-logging
+    labels:
+      - logging=true
