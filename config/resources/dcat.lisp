@@ -1,39 +1,5 @@
 (in-package :mu-cl-resources)
 
-;;;;; product groups
-
-;; Examples resources
-
-;; (define-resource taxonomy ()
-;;   :class (s-prefix "mt:Taxonomy")
-;;   :properties `((:name :string ,(s-prefix "mt:name"))
-;;                 (:description :string ,(s-prefix "dc:description")))
-;;   :resource-base (s-url "http://mapping-tool.sem.tenforce.com/taxonomies/")
-;;   :has-many `((topic :via ,(s-prefix "mt:taxonomyTopic")
-;;                      :as "topics"))
-;;   :on-path "taxonomies")
-
-;; (define-resource topic ()
-;;   :class (s-prefix "mt:CursoryTopic")
-;;   :properties `((:name :string ,(s-prefix "mt:name"))
-;;                 (:description :string ,(s-prefix "dc:description")))
-;;   :resource-base (s-url "http://mapping-tool.sem.tenforce.com/topics/")
-;;   :has-many `((topic :via ,(s-prefix "mt:topic")
-;;                      :as "topics")
-;;               (mapping :via ,(s-prefix "mt:mapping")
-;;                        :as "mappings"))
-;;   :has-one `((taxonomy :via ,(s-prefix "mt:taxonomyTopic")
-;;                        :inverse t
-;;                        :as "taxonomy"))
-;;   :on-path "topics")
-
-;; (define-resource mapping ()
-;;   :class (s-prefix "mt:Mapping")
-;;   :has-many `((topic :via ,(s-prefix "mt:maps")
-;;                      :as "topics"))
-;;   :resource-base (s-url "http://mapping-tool.sem.tenforce.com/mappings/")
-;;   :on-path "mappings")
-              
 (define-resource catalog ()
   :class (s-prefix "dcat:Catalog")
   :properties `((:title :string ,(s-prefix "dct:title"))
@@ -54,11 +20,7 @@
   :has-many `((dataset :via ,(s-prefix "dcat:dataset")
                        :as "datasets"))
   :features '(include-uri)
-  :resource-base (s-url "http://your-data-stories.eu/catalogs/")
-  :authorization (list :show (s-prefix "auth:show")
-                       :update (s-prefix "auth:update")
-                       :create (s-prefix "auth:create")
-                       :delete (s-prefix "auth:delete"))
+  :resource-base (s-url "http://data.lblod.info/id/catalogs/")
   :on-path "catalogs")
 
 (define-resource dataset ()
@@ -87,7 +49,7 @@
                        :as "themes")
               (distribution :via ,(s-prefix "dcat:distribution")
                             :as "distributions"))
-  :resource-base (s-url "http://your-data-stories.eu/datasets/")
+  :resource-base (s-url "http://data.lblod.info/id/datasets/")
   :on-path "datasets")
 
 (define-resource distribution ()
@@ -107,7 +69,7 @@
                       :as "dataset")
              (format :via ,(s-prefix "dct:format")
                      :as "format"))
-  :resource-base (s-url "http://your-data-stories.eu/distributions/")
+  :resource-base (s-url "http://data.lblod.info/id/distributions/")
   :on-path "distributions")
 
 (define-resource catalog-record ()
@@ -121,7 +83,7 @@
                       :as "catalog")
              (dataset :via ,(s-prefix "foaf:primaryTopic")
                       :as "primary-topic"))
-  :resource-base (s-url "http://your-data-stories.eu/catalog-records/")
+  :resource-base (s-url "http://data.lblod.info/id/catalog-records/")
   :on-path "catalog-records")
 
 (define-resource concept ()
@@ -131,12 +93,12 @@
                        :as "datasets"))
   :has-one `((concept-scheme :via ,(s-prefix "skos:inScheme")
                              :as "concept-scheme"))
-  :resource-base (s-url "http://your-data-stories.eu/concepts/")
+  :resource-base (s-url "http://data.lblod.info/id/concepts/")
   :on-path "concepts")
 
 (define-resource concept-scheme ()
   :class (s-prefix "skos:ConceptScheme")
-  :resource-base (s-url "http://your-data-stories.eu/concept-schemes/")
+  :resource-base (s-url "http://data.lblod.info/id/concept-schemes/")
   :has-many `((catalog :via ,(s-prefix "dcat:themeTaxonomy")
                        :inverse t
                        :as "catalogs")
@@ -153,21 +115,20 @@
               (dataset :via ,(s-prefix "dct:publisher")
                        :inverse t
                        :as "datasets"))
-  :resource-base (s-url "http://your-data-stories.eu/agents/")
+  :resource-base (s-url "http://data.lblod.info/id/agents/")
   :on-path "agents")
 
 (define-resource format ()
   :class (s-prefix "dct:MediaTypeOrExtent")
   :properties `((:name :string ,(s-prefix "rdfs:label"))
-                (:labels :language-string-set ,(s-prefix "dct:description"))
-                (:birth-year :g-year ,(s-url "http://example.com/birthYear")))
+                (:labels :language-string-set ,(s-prefix "dct:description")))
   :has-many `((distribution :via ,(s-prefix "dct:format")
                             :inverse t
                             :as "distributions"))
   :has-one `((page :via ,(s-prefix "cms:page")
                    :as "page"))
   :on-path "formats"
-  :resource-base (s-url "http://example.com/formats"))
+  :resource-base (s-url "http://data.lblod.info/id/formats/"))
 
 (define-resource page ()
   :class (s-url "http://mu.semte.ch/vocabulary/cms/Page")
@@ -175,16 +136,6 @@
   :properties `((:title :string ,(s-prefix "dcterms:title"))
                 (:content :string ,(s-prefix "cms:pageContent")))
   :on-path "pages")
-
-(around (:show page) (&rest args)
-  (break "This is page showing with ~A" args)
-  (let ((response (yield)))
-    (break "The response should be ~A" (jsown:to-json response))
-    (jsown:new-js ("ok" t))))
-
-(after (:show page) (&rest args)
-  (declare (ignore args))
-  (jsown:new-js ("ok" :false)))
 
 (define-resource publisher ()
   :class (s-prefix "ext:Publisher")

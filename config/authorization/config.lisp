@@ -12,35 +12,47 @@
 (in-package :acl)
 
 (define-prefixes
-  :org "http://www.w3.org/ns/org#"
-  :foaf "http://xmlns.com/foaf/0.1/"
+  :cms "http://mu.semte.ch/vocabulary/cms/"
+  :dcat "http://www.w3.org/ns/dcat#"
   :dct "http://purl.org/dc/terms/"
   :eli "http://data.europa.eu/eli/ontology#"
   :eli-dl "http://data.europa.eu/eli/eli-draft-legislation-ontology#"
+  :foaf "http://xmlns.com/foaf/0.1/"
   :oparl-temp "http://mu.semte.ch/vocabularies/ext/oparl/"
+  :org "http://www.w3.org/ns/org#"
+  :skos "http://www.w3.org/2004/02/skos/core#"
 )
 
 (define-graph public ("http://mu.semte.ch/graphs/public")
-  ("org:Organization" -> _)
-  ("foaf:Person" -> _)
+  ("cms:Page" -> _)
+  ("dcat:Catalog" -> _)
+  ("dcat:Dataset" -> _)
+  ("dcat:Distribution" -> _)
+  ("dct:MediaTypeOrExtent" -> _)
   ("dct:PeriodOfTime" -> _)
-  ("org:Membership" -> _)
-  ("oparl-temp:Location" -> _)
-  ("eli:Work" -> _)
+  ("eli-dl:Activity" -> _)
+  ("eli-dl:Decision" -> _)
+  ("eli-dl:DraftLegislationWork" -> _)
+  ("eli-dl:ForeseenActivity" -> _)
+  ("eli-dl:LegislativeProcess" -> _)
+  ("eli-dl:LegislativeProcessWork" -> _)
+  ("eli-dl:ParliamentaryTerm" -> _)
+  ("eli-dl:Participation" -> _)
+  ("eli-dl:ProcessStage" -> _)
+  ("eli-dl:Vote" -> _)
+  ("eli:ComplexWork" -> _)
   ("eli:Expression" -> _)
   ("eli:LegalExpression" -> _)
   ("eli:Manifestation" -> _)
-  ("eli:ComplexWork" -> _)
-  ("eli-dl:Activity" -> _)
-  ("eli-dl:LegislativeProcess" -> _)
-  ("eli-dl:LegislativeProcessWork" -> _)
-  ("eli-dl:DraftLegislationWork" -> _)
-  ("eli-dl:ParliamentaryTerm" -> _)
-  ("eli-dl:Participation" -> _)
-  ("eli-dl:ForeseenActivity" -> _)
-  ("eli-dl:Decision" -> _)
-  ("eli-dl:Vote" -> _)
-  ("eli-dl:ProcessStage" -> _))
+  ("eli:Work" -> _)
+  ("foaf:Agent" -> _)
+  ("foaf:Person" -> _)
+  ("oparl-temp:Location" -> _)
+  ("org:Membership" -> _)
+  ("org:Organization" -> _)
+  ("skos:Concept" -> _)
+  ("skos:ConceptScheme" -> _)
+)
 
 (supply-allowed-group "public")
 
