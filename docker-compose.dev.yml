@@ -15,8 +15,7 @@ services:
     restart: "no"
   file:
     restart: "no"
-  consumer-1:
+  decisions-ghent-consumer:
     restart: no
     environment:
-      DCR_CRON_PATTERN_DELTA_SYNC: 0 */5 * * * * # Every 5 minutes
-      NODE_ENV: development
+      DCR_CRON_PATTERN_DELTA_SYNC: "* * * * *" # Every minute
