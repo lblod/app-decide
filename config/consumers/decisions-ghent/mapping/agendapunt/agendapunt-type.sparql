@@ -1,36 +1,15 @@
-# Agendapunt
-
-An overview of the RDF type and properties for **Agendapunt** resources from Ghent as made available in https://lokaalbeslist-harvester-1.s.redhost.be.
-
-## Type
-```ttl
-<http://data.vlaanderen.be/ns/besluit#Agendapunt>
-```
-
-## Properties
-```ttl
-<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
-<http://mu.semte.ch/vocabularies/core/uuid>
-<http://purl.org/dc/terms/title>
-<http://data.vlaanderen.be/ns/besluit#geplandOpenbaar>
-<http://data.vlaanderen.be/ns/besluit#Agendapunt.type>
-<http://www.w3.org/ns/prov#wasDerivedFrom>
-<http://data.vlaanderen.be/ns/besluit#aangebrachtNa>
-<http://purl.org/dc/terms/description>
-<http://purl.org/dc/terms/#description>
-<http://purl.org/dc/terms/#isPartOf>
-<http://purl.org/dc/terms/#title>
-<http://data.vlaanderen.be/ns/besluit#noopener>
-<http://data.vlaanderen.be/ns/besluit#noreferrer>
-```
-
-**Query:**
-```sparql
 PREFIX besluit: <http://data.vlaanderen.be/ns/besluit#>
+PREFIX mu: <http://mu.semte.ch/vocabularies/core/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 
-SELECT DISTINCT ?p
-WHERE {
-  ?agendapunt ?p ?o .
+
+CONSTRUCT {
+  ?agendapunt <http://data.vlaanderen.be/ns/besluit#Agendapunt.type> ?type .
+} WHERE {
+  ?agendapunt a besluit:Agendapunt ;
+              rdf:type ?type ;
+              mu:uuid ?uuid ;
+              <http://data.vlaanderen.be/ns/besluit#Agendapunt.type> ?type .
   
   ?agendapunt ^besluit:behandelt / besluit:isGehoudenDoor ?bestuursorgaan .
   VALUES ?bestuursorgaan {
@@ -56,4 +35,3 @@ WHERE {
     <http://data.lblod.info/id/bestuursorganen/1e9960d4c38937637027f21226ad19ff443e7bd33b8f6cc1a9cd47cc34f6fc55>
   }
 }
-```
