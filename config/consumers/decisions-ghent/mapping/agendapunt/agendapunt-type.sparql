@@ -4,12 +4,12 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 
 
 CONSTRUCT {
-  ?agendapunt <http://data.vlaanderen.be/ns/besluit#Agendapunt.type> ?type .
+  ?agendapunt <http://data.vlaanderen.be/ns/besluit#Agendapunt.type> ?type2 .
 } WHERE {
   ?agendapunt a besluit:Agendapunt ;
               rdf:type ?type ;
               mu:uuid ?uuid ;
-              <http://data.vlaanderen.be/ns/besluit#Agendapunt.type> ?type .
+              <http://data.vlaanderen.be/ns/besluit#Agendapunt.type> ?type2 .
   
   ?agendapunt ^besluit:behandelt / besluit:isGehoudenDoor ?bestuursorgaan .
   VALUES ?bestuursorgaan {
