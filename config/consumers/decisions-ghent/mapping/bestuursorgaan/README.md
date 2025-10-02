@@ -11,10 +11,10 @@ An overview of the RDF type and properties for **Bestuursorgaan** resources from
 ```ttl
 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
 <http://mu.semte.ch/vocabularies/core/uuid>
-<http://www.w3.org/ns/prov#wasDerivedFrom>
 <http://data.vlaanderen.be/ns/besluit#classificatie>
 <http://data.vlaanderen.be/ns/mandaat#isTijdspecialisatieVan>
 <http://www.w3.org/2004/02/skos/core#prefLabel>
+<http://www.w3.org/ns/prov#wasDerivedFrom>
 ```
 
 **Query:**

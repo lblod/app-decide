@@ -11,10 +11,10 @@ An overview of the RDF type and properties for **Mandataris** resources from Ghe
 ```ttl
 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
 <http://mu.semte.ch/vocabularies/core/uuid>
-<http://www.w3.org/ns/prov#wasDerivedFrom>
-<https://data.vlaanderen.be/ns/persoon#gebruikteVoornaam>
-<http://xmlns.com/foaf/0.1/familyName>
 <http://data.vlaanderen.be/ns/mandaat#isBestuurlijkeAliasVan>
+<http://www.w3.org/ns/prov#wasDerivedFrom>
+<http://xmlns.com/foaf/0.1/familyName>
+<https://data.vlaanderen.be/ns/persoon#gebruikteVoornaam>
 ```
 
 **Query:**

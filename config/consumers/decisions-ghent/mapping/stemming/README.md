@@ -11,18 +11,18 @@ An overview of the RDF type and properties for **Stemming** resources from Ghent
 ```ttl
 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
 <http://mu.semte.ch/vocabularies/core/uuid>
-<http://www.w3.org/ns/prov#wasDerivedFrom>
-<http://data.vlaanderen.be/ns/besluit#gevolg>
-<http://data.vlaanderen.be/ns/besluit#onderwerp>
-<http://data.vlaanderen.be/ns/besluit#heeftAanwezige>
 <http://data.vlaanderen.be/ns/besluit#aantalOnthouders>
 <http://data.vlaanderen.be/ns/besluit#aantalTegenstanders>
 <http://data.vlaanderen.be/ns/besluit#aantalVoorstanders>
 <http://data.vlaanderen.be/ns/besluit#geheim>
+<http://data.vlaanderen.be/ns/besluit#gevolg>
+<http://data.vlaanderen.be/ns/besluit#heeftAanwezige>
 <http://data.vlaanderen.be/ns/besluit#heeftOnthouder>
+<http://data.vlaanderen.be/ns/besluit#heeftStemmer>
 <http://data.vlaanderen.be/ns/besluit#heeftTegenstander>
 <http://data.vlaanderen.be/ns/besluit#heeftVoorstander>
-<http://data.vlaanderen.be/ns/besluit#heeftStemmer>
+<http://data.vlaanderen.be/ns/besluit#onderwerp>
+<http://www.w3.org/ns/prov#wasDerivedFrom>
 ```
 
 **Query:**

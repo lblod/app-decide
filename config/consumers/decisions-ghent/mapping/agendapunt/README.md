@@ -11,17 +11,17 @@ An overview of the RDF type and properties for **Agendapunt** resources from Ghe
 ```ttl
 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
 <http://mu.semte.ch/vocabularies/core/uuid>
-<http://purl.org/dc/terms/title>
-<http://data.vlaanderen.be/ns/besluit#geplandOpenbaar>
-<http://data.vlaanderen.be/ns/besluit#Agendapunt.type>
-<http://www.w3.org/ns/prov#wasDerivedFrom>
 <http://data.vlaanderen.be/ns/besluit#aangebrachtNa>
-<http://purl.org/dc/terms/description>
+<http://data.vlaanderen.be/ns/besluit#Agendapunt.type>
+<http://data.vlaanderen.be/ns/besluit#geplandOpenbaar>
+<http://data.vlaanderen.be/ns/besluit#noopener>
+<http://data.vlaanderen.be/ns/besluit#noreferrer>
 <http://purl.org/dc/terms/#description>
 <http://purl.org/dc/terms/#isPartOf>
 <http://purl.org/dc/terms/#title>
-<http://data.vlaanderen.be/ns/besluit#noopener>
-<http://data.vlaanderen.be/ns/besluit#noreferrer>
+<http://purl.org/dc/terms/description>
+<http://purl.org/dc/terms/title>
+<http://www.w3.org/ns/prov#wasDerivedFrom>
 ```
 
 **Query:**
