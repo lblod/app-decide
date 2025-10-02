@@ -9,6 +9,7 @@ An overview of the RDF type and properties for **Besluit** resources from Ghent 
 
 ## Properties
 ```ttl
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
 <http://data.europa.eu/eli/ontology#date_publication>
 <http://mu.semte.ch/vocabularies/core/uuid>
 <http://www.w3.org/ns/prov#wasDerivedFrom>

@@ -9,6 +9,7 @@ An overview of the RDF type and properties for **Agendapunt** resources from Ghe
 
 ## Properties
 ```ttl
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
 <http://mu.semte.ch/vocabularies/core/uuid>
 <http://purl.org/dc/terms/title>
 <http://data.vlaanderen.be/ns/besluit#geplandOpenbaar>

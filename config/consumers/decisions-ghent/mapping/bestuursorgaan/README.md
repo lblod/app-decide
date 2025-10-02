@@ -9,6 +9,7 @@ An overview of the RDF type and properties for **Bestuursorgaan** resources from
 
 ## Properties
 ```ttl
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
 <http://mu.semte.ch/vocabularies/core/uuid>
 <http://www.w3.org/ns/prov#wasDerivedFrom>
 <http://data.vlaanderen.be/ns/besluit#classificatie>
