@@ -55,6 +55,15 @@ services:
       - "logging=true"
     restart: always
     logging: *default-logging
+  project-scripts:
+    image: semtech/simple-script-store:1.0.0
+    volumes:
+      - ./scripts/:/app/scripts/
+    restart: "no"
+  odrl-parser:
+    image: lblod/odrl-parser-service:0.0.1
+    volumes:
+      - ./config/odrl-parser:/config
   decisions-ghent-consumer:
     image: lblod/delta-consumer:0.1.6
     environment:
