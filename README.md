@@ -33,6 +33,42 @@ touch .env
 COMPOSE_FILE=docker-compose.yml:docker-compose.dev.yml:docker-compose.override.yml
 ```
 
+### Consuming
+
+> These steps only need to happen on the application's first run.
+
+The app consumes Ghent decisions from Lokaal Beslist. By default, both initial sync and delta ingest are disabled. These are the steps to correctly consume data.
+
+1. Enable initial sync in `docker-compose.override.yml`:
+```yml
+services:
+  decisions-ghent-consumer:
+    environment:
+      DCR_LANDING_ZONE_DATABASE: "virtuoso" # Only on first run
+      DCR_REMAPPING_DATABASE: "virtuoso" # Only on first run
+      DCR_DISABLE_INITIAL_SYNC: false # Only on first run
+```
+
+2. Run the consumer:
+```bash
+docker compose up -d virtuoso database decisions-ghent-consumer
+```
+
+3. Wait for the initial sync to finish.
+
+4. Enable delta ingest in `docker-compose.override.yml`:
+```yml
+services:
+  decisions-ghent-consumer:
+    environment:
+      DCR_DISABLE_DELTA_INGEST: false
+```
+
+Keep things like this to make sure Ghent decisions stay up to date throughout the lifetime of the application. The stack can now be run properly.
+
+> Ghent decisions can found in the `http://mu.semte.ch/graphs/decisions/ghent` graph, while all the original Lokaal Beslist data (all decisions) can be found in the `http://mu.semte.ch/graphs/decisions/landing` graph.
+
+
 ### Running the stack
 
 This should be your go-to way of starting the stack.
