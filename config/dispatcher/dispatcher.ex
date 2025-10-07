@@ -47,22 +47,41 @@ defmodule Dispatcher do
   #################
   # API Services
   #################
-  match "/vc-issuer/*path", %{ accept: [:json], layer: :api_services } do
-    Proxy.forward conn, path, "http://vc-issuer/"
+  # by setting an ISSUER_URL with a path component, we can in theory host multiple issuers on the same domain.
+  # it does require fiddling a bit with the 'well known paths' though.
+   match "/vc-verifier/*path", %{ accept: [:any], layer: :static } do
+    Proxy.forward conn, path, "http://vc-issuer/verifier/"
   end
 
-  match "/.well-known/openid-credential-issuer", %{ accept: [:json], layer: :api_services } do
-    Proxy.forward conn, [], "http://vc-issuer/issuer_metadata"
+  match "/vc-issuer/.well-known/openid-credential-issuer", %{ accept: [:json], layer: :static } do
+    Proxy.forward conn, [], "http://vc-issuer/issuer/issuer_metadata"
   end
 
-  match "/.well-known/oauth-authorization-server", %{ accept: [:json], layer: :api_services } do
-    Proxy.forward conn, [], "http://vc-issuer/authorization_metadata"
+  match "/.well-known/openid-credential-issuer/vc-issuer", %{ accept: [:json], layer: :static } do
+    Proxy.forward conn, [], "http://vc-issuer/issuer/issuer_metadata"
   end
 
-  match "/.well-known/vct", %{ accept: [:json], layer: :api_services } do
-    Proxy.forward conn, [], "http://vc-issuer/vct"
+  match "/vc-issuer/.well-known/oauth-authorization-server", %{ accept: [:json], layer: :static } do
+    Proxy.forward conn, [], "http://vc-issuer/issuer/authorization_metadata"
   end
 
+  match "/.well-known/oauth-authorization-server/vc-issuer", %{ accept: [:json], layer: :static } do
+    Proxy.forward conn, [], "http://vc-issuer/issuer/authorization_metadata"
+  end
+
+  match "/vc-issuer/.well-known/vct", %{ accept: [:json], layer: :static } do
+    Proxy.forward conn, [], "http://vc-issuer/issuer/vct"
+  end
+
+  match "/.well-known/vct/vc-issuer", %{ accept: [:json], layer: :static } do
+    Proxy.forward conn, [], "http://vc-issuer/issuer/vct"
+  end
+
+
+  # layer order matters! we need to intercept the .well-known variants first, hence :static
+  match "/vc-issuer/*path", %{ accept: [:any], layer: :api_services } do
+    Proxy.forward conn, path, "http://vc-issuer/issuer/"
+  end
 
   #################
   # RESOURCES
