@@ -61,6 +61,6 @@ services:
       - ./scripts/:/app/scripts/
     restart: "no"
   odrl-parser:
-    image: lblod/odrl-parser-service:0.0.1
+    image: lblod/odrl-parser-service:0.0.2
     volumes:
       - ./config/odrl-parser:/config
