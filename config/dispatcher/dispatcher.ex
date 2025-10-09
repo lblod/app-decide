@@ -114,6 +114,21 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://resource/complex-works"
   end
 
+  #################
+  # LOGIN
+  #################
+
+  match "/gebruikers/*path", %{layer: :resources, accept: %{any: true}} do
+    forward(conn, path, "http://resource/gebruikers/")
+  end
+
+  match "/accounts/*path", %{layer: :resources, accept: %{any: true}} do
+    forward(conn, path, "http://resource/accounts/")
+  end
+
+  match "/sessions/*path", %{layer: :api_services, accept: %{any: true}} do
+    Proxy.forward(conn, path, "http://login/sessions/")
+  end
 
   #################
   # NOT FOUND
