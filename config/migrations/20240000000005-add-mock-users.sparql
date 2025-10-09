@@ -1,0 +1,61 @@
+PREFIX besluit: <http://data.vlaanderen.be/ns/besluit#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX mu: <http://mu.semte.ch/vocabularies/core/>
+PREFIX ext: <http://mu.semte.ch/vocabularies/ext/>
+
+INSERT {
+
+  GRAPH ?g {
+    ?persoon a foaf:Person;
+        mu:uuid ?uuidPersoon;
+        foaf:member <http://data.lblod.info/id/bestuurseenheden/7d7122bd82f165e091a36c830d041b59aa48e4be9ea0aa06dc4c67ef381b7505>;
+        foaf:firstName ?firstName;
+        foaf:familyName ?familyName;
+        foaf:account ?account.
+    ?account a foaf:OnlineAccount;
+        mu:uuid ?uuidAccount;
+        ext:sessionGroup <http://data.lblod.info/id/bestuurseenheden/7d7122bd82f165e091a36c830d041b59aa48e4be9ea0aa06dc4c67ef381b7505>;
+        foaf:accountServiceHomepage <https://github.com/lblod/mock-login-service>;
+        ext:sessionRole "Decide-gebruiker".
+
+<http://data.lblod.info/id/bestuurseenheden/7d7122bd82f165e091a36c830d041b59aa48e4be9ea0aa06dc4c67ef381b7505>	<http://www.w3.org/ns/org#classification>	<http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000001> .
+
+<http://data.lblod.info/id/bestuurseenheden/7d7122bd82f165e091a36c830d041b59aa48e4be9ea0aa06dc4c67ef381b7505>	<http://data.vlaanderen.be/ns/besluit#classificatie>	<http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000001> .
+
+<http://data.lblod.info/id/bestuurseenheden/7d7122bd82f165e091a36c830d041b59aa48e4be9ea0aa06dc4c67ef381b7505>	<http://www.w3.org/ns/org#hasPrimarySite>	<http://data.lblod.info/id/vestigingen/f34a68fdd29a73b4bb1e394bfedb670a> .
+
+<http://data.lblod.info/id/bestuurseenheden/7d7122bd82f165e091a36c830d041b59aa48e4be9ea0aa06dc4c67ef381b7505>	<http://purl.org/dc/terms/identifier>	"0207445287" .
+<http://data.lblod.info/id/bestuurseenheden/7d7122bd82f165e091a36c830d041b59aa48e4be9ea0aa06dc4c67ef381b7505>	<http://www.w3.org/ns/adms#identifier>	<http://data.lblod.info/id/identificatoren/a131fbc9-a78a-4c03-8dd3-bcd480c1810a> .
+
+<http://data.lblod.info/id/bestuurseenheden/7d7122bd82f165e091a36c830d041b59aa48e4be9ea0aa06dc4c67ef381b7505>	<http://www.w3.org/ns/regorg#legalName>	"Buggenhout" .
+<http://data.lblod.info/id/bestuurseenheden/7d7122bd82f165e091a36c830d041b59aa48e4be9ea0aa06dc4c67ef381b7505>	<http://purl.org/dc/terms/identifier>	"OVO002038" .
+
+<http://data.lblod.info/id/bestuurseenheden/7d7122bd82f165e091a36c830d041b59aa48e4be9ea0aa06dc4c67ef381b7505>	<http://mu.semte.ch/vocabularies/core/uuid>	"7d7122bd82f165e091a36c830d041b59aa48e4be9ea0aa06dc4c67ef381b7505" .
+<http://data.lblod.info/id/bestuurseenheden/7d7122bd82f165e091a36c830d041b59aa48e4be9ea0aa06dc4c67ef381b7505>	<http://www.w3.org/2004/02/skos/core#prefLabel>	"Buggenhout" .
+<http://data.lblod.info/id/bestuurseenheden/7d7122bd82f165e091a36c830d041b59aa48e4be9ea0aa06dc4c67ef381b7505>	<http://mu.semte.ch/vocabularies/ext/kbonummer>	"0207445287" .
+<http://data.lblod.info/id/bestuurseenheden/7d7122bd82f165e091a36c830d041b59aa48e4be9ea0aa06dc4c67ef381b7505>	<http://data.vlaanderen.be/ns/besluit#werkingsgebied>	<http://data.lblod.info/id/werkingsgebieden/6c6dcdc5ea2a8eb3d951b9149e7979afa4c7f86143a7576ce9c480e33f26cd7d> .
+
+<http://data.lblod.info/id/bestuurseenheden/7d7122bd82f165e091a36c830d041b59aa48e4be9ea0aa06dc4c67ef381b7505>	<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>	<http://data.vlaanderen.be/ns/besluit#Bestuurseenheid> .
+
+ <http://data.lblod.info/id/identificatoren/a131fbc9-a78a-4c03-8dd3-bcd480c1810a>	<https://data.vlaanderen.be/ns/generiek#gestructureerdeIdentificator>	<http://data.lblod.info/id/gestructureerdeIdentificatoren/2a7c78a9-8598-4741-b1eb-cae7084f1b9b> .
+ <http://data.lblod.info/id/identificatoren/a131fbc9-a78a-4c03-8dd3-bcd480c1810a>	<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>	<http://www.w3.org/ns/adms#Identifier> .
+ <http://data.lblod.info/id/identificatoren/a131fbc9-a78a-4c03-8dd3-bcd480c1810a>	<http://mu.semte.ch/vocabularies/core/uuid>	"a131fbc9-a78a-4c03-8dd3-bcd480c1810a" .
+ <http://data.lblod.info/id/identificatoren/a131fbc9-a78a-4c03-8dd3-bcd480c1810a>	<http://www.w3.org/2004/02/skos/core#notation>	"SharePoint identificator" .
+
+  }
+}
+WHERE {
+
+    VALUES (?g) {
+      (<http://mu.semte.ch/graphs/public>)
+      (<http://mu.semte.ch/graphs/organizations/7d7122bd82f165e091a36c830d041b59aa48e4be9ea0aa06dc4c67ef381b7505/LoketLB-mandaatGebruiker>)
+    }
+    BIND("Jane" as ?firstName)
+    BIND("Doe" as ?familyName)
+    BIND(CONCAT(?familyName, ?firstName) as ?volledigeNaam)
+    BIND(MD5(?volledigeNaam) as ?uuidPersoon)
+    BIND(MD5(CONCAT(?volledigeNaam, "ACCOUNT")) as ?uuidAccount)
+    BIND(IRI(CONCAT("http://data.lblod.info/id/persoon/", ?uuidPersoon)) AS ?persoon)
+    BIND(IRI(CONCAT("http://data.lblod.info/id/account/", ?uuidAccount)) AS ?account)
+}

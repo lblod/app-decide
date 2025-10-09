@@ -12,6 +12,7 @@
 (in-package :acl)
 
 (define-prefixes
+  :besluit "http://data.vlaanderen.be/ns/besluit#"
   :cms "http://mu.semte.ch/vocabulary/cms/"
   :dcat "http://www.w3.org/ns/dcat#"
   :dct "http://purl.org/dc/terms/"
@@ -24,6 +25,7 @@
 )
 
 (define-graph public ("http://mu.semte.ch/graphs/public")
+  ("besluit:Bestuurseenheid" -> _)
   ("cms:Page" -> _)
   ("dcat:Catalog" -> _)
   ("dcat:Dataset" -> _)
