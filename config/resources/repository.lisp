@@ -1,5 +1,6 @@
 (in-package :mu-cl-resources)
 
+(add-prefix "besluit" "http://data.vlaanderen.be/ns/besluit#")
 (add-prefix "cms" "http://mu.semte.ch/vocabulary/cms/")
 (add-prefix "dcat" "http://www.w3.org/ns/dcat#")
 (add-prefix "dct" "http://purl.org/dc/terms/")

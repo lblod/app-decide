@@ -15,5 +15,5 @@ services:
     restart: "no"
   file:
     restart: "no"
-  login:
+  mocklogin:
     image: lblod/mock-login-service

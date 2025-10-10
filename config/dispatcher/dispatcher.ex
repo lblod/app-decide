@@ -126,8 +126,16 @@ defmodule Dispatcher do
     forward(conn, path, "http://resource/accounts/")
   end
 
+  match "/bestuurseenheids/*path", %{layer: :resources, accept: %{any: true}} do
+    forward(conn, path, "http://resource/bestuurseenheids/")
+  end
+
   match "/sessions/*path", %{layer: :api_services, accept: %{any: true}} do
-    Proxy.forward(conn, path, "http://login/sessions/")
+    Proxy.forward(conn, path, "http://mocklogin/sessions/")
+  end
+
+  match "/mock/sessions/*path" do
+    forward(conn, path, "http://mocklogin/sessions/")
   end
 
   #################

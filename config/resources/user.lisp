@@ -6,6 +6,7 @@
                 (:rijksregister-nummer :string ,(s-prefix "dct:identifier")))
   :has-many `((account :via ,(s-prefix "foaf:account")
                        :as "account")
+              (bestuurseenheid :via ,(s-prefix "foaf:member") :as "bestuurseenheden")
              )
   :on-path "gebruikers"
 )
@@ -19,4 +20,11 @@
                          :inverse t
                          :as "gebruiker"))
   :on-path "accounts"
+)
+
+(define-resource bestuurseenheid () ;; Subclass of m8g:PublicOrganisation, which is a subclass of dct:Agent
+  :class (s-prefix "besluit:Bestuurseenheid")
+  :properties `((:naam :string ,(s-prefix "skos:prefLabel")))
+  :resource-base (s-url "http://data.lblod.info/id/bestuurseenheden/")
+  :on-path "bestuurseenheids"
 )
