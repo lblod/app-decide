@@ -1,0 +1,20 @@
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX mu: <http://mu.semte.ch/vocabularies/core/>
+
+INSERT DATA {
+  GRAPH <http://mu.semte.ch/graphs/public> {
+    <http://data.lblod.info/id/catalogs/5d39120a-9575-41aa-b098-a63d6df99e6b> a dcat:Catalog.
+    <http://data.lblod.info/id/catalogs/5d39120a-9575-41aa-b098-a63d6df99e6b> mu:uuid "5d39120a-9575-41aa-b098-a63d6df99e6b".
+    <http://data.lblod.info/id/catalogs/5d39120a-9575-41aa-b098-a63d6df99e6b> dct:title "title".
+    <http://data.lblod.info/id/catalogs/5d39120a-9575-41aa-b098-a63d6df99e6b> dct:description "description".
+    <http://data.lblod.info/id/catalogs/5d39120a-9575-41aa-b098-a63d6df99e6b> dct:issued "issued".
+    <http://data.lblod.info/id/catalogs/5d39120a-9575-41aa-b098-a63d6df99e6b> dct:modified "modified".
+    <http://data.lblod.info/id/catalogs/5d39120a-9575-41aa-b098-a63d6df99e6b> dct:language "language".
+    <http://data.lblod.info/id/catalogs/5d39120a-9575-41aa-b098-a63d6df99e6b> dct:license "license".
+    <http://data.lblod.info/id/catalogs/5d39120a-9575-41aa-b098-a63d6df99e6b> dct:rights "rights".
+    <http://data.lblod.info/id/catalogs/5d39120a-9575-41aa-b098-a63d6df99e6b> dct:spatial "spatial".
+    <http://data.lblod.info/id/catalogs/5d39120a-9575-41aa-b098-a63d6df99e6b> foaf:homepage "homepage".
+  }
+}
