@@ -85,3 +85,20 @@ services:
       CREDENTIAL_TYPE: DecideCredential
       NO_DID_PREFIX: true
       SINGLE_CREDENTIAL_RESPONSE: true
+    restart: always
+    labels:
+      - "logging=true"
+  deltanotifier:
+    image: semtech/mu-delta-notifier:0.0.4
+    volumes:
+      - ./config/delta:/config
+    labels:
+      - "logging=true"
+    restart: always
+    logging: *default-logging
+  oparl-to-eli:
+    image: semtech/mu-javascript-template:1.9.0
+    volumes:
+      - ./config/oparl-to-eli/:/config/
+    environment:
+      OPARL_ENDPOINT: "https://ris.freiburg.de/oparl"

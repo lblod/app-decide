@@ -19,7 +19,7 @@ services:
       - debug
   virtuoso:
     ports:
-      - "8890:8890"
+      - "8891:8890"
     restart: "no"
     networks:
       - default
@@ -31,4 +31,8 @@ services:
   mocklogin:
     image: lblod/mock-login-service:0.7.0
   migrations:
+    restart: "no"
+  deltanotifier:
+    restart: "no"
+  oparl-to-eli:
     restart: "no"

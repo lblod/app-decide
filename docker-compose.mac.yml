@@ -7,6 +7,10 @@ services:
     platform: linux/arm64
   database:
     platform: linux/amd64
-  harvesting-oparl-scraper:
+  deltanotifier:
+    image: semtech/mu-delta-notifier:latest
+    platform: linux/arm64
+  oparl-to-eli:
+    image: brechtvdv/mu-javascript-template:1.9.1
     platform: linux/arm64
 
