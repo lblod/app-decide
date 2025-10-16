@@ -2,15 +2,19 @@ PREFIX adms: <http://www.w3.org/ns/adms#>
 PREFIX cms: <http://mu.semte.ch/vocabulary/cms/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX eurovoc: <http://eurovoc.europa.eu/>
 PREFIX ex: <http://example.org/>
 PREFIX ext: <http://mu.semte.ch/vocabularies/ext/>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX ldes: <https://w3id.org/ldes#>
 PREFIX mu: <http://mu.semte.ch/vocabularies/core/>
+PREFIX odrl: <https://www.w3.org/TR/odrl-vocab/>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX prov: <http://www.w3.org/ns/prov#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
 INSERT DATA {
@@ -18,15 +22,15 @@ INSERT DATA {
     <http://data.lblod.info/id/catalogs/5d39120a-9575-41aa-b098-a63d6df99e6b>
       a dcat:Catalog;
       mu:uuid "5d39120a-9575-41aa-b098-a63d6df99e6b";
-      dct:title "title";
-      dct:description "description";
-      dct:issued "issued";
-      dct:modified "modified";
-      dct:language "language";
-      dct:license "license";
-      dct:rights "rights";
-      dct:spatial "spatial";
-      foaf:homepage "homepage";
+      dct:title "Example catalog";
+      dct:description "A description";
+      dct:issued "2025-10-16"^^xsd:date;
+      dct:modified "2025-10-16"^^xsd:date;
+      dct:language <http://publications.europa.eu/resource/authority/language/ENG>;
+      dct:license ex:license;
+      dct:rights ex:rights;
+      dct:spatial ex:spatial;
+      foaf:homepage ex:homepage;
       
       dct:publisher <http://data.lblod.info/id/agents/6887467a-f009-450d-8f03-df2e59f6e82c>;
       dcat:themeTaxonomy <http://data.lblod.info/id/concept-schemes/e8228abc-fce5-4f5e-82e6-7fba967a0d56>;
@@ -49,6 +53,7 @@ INSERT DATA {
   GRAPH <http://mu.semte.ch/graphs/public> {
     <http://mu.semte.ch/cms/resources/pages/6d1a64ad-c639-4452-8d24-4c5672c85623>
       a <http://mu.semte.ch/vocabulary/cms/Page>;
+      mu:uuid "6d1a64ad-c639-4452-8d24-4c5672c85623";
       dct:title "dct:title";
       cms:pageContent "cms:pageContent".
   }
@@ -58,9 +63,9 @@ INSERT DATA {
   GRAPH <http://mu.semte.ch/graphs/public> {
     <http://data.lblod.info/id/formats/a6a5b899-35f3-4194-aad7-9e35448bf43d>
       a dct:MediaTypeOrExtent;
-      rdfs:label "rdfs:label";
-      dct:description "dct:description";
-
+      mu:uuid "a6a5b899-35f3-4194-aad7-9e35448bf43d";
+      rdfs:label "format";
+      dct:description "description of format";
       cms:page <http://mu.semte.ch/cms/resources/pages/6d1a64ad-c639-4452-8d24-4c5672c85623>.
   }
 }
@@ -76,14 +81,16 @@ INSERT DATA {
 INSERT DATA {
   GRAPH <http://mu.semte.ch/graphs/public> {
     <http://data.lblod.info/id/concept-schemes/e8228abc-fce5-4f5e-82e6-7fba967a0d56>
-      a skos:ConceptScheme.
+      a skos:ConceptScheme;
+      mu:uuid "e8228abc-fce5-4f5e-82e6-7fba967a0d56".
   }
 }
 ;
 INSERT DATA {
   GRAPH <http://mu.semte.ch/graphs/public> {
-    <http://data.lblod.info/id/concepts/6f6ec079-de02-4ae9-98dd-93c95ab049c2>
+    eurovoc:1234
       a skos:Concept;
+      mu:uuid "fb3a92a8-4a15-4976-b231-2f9e350edeb6";
       skos:inScheme <http://data.lblod.info/id/concept-schemes/e8228abc-fce5-4f5e-82e6-7fba967a0d56>.
   }
 }
@@ -92,11 +99,11 @@ INSERT DATA {
   GRAPH <http://mu.semte.ch/graphs/public> {
     <http://data.lblod.info/id/catalog-records/e77be476-7373-4b69-8373-719236acd16a>
       a dcat:CatalogRecord;
-      dct:title "dct:title";
-      dct:description "dct:description";
-      dct:issued "dct:issued";
-      dct:modified "dct:modified";
-
+      mu:uuid "e77be476-7373-4b69-8373-719236acd16a";
+      dct:title "Example catalog";
+      dct:description "Example description";
+      dct:issued "2025-10-16"^^xsd:date;
+      dct:modified "2025-10-16"^^xsd:date;
       foaf:primaryTopic <http://data.lblod.info/id/datasets/123e4567-e89b-12d3-a456-426614174000>.
   }
 }
@@ -105,17 +112,17 @@ INSERT DATA {
   GRAPH <http://mu.semte.ch/graphs/public> {
     <http://data.lblod.info/id/distributions/08a3c086-db07-458b-9a65-34064697503c>
       a dcat:Distribution;
-      dct:title "dct:title";
-      dct:description "dct:description";
-      dct:issued "dct:issued";
-      dct:modified "dct:modified";
-      dct:license "dct:license";
-      dct:rights "dct:rights";
-      dcat:accessURL "dcat:accessURL";
-      dcat:downloadURL "dcat:downloadURL";
-      dcat:mediaType "dcat:mediaType";
-      dcat:byteSize "dcat:byteSize";
-
+      mu:uuid "08a3c086-db07-458b-9a65-34064697503c";
+      dct:title "A distribution";
+      dct:description "Distribution title";
+      dct:issued "2025-10-16"^^xsd:date;
+      dct:modified "2025-10-16"^^xsd:date;
+      dct:license ex:license;
+      dct:rights ex:rights;
+      dcat:accessURL <https://example.org/access>;
+      dcat:downloadURL <https://example.org/download>;
+      dcat:mediaType ex:mediaType;
+      dcat:byteSize 8;
       dct:format <http://data.lblod.info/id/formats/a6a5b899-35f3-4194-aad7-9e35448bf43d>.
   }
 }
@@ -136,7 +143,7 @@ INSERT DATA {
       ##########################
       # From Data Space Protocol
       ##########################
-      # odrl:hasPolicy ex:odrl-policy-001 ;
+      odrl:hasPolicy ex:odrl-policy-001 ;
       
       ########################
       # Recommended properties
@@ -145,7 +152,6 @@ INSERT DATA {
       dcat:distribution <http://data.lblod.info/id/distributions/08a3c086-db07-458b-9a65-34064697503c> ;
       dcat:keyword "climate"@en , "temperature"@en ;
 
-      # TODO 
       dcat:theme eurovoc:1234 ;  # Theme from a controlled vocabulary (e.g. EuroVoc)
       dct:spatial <http://publications.europa.eu/resource/authority/continent/EU> ;
       dct:temporal ex:temporal;
@@ -166,9 +172,9 @@ INSERT DATA {
       dct:type <http://data.lblod.info/id/concepts/6f6ec079-de02-4ae9-98dd-93c95ab049c2> ;
       owl:versionInfo "Version 1.2 updated for schema compliance." ;
       adms:versionNotes "Minor update to metadata and schema."@en ;
-      # dct:provenance ex:provenance-001 ;
+      dct:provenance ex:provenance-001 ;
       # we should very much use this one to link to a shacl profile
-      # dct:conformsTo ex:standard-001 ;
+      dct:conformsTo ex:standard-001 ;
 
       # Linking to itself
       dct:source <http://data.lblod.info/id/datasets/123e4567-e89b-12d3-a456-426614174000> ;
@@ -176,31 +182,31 @@ INSERT DATA {
       dct:isVersionOf <http://data.lblod.info/id/datasets/123e4567-e89b-12d3-a456-426614174000> ;
       dct:hasVersion <http://data.lblod.info/id/datasets/123e4567-e89b-12d3-a456-426614174000> ;
 
-      # dct:isReferencedBy ex:publication-002 ;
-      # prov:wasGeneratedBy ex:prov-activity-001 ;
-      # dcat:qualifiedAttribution [
-      #  a prov:Attribution ;
-      #  prov:agent <http://data.lblod.info/id/agents/6887467a-f009-450d-8f03-df2e59f6e82c> ;
-      #  prov:hadRole <http://publications.europa.eu/resource/authority/role/AUTHOR>
-      #] ;
-      # dcat:inSeries ex:dataset-series-001 ;
-      #adms:identifier [
-      #  a adms:Identifier ;
-      #  skos:notation "ABC-123" ;
-      #  adms:schemaAgency "Example Agency";
-      #] ;
-      #dcatap:applicableLegislation ex:legalResource-001 ;
-      #dct:accessRights ex:rightsStatement-001 ;
-      #adms:sample ex:sample-distribution-001 ;
+      dct:isReferencedBy ex:publication-002 ;
+      prov:wasGeneratedBy ex:prov-activity-001 ;
+      dcat:qualifiedAttribution [
+        a prov:Attribution ;
+        prov:agent <http://data.lblod.info/id/agents/6887467a-f009-450d-8f03-df2e59f6e82c> ;
+        prov:hadRole <http://publications.europa.eu/resource/authority/role/AUTHOR>
+      ] ;
+      dcat:inSeries ex:dataset-series-001 ;
+      adms:identifier [
+        a adms:Identifier ;
+        skos:notation "ABC-123" ;
+        adms:schemaAgency "Example Agency"
+      ] ;
+      dcatap:applicableLegislation ex:legalResource-001 ;
+      dct:accessRights ex:rightsStatement-001 ;
+      adms:sample ex:sample-distribution-001 ;
 
       ################################
       # optionals we likely won't use
       ################################
-      #dcat:qualifiedRelation ex:relation-001 ;
+      dcat:qualifiedRelation ex:relation-001 ;
       dcat:temporalResolution "P1Y"^^xsd:duration ;
       dcat:spatialResolutionInMeters 1
-      #foaf:page ex:foaf-document-001 .
-      .
+      foaf:page ex:foaf-document-001
+    .
 
     ex:temporal
       a dct:PeriodOfTime ;
