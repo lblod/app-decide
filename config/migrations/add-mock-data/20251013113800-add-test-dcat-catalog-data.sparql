@@ -1,7 +1,7 @@
 PREFIX adms: <http://www.w3.org/ns/adms#>
 PREFIX cms: <http://mu.semte.ch/vocabulary/cms/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
-PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX dcatap: <http://data.europa.eu/r5r/>
 PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX eurovoc: <http://eurovoc.europa.eu/>
 PREFIX ex: <http://example.org/>
@@ -88,7 +88,7 @@ INSERT DATA {
 ;
 INSERT DATA {
   GRAPH <http://mu.semte.ch/graphs/public> {
-    eurovoc:1234
+    eurovoc:fb3a92a8-4a15-4976-b231-2f9e350edeb6
       a skos:Concept;
       mu:uuid "fb3a92a8-4a15-4976-b231-2f9e350edeb6";
       skos:inScheme <http://data.lblod.info/id/concept-schemes/e8228abc-fce5-4f5e-82e6-7fba967a0d56>.
@@ -184,17 +184,9 @@ INSERT DATA {
 
       dct:isReferencedBy ex:publication-002 ;
       prov:wasGeneratedBy ex:prov-activity-001 ;
-      dcat:qualifiedAttribution [
-        a prov:Attribution ;
-        prov:agent <http://data.lblod.info/id/agents/6887467a-f009-450d-8f03-df2e59f6e82c> ;
-        prov:hadRole <http://publications.europa.eu/resource/authority/role/AUTHOR>
-      ] ;
+      dcat:qualifiedAttribution ex:qualifiedAttribution ;
       dcat:inSeries ex:dataset-series-001 ;
-      adms:identifier [
-        a adms:Identifier ;
-        skos:notation "ABC-123" ;
-        adms:schemaAgency "Example Agency"
-      ] ;
+      adms:identifier ex:identifier ;
       dcatap:applicableLegislation ex:legalResource-001 ;
       dct:accessRights ex:rightsStatement-001 ;
       adms:sample ex:sample-distribution-001 ;
@@ -204,8 +196,20 @@ INSERT DATA {
       ################################
       dcat:qualifiedRelation ex:relation-001 ;
       dcat:temporalResolution "P1Y"^^xsd:duration ;
-      dcat:spatialResolutionInMeters 1
+      dcat:spatialResolutionInMeters 1 ;
       foaf:page ex:foaf-document-001
+    .
+
+    ex:qualifiedAttribution
+      a prov:Attribution ;
+      prov:agent <http://data.lblod.info/id/agents/6887467a-f009-450d-8f03-df2e59f6e82c> ;
+      prov:hadRole <http://publications.europa.eu/resource/authority/role/AUTHOR>
+    .
+
+    ex:identifier
+      a adms:Identifier ;
+      skos:notation "ABC-123" ;
+      adms:schemaAgency "Example Agency"
     .
 
     ex:temporal
