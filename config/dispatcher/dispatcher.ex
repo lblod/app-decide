@@ -54,10 +54,6 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://resource/activities"
   end
 
-  match "/publishers/*path", %{ accept: [:json], layer: :resources } do
-    Proxy.forward conn, path, "http://resource/publishers"
-  end
-
   match "/legislative-processes/*path", %{ accept: [:json], layer: :resources } do
     Proxy.forward conn, path, "http://resource/legislative-processes"
   end
