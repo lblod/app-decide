@@ -13,4 +13,6 @@ services:
   oparl-to-eli:
     image: brechtvdv/mu-javascript-template:1.9.1
     platform: linux/arm64
+  project-scripts:
+    platform: linux/amd64
 
