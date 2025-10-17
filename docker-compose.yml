@@ -64,3 +64,9 @@ services:
     image: lblod/odrl-parser-service:0.0.2
     volumes:
       - ./config/odrl-parser:/config
+  migrations:
+    image: semtech/mu-migrations-service:0.9.0
+    links:
+      - virtuoso:database
+    volumes:
+      - ./config/migrations:/data/migrations 
