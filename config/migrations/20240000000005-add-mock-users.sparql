@@ -38,10 +38,9 @@ INSERT {
 
 <http://data.lblod.info/id/bestuurseenheden/7d7122bd82f165e091a36c830d041b59aa48e4be9ea0aa06dc4c67ef381b7505>	<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>	<http://data.vlaanderen.be/ns/besluit#Bestuurseenheid> .
 
- <http://data.lblod.info/id/identificatoren/a131fbc9-a78a-4c03-8dd3-bcd480c1810a>	<https://data.vlaanderen.be/ns/generiek#gestructureerdeIdentificator>	<http://data.lblod.info/id/gestructureerdeIdentificatoren/2a7c78a9-8598-4741-b1eb-cae7084f1b9b> .
- <http://data.lblod.info/id/identificatoren/a131fbc9-a78a-4c03-8dd3-bcd480c1810a>	<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>	<http://www.w3.org/ns/adms#Identifier> .
- <http://data.lblod.info/id/identificatoren/a131fbc9-a78a-4c03-8dd3-bcd480c1810a>	<http://mu.semte.ch/vocabularies/core/uuid>	"a131fbc9-a78a-4c03-8dd3-bcd480c1810a" .
- <http://data.lblod.info/id/identificatoren/a131fbc9-a78a-4c03-8dd3-bcd480c1810a>	<http://www.w3.org/2004/02/skos/core#notation>	"SharePoint identificator" .
+<http://data.lblod.info/id/identificatoren/a131fbc9-a78a-4c03-8dd3-bcd480c1810a>	<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>	<http://www.w3.org/ns/adms#Identifier> .
+<http://data.lblod.info/id/identificatoren/a131fbc9-a78a-4c03-8dd3-bcd480c1810a>	<http://mu.semte.ch/vocabularies/core/uuid>	"a131fbc9-a78a-4c03-8dd3-bcd480c1810a" .
+<http://data.lblod.info/id/identificatoren/a131fbc9-a78a-4c03-8dd3-bcd480c1810a>	<http://www.w3.org/2004/02/skos/core#notation>	"SharePoint identificator" .
 
   }
 }
