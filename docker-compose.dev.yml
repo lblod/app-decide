@@ -16,6 +16,6 @@ services:
   file:
     restart: "no"
   mocklogin:
-    image: lblod/mock-login-service
+    image: lblod/mock-login-service:0.7.0
   migrations:
     restart: "no"
