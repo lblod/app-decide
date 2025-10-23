@@ -65,11 +65,10 @@ services:
     volumes:
       - ./config/odrl-parser:/config
   decisions-ghent-consumer:
-    image: lblod/delta-consumer:0.1.6
+    image: lblod/delta-consumer:feature-initial-sync-with-virtuoso-dump
     environment:
       DCR_SERVICE_NAME: decisions-ghent-consumer
       DCR_CRON_PATTERN_DELTA_SYNC: 0 * * * * # Every hour
-      DCR_START_FROM_DELTA_TIMESTAMP: 2025-09-01T00:00:00
       DCR_SYNC_BASE_URL: https://lokaalbeslist-harvester-1.s.redhost.be/
       DCR_SYNC_FILES_PATH: /sync/besluiten/files
       DCR_SYNC_DATASET_SUBJECT: http://data.lblod.info/datasets/delta-producer/dumps/lblod-harvester/BesluitenCacheGraphDump
@@ -78,12 +77,13 @@ services:
       DCR_JOB_CREATOR_URI: http://data.lblod.info/services/id/decisions-ghent-consumer
       DCR_DISABLE_INITIAL_SYNC: true
       DCR_DISABLE_DELTA_INGEST: true
-      DCR_ENABLE_TRIPLE_REMAPPING: true
+      # DCR_ENABLE_TRIPLE_REMAPPING: true
       DCR_LANDING_ZONE_GRAPH: "http://mu.semte.ch/graphs/decisions/landing"
-      DCR_REMAPPING_GRAPH: "http://mu.semte.ch/graphs/decisions/ghent"
+      # DCR_REMAPPING_GRAPH: "http://mu.semte.ch/graphs/decisions/ghent"
       DCR_BATCH_SIZE: 1000
     volumes:
-      - ./config/consumers/decisions-ghent/mapping:/config/mapping
+      # - ./config/consumers/decisions-ghent/mapping:/config/mapping
+      - ./config/consumers/decisions-ghent:/config/triples-dispatching/custom-dispatching
     labels:
       - logging=true
     restart: always
