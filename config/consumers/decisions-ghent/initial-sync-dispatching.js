@@ -1,71 +1,38 @@
-/**
- * Dispatch the fetched information to a target graph.
- * @param { mu, muAuthSudo, fetch, chunk, sparqlEscapeUri, prepareStatements, updateWithRecover } lib - The provided libraries from the host service.
- * @param { termObjects } data - The fetched quad information, which objects of serialized Terms
- *          [ {
- *              graph: "<http://foo>",
- *              subject: "<http://bar>",
- *              predicate: "<http://baz>",
- *              object: "<http://boom>^^<http://datatype>"
- *            }
- *         ]
- * @param { LANDING_ZONE_GRAPH, LANDING_ZONE_DATABASE_ENDPOINT } env - Environment variables
- * @return {void} Nothing
- */
-export async function dispatch(lib, data, env) {
-  const { updateWithRecover, prepareStatements } = lib;
-  const { LANDING_ZONE_GRAPH, LANDING_ZONE_DATABASE_ENDPOINT } = env;
+/* Variables */
+const INGEST_GRAPH =
+  process.env.INGEST_GRAPH || `http://mu.semte.ch/graphs/public`;
 
-  const triples = data.termObjects || [];
-  if (!triples.length) return;
+const BYPASS_MU_AUTH_FOR_EXPENSIVE_QUERIES =
+  process.env.BYPASS_MU_AUTH_FOR_EXPENSIVE_QUERIES == "true" ? true : false;
+const DIRECT_DATABASE_ENDPOINT =
+  process.env.DIRECT_DATABASE_ENDPOINT || "http://virtuoso:8890/sparql";
 
-  // Compress URIs using prepareStatements
-  const { usedPrefixes, newStmts } = prepareStatements(triples);
+const MU_CALL_SCOPE_ID_INITIAL_SYNC =
+  process.env.MU_CALL_SCOPE_ID_INITIAL_SYNC ||
+  "http://redpencil.data.gift/id/concept/muScope/deltas/consumer/initialSync";
 
-  // Transform function for updateWithRecover
-  const buildInsertQuery = (stmts) => `
-    ${usedPrefixes}
-    INSERT DATA {
-      GRAPH <${LANDING_ZONE_GRAPH}> {
-        ${stmts
-          .map(
-            ({ subject, predicate, object }) =>
-              `${subject} ${predicate} ${object} .`
-          )
-          .join("\n        ")}
-      }
-    }
-  `;
+const sparqlEndpoint = BYPASS_MU_AUTH_FOR_EXPENSIVE_QUERIES
+  ? DIRECT_DATABASE_ENDPOINT
+  : process.env.MU_SPARQL_ENDPOINT;
 
-  console.log(
-    `Inserting ${triples.length} triples into ${LANDING_ZONE_GRAPH} ...`
-  );
+/** Code **/
+export async function dispatch(lib, data) {
+  const { insertIntoGraph } = lib;
 
-  try {
-    await updateWithRecover(
-      newStmts,
-      buildInsertQuery,
-      LANDING_ZONE_DATABASE_ENDPOINT
-    );
-    console.log(
-      `Successfully inserted ${triples.length} triples into ${LANDING_ZONE_GRAPH}`
-    );
-  } catch (e) {
-    console.error(
-      `Failed to insert ${triples.length} triples into ${LANDING_ZONE_GRAPH}:`,
-      e
-    );
+  if (BYPASS_MU_AUTH_FOR_EXPENSIVE_QUERIES) {
+    console.warn(`Service configured to skip MU_AUTH!`);
   }
+  console.log(`Using ${sparqlEndpoint} to insert triples`);
+
+  await insertIntoGraph(data.termObjects, sparqlEndpoint, INGEST_GRAPH, {
+    "mu-call-scope-id": MU_CALL_SCOPE_ID_INITIAL_SYNC,
+  });
 }
 
-/**
- * A callback you can override to do extra manipulations
- *   after initial ingest.
- * @param { mu, muAuthSudo, fech } lib - The provided libraries from the host service.
- * @return {void} Nothing
- */
-export async function onFinishInitialIngest(lib) {
+export async function onFinishInitialIngest(_lib) {
   console.log(`
-    Current implementation does nothing.
+    onFinishInitialIngest was called!
+    Current implementation does nothing, no worries.
+    You can overrule it for extra manipulations after initial ingest.
   `);
 }

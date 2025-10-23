@@ -1,35 +1,28 @@
-/**
- * Dispatch the fetched information to a target graph.
- * @param { mu, muAuthSudo, fetch } lib - The provided libraries from the host service.
- * @param { termObjectChangeSets: { deletes, inserts } } data - The fetched changes sets, which objects of serialized Terms
- *          [ {
- *              graph: "<http://foo>",
- *              subject: "<http://bar>",
- *              predicate: "<http://baz>",
- *              object: "<http://boom>^^<http://datatype>"
- *            }
- *         ]
- * @return {void} Nothing
- */
+/* Variables */
+const INGEST_GRAPH =
+  process.env.INGEST_GRAPH || `http://mu.semte.ch/graphs/public`;
+
+const BYPASS_MU_AUTH_FOR_EXPENSIVE_QUERIES =
+  process.env.BYPASS_MU_AUTH_FOR_EXPENSIVE_QUERIES == "true" ? true : false;
+const DIRECT_DATABASE_ENDPOINT =
+  process.env.DIRECT_DATABASE_ENDPOINT || "http://virtuoso:8890/sparql";
+
+const sparqlEndpoint = BYPASS_MU_AUTH_FOR_EXPENSIVE_QUERIES
+  ? DIRECT_DATABASE_ENDPOINT
+  : process.env.MU_SPARQL_ENDPOINT; //Defaults to mu-auth
+
+/* Codes */
 export async function dispatch(lib, data) {
-  const { mu, muAuthSudo } = lib;
+  const { insertIntoGraph, deleteFromGraph } = lib;
   const { termObjectChangeSets } = data;
 
-  console.log(`Found an amount of ${termObjectChangeSets.length} changesets`);
   for (let { deletes, inserts } of termObjectChangeSets) {
-    console.log(`Logging delete information: `);
-    const deleteStatements = deletes.map(
-      (o) =>
-        `In graph: ${o.graph}, triple: ${o.subject} ${o.predicate} ${o.object}`
-    );
-    deleteStatements.forEach((s) => console.log(s));
+    if (BYPASS_MU_AUTH_FOR_EXPENSIVE_QUERIES) {
+      console.warn(`Service configured to skip MU_AUTH!`);
+    }
+    console.log(`Using ${sparqlEndpoint} to insert triples`);
 
-    console.log(`Logging insert information: `);
-    const insertStatements = inserts.map(
-      (o) =>
-        `In graph: ${o.graph}, triple: ${o.subject} ${o.predicate} ${o.object}.`
-    );
-    insertStatements.forEach((s) => console.log(s));
+    await deleteFromGraph(deletes, sparqlEndpoint, INGEST_GRAPH, {});
+    await insertIntoGraph(inserts, sparqlEndpoint, INGEST_GRAPH, {});
   }
-  console.log(`All changeSets were logged, waiting for next update!`);
 }

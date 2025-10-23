@@ -77,9 +77,7 @@ services:
       DCR_JOB_CREATOR_URI: http://data.lblod.info/services/id/decisions-ghent-consumer
       DCR_DISABLE_INITIAL_SYNC: true
       DCR_DISABLE_DELTA_INGEST: true
-      # DCR_ENABLE_TRIPLE_REMAPPING: true
-      DCR_LANDING_ZONE_GRAPH: "http://mu.semte.ch/graphs/decisions/landing"
-      # DCR_REMAPPING_GRAPH: "http://mu.semte.ch/graphs/decisions/ghent"
+      DCR_INGEST_GRAPH: "http://mu.semte.ch/graphs/decisions/landing"
       DCR_BATCH_SIZE: 1000
     volumes:
       # - ./config/consumers/decisions-ghent/mapping:/config/mapping
