@@ -44,8 +44,7 @@ The app consumes Ghent decisions from Lokaal Beslist. By default, both initial s
 services:
   decisions-ghent-consumer:
     environment:
-      DCR_LANDING_ZONE_DATABASE: "virtuoso" # Only on first run
-      DCR_REMAPPING_DATABASE: "virtuoso" # Only on first run
+      BYPASS_MU_AUTH_FOR_EXPENSIVE_QUERIES: true # Only on first run
       DCR_DISABLE_INITIAL_SYNC: false # Only on first run
 ```
 
