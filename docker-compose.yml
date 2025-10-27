@@ -70,7 +70,7 @@ services:
       - virtuoso:database
     volumes:
       - ./config/migrations:/data/migrations
-  oid4vc:
+  vc-issuer:
     image: local-vc-issuer
     environment:
       ISSUER_DID: did:web:example.com:some:did
