@@ -11,7 +11,7 @@
                 (:rights :string ,(s-prefix "dct:rights"))
                 (:spatial :string ,(s-prefix "dct:spatial"))
                 (:homepage :string ,(s-prefix "foaf:homepage")))
-  :has-one `((publisher :via ,(s-prefix "dct:publisher")
+  :has-one `((agent :via ,(s-prefix "dct:publisher")
                         :as "publisher")
              (concept-scheme :via ,(s-prefix "dcat:themeTaxonomy")
                              :as "theme-taxonomy")
@@ -30,14 +30,14 @@
                 (:issued :string ,(s-prefix "dct:issued"))
                 (:modified :string ,(s-prefix "dct:modified"))
                 (:identifier :string ,(s-prefix "dct:identifier"))
-                (:keyword :string-set ,(s-prefix "dct:keyword"))
+                (:keyword :string-set ,(s-prefix "dcat:keyword"))
                 (:language :string ,(s-prefix "dct:language"))
-                (:contact-point :string ,(s-prefix "dct:contactPoint"))
+                (:contact-point :string ,(s-prefix "dcat:contactPoint"))
                 (:temporal :string ,(s-prefix "dct:temporal"))
                 (:accrual-periodicity :string ,(s-prefix "dct:accrualPeriodicity"))
                 (:landing-page :string ,(s-prefix "dcat:landingPage")))
   :features '(include-uri no-pagination-defaults)
-  :has-one `((publisher :via ,(s-prefix "dct:publisher")
+  :has-one `((agent :via ,(s-prefix "dct:publisher")
                         :as "publisher")
              (catalog :via ,(s-prefix "dcat:dataset")
                       :inverse t
@@ -69,6 +69,7 @@
                       :as "dataset")
              (format :via ,(s-prefix "dct:format")
                      :as "format"))
+  :features `(include-uri)
   :resource-base (s-url "http://data.lblod.info/id/distributions/")
   :on-path "distributions")
 
@@ -83,6 +84,7 @@
                       :as "catalog")
              (dataset :via ,(s-prefix "foaf:primaryTopic")
                       :as "primary-topic"))
+  :features `(include-uri)
   :resource-base (s-url "http://data.lblod.info/id/catalog-records/")
   :on-path "catalog-records")
 
@@ -94,6 +96,7 @@
   :has-one `((concept-scheme :via ,(s-prefix "skos:inScheme")
                              :as "concept-scheme"))
   :resource-base (s-url "http://data.lblod.info/id/concepts/")
+  :features `(include-uri)
   :on-path "concepts")
 
 (define-resource concept-scheme ()
@@ -105,16 +108,12 @@
               (concept :via ,(s-prefix "skos:inScheme")
                        :inverse t
                        :as "concepts"))
+  :features `(include-uri)
   :on-path "concept-schemes")
 
 (define-resource agent ()
   :class (s-prefix "foaf:Agent")
-  :has-many `((catalog :via ,(s-prefix "dct:publisher")
-                       :inverse t
-                       :as "catalogs")
-              (dataset :via ,(s-prefix "dct:publisher")
-                       :inverse t
-                       :as "datasets"))
+  :features `(include-uri)
   :resource-base (s-url "http://data.lblod.info/id/agents/")
   :on-path "agents")
 
@@ -128,6 +127,7 @@
   :has-one `((page :via ,(s-prefix "cms:page")
                    :as "page"))
   :on-path "formats"
+  :features `(include-uri)
   :resource-base (s-url "http://data.lblod.info/id/formats/"))
 
 (define-resource page ()
@@ -135,10 +135,5 @@
   :resource-base (s-url "http://mu.semte.ch/cms/resources/pages/")
   :properties `((:title :string ,(s-prefix "dcterms:title"))
                 (:content :string ,(s-prefix "cms:pageContent")))
+  :features `(include-uri)
   :on-path "pages")
-
-(define-resource publisher ()
-  :class (s-prefix "ext:Publisher")
-  :resource-base (s-url "http://mu.semte.ch/ext/resources/publishers/")
-  :on-path "publishers")
-

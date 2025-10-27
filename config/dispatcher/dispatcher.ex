@@ -54,10 +54,6 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://resource/activities"
   end
 
-  match "/publishers/*path", %{ accept: [:json], layer: :resources } do
-    Proxy.forward conn, path, "http://resource/publishers"
-  end
-
   match "/legislative-processes/*path", %{ accept: [:json], layer: :resources } do
     Proxy.forward conn, path, "http://resource/legislative-processes"
   end
@@ -114,6 +110,29 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://resource/complex-works"
   end
 
+  #################
+  # LOGIN
+  #################
+
+  match "/gebruikers/*path", %{layer: :resources, accept: %{any: true}} do
+    forward(conn, path, "http://resource/gebruikers/")
+  end
+
+  match "/accounts/*path", %{layer: :resources, accept: %{any: true}} do
+    forward(conn, path, "http://resource/accounts/")
+  end
+
+  match "/bestuurseenheids/*path", %{layer: :resources, accept: %{any: true}} do
+    forward(conn, path, "http://resource/bestuurseenheids/")
+  end
+
+  match "/sessions/*path", %{layer: :api_services, accept: %{any: true}} do
+    Proxy.forward(conn, path, "http://mocklogin/sessions/")
+  end
+
+  match "/mock/sessions/*path" do
+    forward(conn, path, "http://mocklogin/sessions/")
+  end
 
   #################
   # NOT FOUND
