@@ -8,7 +8,80 @@ defmodule Dispatcher do
     any: ["*/*"]
   ]
 
-  define_layers [ :resources, :not_found ]
+  define_layers([:static, :sparql, :api_services, :frontend_fallback, :resources, :not_found])
+
+  options "/*path", _ do
+    conn
+    |> Plug.Conn.put_resp_header("access-control-allow-headers", "content-type,accept")
+    |> Plug.Conn.put_resp_header("access-control-allow-methods", "*")
+    |> send_resp(200, "{ \"message\": \"ok\" }")
+  end
+
+  ###############
+  # STATIC
+  ###############
+
+  # self-service
+  match "/index.html", %{layer: :static} do
+    forward(conn, [], "http://frontend/index.html")
+  end
+
+  get "/assets/*path", %{layer: :static} do
+    forward(conn, path, "http://frontend/assets/")
+  end
+
+  get "/@appuniversum/*path", %{layer: :static} do
+    forward(conn, path, "http://frontend/@appuniversum/")
+  end
+
+  #################
+  # FRONTEND PAGES
+  #################
+
+  # self-service
+  match "/*path", %{layer: :frontend_fallback, accept: %{html: true}} do
+    # we don't forward the path, because the app should take care of this in the browser.
+    forward(conn, [], "http://frontend/index.html")
+  end
+
+  #################
+  # API Services
+  #################
+  # by setting an ISSUER_URL with a path component, we can in theory host multiple issuers on the same domain.
+  # it does require fiddling a bit with the 'well known paths' though.
+   match "/vc-verifier/*path", %{ accept: [:any], layer: :static } do
+    Proxy.forward conn, path, "http://vc-issuer/verifier/"
+  end
+
+  match "/vc-issuer/.well-known/openid-credential-issuer", %{ accept: [:json], layer: :static } do
+    Proxy.forward conn, [], "http://vc-issuer/issuer/issuer_metadata"
+  end
+
+  match "/.well-known/openid-credential-issuer/vc-issuer", %{ accept: [:json], layer: :static } do
+    Proxy.forward conn, [], "http://vc-issuer/issuer/issuer_metadata"
+  end
+
+  match "/vc-issuer/.well-known/oauth-authorization-server", %{ accept: [:json], layer: :static } do
+    Proxy.forward conn, [], "http://vc-issuer/issuer/authorization_metadata"
+  end
+
+  match "/.well-known/oauth-authorization-server/vc-issuer", %{ accept: [:json], layer: :static } do
+    Proxy.forward conn, [], "http://vc-issuer/issuer/authorization_metadata"
+  end
+
+  match "/vc-issuer/.well-known/vct", %{ accept: [:json], layer: :static } do
+    Proxy.forward conn, [], "http://vc-issuer/issuer/vct"
+  end
+
+  match "/.well-known/vct/vc-issuer", %{ accept: [:json], layer: :static } do
+    Proxy.forward conn, [], "http://vc-issuer/issuer/vct"
+  end
+
+
+  # layer order matters! we need to intercept the .well-known variants first, hence :static
+  match "/vc-issuer/*path", %{ accept: [:any], layer: :api_services } do
+    Proxy.forward conn, path, "http://vc-issuer/issuer/"
+  end
 
   #################
   # RESOURCES
