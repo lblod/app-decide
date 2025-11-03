@@ -71,7 +71,7 @@ services:
     volumes:
       - ./config/migrations:/data/migrations
   vc-issuer:
-    image: local-vc-issuer
+    image: lblod/oid4vc-login-service:latest
     environment:
       ISSUER_DID: did:web:example.com:some:did
       ISSUER_KEY_ID: did:web:example.com:some:did#somekey
