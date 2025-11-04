@@ -57,4 +57,14 @@ services:
   login:
     restart: no
   entity-linking:
-    restart: "no"
+    restart: no
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.17.0
+    restart: no
+    environment:
+      ELASTICSEARCH_HOSTS: "http://elasticsearch:9200"
+    ports:
+      - 127.0.0.1:5601:5601
+    user: root
+    command: |
+      sh -c "/usr/local/bin/kibana-docker --allow-root;"

@@ -69,8 +69,8 @@ services:
     restart: "no"
   migrations:
     image: semtech/mu-migrations-service:0.9.0
-    links:
-      - virtuoso:database
+    environment:
+      MU_SPARQL_ENDPOINT: http://virtuoso:8890/sparql
     volumes:
       - ./config/migrations:/data/migrations
   deltanotifier:
@@ -272,3 +272,18 @@ services:
       HIGH_LOAD_DATABASE_ENDPOINT: http://triplestore:8890/sparql
     links:
       - database:database
+  ################################################################################
+  # search:
+  ################################################################################
+  search:
+    image: semtech/mu-search:0.11.0
+    ports:
+      - "4000:80"
+    volumes:
+      - ./config/search:/config
+  elasticsearch:
+    image: semtech/mu-search-elastic-backend:1.2.0
+    volumes:
+      - ./data/elasticsearch/:/usr/share/elasticsearch/data
+    environment:
+      - discovery.type=single-node
