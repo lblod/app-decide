@@ -354,6 +354,13 @@ defmodule Dispatcher do
     forward(conn, path, "http://dcat/")
   end
 
+  ##################
+  # SEARCH
+  ##################
+  get "/search/*path", %{layer: :api_services, accept: [:json]} do
+    Proxy.forward conn, path, "http://search/"
+  end
+
   #################
   # NOT FOUND
   #################
