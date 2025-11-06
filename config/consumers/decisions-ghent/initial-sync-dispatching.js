@@ -1,9 +1,12 @@
 import {
   INGEST_GRAPH,
+  FILTERED_GRAPH,
   BYPASS_MU_AUTH_FOR_EXPENSIVE_QUERIES,
   MU_CALL_SCOPE_ID_INITIAL_SYNC,
   sparqlEndpoint,
 } from "./config";
+
+import { queries } from "./queries";
 
 export async function dispatch(lib, data) {
   const { insertIntoGraph } = lib;
@@ -18,10 +21,8 @@ export async function dispatch(lib, data) {
   });
 }
 
-export async function onFinishInitialIngest(_lib) {
-  console.log(`
-    onFinishInitialIngest was called!
-    Current implementation does nothing, no worries.
-    You can overrule it for extra manipulations after initial ingest.
-  `);
+export async function onFinishInitialIngest(lib) {
+  // For each query in queries:
+  // 1) Run on INGEST_GRAPH
+  // 2) Insert results in FILTERED_GRAPH
 }
