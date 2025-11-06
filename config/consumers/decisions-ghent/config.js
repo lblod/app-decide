@@ -1,5 +1,7 @@
 export const INGEST_GRAPH =
   process.env.INGEST_GRAPH || `http://mu.semte.ch/graphs/public`;
+export const FILTERED_GRAPH =
+  process.env.FILTERED_GRAPH || `http://mu.semte.ch/graphs/filtered`;
 
 export const BYPASS_MU_AUTH_FOR_EXPENSIVE_QUERIES =
   process.env.BYPASS_MU_AUTH_FOR_EXPENSIVE_QUERIES == "true" ? true : false;

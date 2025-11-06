@@ -79,6 +79,7 @@ services:
       DCR_DISABLE_DELTA_INGEST: true
       DCR_BATCH_SIZE: 1000
       INGEST_GRAPH: "http://mu.semte.ch/graphs/decisions/landing"
+      FILTERED_GRAPH: "http://mu.semte.ch/graphs/decisions/ghent"
     volumes:
       # - ./config/consumers/decisions-ghent/mapping:/config/mapping
       - ./config/consumers/decisions-ghent:/config/triples-dispatching/custom-dispatching
