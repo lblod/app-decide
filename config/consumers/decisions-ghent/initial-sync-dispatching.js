@@ -25,4 +25,9 @@ export async function onFinishInitialIngest(lib) {
   // For each query in queries:
   // 1) Run on INGEST_GRAPH
   // 2) Insert results in FILTERED_GRAPH
+  // Create task:
+  // - new task:Task
+  // - task:operation: <http://lblod.data.gift/id/jobs/concept/TaskOperation/mapping/sparql-construct>
+  // - adms:status: <http://redpencil.data.gift/id/concept/JobStatus/scheduled>
+  // - task:inputContainer: with ext:hasGraph pointing to FILTERED_GRAPH
 }
