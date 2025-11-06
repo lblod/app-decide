@@ -133,13 +133,11 @@ ext:lmbPublicSlice a odrl:AssetCollection ;
   vcard:fn "public" ;
   # no query parameters added to the group so the graph is exactly this uri
   ext:graphPrefix <http://mu.semte.ch/graphs/public> ;
-  ext:shaclShape ext:lmbPublicShape ;
   dct:description "This asset collection contains all information that is available to the public in the context of the LMB app." .
 
 ext:lmbAuthenticatedPublicSlice a odrl:AssetCollection ;
   vcard:fn "view-only-modules" ;
   ext:graphPrefix <http://mu.semte.ch/graphs/authenticated/public> ;
-  ext:shaclShape ext:lmbAuthenticatedPublicShape ;
   dct:description "This asset collection contains all information that is available to all authenticated users in the context of the LMB app." .
 
 ext:lmbOrganizationMandatesSlice a odrl:AssetCollection ;
@@ -147,7 +145,6 @@ vcard:fn "organization-mandatendatabank" ;
   ext:graphPrefix <http://mu.semte.ch/graphs/organizations/> ;
   # TODO: Can we avoid having to specify these parameters again?
   ext:queryParameters "session_group", "session_role" ;
-  ext:shaclShape ext:lmbMandatarisShape ;
   dct:description "This asset collection contains all information that is available to users with the LoketLB-mandaatGebruiker role in the context of the LMB app." .
 
 
@@ -200,113 +197,105 @@ ext:allowReadForPoliceCouncilOnMandatarisOrg a odrl:Permission ;
   odrl:assignee ext:policeCouncilParty .
 
 
-# shapes
-## public shape
-ext:lmbPublicShape a sh:NodeShape ;
-  # showing only a few types to keep the sample small
-  sh:or (
-    [
-    # ("ext:GeslachtCode" -> _)
-      sh:targetClass ext:GeslachtCode ;
-    ]
-    [
-    # Fictional example for a shape where the predicates matter. Users can
-    # access only `skos:inScheme`, `skos:prefLabel`, and `rdf:type` triples for
-    # `skos:ConceptScheme` resources.
-    # ("skos:ConceptScheme" -> "skos:inScheme"
-    #                       -> "skos:prefLabel"
-    #                       -> "rdf:type")
-      sh:targetClass skos:ConceptScheme ;
-      sh:property [
-        sh:path skos:inScheme ;
-        sh:minCount 0 # NOTE (19/08/2025): What is the added value of this for generating authz rules?
-      ], [
-        sh:path skos:prefLabel ;
-        sh:minCount 0
-      ], [
-        sh:path rdf:type ;
-        sh:minCount 0
-      ]
-    ]
-    [
-    # Fictional example to illustrate an inverse predicate specification. Users
-    # can access all triples with a `besluit:Bestuurseenheid` as object.
-    # ("besluit:Bestuurseenheid" <- _)
-      sh:targetClass besluit:Bestuurseenheid ;
-      sh:property [
-        sh:path [ sh:inversePath ext:all ] # define custom predicate that should be interpreted as sparql-parser's `_`
-      ]
-    ]
-    [
-    # Fictional example to illustrate a selective inverse predicate
-    # specification. For `skos:Concept` resources users can only access
-    # `regorg:orgStatus` and `lmb:InstallatievergaderingStatus` triples in such
-    # a resource is the object.
-    # ("skos:Concept" <- "regorg:orgStatus"
-    #                 <- "lmb:InstallatievergaderingStatus")
-      sh:targetClass skos:Concept ;
-      sh:property [
-        sh:path [ sh:inversePath regorg:orgStatus ]
-      ], [
-        sh:path [ sh:inversePath lmb:InstallatievergaderingStatus]
-      ]
-    ]
-  ).
+# Assets as shapes
+## ("ext:GeslachtCode" -> _)
+ext:geslachtCodeAsset a odrl:Asset, sh:NodeShape ;
+  odrl:partOf ext:lmbPublicSlice ;
+  sh:targetClass ext:GeslachtCode .
 
-## authenticated public shape
-ext:lmbAuthenticatedPublicShape a sh:NodeShape ;
+## Fictional example for a shape where the predicates matter. Users can access
+## only `skos:inScheme`, `skos:prefLabel`, and `rdf:type` triples for
+## `skos:ConceptScheme` resources.
+## ("skos:ConceptScheme" -> "skos:inScheme"
+##                       -> "skos:prefLabel"
+##                       -> "rdf:type")
+ext:conceptSchemeAsset a odrl:Asset, sh:NodeShape ;
+  odrl:partOf ext:lmbPublicSlice ;
+  sh:targetClass skos:ConceptScheme ;
+  sh:property [ sh:path skos:inScheme ] ,
+    [ sh:path skos:prefLabel ] ,
+    [ sh:path rdf:type ] .
+
+## Fictional example to illustrate an inverse predicate specification. Users can
+## access all triples with a `besluit:Bestuurseenheid` as object.
+## ("besluit:Bestuurseenheid" <- _)
+ext:administrativeUnitAsset a odrl:Asset, sh:NodeShape ;
+  odrl:partOf ext:lmbPublicSlice ;
   sh:targetClass besluit:Bestuurseenheid ;
-  sh:property [ sh:path ext:viewOnlyModules ] .
+  sh:property [
+    sh:path [ sh:inversePath ext:all ] # define custom predicate that should be interpreted as sparql-parser's `_`
+    ] .
 
-## mandate shape
-ext:lmbMandatarisShape a sh:NodeShape ;
-  # showing only a few types to keep the sample small
-  sh:or (
-    [
-    # ("mandaat:Mandataris" -> _)
-      sh:targetClass mandaat:Mandataris
-    ]
-    [
-    # ("mandaat:Fractie" -> _)
-      sh:targetClass mandaat:Fractie
-    ]
-    [
-    # Fictional example to illustrate a disallow predicate specification. Users
-    # can access everything for a `persoon:Persoon` except their
-    # `persoon:registratie`.
-    # ("persoon:Persoon" x> "persoon:registratie")
-      sh:targetClass persoon:Persoon ;
-      sh:not [
-        sh:property [
-          sh:path persoon:registratie
-        ]
+## Fictional example to illustrate a selective inverse predicate
+## specification. For `skos:Concept` resources users can only access
+## `regorg:orgStatus` and `lmb:InstallatievergaderingStatus` triples in such a
+## resource is the object.
+## ("skos:Concept" <- "regorg:orgStatus"
+##                 <- "lmb:InstallatievergaderingStatus")
+ext:conceptAsset a odrl:Asset , sh:NodeShape ;
+  odrl:partOf ext:lmbPublicSlice ;
+  sh:targetClass skos:Concept ;
+  sh:property [
+    sh:path [ sh:inversePath regorg:orgStatus ]
+    ] , [
+    sh:path [ sh:inversePath lmb:InstallatievergaderingStatus ]
+    ] .
+
+## ("besluit:Bestuurseenheid" -> "ext:viewOnlyModules")
+ext:administrativeUnitViewOnlyAsset a odrl:Asset , sh:NodeShape ;
+  odrl:partOf ext:lmbAuthenticatedPublicSlice ;
+  sh:targetClass besluit:Bestuurseenheid ;
+  sh:property [
+    sh:path ext:viewOnlyModules
+    ] .
+
+## ("mandaat:Mandataris" -> _)
+ext:mandatarisAsset a odrl:Asset , sh:NodeShape ;
+  odrl:partOf ext:lmbOrganizationMandatesSlice ;
+  sh:targetClass mandaat:Mandataris .
+
+## ("mandaat:Fractie" -> _)
+ext:fractieAsset a odrl:Asset , sh:NodeShape ;
+  odrl:partOf ext:lmbOrganizationMandatesSlice ;
+  sh:targetClass mandaat:Fractie .
+
+## Fictional example to illustrate a disallow predicate specification. Users can
+## access everything for a `persoon:Persoon` except their `persoon:registratie`.
+## ("persoon:Persoon" x> "persoon:registratie")
+ext:personAsset a odrl:Asset , sh:NodeShape ;
+  odrl:partOf ext:lmbOrganizationMandatesSlice ;
+  sh:targetClass persoon:Persoon ;
+  sh:not [
+    sh:property [
+      sh:path persoon:registratie
       ]
-    ]
-    [
-    # Fictional example to illustrate a disallow predicate specification with
-    # multiple predicates. Users can access everything for a `persoon:Persoon`
-    # except their `persoon:registratie` or `persoon:heeftGeboorte`.
-    # ("persoon:Persoon" x> "persoon:registratie"
-    #                    x> "persoon:heeftGeboorte")
-      sh:targetClass persoon:Persoon ;
-      sh:not [
-        sh:property [
-          sh:path persoon:registratie
-        ], [
-          sh:path persoon:heeftGeboorte
-        ]
+    ] .
+
+## Fictional example to illustrate a disallow predicate specification with
+## multiple predicates. Users can access everything for a `persoon:Persoon`
+## except their `persoon:registratie` or `persoon:heeftGeboorte`.
+## ("persoon:Persoon" x> "persoon:registratie"
+##                    x> "persoon:heeftGeboorte")
+ext:personMultipleExcludedAsset a odrl:Asset , sh:NodeShape ;
+  odrl:partOf ext:lmbOrganizationMandatesSlice ;
+  sh:targetClass persoon:Persoon ;
+  sh:not [
+    sh:property [
+      sh:path persoon:registratie
+      ] , [
+      sh:path persoon:heeftGeboorte
       ]
-    ]
-    [
-    # Fictional example to illustrate a disallow inverse predicate
-    # specification. Users cannot access `mandaat:isBestuurlijkeAliasVan`
-    # triples with a `persoon:Persoon` as object.
-    # ("persoon:Persoon" <x "mandaat:isBestuurlijkeAliasVan")
-      sh:targetClass persoon:Persoon ;
-      sh:not [
-        sh:property [
-          sh:path [ sh:inversePath mandaat:isBestuurlijkeAliasVan ]
-        ]
+    ] .
+
+## Fictional example to illustrate a disallow inverse predicate
+## specification. Users cannot access `mandaat:isBestuurlijkeAliasVan` triples
+## with a `persoon:Persoon` as object.  ("persoon:Persoon" <x
+## "mandaat:isBestuurlijkeAliasVan")
+ext:personInversPathAsset a odrl:Asset , sh:NodeShape ;
+  odrl:partOf ext:lmbOrganizationMandatesSlice ;
+  sh:targetClass persoon:Persoon ;
+  sh:not [
+    sh:property [
+      sh:path [ sh:inversePath mandaat:isBestuurlijkeAliasVan ]
       ]
-    ]
-  ).
+    ] .

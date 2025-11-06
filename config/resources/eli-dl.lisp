@@ -15,7 +15,7 @@
                 (:web :url ,(s-prefix "oparl-temp:web"))
                 (:deleted :boolean ,(s-prefix "oparl-temp:deleted"))
                 (:had-activity-type :url ,(s-prefix "eli-dl:had_activity_type"))
-                (:access-rights :uri ,(s-prefix "dcterms:accessRights")))
+                (:access-rights :uri ,(s-prefix "dct:accessRights")))
   :has-one `((location :via ,(s-prefix "vcard:hasLocality")
                        :as "has-locality"))
   :has-many `((organization :via ,(s-prefix "eli-dl:had_responsible_organization")

@@ -1,3 +1,7 @@
+networks:
+  debug:
+    driver: bridge
+    name: debug
 services:
   identifier:
     ports:
@@ -5,15 +9,28 @@ services:
     restart: "no"
   dispatcher:
     restart: "no"
+    networks:
+      - default
+      - debug
   database:
     restart: "no"
+    networks:
+      - default
+      - debug
   virtuoso:
     ports:
       - "8890:8890"
     restart: "no"
+    networks:
+      - default
+      - debug
   resource:
     restart: "no"
   file:
+    restart: "no"
+  mocklogin:
+    image: lblod/mock-login-service:0.7.0
+  migrations:
     restart: "no"
   decisions-ghent-consumer:
     restart: no
