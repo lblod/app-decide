@@ -95,11 +95,11 @@ services:
       DCR_INITIAL_SYNC_JOB_OPERATION: http://redpencil.data.gift/id/jobs/concept/JobOperation/deltas/consumer/initialSync/decisions-lokaal-beslist
       DCR_DELTA_SYNC_JOB_OPERATION: http://redpencil.data.gift/id/jobs/concept/JobOperation/deltas/consumer/deltaSync/decisions-ghent
       DCR_JOB_CREATOR_URI: http://data.lblod.info/services/id/decisions-ghent-consumer
-      DCR_ENABLE_DELTA_CONTEXT: true # Mirror copy producer data to landing zone graph
-      DCR_LANDING_ZONE_GRAPH: http://mu.semte.ch/graphs/oslo-decisions/landing
+      INGEST_GRAPH: http://mu.semte.ch/graphs/oslo-decisions/landing
       DCR_DISABLE_INITIAL_SYNC: false
       DCR_DISABLE_DELTA_INGEST: true
       BYPASS_MU_AUTH_FOR_EXPENSIVE_QUERIES: true
+      BATCH_SIZE: 1000
     labels:
       - logging=true
     restart: always
