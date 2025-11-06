@@ -85,3 +85,22 @@ services:
       CREDENTIAL_TYPE: DecideCredential
       NO_DID_PREFIX: true
       SINGLE_CREDENTIAL_RESPONSE: true
+  lokaal-beslist-consumer:
+    image: lblod/delta-consumer:feature-initial-sync-with-virtuoso-dump
+    environment:
+      DCR_SERVICE_NAME: lokaal-beslist-consumer
+      DCR_SYNC_BASE_URL: https://lokaalbeslist-harvester-1.s.redhost.be/ # Harvester 1 hosts Ghent decisions
+      DCR_SYNC_FILES_PATH: /sync/besluiten/files
+      DCR_SYNC_DATASET_SUBJECT: http://data.lblod.info/datasets/delta-producer/dumps/lblod-harvester/BesluitenCacheGraphDump
+      DCR_INITIAL_SYNC_JOB_OPERATION: http://redpencil.data.gift/id/jobs/concept/JobOperation/deltas/consumer/initialSync/decisions-lokaal-beslist
+      DCR_DELTA_SYNC_JOB_OPERATION: http://redpencil.data.gift/id/jobs/concept/JobOperation/deltas/consumer/deltaSync/decisions-ghent
+      DCR_JOB_CREATOR_URI: http://data.lblod.info/services/id/decisions-ghent-consumer
+      DCR_ENABLE_DELTA_CONTEXT: true # Mirror copy producer data to landing zone graph
+      DCR_LANDING_ZONE_GRAPH: http://mu.semte.ch/graphs/oslo-decisions/landing
+      DCR_DISABLE_INITIAL_SYNC: false
+      DCR_DISABLE_DELTA_INGEST: true
+      BYPASS_MU_AUTH_FOR_EXPENSIVE_QUERIES: true
+    labels:
+      - logging=true
+    restart: always
+    logging: *default-logging
