@@ -96,9 +96,53 @@ services:
       - "logging=true"
     restart: always
     logging: *default-logging
+  job-controller:
+    image: lblod/job-controller-service:1.2.0
+    volumes:
+      - ./config/job-controller:/config
+    environment:
+      MU_APPLICATION_GRAPH: "http://mu.semte.ch/graphs/harvesting"
+    labels:
+      - "logging=true"
+    restart: always
+    logging: *default-logging
+  harvest_diff:
+    image: lblod/harvesting-diff-service:0.3.0
+    environment:
+      # SLEEP_BETWEEN_JOB_MS: 100 --> replaced by a semaphore (max nbcpu conccurent tasks)
+      TARGET_GRAPH: "http://mu.semte.ch/graphs/harvesting"
+      PUBLICATION_GRAPH: "http://mu.semte.ch/graphs/public"
+      LIMIT_SIZE: 2000
+      LOGGING_LEVEL: "INFO"
+    volumes:
+      - ./data/files:/share
+    labels:
+      - "logging=true"
+    restart: always
+    logging: *default-logging
+
+  harvest_sameas:
+    image: lblod/import-with-sameas-service:4.8.0
+    environment:
+      RENAME_DOMAIN: "http://data.lblod.info/id/"
+      TARGET_GRAPH: "http://mu.semte.ch/graphs/public"
+      HIGH_LOAD_DATABASE_ENDPOINT: "http://virtuoso:8890/sparql"
+      ROLLBACK_ENABLED: "false"
+      TASK_TIMEOUT_HOURS: "20"
+      LOG_SPARQL_ALL: "false"
+      DEBUG_AUTH_HEADERS: "false"
+    volumes:
+      - ./config/same-as-service:/config
+      - ./data/files:/share
+    labels:
+      - "logging=true"
+    restart: always
+    logging: *default-logging
   oparl-to-eli:
-    image: semtech/mu-javascript-template:1.9.0
+    image: lblod/oparl-to-eli-service:latest
     volumes:
       - ./config/oparl-to-eli/:/config/
+      - ./data/files:/share
     environment:
       OPARL_ENDPOINT: "https://ris.freiburg.de/oparl"
+      SUDO_QUERY_RETRY_FOR_HTTP_STATUS_CODES: "500"
