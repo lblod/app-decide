@@ -49,6 +49,11 @@ defmodule Dispatcher do
   #################
   # by setting an ISSUER_URL with a path component, we can in theory host multiple issuers on the same domain.
   # it does require fiddling a bit with the 'well known paths' though.
+
+  match "/vc-verifier/sessions/*path", %{ layer: :static, accept: [:any]} do
+    Proxy.forward conn, path, "http://vc-issuer/sessions/"
+  end
+
    match "/vc-verifier/*path", %{ accept: [:any], layer: :static } do
     Proxy.forward conn, path, "http://vc-issuer/verifier/"
   end
