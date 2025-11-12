@@ -34,3 +34,5 @@ services:
     restart: "no"
   lokaal-beslist-consumer:
     restart: no
+  decisions-ghent-filter:
+    restart: no
