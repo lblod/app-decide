@@ -1,0 +1,64 @@
+@prefix besluit: <http://data.vlaanderen.be/ns/besluit#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+# -------------------------------
+# ✅ CORRECT besluiten (should be selected)
+# -------------------------------
+
+<http://example.org/id/besluiten/correct/1> a besluit:Besluit .
+<http://example.org/id/behandelingen/correct/1> prov:generated <http://example.org/id/besluiten/correct/1> .
+<http://example.org/id/agendapunten/correct/1> dcterms:subject <http://example.org/id/behandelingen/correct/1> .
+<http://example.org/id/vergaderingen/correct/1>
+    besluit:behandelt <http://example.org/id/agendapunten/correct/1> ;
+    besluit:isGehoudenDoor <http://data.lblod.info/id/bestuursorganen/6efc9b0c3ebb3371031d45e517d88f66eb115adf28e5e1827684522f56a8aa2> .
+
+<http://example.org/id/besluiten/correct/2> a besluit:Besluit .
+<http://example.org/id/behandelingen/correct/2> prov:generated <http://example.org/id/besluiten/correct/2> .
+<http://example.org/id/agendapunten/correct/2> dcterms:subject <http://example.org/id/behandelingen/correct/2> .
+<http://example.org/id/vergaderingen/correct/2>
+    besluit:behandelt <http://example.org/id/agendapunten/correct/2> ;
+    besluit:isGehoudenDoor <http://data.lblod.info/id/bestuursorganen/c126b20bc1a94de293b7fceaf998c82e9a7a1d56ba34cbf9992aa4bf01ae2b0> .
+
+<http://example.org/id/besluiten/correct/3> a besluit:Besluit .
+<http://example.org/id/behandelingen/correct/3> prov:generated <http://example.org/id/besluiten/correct/3> .
+<http://example.org/id/agendapunten/correct/3> dcterms:subject <http://example.org/id/behandelingen/correct/3> .
+<http://example.org/id/vergaderingen/correct/3>
+    besluit:behandelt <http://example.org/id/agendapunten/correct/3> ;
+    besluit:isGehoudenDoor <http://data.lblod.info/id/bestuursorganen/c55fc5e892d9540e8d2463b4377e1f4b2caad04b280118f9fc408e5df61f573> .
+
+<http://example.org/id/besluiten/correct/4> a besluit:Besluit .
+<http://example.org/id/behandelingen/correct/4> prov:generated <http://example.org/id/besluiten/correct/4> .
+<http://example.org/id/agendapunten/correct/4> dcterms:subject <http://example.org/id/behandelingen/correct/4> .
+<http://example.org/id/vergaderingen/correct/4>
+    besluit:behandelt <http://example.org/id/agendapunten/correct/4> ;
+    besluit:isGehoudenDoor <http://data.lblod.info/id/bestuursorganen/304b1cf175214a830ab2000c5f38fd688524e34d33a0fda4466693378aef8a4> .
+
+<http://example.org/id/besluiten/correct/5> a besluit:Besluit .
+<http://example.org/id/behandelingen/correct/5> prov:generated <http://example.org/id/besluiten/correct/5> .
+<http://example.org/id/agendapunten/correct/5> dcterms:subject <http://example.org/id/behandelingen/correct/5> .
+<http://example.org/id/vergaderingen/correct/5>
+    besluit:behandelt <http://example.org/id/agendapunten/correct/5> ;
+    besluit:isGehoudenDoor <http://data.lblod.info/id/bestuursorganen/325c479023eed57b44ecdc40bb1c1b1b42a213975ca01f5a127bee6e9a4e798> .
+
+
+# -------------------------------
+# ❌ OUT-OF-SCOPE besluiten (should NOT be selected)
+# -------------------------------
+
+# A: different bestuursorgaan not in your list
+<http://example.org/id/besluiten/out-other-orgaan/1> a besluit:Besluit .
+<http://example.org/id/behandelingen/out-other-orgaan/1> prov:generated <http://example.org/id/besluiten/out-other-orgaan/1> .
+<http://example.org/id/agendapunten/out-other-orgaan/1> dcterms:subject <http://example.org/id/behandelingen/out-other-orgaan/1> .
+<http://example.org/id/vergaderingen/out-other-orgaan/1>
+    besluit:behandelt <http://example.org/id/agendapunten/out-other-orgaan/1> ;
+    besluit:isGehoudenDoor <http://data.lblod.info/id/bestuursorganen/not-in-your-list-1> .
+
+# B: broken chain – no prov:generated link
+<http://example.org/id/besluiten/out-missing-chain/1> a besluit:Besluit .
+
+# C: broken chain – missing besluit:behandelt
+<http://example.org/id/besluiten/out-missing-behandelt/1> a besluit:Besluit .
+<http://example.org/id/behandelingen/out-missing-behandelt/1> prov:generated <http://example.org/id/besluiten/out-missing-behandelt/1> .
+<http://example.org/id/agendapunten/out-missing-behandelt/1> dcterms:subject <http://example.org/id/behandelingen/out-missing-behandelt/1> .
+
