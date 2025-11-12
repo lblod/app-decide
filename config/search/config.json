@@ -12,7 +12,12 @@
         },
         "german_analyzer": {
           "tokenizer": "standard",
-          "filter": ["lowercase", "asciifolding", "german_stemmer"]
+          "filter": [
+            "lowercase",
+            "asciifolding",
+            "german_stemmer",
+            "german_stop"
+          ]
         }
       },
       "filter": {
@@ -27,6 +32,10 @@
         "dutch_stop": {
           "type": "stop",
           "stopwords": "_dutch_"
+        },
+        "german_stop": {
+          "type": "stop",
+          "stopwords": "_german_"
         }
       }
     }
