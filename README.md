@@ -40,3 +40,15 @@ This should be your go-to way of starting the stack.
 ```bash
 docker compose up -d # run without -d flag when you don't want to run it in the background
 ```
+
+### Consuming decisions
+
+Decision data from Lokaal Beslist is ingested by a consumer. The initial sync and/or delta ingest should be enabled manually in `docker-compose.override.yml`:
+
+```yml
+services:
+  lokaal-beslist-consumer:
+    environment:
+      DCR_DISABLE_INITIAL_SYNC: false
+      DCR_DISABLE_DELTA_INGEST: false
+```
