@@ -113,9 +113,9 @@ services:
   decisions-ghent-filter:
     image: lblod/decide-ghent-decisions-extraction-service
     environment:
-      DCR_BATCH_SIZE: 1000
-      DCR_SLEEP_BETWEEN_BATCHES: 5
-      DCR_INPUT_GRAPH: http://mu.semte.ch/graphs/oslo-decisions/landing
+      BATCH_SIZE: 1000
+      SLEEP_BETWEEN_BATCHES: 5
+      INPUT_GRAPH: http://mu.semte.ch/graphs/oslo-decisions/landing
     labels:
       - logging=true
     restart: always
