@@ -99,8 +99,7 @@ services:
       DCR_DISABLE_INITIAL_SYNC: false
       DCR_DISABLE_DELTA_INGEST: true
       BYPASS_MU_AUTH_FOR_EXPENSIVE_QUERIES: true
-      BATCH_SIZE: 1000
-      MAX_DB_RETRY_ATTEMPTS: 5
+      DCR_BATCH_SIZE: 5000
       SLEEP_BETWEEN_BATCHES: 5
     labels:
       - logging=true
