@@ -29,6 +29,8 @@ services:
     restart: always
     logging: *default-logging
   virtuoso:
+    ports:
+      - "8890:8890"
     image: redpencil/virtuoso:1.3.0
     environment:
       SPARQL_UPDATE: "true"
@@ -89,7 +91,7 @@ services:
     labels:
       - "logging=true"
   deltanotifier:
-    image: semtech/mu-delta-notifier:0.0.4
+    image: semtech/mu-delta-notifier:0.4.0
     volumes:
       - ./config/delta:/config
     labels:
@@ -109,7 +111,6 @@ services:
   harvest_diff:
     image: lblod/harvesting-diff-service:0.3.0
     environment:
-      # SLEEP_BETWEEN_JOB_MS: 100 --> replaced by a semaphore (max nbcpu conccurent tasks)
       TARGET_GRAPH: "http://mu.semte.ch/graphs/harvesting"
       PUBLICATION_GRAPH: "http://mu.semte.ch/graphs/public"
       LIMIT_SIZE: 2000
