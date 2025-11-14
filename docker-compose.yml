@@ -60,6 +60,8 @@ services:
     volumes:
       - ./scripts/:/app/scripts/
     restart: "no"
+  dcat:
+    image: lblod/dcat-service:0.0.1
   odrl-parser:
     image: lblod/odrl-parser-service:0.0.3
     volumes:

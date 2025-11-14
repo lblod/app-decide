@@ -213,6 +213,14 @@ defmodule Dispatcher do
   end
 
   #################
+  # DCAT
+  #################
+
+  match "/dcat/*path" do
+    forward(conn, path, "http://dcat/")
+  end
+
+  #################
   # NOT FOUND
   #################
 
