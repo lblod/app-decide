@@ -85,6 +85,10 @@ services:
       CREDENTIAL_TYPE: DecideCredential
       NO_DID_PREFIX: true
       SINGLE_CREDENTIAL_RESPONSE: true
+
+  ################################################################################
+  # GHENT DECISIONS PIPELINE
+  ################################################################################
   lokaal-beslist-consumer:
     image: lblod/delta-consumer:feature-initial-sync-with-virtuoso-dump
     environment:
@@ -101,6 +105,16 @@ services:
       BYPASS_MU_AUTH_FOR_EXPENSIVE_QUERIES: true
       DCR_BATCH_SIZE: 5000
       SLEEP_BETWEEN_BATCHES: 5
+    labels:
+      - logging=true
+    restart: always
+    logging: *default-logging
+  decisions-ghent-filter:
+    image: lblod/decide-ghent-decisions-extraction-service
+    environment:
+      BATCH_SIZE: 1000
+      SLEEP_BETWEEN_BATCHES: 5
+      INPUT_GRAPH: http://mu.semte.ch/graphs/oslo-decisions/landing
     labels:
       - logging=true
     restart: always
