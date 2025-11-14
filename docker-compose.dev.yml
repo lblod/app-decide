@@ -32,3 +32,5 @@ services:
     image: lblod/mock-login-service:0.7.0
   migrations:
     restart: "no"
+  lokaal-beslist-consumer:
+    restart: no
