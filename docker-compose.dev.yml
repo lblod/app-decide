@@ -18,8 +18,6 @@ services:
       - default
       - debug
   virtuoso:
-    ports:
-      - "8891:8890"
     restart: "no"
     networks:
       - default
