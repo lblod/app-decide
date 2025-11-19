@@ -29,8 +29,6 @@ services:
     restart: always
     logging: *default-logging
   virtuoso:
-    ports:
-      - "8890:8890"
     image: redpencil/virtuoso:1.3.0
     environment:
       SPARQL_UPDATE: "true"
