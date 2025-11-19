@@ -38,3 +38,7 @@ services:
     restart: "no"
   oparl-to-eli:
     restart: "no"
+  lokaal-beslist-consumer:
+    restart: no
+  decisions-ghent-filter:
+    restart: no

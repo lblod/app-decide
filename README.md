@@ -48,3 +48,15 @@ There are two main pain points:
 
 1. Mac has an arm64 processor, a lot of the services don't have a multi-platform image. In the case they only have a amd64 image, docker will gave you a warning about this. In general this is not a real problem since your macbook can just emulate amd64, but still the warnings are annoying, so these are suppressed.
 2. At the moment this project was setup the service mu-identifier weren't working for mac (at least on my device), so you have to build these yourself, and gave them the appropriate image name and tag.
+
+### Consuming decisions
+
+Decision data from Lokaal Beslist is ingested by a consumer. The initial sync and/or delta ingest should be enabled manually in `docker-compose.override.yml`:
+
+```yml
+services:
+  lokaal-beslist-consumer:
+    environment:
+      DCR_DISABLE_INITIAL_SYNC: false
+      DCR_DISABLE_DELTA_INGEST: false
+```
