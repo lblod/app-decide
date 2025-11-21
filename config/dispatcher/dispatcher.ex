@@ -88,6 +88,19 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://vc-issuer/issuer/"
   end
 
+
+  #################
+  # OPARL PROXY
+  #################
+  
+  match "/oparl/*path", %{ accept: [:any], layer: :api_services } do
+    Proxy.forward conn, path, "http://oparl-to-eli/oparl/"
+  end
+
+  match "/eli/*path", %{ accept: [:any], layer: :api_services } do
+    Proxy.forward conn, path, "http://oparl-to-eli/eli/"
+  end
+
   #################
   # RESOURCES
   #################

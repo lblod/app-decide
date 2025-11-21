@@ -1,3 +1,12 @@
+;;;;;;;;;;;;;;;;;;;
+;;; delta messenger
+(in-package :delta-messenger)
+
+(setf *delta-handlers* nil)
+(add-delta-logger)
+(add-delta-messenger "http://deltanotifier/")
+
+
 ; CONFIGURATION
 
 (in-package :client)

@@ -1,0 +1,33 @@
+services:
+  identifier:
+    image: benfidlers/mu-identifier:1.10.3-arm64
+  dispatcher:
+    platform: linux/amd64
+  virtuoso:
+    platform: linux/arm64
+  database:
+    platform: linux/amd64
+  deltanotifier:
+    image: semtech/mu-delta-notifier:latest
+    platform: linux/arm64
+  odrl-parser:
+    platform: linux/arm64
+  vc-issuer:
+    platform: linux/amd64
+  mocklogin:
+    platform: linux/amd64
+  migrations:
+    platform: linux/amd64
+  job-controller:
+    platform: linux/arm64
+  harvest_sameas:
+    image: brechtvdv/import-with-sameas-service-arm:latest
+    platform: linux/arm64
+  harvest_diff:
+    platform: linux/amd64
+  oparl-to-eli:
+    image: brechtvdv/mu-javascript-template:1.9.1
+    platform: linux/arm64
+  project-scripts:
+    platform: linux/amd64
+

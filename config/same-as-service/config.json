@@ -1,0 +1,24 @@
+{"known-domains": [
+    "data.lblod.info",
+    "data.vlaanderen.be",
+    "mu.semte.ch",
+    "data.europa.eu",
+    "purl.org",
+    "www.ontologydesignpatterns.org",
+    "www.w3.org",
+    "xmlns.com",
+    "www.semanticdesktop.org",
+    "schema.org",
+    "centrale-vindplaats.lblod.info",
+    "publications.europa.eu"
+  ],
+  "predicates-to-ignore": [
+   "http://www.w3.org/ns/prov#wasDerivedFrom"
+  ],
+  "protocols-to-rename": [
+    "http:",
+    "https:",
+    "ftp:",
+    "ftps:"
+  ]
+}
