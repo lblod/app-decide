@@ -23,15 +23,15 @@ defmodule Dispatcher do
 
   # self-service
   match "/index.html", %{layer: :static} do
-    forward(conn, [], "http://frontend/index.html")
+    forward(conn, [], "http://frontend-harvesting/index.html")
   end
 
   get "/assets/*path", %{layer: :static} do
-    forward(conn, path, "http://frontend/assets/")
+    forward(conn, path, "http://frontend-harvesting/assets/")
   end
 
   get "/@appuniversum/*path", %{layer: :static} do
-    forward(conn, path, "http://frontend/@appuniversum/")
+    forward(conn, path, "http://frontend-harvesting/@appuniversum/")
   end
 
   #################
@@ -41,7 +41,7 @@ defmodule Dispatcher do
   # self-service
   match "/*path", %{layer: :frontend_fallback, accept: %{html: true}} do
     # we don't forward the path, because the app should take care of this in the browser.
-    forward(conn, [], "http://frontend/index.html")
+    forward(conn, [], "http://frontend-harvesting/index.html")
   end
 
   #################
@@ -86,6 +86,48 @@ defmodule Dispatcher do
   # layer order matters! we need to intercept the .well-known variants first, hence :static
   match "/vc-issuer/*path", %{ accept: [:any], layer: :api_services } do
     Proxy.forward conn, path, "http://vc-issuer/issuer/"
+  end
+
+  #################
+  # Frontend Harvesting
+  #################
+  match "/jobs/*path", %{accept: [:json], layer: :api_services} do
+    Proxy.forward conn, path, "http://resource/jobs/"
+  end
+ match "/tasks/*path", %{accept: [:json], layer: :api_services} do
+    Proxy.forward conn, path, "http://resource/tasks/"
+  end
+
+  match "/data-containers/*path", %{accept: [:json], layer: :api_services} do
+    Proxy.forward conn, path, "http://resource/data-containers/"
+  end
+
+  match "/job-errors/*path", %{accept: [:json], layer: :api_services} do
+    Proxy.forward conn, path, "http://resource/job-errors/"
+  end
+
+  match "/reports/*path", %{accept: [:json], layer: :api_services} do
+    Proxy.forward conn, path, "http://resource/reports/"
+  end
+
+  match "/log-entries/*path", %{accept: [:json], layer: :api_services} do
+    Proxy.forward conn, path, "http://resource/log-entries/"
+  end
+
+  match "/log-levels/*path", %{accept: [:json], layer: :api_services} do
+    Proxy.forward conn, path, "http://resource/log-levels/"
+  end
+
+  match "/status-codes/*path", %{accept: [:json], layer: :api_services} do
+    Proxy.forward conn, path, "http://resource/status-codes/"
+  end
+
+  match "/log-sources/*path", %{accept: [:json], layer: :api_services} do
+    Proxy.forward conn, path, "http://resource/log-sources/"
+  end
+
+  match "/remote-data-objects/*path", %{accept: [:json], layer: :api_services} do
+    Proxy.forward conn, path, "http://resource/remote-data-objects/"
   end
 
 

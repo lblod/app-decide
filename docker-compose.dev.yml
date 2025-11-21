@@ -34,6 +34,8 @@ services:
     restart: "no"
   deltanotifier:
     restart: "no"
+  frontend-harvesting:
+    restart: "no"
   oparl-to-eli:
     restart: "no"
   lokaal-beslist-consumer:

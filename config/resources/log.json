@@ -1,0 +1,100 @@
+{
+    "version": "0.1",
+    "prefixes": {
+        "dct": "http://purl.org/dc/terms/",
+        "ext": "http://mu.semte.ch/vocabularies/ext/",
+        "rlog": "http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#",
+        "skos": "http://www.w3.org/2004/02/skos/core#"
+    },
+    "resources": {
+        "log-entries": {
+            "name": "log-entry",
+            "class": "rlog:Entry",
+            "attributes": {
+                "class-name": {
+                    "type": "url",
+                    "predicate": "rlog:className"
+                },
+                "message": {
+                    "type": "string",
+                    "predicate": "rlog:message"
+                },
+                "specific-information": {
+                    "type": "string",
+                    "predicate": "ext:specificInformation"
+                },
+                "datetime": {
+                    "type": "datetime",
+                    "predicate": "rlog:date"
+                }
+            },
+            "relationships": {
+                "log-level": {
+                    "predicate": "rlog:level",
+                    "target": "log-level",
+                    "cardinality": "one"
+                },
+                "status-code": {
+                    "predicate": "rlog:hasCode",
+                    "target": "status-code",
+                    "cardinality": "one"
+                },
+                "log-source": {
+                    "predicate": "dct:source",
+                    "target": "log-source",
+                    "cardinality": "one"
+                }
+            },
+            "features": [
+                "include-uri"
+            ],
+            "new-resource-base": "http://data.lblod.info/id/log-entries/"
+        },
+        "log-levels": {
+            "name": "log-level",
+            "class": "rlog:Level",
+            "attributes": {
+                "priority": {
+                    "type": "number",
+                    "predicate": "rlog:priority"
+                },
+                "label": {
+                    "type": "string",
+                    "predicate": "skos:prefLabel"
+                }
+            },
+            "features": [
+                "include-uri"
+            ],
+            "new-resource-base": "http://data.lblod.info/id/log-levels/"
+        },
+        "status-codes": {
+            "name": "status-code",
+            "class": "rlog:StatusCode",
+            "attributes": {
+                "code": {
+                    "type": "number",
+                    "predicate": "rlog:codeId"
+                }
+            },
+            "features": [
+                "include-uri"
+            ],
+            "new-resource-base": "http://data.lblod.info/id/status-codes/"
+        },
+        "log-sources": {
+            "name": "log-source",
+            "class": "ext:LogSource",
+            "attributes": {
+                "label": {
+                    "type": "string",
+                    "predicate": "skos:prefLabel"
+                }
+            },
+            "features": [
+                "include-uri"
+            ],
+            "new-resource-base": "http://data.lblod.info/id/log-sources/"
+        }
+    }
+}
