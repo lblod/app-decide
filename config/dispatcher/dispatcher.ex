@@ -243,6 +243,18 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://resource/complex-works/"
   end
 
+  #################################################################
+  # FILES
+  #################################################################
+
+  get "/files/:id/download", %{accept: [:any]} do
+    Proxy.forward(conn, [], "http://file/files/" <> id <> "/download")
+  end
+
+  get "/files/*path", %{layer: :api_services, accept: %{json: true}} do
+    Proxy.forward(conn, path, "http://resource/files/")
+  end
+  
   #################
   # LOGIN
   #################
