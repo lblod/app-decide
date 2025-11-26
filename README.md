@@ -60,3 +60,13 @@ services:
       DCR_DISABLE_INITIAL_SYNC: false
       DCR_DISABLE_DELTA_INGEST: false
 ```
+
+## Configuring the dashboard
+### Accessing the dashboard from your local machine
+
+Since we use dispatcher v2, which dispatches on hostname, we'll have to update `/etc/hosts`.
+Add an entry similar to the following. Ensure the first part of the domain starts with `dashboard`.:
+
+```
+127.0.0.1 dashboard.localhost
+```
