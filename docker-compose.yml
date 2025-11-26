@@ -184,7 +184,7 @@ services:
   oslo-eli-transformer:
     image: lblod/decide-oslo-to-eli-transformation-service
     environment:
-      BATCH_SIZE: 1000
+      BATCH_SIZE: 100
       SLEEP_BETWEEN_BATCHES: 5
       INPUT_DECISION_RESOURCES_GRAPH: http://mu.semte.ch/graphs/oslo-decisions/ghent/besluit
       INPUT_DATA_GRAPH: http://mu.semte.ch/graphs/oslo-decisions/landing
