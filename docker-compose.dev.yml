@@ -40,3 +40,5 @@ services:
     restart: no
   decisions-ghent-filter:
     restart: no
+  oslo-eli-transformer:
+    restart: no
