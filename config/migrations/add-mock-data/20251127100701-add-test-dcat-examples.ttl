@@ -1,0 +1,77 @@
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix cms: <http://mu.semte.ch/vocabulary/cms/> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcatap: <http://data.europa.eu/r5r/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix eurovoc: <http://eurovoc.europa.eu/> .
+@prefix ex: <http://example.org/> .
+@prefix ext: <http://mu.semte.ch/vocabularies/ext/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix ldes: <https://w3id.org/ldes#> .
+@prefix mu: <http://mu.semte.ch/vocabularies/core/> .
+@prefix odrl: <https://www.w3.org/TR/odrl-vocab/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix license: <https://spdx.org/licenses/> .
+
+<http://data.lblod.info/id/catalogs/5d39120a-9575-41aa-b098-a63d6df99e6b>
+    dcat:dataset
+        <http://data.lblod.info/id/datasets/85635ee7-f574-4771-9b8a-bd2351eb3969> ,
+        <http://data.lblod.info/id/datasets/31edaab6-c68e-44ac-89e7-1d61f167fcae> .
+
+
+# Lokaal mandatenbeheer
+<http://data.lblod.info/id/datasets/85635ee7-f574-4771-9b8a-bd2351eb3969>
+    a dcat:Dataset;
+    mu:uuid "85635ee7-f574-4771-9b8a-bd2351eb3969" ;
+    dct:identifier "urn:uuid:85635ee7-f574-4771-9b8a-bd2351eb3969" ;
+    dct:title "Lokaal mandatenbeheer"@nl ;
+    dct:description "Lokaal mandatenbeheer"@nl ;
+    dcat:distribution <http://data.lblod.info/id/distributions/f14e40a9-029b-49f2-bbfd-8084c9d76899> ;
+    dcat:keyword "local government"@en ;
+    dcat:theme eurovoc:68 ;
+    dct:spatial <http://publications.europa.eu/resource/authority/atu/BEL_CGG_VLA> ;
+    dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC> ;
+    dcat:landingPage <https://mandatenbeheer.lokaalbestuur.vlaanderen.be/> .
+
+<http://data.lblod.info/id/distributions/f14e40a9-029b-49f2-bbfd-8084c9d76899>
+    a dcat:Distribution ;
+    mu:uuid "f14e40a9-029b-49f2-bbfd-8084c9d76899" ;
+    dct:title "Linked Data Event Stream"@en ;
+    dct:issued "2025-11-14"^^xsd:date ;
+    dct:modified "2025-11-14"^^xsd:date ;
+    dct:license license:CC0-1.0 ;
+    dcat:accessURL <https://mandatenbeheer.lokaalbestuur.vlaanderen.be/streams/ldes/public/1> ;
+    dct:rights <http://publications.europa.eu/resource/authority/access-right/PUBLIC> ;
+    dct:format <http://publications.europa.eu/resource/authority/file-type/JSON_LD> .
+
+# Centrale vindplaats
+
+<http://data.lblod.info/id/datasets/31edaab6-c68e-44ac-89e7-1d61f167fcae>
+    a dcat:Dataset;
+    mu:uuid "31edaab6-c68e-44ac-89e7-1d61f167fcae" ;
+    dct:identifier "urn:uuid:31edaab6-c68e-44ac-89e7-1d61f167fcae" ;
+    dct:title "Centrale vindplaats"@nl ;
+    dct:description "Informatie die ontsloten werd in onder andere notulen, besluiten en codelijsten."@nl ;
+    dcat:distribution <http://data.lblod.info/id/distributions/c38282be-54ba-4d01-bc70-e1207bc7668b> ;
+    dcat:keyword "local government"@en, "notes"@en, "decisions"@en, "code lists"@en;
+    dcat:theme eurovoc:68 ;
+    dct:spatial <http://publications.europa.eu/resource/authority/atu/BEL_CGG_VLA> ;
+    dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC> ;
+    dcat:landingPage <https://centrale-vindplaats.lblod.info/> .
+
+<http://data.lblod.info/id/distributions/c38282be-54ba-4d01-bc70-e1207bc7668b>
+    a dcat:Distribution;
+    mu:uuid "c38282be-54ba-4d01-bc70-e1207bc7668b";
+    dct:title "Centrale Vindplaats: SPARQL"@nl ;
+    dct:description "Gebruik queries om informatie te doorzoeken die ontsloten werd in onder andere notulen, besluiten en codelijsten."@nl ;
+    dct:issued "2025-11-14"^^xsd:date ;
+    dct:modified "2025-11-14"^^xsd:date ;
+    dct:license license:CC0-1.0 ;
+    dct:rights <http://publications.europa.eu/resource/authority/access-right/PUBLIC> ;
+    dcat:accessURL <https://centrale-vindplaats.lblod.info/sparql> ;
+    dct:format <http://publications.europa.eu/resource/authority/file-type/SPARQLRES> .
