@@ -1,0 +1,50 @@
+@prefix odrl: <http://www.w3.org/ns/odrl/2/> .
+@prefix ext: <http://mu.semte.ch/vocabularies/ext/> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ext:exampleOffer a odrl:Offer ;
+  # The `target` and `assigner` will be shared for all contained rules, see
+  # <https://www.w3.org/TR/odrl-model/#composition-compact>
+  odrl:target <http://data.lblod.info/id/datasets/123e4567-e89b-12d3-a456-426614174000> ;
+  odrl:assigner ext:decideParty ;
+  # Rules
+  odrl:permission ext:readPermission ;
+  odrl:permission ext:distributePermission ;
+  odrl:duty ext:attributeDuty ;
+  odrl:prohibition ext:sellProhibition .
+
+ext:readPermission a odrl:Permission ;
+  odrl:action odrl:read .
+
+ext:distributePermission a odrl:Permission ;
+  odrl:action odrl:distribute ;
+  odrl:constraint ext:afterDateConstraint ;
+  odrl:constraint ext:exampleConstraint .
+
+ext:afterDateConstraint a odrl:Constraint ;
+  odrl:leftOperand "dateTime" ;
+  odrl:operator "gt" ;
+  odrl:rightOperand "2026-09-01"^^xsd:date .
+
+ext:exampleConstraint a odrl:Constraint ;
+  odrl:leftOperand 1 ;
+  odrl:operator "eq" ;
+  odrl:rightOperand 1 .
+
+ext:sellProhibition a odrl:Prohibition ;
+  # Definition of `odrl:sell`: "To transfer the ownership of the Asset to a
+  # third party with compensation and while deleting the original asset."
+  # <https://www.w3.org/TR/odrl-vocab/#term-sell>
+  odrl:action odrl:sell .
+
+# Example Duty to illustrate how we could use that to require that DECIDe is
+# attributed for the shared dataset.
+ext:attributeDuty a odrl:Duty ;
+  odrl:action odrl:attribute ;
+  odrl:attributedParty ext:decideParty .
+
+ext:decideParty a odrl:Party ;
+  vcard:fn "DECIDe application" ;
+  vcard:hasEmail "decide@lblod.info" ; # Fictitious email for example purposes
+  vcard:hasURL "https://ds.decide.lblod.info" . # Fictitious url for example purposes
