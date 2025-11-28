@@ -1,16 +1,40 @@
 {
-    "http://lblod.data.gift/id/jobs/concept/JobOperation/harvesting/oparl": {
-        "tasksConfiguration": [
-            {
-                "currentOperation": null,
-                "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/harvesting/oparl",
-                "nextIndex": "0"
-            },
-            {
-                "currentOperation":  "http://lblod.data.gift/id/jobs/concept/TaskOperation/harvesting/oparl",
-                "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/publishHarvestedTriples",
-                "nextIndex": "1"
-              }
-        ]
-    }
+  "http://lblod.data.gift/id/jobs/concept/JobOperation/harvesting/oparl": {
+    "tasksConfiguration": [
+      {
+        "currentOperation": null,
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/harvesting/oparl",
+        "nextIndex": "0"
+      },
+      {
+        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/harvesting/oparl",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/publishHarvestedTriples",
+        "nextIndex": "1"
+      }
+    ]
+  },
+  "http://lblod.data.gift/id/jobs/concept/JobOperation/harvesting/pdf-to-eli": {
+    "tasksConfiguration": [
+      {
+        "currentOperation": null,
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/pdf-to-eli",
+        "nextIndex": "0"
+      },
+      {
+        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/pdf-to-eli",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/eli-translation",
+        "nextIndex": "1"
+      },
+      {
+        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/eli-translation",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/eli-entity-extracting",
+        "nextIndex": "2"
+      },
+      {
+        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/eli-entity-extracting",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/eli-entity-linking",
+        "nextIndex": "3"
+      }
+    ]
+  }
 }
