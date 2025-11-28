@@ -3,10 +3,13 @@ networks:
     driver: bridge
     name: debug
 services:
-  identifier:
+  identifier-frontend:
     ports:
       - "80:80"
     restart: "no"
+  identifier-dashboard:
+    ports:
+      - "81:80"
   dispatcher:
     restart: "no"
     networks:
