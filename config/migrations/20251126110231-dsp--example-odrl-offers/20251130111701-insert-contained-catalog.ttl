@@ -1,0 +1,23 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix ext: <http://mu.semte.ch/vocabularies/ext/> .
+@prefix odrl: <http://www.w3.org/ns/odrl/2/> .
+
+# Initial resource was added in 20251129111308-example-catalog-data.ttl
+ext:exampleContainedCatalog dcat:distribution ext:exampleDistributionForContainedCatalog ;
+  dcat:dataset ext:exampleDatasetForContainedCatalog .
+
+ext:exampleDistributionForContainedCatalog a dcat:Distribution ;
+  dcterms:title "Example distribution";
+  dcat:accessURL <https://example.org/access> ;
+  dcterms:format <http://data.lblod.info/id/formats/a6a5b899-35f3-4194-aad7-9e35448bf43d> .
+
+ext:exampleDatasetForContainedCatalog a dcat:Dataset;
+  dcterms:title "Example Dataset for a contained catalog"@en ;
+  odrl:hasPolicy ext:exampleOffer ;
+  dcat:distribution ext:exampleDistributionForDataset .
+
+ext:exampleDistributionForDataset a dcat:Distribution;
+  dcterms:title "Foo distribution" ;
+  dcat:accessURL <https://example.org/access> ;
+  dcterms:format <http://data.lblod.info/id/formats/a6a5b899-35f3-4194-aad7-9e35448bf43d> .

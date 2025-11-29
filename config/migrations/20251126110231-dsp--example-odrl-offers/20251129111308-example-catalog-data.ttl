@@ -1,0 +1,15 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix ext: <http://mu.semte.ch/vocabularies/ext/> .
+
+# Catalog added in 20251013113800-add-test-dcat-catalog-data migration
+<http://data.lblod.info/id/catalogs/5d39120a-9575-41aa-b098-a63d6df99e6b> dcat:distribution ext:exampleDistributionForCatalog ;
+  dcat:catalog ext:exampleContainedCatalog .
+
+ext:exampleDistributionForCatalog a dcat:Distribution ;
+  dcterms:title "Example distribution";
+  dcat:accessURL <https://example.org/access> ;
+  dcterms:format <http://data.lblod.info/id/formats/a6a5b899-35f3-4194-aad7-9e35448bf43d> .
+
+ext:exampleContainedCatalog a dcat:Catalog ;
+  dcterms:title "A contained catalog" .
