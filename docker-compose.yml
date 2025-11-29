@@ -62,6 +62,8 @@ services:
     restart: "no"
   dcat:
     image: lblod/dcat-service:0.0.1
+    environment:
+      BASE_URL: "https://ds.decide.lblod.info/"
   odrl-parser:
     image: lblod/odrl-parser-service:0.0.3
     volumes:
