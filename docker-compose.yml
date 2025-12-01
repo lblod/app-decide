@@ -197,3 +197,15 @@ services:
       - logging=true
     restart: always
     logging: *default-logging
+  oslo-eli-transformer:
+    image: lblod/decide-oslo-to-eli-transformation-service
+    environment:
+      BATCH_SIZE: 100
+      SLEEP_BETWEEN_BATCHES: 5
+      INPUT_DECISION_RESOURCES_GRAPH: http://mu.semte.ch/graphs/oslo-decisions/ghent/besluit
+      INPUT_DATA_GRAPH: http://mu.semte.ch/graphs/oslo-decisions/landing
+      OUTPUT_GRAPH: http://mu.semte.ch/graphs/eli-decisions/ghent
+    labels:
+      - logging=true
+    restart: always
+    logging: *default-logging
