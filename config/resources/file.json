@@ -1,0 +1,111 @@
+{
+    "version": "0.1",
+    "prefixes": {
+        "adms": "http://www.w3.org/ns/adms#",
+        "dct": "http://purl.org/dc/terms/",
+        "dbpedia": "http://dbpedia.org/ontology/",
+        "nfo": "http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#",
+        "nie": "http://www.semanticdesktop.org/ontologies/2007/01/19/nie#",
+        "rpioHttp": "http://redpencil.data.gift/vocabularies/http/",
+        "skos": "http://www.w3.org/2004/02/skos/core#",
+        "task": "http://redpencil.data.gift/vocabularies/tasks/"
+    },
+    "resources": {
+        "files": {
+            "name": "file",
+            "class": "nfo:FileDataObject",
+            "attributes": {
+                "filename": {
+                    "type": "string",
+                    "predicate": "nfo:fileName"
+                },
+                "format": {
+                    "type": "string",
+                    "predicate": "dct:format"
+                },
+                "size": {
+                    "type": "number",
+                    "predicate": "nfo:fileSize"
+                },
+                "extension": {
+                    "type": "string",
+                    "predicate": "dbpedia:fileExtension"
+                },
+                "created": {
+                    "type": "datetime",
+                    "predicate": "nfo:fileCreated"
+                }
+            },
+            "relationships": {
+                "download": {
+                    "predicate": "nie:dataSource",
+                    "target": "file",
+                    "cardinality": "one",
+                    "inverse": true
+                },
+                "data-container": {
+                    "predicate": "task:hasFile",
+                    "target": "data-container",
+                    "cardinality": "one",
+                    "inverse": true
+                }
+            },
+            "features": [
+                "include-uri"
+            ],
+            "new-resource-base": "http://data.lblod.info/files/"
+        },
+        "remote-data-objects": {
+            "name": "remote-data-object",
+            "class": "nfo:RemoteDataObject",
+            "attributes": {
+                "source": {
+                    "type": "url",
+                    "predicate": "nie:url"
+                },
+                "created": {
+                    "type": "datetime",
+                    "predicate": "dct:created"
+                },
+                "modified": {
+                    "type": "datetime",
+                    "predicate": "dct:modified"
+                },
+                "request-header": {
+                    "type": "url",
+                    "predicate": "rpioHttp:requestHeader"
+                },
+                "status": {
+                    "type": "url",
+                    "predicate": "adms:status"
+                },
+                "comment": {
+                    "type": "string",
+                    "predicate": "skos:comment"
+                },
+                "creator": {
+                    "type": "url",
+                    "predicate": "dct:creator"
+                }
+            },
+            "relationships": {
+                "file": {
+                    "predicate": "nie:dataSource",
+                    "target": "file",
+                    "cardinality": "one",
+                    "inverse": true
+                },
+                "harvesting-collection": {
+                    "predicate": "dct:hasPart",
+                    "target": "harvesting-collection",
+                    "cardinality": "one",
+                    "inverse": true
+                }
+            },
+            "features": [
+                "include-uri"
+            ],
+            "new-resource-base": "http://data.lblod.info/id/remote-data-objects/"
+        }
+    }
+}

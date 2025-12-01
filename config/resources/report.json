@@ -1,0 +1,38 @@
+{
+    "version": "0.1",
+    "prefixes": {
+        "dct": "http://purl.org/dc/terms/",
+        "prov": "http://www.w3.org/ns/prov#"
+    },
+    "resources": {
+        "reports": {
+            "name": "report",
+            "class": "http://lblod.data.gift/vocabularies/reporting/Report",
+            "attributes": {
+                "created": {
+                    "type": "datetime",
+                    "predicate": "dct:created"
+                },
+                "title": {
+                    "type": "string",
+                    "predicate": "dct:title"
+                },
+                "description": {
+                    "type": "string",
+                    "predicate": "dct:description"
+                }
+            },
+            "relationships": {
+                "file": {
+                    "predicate": "prov:generated",
+                    "target": "file",
+                    "cardinality": "one"
+                }
+            },
+            "features": [
+                "include-uri"
+            ],
+            "new-resource-base": "http://data.lblod.info/id/reports/"
+        }
+    }
+}

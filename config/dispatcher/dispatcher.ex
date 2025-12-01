@@ -17,33 +17,6 @@ defmodule Dispatcher do
     |> send_resp(200, "{ \"message\": \"ok\" }")
   end
 
-  ###############
-  # STATIC
-  ###############
-
-  # self-service
-  match "/index.html", %{layer: :static} do
-    forward(conn, [], "http://frontend/index.html")
-  end
-
-  get "/assets/*path", %{layer: :static} do
-    forward(conn, path, "http://frontend/assets/")
-  end
-
-  get "/@appuniversum/*path", %{layer: :static} do
-    forward(conn, path, "http://frontend/@appuniversum/")
-  end
-
-  #################
-  # FRONTEND PAGES
-  #################
-
-  # self-service
-  match "/*path", %{layer: :frontend_fallback, accept: %{html: true}} do
-    # we don't forward the path, because the app should take care of this in the browser.
-    forward(conn, [], "http://frontend/index.html")
-  end
-
   #################
   # API Services
   #################
@@ -86,6 +59,48 @@ defmodule Dispatcher do
   # layer order matters! we need to intercept the .well-known variants first, hence :static
   match "/vc-issuer/*path", %{ accept: [:any], layer: :api_services } do
     Proxy.forward conn, path, "http://vc-issuer/issuer/"
+  end
+
+  #################
+  # Frontend Harvesting
+  #################
+  match "/jobs/*path", %{accept: [:json], layer: :api_services} do
+    Proxy.forward conn, path, "http://resource/jobs/"
+  end
+ match "/tasks/*path", %{accept: [:json], layer: :api_services} do
+    Proxy.forward conn, path, "http://resource/tasks/"
+  end
+
+  match "/data-containers/*path", %{accept: [:json], layer: :api_services} do
+    Proxy.forward conn, path, "http://resource/data-containers/"
+  end
+
+  match "/job-errors/*path", %{accept: [:json], layer: :api_services} do
+    Proxy.forward conn, path, "http://resource/job-errors/"
+  end
+
+  match "/reports/*path", %{accept: [:json], layer: :api_services} do
+    Proxy.forward conn, path, "http://resource/reports/"
+  end
+
+  match "/log-entries/*path", %{accept: [:json], layer: :api_services} do
+    Proxy.forward conn, path, "http://resource/log-entries/"
+  end
+
+  match "/log-levels/*path", %{accept: [:json], layer: :api_services} do
+    Proxy.forward conn, path, "http://resource/log-levels/"
+  end
+
+  match "/status-codes/*path", %{accept: [:json], layer: :api_services} do
+    Proxy.forward conn, path, "http://resource/status-codes/"
+  end
+
+  match "/log-sources/*path", %{accept: [:json], layer: :api_services} do
+    Proxy.forward conn, path, "http://resource/log-sources/"
+  end
+
+  match "/remote-data-objects/*path", %{accept: [:json], layer: :api_services} do
+    Proxy.forward conn, path, "http://resource/remote-data-objects/"
   end
 
 
@@ -201,6 +216,18 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://resource/complex-works/"
   end
 
+  #################################################################
+  # FILES
+  #################################################################
+
+  get "/files/:id/download", %{accept: [:any]} do
+    Proxy.forward(conn, [], "http://file/files/" <> id <> "/download")
+  end
+
+  get "/files/*path", %{layer: :api_services, accept: %{json: true}} do
+    Proxy.forward(conn, path, "http://resource/files/")
+  end
+  
   #################
   # LOGIN
   #################
@@ -217,12 +244,66 @@ defmodule Dispatcher do
     forward(conn, path, "http://resource/bestuurseenheids/")
   end
 
+  match "/sessions/*path", %{reverse_host: ["dashboard" | _rest]} do
+    Proxy.forward(conn, path, "http://mocklogin/sessions/")
+  end
+
+  match "/mock/sessions/*path", %{reverse_host: ["dashboard" | _rest]} do
+    Proxy.forward(conn, path, "http://mocklogin/sessions/")
+  end
+
+
   match "/sessions/*path", %{layer: :api_services, accept: %{any: true}} do
     Proxy.forward(conn, path, "http://mocklogin/sessions/")
   end
 
   match "/mock/sessions/*path" do
-    forward(conn, path, "http://mocklogin/sessions/")
+    Proxy.forward(conn, path, "http://mocklogin/sessions/")
+  end
+
+###############
+  # STATIC
+  ###############
+
+  # self-service
+  match "/index.html", %{reverse_host: ["dashboard" | _rest], layer: :static} do
+    forward(conn, [], "http://frontend-harvesting/index.html")
+  end
+
+  get "/assets/*path", %{reverse_host: ["dashboard" | _rest], layer: :static} do
+    forward(conn, path, "http://frontend-harvesting/assets/")
+  end
+
+  get "/@appuniversum/*path", %{reverse_host: ["dashboard" | _rest], layer: :static} do
+    forward(conn, path, "http://frontend-harvesting/@appuniversum/")
+  end
+
+  match "/index.html", %{layer: :static} do
+    forward(conn, [], "http://frontend/index.html")
+  end
+
+  get "/assets/*path", %{layer: :static} do
+    forward(conn, path, "http://frontend/assets/")
+  end
+
+  get "/@appuniversum/*path", %{layer: :static} do
+    forward(conn, path, "http://frontend/@appuniversum/")
+  end
+
+
+  #################
+  # FRONTEND PAGES
+  #################
+
+  # self-service
+  match "/*path", %{reverse_host: ["dashboard" | _rest], accept: %{html: true}} do
+    # we don't forward the path, because the app should take care of this in the browser.
+    forward(conn, [], "http://frontend-harvesting/index.html")
+  end
+  
+  match "/*path", %{layer: :frontend_fallback, accept: %{html: true}} do
+    # we don't forward the path, because the app should take care of this in the browser.
+    forward(conn, [], "http://frontend/index.html")
   end
 
   #################

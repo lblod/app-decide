@@ -1,0 +1,42 @@
+{
+    "version": "0.1",
+    "prefixes": {
+        "adms": "http://www.w3.org/ns/adms#",
+        "dct": "http://purl.org/dc/terms/",
+        "hrvst": "http://lblod.data.gift/vocabularies/harvesting/",
+        "task": "http://redpencil.data.gift/vocabularies/tasks/"
+    },
+    "resources": {
+        "harvesting-collections": {
+            "name": "harvesting-collection",
+            "class": "hrvst:HarvestingCollection",
+            "attributes": {
+                "status": {
+                    "type": "url",
+                    "predicate": "adms:status"
+                },
+                "creator": {
+                    "type": "url",
+                    "predicate": "dct:creator"
+                }
+            },
+            "relationships": {
+                "remote-data-objects": {
+                    "predicate": "dct:hasPart",
+                    "target": "remote-data-object",
+                    "cardinality": "many"
+                },
+                "data-container": {
+                    "predicate": "task:hasHarvestingCollection",
+                    "target": "data-container",
+                    "cardinality": "many",
+                    "inverse": true
+                }
+            },
+            "features": [
+                "include-uri"
+            ],
+            "new-resource-base": "http://data.lblod.info/id/harvesting-collection/"
+        }
+    }
+}

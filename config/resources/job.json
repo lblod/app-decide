@@ -1,0 +1,160 @@
+{
+    "version": "0.1",
+    "prefixes": {
+        "adms": "http://www.w3.org/ns/adms#",
+        "cogs": "http://vocab.deri.ie/cogs#",
+        "dct": "http://purl.org/dc/terms/",
+        "oslc": "http://open-services.net/ns/core#",
+        "nfo": "http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#",
+        "task": "http://redpencil.data.gift/vocabularies/tasks/"
+    },
+    "resources": {
+        "jobs": {
+            "name": "job",
+            "class": "cogs:Job",
+            "attributes": {
+                "created": {
+                    "type": "datetime",
+                    "predicate": "dct:created"
+                },
+                "modified": {
+                    "type": "datetime",
+                    "predicate": "dct:modified"
+                },
+                "creator": {
+                    "type": "url",
+                    "predicate": "dct:creator"
+                },
+                "status": {
+                    "type": "url",
+                    "predicate": "adms:status"
+                },
+                "operation": {
+                    "type": "url",
+                    "predicate": "task:operation"
+                }
+            },
+            "relationships": {
+                "error": {
+                    "predicate": "task:error",
+                    "target": "job-error",
+                    "cardinality": "one"
+                },
+                "tasks": {
+                    "predicate": "dct:isPartOf",
+                    "target": "group",
+                    "cardinality": "many",
+                    "inverse": true
+                }
+            },
+            "features": [
+                "include-uri"
+            ],
+            "new-resource-base": "http://redpencil.data.gift/id/job/"
+        },
+        "tasks": {
+            "name": "task",
+            "class": "task:Task",
+            "attributes": {
+                "created": {
+                    "type": "datetime",
+                    "predicate": "dct:created"
+                },
+                "modified": {
+                    "type": "datetime",
+                    "predicate": "dct:modified"
+                },
+                "status": {
+                    "type": "url",
+                    "predicate": "adms:status"
+                },
+                "operation": {
+                    "type": "url",
+                    "predicate": "task:operation"
+                },
+                "index": {
+                    "type": "string",
+                    "predicate": "task:index"
+                }
+            },
+            "relationships": {
+                "error": {
+                    "predicate": "task:error",
+                    "target": "job-error",
+                    "cardinality": "one"
+                },
+                "job": {
+                    "predicate": "dct:isPartOf",
+                    "target": "job",
+                    "cardinality": "one"
+                },
+                "parent-tasks": {
+                    "predicate": "cogs:dependsOn",
+                    "target": "task",
+                    "cardinality": "many"
+                },
+                "results-containers": {
+                    "predicate": "task:resultsContainer",
+                    "target": "data-container",
+                    "cardinality": "many"
+                },
+                "input-containers": {
+                    "predicate": "task:inputContainer",
+                    "target": "data-container",
+                    "cardinality": "many"
+                }
+            },
+            "features": [
+                "include-uri"
+            ],
+            "new-resource-base": "http://redpencil.data.gift/id/task/"
+        },
+        "job-errors": {
+            "name": "job-error",
+            "class": "oslc:Error",
+            "attributes": {
+                "message": {
+                    "type": "string",
+                    "predicate": "oslc:message"
+                }
+            },
+            "features": [
+                "include-uri"
+            ],
+            "new-resource-base": "http://redpencil.data.gift/id/jobs/error/"
+        },
+        "data-containers": {
+            "name": "data-container",
+            "class": "nfo:DataContainer",
+            "attributes": {
+                "has-graph": {
+                    "type": "url",
+                    "predicate": "task:hasGraph"
+                }
+            },
+            "relationships": {
+                "harvesting-collections": {
+                    "predicate": "task:hasHarvestingCollection",
+                    "target": "harvesting-collection",
+                    "cardinality": "many"
+                },
+                "result-from-tasks": {
+                    "predicate": "task:resultsContainer",
+                    "target": "task",
+                    "cardinality": "many",
+                    "inverse": true
+                },
+                "input-from-tasks": {
+                    "predicate": "task:inputContainer",
+                    "target": "task",
+                    "cardinality": "many",
+                    "inverse": true
+                }
+            },
+            "features": [
+                "include-uri"
+            ],
+            "new-resource-base": "http://redpencil.data.gift/id/dataContainers/"
+        }
+    }
+}

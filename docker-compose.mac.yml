@@ -1,5 +1,7 @@
 services:
-  identifier:
+  identifier-frontend:
+    image: benfidlers/mu-identifier:1.10.3-arm64
+  identifier-dashboard:
     image: benfidlers/mu-identifier:1.10.3-arm64
   dispatcher:
     platform: linux/amd64
@@ -10,6 +12,8 @@ services:
   deltanotifier:
     image: semtech/mu-delta-notifier:latest
     platform: linux/arm64
+  frontend-harvesting:
+    platform: linux/amd64
   odrl-parser:
     platform: linux/arm64
   vc-issuer:
@@ -29,5 +33,9 @@ services:
     image: brechtvdv/mu-javascript-template:1.9.1
     platform: linux/arm64
   project-scripts:
+    platform: linux/amd64
+  lokaal-beslist-consumer:
+    platform: linux/amd64
+  decisions-ghent-filter:
     platform: linux/amd64
 
