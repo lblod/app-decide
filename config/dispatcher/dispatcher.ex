@@ -253,7 +253,7 @@ defmodule Dispatcher do
   end
 
   match "/sessions/*path", %{layer: :api_services, accept: %{any: true}} do
-    Proxy.forward(conn, path, "http://mocklogin/sessions/")
+    Proxy.forward(conn, path, "http://login/sessions/")
   end
 
   match "/mock/sessions/*path", %{layer: :api_services, accept: %{any: true} } do
