@@ -103,6 +103,14 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://resource/remote-data-objects/"
   end
 
+  #################
+  # DSP
+  #################
+
+  # Catalog protocol
+  match "/dsp/2025-1/catalog/*path", %{ accept: [:json], layer: :api_services} do
+    Proxy.forward conn, path, "http://dcat/dsp/2025-1/catalog/"
+  end
 
   #################
   # OPARL PROXY
