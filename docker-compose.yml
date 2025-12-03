@@ -5,13 +5,7 @@ x-logging: &default-logging
     max-file: "3"
 
 services:
-  identifier-frontend:
-    image: semtech/mu-identifier:1.11.0
-    labels:
-      - "logging=true"
-    restart: always
-    logging: *default-logging
-  identifier-dashboard:
+  identifier:
     image: semtech/mu-identifier:1.11.0
     labels:
       - "logging=true"
