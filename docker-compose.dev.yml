@@ -54,3 +54,5 @@ services:
     restart: no
   harvest_sameas:
     restart: no
+  login:
+    restart: no
