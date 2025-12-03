@@ -107,7 +107,7 @@ defmodule Dispatcher do
   #################
   # OPARL PROXY
   #################
-  
+
   match "/oparl/*path", %{ accept: [:any], layer: :api_services } do
     Proxy.forward conn, path, "http://oparl-to-eli/oparl/"
   end
@@ -227,7 +227,7 @@ defmodule Dispatcher do
   get "/files/*path", %{layer: :api_services, accept: %{json: true}} do
     Proxy.forward(conn, path, "http://resource/files/")
   end
-  
+
   #################
   # LOGIN
   #################
@@ -252,12 +252,11 @@ defmodule Dispatcher do
     Proxy.forward(conn, path, "http://mocklogin/sessions/")
   end
 
-
   match "/sessions/*path", %{layer: :api_services, accept: %{any: true}} do
     Proxy.forward(conn, path, "http://mocklogin/sessions/")
   end
 
-  match "/mock/sessions/*path" do
+  match "/mock/sessions/*path", %{layer: :api_services, accept: %{any: true} } do
     Proxy.forward(conn, path, "http://mocklogin/sessions/")
   end
 
@@ -300,7 +299,7 @@ defmodule Dispatcher do
     # we don't forward the path, because the app should take care of this in the browser.
     forward(conn, [], "http://frontend-harvesting/index.html")
   end
-  
+
   match "/*path", %{layer: :frontend_fallback, accept: %{html: true}} do
     # we don't forward the path, because the app should take care of this in the browser.
     forward(conn, [], "http://frontend/index.html")

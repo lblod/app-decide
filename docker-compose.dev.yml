@@ -3,13 +3,10 @@ networks:
     driver: bridge
     name: debug
 services:
-  identifier-frontend:
+  identifier:
     ports:
       - "80:80"
     restart: "no"
-  identifier-dashboard:
-    ports:
-      - "81:80"
   dispatcher:
     restart: "no"
     networks:
@@ -20,6 +17,8 @@ services:
     networks:
       - default
       - debug
+  dcat:
+    restart: "no"
   virtuoso:
     restart: "no"
     networks:
@@ -28,6 +27,8 @@ services:
   resource:
     restart: "no"
   file:
+    restart: "no"
+  odrl-parser:
     restart: "no"
   vc-issuer:
     restart: "no"
@@ -46,4 +47,10 @@ services:
   decisions-ghent-filter:
     restart: no
   oslo-eli-transformer:
+    restart: no
+  job-controller:
+    restart: no
+  harvest_diff:
+    restart: no
+  harvest_sameas:
     restart: no
