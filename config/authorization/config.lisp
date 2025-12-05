@@ -34,16 +34,19 @@
   :foaf "http://xmlns.com/foaf/0.1/"
   :generiek "https://data.vlaanderen.be/ns/generiek#"
   :harvesting "http://lblod.data.gift/vocabularies/harvesting/"
+  :locn "http://www.w3.org/ns/locn#"
   :mandaat "http://data.vlaanderen.be/ns/mandaat#"
   :ndo "http://oscaf.sourceforge.net/ndo.html#"
   :nfo "http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#"
   :oparl-temp "http://mu.semte.ch/vocabularies/ext/oparl/"
   :org "http://www.w3.org/ns/org#"
+  :perceel "https://data.vlaanderen.be/ns/perceel#"
   :person "http://www.w3.org/ns/person#"
   :schema "http://schema.org/"
   :security "http://lblod.data.gift/vocabularies/security/"
   :skos "http://www.w3.org/2004/02/skos/core#"
   :tasks "http://redpencil.data.gift/vocabularies/tasks/"
+  :wikidata "http://www.wikidata.org/entity/"
   :wot "https://www.w3.org/2019/wot/security#")
 
 (define-graph harvesting ("http://mu.semte.ch/graphs/harvesting")
@@ -104,6 +107,13 @@
   ("org:Organization" -> _)
   ("skos:Concept" -> _)
   ("skos:ConceptScheme" -> _)
+  ;; Geo data
+  ("dct:Location" -> _)
+  ("locn:Geometry" -> _)
+  ("locn:Address" -> _)
+  ("schema:TouristAttraction" -> _)
+  ("perceel:Perceel" -> _)
+  ("wikidata:Q2785216" -> _)
 )
 
 (supply-allowed-group "public")
