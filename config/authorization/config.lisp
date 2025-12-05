@@ -38,6 +38,7 @@
   :mandaat "http://data.vlaanderen.be/ns/mandaat#"
   :ndo "http://oscaf.sourceforge.net/ndo.html#"
   :nfo "http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#"
+  :oa "http://www.w3.org/ns/oa#"
   :oparl-temp "http://mu.semte.ch/vocabularies/ext/oparl/"
   :org "http://www.w3.org/ns/org#"
   :perceel "https://data.vlaanderen.be/ns/perceel#"
@@ -114,7 +115,10 @@
   ("schema:TouristAttraction" -> _)
   ("perceel:Perceel" -> _)
   ("wikidata:Q2785216" -> _)
-)
+  ;; Annotations
+  ("oa:Annotation" -> _)
+  ("oa:SpecificResource" -> _)
+  ("oa:TextPositionSelector" -> _))
 
 (supply-allowed-group "public")
 
