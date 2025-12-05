@@ -17,132 +17,17 @@
 (setf *log-incoming-requests-p* t)
 
 ; ACCESS RIGHTS
+;; The following functionality allows to easily switch between the manually written policy and one
+;; generated from an ODRL policy. When updating the app's policy, apply the necessary changes in the
+;; `decide.lisp' file.
+(defparameter *use-odrl-policy-p*
+  (and (uiop:getenv "USE_ODRL_POLICY")
+       (string-equal (uiop:getenv "USE_ODRL_POLICY") "true"))
+  "Indicate whether to use the configuration generated from ODRL or the rules in this file.")
 
-(in-package :acl)
-
-(define-prefixes
-  :besluit "http://data.vlaanderen.be/ns/besluit#"
-  :cms "http://mu.semte.ch/vocabulary/cms/"
-  :cogs "http://vocab.deri.ie/cogs#"
-  :core "http://open-services.net/ns/core#"
-  :dcat "http://www.w3.org/ns/dcat#"
-  :dct "http://purl.org/dc/terms/"
-  :defend "https://d3fend.mitre.org/ontologies/d3fend#"
-  :eli "http://data.europa.eu/eli/ontology#"
-  :eli-dl "http://data.europa.eu/eli/eli-draft-legislation-ontology#"
-  :ext "http://mu.semte.ch/vocabularies/ext/"
-  :foaf "http://xmlns.com/foaf/0.1/"
-  :generiek "https://data.vlaanderen.be/ns/generiek#"
-  :harvesting "http://lblod.data.gift/vocabularies/harvesting/"
-  :locn "http://www.w3.org/ns/locn#"
-  :mandaat "http://data.vlaanderen.be/ns/mandaat#"
-  :ndo "http://oscaf.sourceforge.net/ndo.html#"
-  :nfo "http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#"
-  :oa "http://www.w3.org/ns/oa#"
-  :oparl-temp "http://mu.semte.ch/vocabularies/ext/oparl/"
-  :org "http://www.w3.org/ns/org#"
-  :perceel "https://data.vlaanderen.be/ns/perceel#"
-  :person "http://www.w3.org/ns/person#"
-  :schema "http://schema.org/"
-  :security "http://lblod.data.gift/vocabularies/security/"
-  :skos "http://www.w3.org/2004/02/skos/core#"
-  :tasks "http://redpencil.data.gift/vocabularies/tasks/"
-  :wikidata "http://www.wikidata.org/entity/"
-  :wot "https://www.w3.org/2019/wot/security#")
-
-(define-graph harvesting ("http://mu.semte.ch/graphs/harvesting")
-  ("tasks:Task" -> _ )
-  ("cogs:Job" -> _ )
-  ("cogs:ScheduledJob" -> _ )
-  ("tasks:ScheduledTask" -> _ )
-  ("tasks:CronSchedule" -> _ )
-  ("schema:repeatFrequency" -> _ )
-  ("core:Error" -> _ )
-  ("harvesting:HarvestingCollection" -> _ )
-  ("nfo:RemoteDataObject" -> _ )
-  ("nfo:FileDataObject" -> _ )
-  ("nfo:DataContainer" -> _ )
-  ("ndo:DownloadEvent" -> _ )
-  ("dcat:Dataset" -> _ )
-  ("dcat:Distribution" -> _ )
-  ("dcat:Catalog" -> _ )
-  ("security:AuthenticationConfiguration" -> _ )
-  ("security:Credentials" -> _ )
-  ("security:BasicAuthenticationCredentials" -> _ )
-  ("security:OAuth2Credentials" -> _ )
-  ("wot:SecurityScheme" -> _ )
-  ("wot:BasicSecurityScheme" -> _ )
-  ("wot:OAuth2SecurityScheme" -> _ ))
-
-(define-graph harvesting-public ("http://mu.semte.ch/graphs/harvesting")
-  ("nfo:RemoteDataObject" -> _)
-  ("nfo:FileDataObject" -> _)
-  ;; NOTE (09/12/2025): The following resources should end up in the `public' graph once the
-  ;; oparl-to-eli pipeline is complete. For the time being we make them publicly readable here to
-  ;; simplify developing a PoC frontend using this data.
-  ("eli-dl:Activity" -> _)
-  ("eli:Expression" -> _)
-  ("eli:Manifestation" -> _)
-  ("eli:Work" -> _))
-
-(define-graph public ("http://mu.semte.ch/graphs/public")
-  ("besluit:Bestuurseenheid" -> _)
-  ("cms:Page" -> _)
-  ("dcat:Catalog" -> _)
-  ("dcat:Dataset" -> _)
-  ("dcat:Distribution" -> _)
-  ("dct:MediaTypeOrExtent" -> _)
-  ("dct:PeriodOfTime" -> _)
-  ("eli-dl:Activity" -> _)
-  ("eli-dl:Decision" -> _)
-  ("eli-dl:DraftLegislationWork" -> _)
-  ("eli-dl:ForeseenActivity" -> _)
-  ("eli-dl:LegislativeProcess" -> _)
-  ("eli-dl:LegislativeProcessWork" -> _)
-  ("eli-dl:ParliamentaryTerm" -> _)
-  ("eli-dl:Participation" -> _)
-  ("eli-dl:ProcessStage" -> _)
-  ("eli-dl:Vote" -> _)
-  ("eli:ComplexWork" -> _)
-  ("eli:Expression" -> _)
-  ("eli:LegalExpression" -> _)
-  ("eli:Manifestation" -> _)
-  ("eli:Work" -> _)
-  ("foaf:Agent" -> _)
-  ("foaf:Person" -> _)
-  ("oparl-temp:Location" -> _)
-  ("org:Membership" -> _)
-  ("org:Organization" -> _)
-  ("skos:Concept" -> _)
-  ("skos:ConceptScheme" -> _)
-  ;; Geo data
-  ("dct:Location" -> _)
-  ("locn:Geometry" -> _)
-  ("locn:Address" -> _)
-  ("schema:TouristAttraction" -> _)
-  ("perceel:Perceel" -> _)
-  ("wikidata:Q2785216" -> _)
-  ;; Annotations
-  ("oa:Annotation" -> _)
-  ("oa:SpecificResource" -> _)
-  ("oa:TextPositionSelector" -> _))
-
-(supply-allowed-group "public")
-
-(grant (read)
-  :to-graph public
-  :for-allowed-group "public")
-
-(grant (read)
-      :to harvesting-public
-      :for "public")
-
-(grant (read)
-      :to harvesting
-      :for "logged-in")
-
-(supply-allowed-group "logged-in"
-  :query "PREFIX session: <http://mu.semte.ch/vocabularies/session/>
-      SELECT DISTINCT ?account WHERE {
-      <SESSION_ID> session:account ?account.
-      }")
+(let ((config-path
+        (if *use-odrl-policy-p*
+            "./odrl/decideAuthorizationPolicy.lisp"
+            "./config/decide.lisp")))
+  (format t "~& >> Loading policy from file: ~A" config-path)
+  (load config-path))
