@@ -46,5 +46,5 @@ ext:attributeDuty a odrl:Duty ;
 
 ext:decideParty a odrl:Party ;
   vcard:fn "DECIDe application" ;
-  vcard:hasEmail "decide@lblod.info" ; # Fictitious email for example purposes
-  vcard:hasURL "https://ds.decide.lblod.info" . # Fictitious url for example purposes
+  vcard:hasEmail "email@example.com" ; # Fictitious email for example purposes
+  vcard:hasURL "https://www.example.com" . # Fictitious url for example purposes
