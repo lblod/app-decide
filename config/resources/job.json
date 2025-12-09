@@ -43,7 +43,7 @@
                 },
                 "tasks": {
                     "predicate": "dct:isPartOf",
-                    "target": "group",
+                    "target": "task",
                     "cardinality": "many",
                     "inverse": true
                 }
