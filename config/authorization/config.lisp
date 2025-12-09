@@ -76,7 +76,14 @@
 
 (define-graph harvesting-public ("http://mu.semte.ch/graphs/harvesting")
   ("nfo:RemoteDataObject" -> _)
-  ("nfo:FileDataObject" -> _))
+  ("nfo:FileDataObject" -> _)
+  ;; NOTE (09/12/2025): The following resources should end up in the `public' graph once the
+  ;; oparl-to-eli pipeline is complete. For the time being we make them publicly readable here to
+  ;; simplify developing a PoC frontend using this data.
+  ("eli-dl:Activity" -> _)
+  ("eli:Expression" -> _)
+  ("eli:Manifestation" -> _)
+  ("eli:Work" -> _))
 
 (define-graph public ("http://mu.semte.ch/graphs/public")
   ("besluit:Bestuurseenheid" -> _)
