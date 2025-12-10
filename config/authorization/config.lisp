@@ -45,7 +45,7 @@
   :tasks "http://redpencil.data.gift/vocabularies/tasks/"
   :wot "https://www.w3.org/2019/wot/security#"
   :defend "https://d3fend.mitre.org/ontologies/d3fend#"
-)
+  :odrl "http://www.w3.org/ns/odrl/2/")
 
 (define-graph harvesting ("http://mu.semte.ch/graphs/harvesting")
   ("tasks:Task" -> _ )
@@ -75,6 +75,7 @@
   ("nfo:RemoteDataObject" -> _)
   ("nfo:FileDataObject" -> _))
 
+;; TODO: Add ODRL Offer resources
 (define-graph public ("http://mu.semte.ch/graphs/public")
   ("besluit:Bestuurseenheid" -> _)
   ("cms:Page" -> _)
@@ -105,7 +106,12 @@
   ("org:Organization" -> _)
   ("skos:Concept" -> _)
   ("skos:ConceptScheme" -> _)
-)
+  ;; Data for ODRL Offers used in DSP
+  ("odrl:Offer" -> _)
+  ("odrl:Duty" -> _)
+  ("odrl:Permission" -> _)
+  ("odrl:Prohibition" -> _)
+  ("odrl:Constraint"))
 
 (supply-allowed-group "public")
 
