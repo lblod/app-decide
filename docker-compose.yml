@@ -64,6 +64,8 @@ services:
     image: lblod/dcat-service:0.0.1
     environment:
       BASE_URL: "https://ds.decide.lblod.info/"
+      DSP_SERVICE_ID: "urn:example:6e2e3fcb-8a66-4d81-a4cd-ba2eea954396"
+      DSP_PARTICIPANT_ID: "urn:example:DecideDataProvider"
   odrl-parser:
     image: lblod/odrl-parser-service:0.0.3
     volumes:
