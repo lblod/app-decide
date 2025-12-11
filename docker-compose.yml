@@ -21,8 +21,11 @@ services:
     logging: *default-logging
   database:
     image: semtech/sparql-parser:0.0.14
+    environment:
+      USE_ODRL_POLICY: "false"
     volumes:
       - ./config/authorization:/config
+      - ./config/odrl-parser:/odrl
       - ./data/authorization:/data
     labels:
       - "logging=true"
@@ -63,7 +66,7 @@ services:
   dcat:
     image: lblod/dcat-service:0.0.1
   odrl-parser:
-    image: lblod/odrl-parser-service:0.0.3
+    image: lblod/odrl-parser-service:0.0.5
     volumes:
       - ./config/odrl-parser:/config
   migrations:
