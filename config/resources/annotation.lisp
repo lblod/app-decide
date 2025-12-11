@@ -1,0 +1,11 @@
+(in-package :mu-cl-resources)
+
+(define-resource annotation ()
+  :class (s-prefix "oa:Annotation")
+  :properties `((:motivated-by :url ,(s-prefix "oa:motivatedBy"))
+                (:target :url ,(s-prefix "oa:hasTarget"))
+                (:body :url ,(s-prefix "oa:hasBody"))
+                (:confidence :number ,(s-prefix "nif:confidence")))
+  :features '(include-uri)
+  :resource-base (s-url "http://data.lblod.info/id/annotations/")
+  :on-path "annotations")

@@ -14,6 +14,7 @@
 (read-domain-file "eli.lisp")
 (read-domain-file "eli-dl.lisp")
 (read-domain-file "dcat.lisp")
+(read-domain-file "annotation.lisp")
 (read-domain-file "file.json")
 (read-domain-file "job.json")
 (read-domain-file "log.json")
