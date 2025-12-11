@@ -16,3 +16,5 @@
 (add-prefix "schema" "https://schema.org/")
 (add-prefix "skos" "http://www.w3.org/2004/02/skos/core#")
 (add-prefix "vcard" "http://www.w3.org/2006/vcard/ns#")
+(add-prefix "oa" "http://www.w3.org/ns/oa#")
+(add-prefix "nif" "http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#")
