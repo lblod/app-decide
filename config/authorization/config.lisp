@@ -125,7 +125,12 @@
   ;; Annotations
   ("oa:Annotation" -> _)
   ("oa:SpecificResource" -> _)
-  ("oa:TextPositionSelector" -> _))
+  ("oa:TextPositionSelector" -> _)
+  ;; Jobs & tasks
+  ("cogs:Job" -> _)
+  ("ext:AnnotationJob" -> _)
+  ("tasks:Task" -> _)
+  ("nfo:DataContainer" -> _))
 
 (supply-allowed-group "public")
 
