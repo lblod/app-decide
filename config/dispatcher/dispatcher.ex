@@ -62,14 +62,24 @@ defmodule Dispatcher do
   end
 
   #################
-  # Frontend Harvesting
+  # Jobs & tasks
   #################
+
   match "/jobs/*path", %{accept: [:json], layer: :api_services} do
     Proxy.forward conn, path, "http://resource/jobs/"
   end
- match "/tasks/*path", %{accept: [:json], layer: :api_services} do
+
+  match "/annotation-jobs/*path", %{accept: [:json], layer: :api_services} do
+    Proxy.forward conn, path, "http://resource/annotation-jobs/"
+  end
+
+  match "/tasks/*path", %{accept: [:json], layer: :api_services} do
     Proxy.forward conn, path, "http://resource/tasks/"
   end
+
+  #################
+  # Frontend Harvesting
+  #################
 
   match "/data-containers/*path", %{accept: [:json], layer: :api_services} do
     Proxy.forward conn, path, "http://resource/data-containers/"
