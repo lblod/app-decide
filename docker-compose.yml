@@ -102,11 +102,11 @@ services:
     restart: always
     logging: *default-logging
   frontend-harvesting:
-    image: lblod/frontend-dashboard:1.7.0
+    image: lblod/frontend-harvesting-self-service
     environment:
-      EMBER_LOGIN_ROUTE: "mock-login"
-    volumes:
-      - ./config/frontend-harvesting:/config
+      EMBER_AUTHENTICATION_ENABLED: "true"
+      EMBER_LOGIN_ROUTE: "login"
+      EMBER_OPARL_HARVESTING_ENABLED: true
     labels:
       - "logging=true"
     restart: always
@@ -206,7 +206,7 @@ services:
       - logging=true
     restart: always
     logging: *default-logging
-  login:
+  acmidm-login:
     image: lblod/acmidm-login-service:0.12.0
     environment:
       MU_APPLICATION_AUTH_DISCOVERY_URL: "https://authenticatie-ti.vlaanderen.be/op"
@@ -217,6 +217,23 @@ services:
       MU_APPLICATION_AUTH_REDIRECT_URI: "https://ds.decide.lblod.info/authorization/callback"
     volumes:
       - ./config/login:/config
+    labels:
+      - "logging=true"
+    restart: always
+    logging: *default-logging
+  login:
+    image: semtech/mu-login-service:3.0.0
+    links:
+      - database:database
+    environment:
+      USERS_GRAPH: "http://mu.semte.ch/graphs/users"
+      SESSIONS_GRAPH: "http://mu.semte.ch/graphs/sessions"
+    restart: always
+    logging: *default-logging
+    labels:
+      - "logging=true"
+  harvest_singleton-job:
+    image: lblod/harvesting-singleton-job-service:1.0.0
     labels:
       - "logging=true"
     restart: always

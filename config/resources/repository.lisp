@@ -18,3 +18,7 @@
 (add-prefix "vcard" "http://www.w3.org/2006/vcard/ns#")
 (add-prefix "oa" "http://www.w3.org/ns/oa#")
 (add-prefix "nif" "http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#")
+(add-prefix "hrvst" "http://lblod.data.gift/vocabularies/harvesting/")
+(add-prefix "dgftSec" "http://lblod.data.gift/vocabularies/security/")
+(add-prefix "wotSec" "https://www.w3.org/2019/wot/security#")
+(add-prefix "dgftOauth" "http://kanselarij.vo.data.gift/vocabularies/oauth-2.0-session/")

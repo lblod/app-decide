@@ -40,3 +40,5 @@ services:
     platform: linux/amd64
   login:
     platform: linux/amd64
+  harvest_singleton-job:
+    platform: linux/amd64

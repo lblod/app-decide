@@ -20,3 +20,4 @@
 (read-domain-file "log.json")
 (read-domain-file "report.json")
 (read-domain-file "harvest.json")
+(read-domain-file "authentication.lisp")
