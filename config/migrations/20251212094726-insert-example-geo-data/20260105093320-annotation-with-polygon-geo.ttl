@@ -1,0 +1,62 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
+@prefix example: <http://www.example.org/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix geosparql: <http://www.opengis.net/ont/geosparql#> .
+@prefix locn: <http://www.w3.org/ns/locn#> .
+@prefix mobiliteit: <https://data.vlaanderen.be/ns/mobiliteit#> .
+@prefix mu: <http://mu.semte.ch/vocabularies/core/> .
+@prefix nif: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> .
+@prefix oa: <http://www.w3.org/ns/oa#> .
+@prefix oparl-temp: <http://mu.semte.ch/vocabularies/ext/oparl/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skolem: <http://www.example.org/id/.well-known/genid/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix sro: <https://data.vlaanderen.be/ns/slimmeraadpleegomgeving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://data.lblod.info/id/works/d49f434b-94d3-4d41-913d-e25f2649ab52> a eli:Work ;
+  mu:uuid """d49f434b-94d3-4d41-913d-e25f2649ab52""" ;
+  eli:is_realized_by <http://data.lblod.info/id/expressions/c0a9fc3b-ea9a-4b7b-8e20-84b9f18c7f4b> .
+
+<http://data.lblod.info/id/expressions/c0a9fc3b-ea9a-4b7b-8e20-84b9f18c7f4b> a eli:Expression ;
+  mu:uuid """c0a9fc3b-ea9a-4b7b-8e20-84b9f18c7f4b""" ;
+  eli:is_embodied_by <http://data.lblod.info/id/manifestations/94f6d9e8-286d-47a9-87b8-99d9f5171264> .
+
+<http://data.lblod.info/id/manifestations/94f6d9e8-286d-47a9-87b8-99d9f5171264> a eli:Manifestation ;
+  mu:uuid """94f6d9e8-286d-47a9-87b8-99d9f5171264""" ;
+  rdfs:label """Example manifestation""" ;
+  dcterms:issued "2026-01-01"^^xsd:date ;
+  dcterms:modified "2026-01-02T12:00:00"^^xsd:dateTime ;
+  oparl-temp:web """https://www.example.com""" .
+
+example:b47846aa-607d-4b49-9227-ce47c70c0ee7 a oa:Annotation ;
+  mu:uuid """b47846aa-607d-4b49-9227-ce47c70c0ee7""" ;
+  oa:hasBody example:97a25bf6-7c14-42ab-a029-2708e48d83f4 ;
+  nif:confidence 0.76 ;
+  oa:motivatedBy oa:classifying ;
+  oa:hasTarget skolem:c53ae985-0952-4b41-877a-a68039159645 .
+
+skolem:c53ae985-0952-4b41-877a-a68039159645 a oa:SpecificResource ;
+  mu:uuid """c53ae985-0952-4b41-877a-a68039159645""" ;
+  oa:source <http://data.lblod.info/id/works/d49f434b-94d3-4d41-913d-e25f2649ab52> ;
+  oa:selector skolem:fb2dcf2c-4117-461b-bbcf-cb9470a3e307 .
+
+skolem:fb2dcf2c-4117-461b-bbcf-cb9470a3e307 a oa:TextPositionSelector ;
+  mu:uuid """fb2dcf2c-4117-461b-bbcf-cb9470a3e307""" ;
+  oa:start 412 ;
+  oa:end 795 .
+
+example:97a25bf6-7c14-42ab-a029-2708e48d83f4 a dcterms:Location , locn:Address ;
+  mu:uuid """97a25bf6-7c14-42ab-a029-2708e48d83f4""" ;
+  rdfs:label """Leuven: Oude Markt, Grote Markt, Tiensestraat""" ;
+  locn:geometry <http://data.lblod.info/id/geometries/7064ab42-221b-4fca-9d53-73fabb86ae2d> .
+
+# Addresses corresponding to coordinates:
+# <https://data.vlaanderen.be/id/adres/781318>
+# <https://data.vlaanderen.be/id/adres/275726>
+# <https://data.vlaanderen.be/id/adres/1748397>
+<http://data.lblod.info/id/geometries/7064ab42-221b-4fca-9d53-73fabb86ae2d> a locn:Geometry ;
+  mu:uuid """7064ab42-221b-4fca-9d53-73fabb86ae2d""" ;
+  geosparql:asWKT "<http://www.opengis.net/def/crs/EPSG/0/31370> POLYGON((173281.27 174183.47, 173366.49 174384.73, 173697.56 174129.93, 173281.27 174183.47))"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .
