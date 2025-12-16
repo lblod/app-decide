@@ -241,6 +241,22 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://resource/complex-works/"
   end
 
+  match "/annotations/*path", %{ accept: [:json], layer: :resources } do
+    Proxy.forward conn, path, "http://resource/annotations/"
+  end
+
+  match "/specific-resources/*path", %{ accept: [:json], layer: :resources } do
+    Proxy.forward conn, path, "http://resource/specific-resources/"
+  end
+
+  match "/locations/*path", %{ accept: [:json], layer: :resources } do
+    Proxy.forward conn, path, "http://resource/locations/"
+  end
+
+  match "/geometries/*path", %{ accept: [:json], layer: :resources } do
+    Proxy.forward conn, path, "http://resource/geometries/"
+  end
+
   #################################################################
   # FILES
   #################################################################

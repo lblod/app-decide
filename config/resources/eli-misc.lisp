@@ -86,6 +86,6 @@
   :class (s-prefix "org:Membership")
   :resource-base (s-url "http://data.lblod.info/id/memberships/"))
 
-(define-resource location ()
+(define-resource location-temp ()
   :class (s-prefix "oparl-temp:Location")
   :resource-base (s-url "http://data.lblod.info/id/locations/"))

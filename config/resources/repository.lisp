@@ -22,3 +22,5 @@
 (add-prefix "dgftSec" "http://lblod.data.gift/vocabularies/security/")
 (add-prefix "wotSec" "https://www.w3.org/2019/wot/security#")
 (add-prefix "dgftOauth" "http://kanselarij.vo.data.gift/vocabularies/oauth-2.0-session/")
+(add-prefix "geosparql" "http://www.opengis.net/ont/geosparql#")
+(add-prefix "locn" "http://www.w3.org/ns/locn#")
