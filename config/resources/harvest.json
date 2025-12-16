@@ -31,6 +31,11 @@
                     "target": "data-container",
                     "cardinality": "many",
                     "inverse": true
+                },
+                "authentication-configuration": {
+                    "predicate": "dgftSec:targetAuthenticationConfiguration",
+                    "target": "authentication-configuration",
+                    "cardinality": "one"
                 }
             },
             "features": [

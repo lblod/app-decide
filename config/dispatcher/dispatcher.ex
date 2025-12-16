@@ -113,6 +113,9 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://resource/remote-data-objects/"
   end
 
+  match "/harvesting-collections/*path", %{accept: [:json], layer: :api_services} do
+    Proxy.forward conn, path, "http://resource/harvesting-collections/"
+  end
 
   #################
   # OPARL PROXY
@@ -255,7 +258,7 @@ defmodule Dispatcher do
   end
 
   match "/sessions/*path", %{reverse_host: ["dashboard" | _rest]} do
-    Proxy.forward(conn, path, "http://mocklogin/sessions/")
+    Proxy.forward(conn, path, "http://login/sessions/")
   end
 
   match "/mock/sessions/*path", %{reverse_host: ["dashboard" | _rest]} do

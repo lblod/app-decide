@@ -7,6 +7,10 @@ x-logging: &default-logging
 services:
   identifier:
     image: semtech/mu-identifier:1.11.0
+    environment:
+      DEFAULT_MU_AUTH_ALLOWED_GROUPS_HEADER: '[{"variables":[],"name":"public"},{"variables":[],"name":"harvesting-public"},{"variables":[],"name":"logged-in"},{"variables":[],"name":"clean"}]'
+      DEFAULT_ACCESS_CONTROL_ALLOW_ORIGIN_HEADER: "*"
+      SESSION_COOKIE_SECURE: "true"
     labels:
       - "logging=true"
     restart: always
@@ -43,7 +47,7 @@ services:
     restart: always
     logging: *default-logging
   resource:
-    image: semtech/mu-cl-resources:1.27.1
+    image: semtech/mu-cl-resources:1.27.2
     volumes:
       - ./config/resources:/config
     labels:
@@ -102,11 +106,11 @@ services:
     restart: always
     logging: *default-logging
   frontend-harvesting:
-    image: lblod/frontend-dashboard:1.7.0
+    image: lblod/frontend-harvesting-self-service:feature-oparl-harvesting
     environment:
-      EMBER_LOGIN_ROUTE: "mock-login"
-    volumes:
-      - ./config/frontend-harvesting:/config
+      EMBER_AUTHENTICATION_ENABLED: "true"
+      EMBER_LOGIN_ROUTE: "login"
+      EMBER_OPARL_HARVESTING_ENABLED: true
     labels:
       - "logging=true"
     restart: always
@@ -206,7 +210,7 @@ services:
       - logging=true
     restart: always
     logging: *default-logging
-  login:
+  acmidm-login:
     image: lblod/acmidm-login-service:0.12.0
     environment:
       MU_APPLICATION_AUTH_DISCOVERY_URL: "https://authenticatie-ti.vlaanderen.be/op"
@@ -217,6 +221,23 @@ services:
       MU_APPLICATION_AUTH_REDIRECT_URI: "https://ds.decide.lblod.info/authorization/callback"
     volumes:
       - ./config/login:/config
+    labels:
+      - "logging=true"
+    restart: always
+    logging: *default-logging
+  login:
+    image: semtech/mu-login-service:3.0.0
+    links:
+      - database:database
+    environment:
+      USERS_GRAPH: "http://mu.semte.ch/graphs/users"
+      SESSIONS_GRAPH: "http://mu.semte.ch/graphs/sessions"
+    restart: always
+    logging: *default-logging
+    labels:
+      - "logging=true"
+  harvest_singleton-job:
+    image: lblod/harvesting-singleton-job-service:1.0.0
     labels:
       - "logging=true"
     restart: always

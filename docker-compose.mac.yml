@@ -1,7 +1,5 @@
 services:
-  identifier-frontend:
-    image: benfidlers/mu-identifier:1.10.3-arm64
-  identifier-dashboard:
+  identifier:
     image: benfidlers/mu-identifier:1.10.3-arm64
   dispatcher:
     platform: linux/amd64
@@ -38,4 +36,9 @@ services:
     platform: linux/amd64
   decisions-ghent-filter:
     platform: linux/amd64
-
+  oslo-eli-transformer:
+    platform: linux/amd64
+  login:
+    platform: linux/amd64
+  harvest_singleton-job:
+    platform: linux/amd64
