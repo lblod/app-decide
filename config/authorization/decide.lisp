@@ -122,7 +122,7 @@
        :to harvesting-public
        :for "public")
 
-(grant (read)
+(grant (read write)
        :to harvesting
        :for "logged-in")
 
