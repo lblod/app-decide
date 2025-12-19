@@ -95,7 +95,7 @@
   ("org:Organization" -> _)
   ("skos:Concept" -> _)
   ("skos:ConceptScheme" -> _)
-    ;; Geo data
+  ;; Geo data
   ("dct:Location" -> _)
   ("locn:Geometry" -> _)
   ("locn:Address" -> _)
