@@ -110,7 +110,11 @@
   ("cogs:Job" -> _)
   ("ext:AnnotationJob" -> _)
   ("tasks:Task" -> _)
-  ("nfo:DataContainer" -> _))
+  ("nfo:DataContainer" -> _)
+  ("cogs:ScheduledJob" -> _ )
+  ("tasks:ScheduledTask" -> _ )
+  ("tasks:CronSchedule" -> _ )
+  ("schema:repeatFrequency" -> _ ))
 
 (supply-allowed-group "public")
 

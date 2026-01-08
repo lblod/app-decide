@@ -13,7 +13,7 @@
 (add-prefix "oparl-temp" "http://mu.semte.ch/vocabularies/ext/oparl/")
 (add-prefix "org" "http://www.w3.org/ns/org#")
 (add-prefix "rdfs" "http://www.w3.org/2000/01/rdf-schema#")
-(add-prefix "schema" "https://schema.org/")
+(add-prefix "schema" "http://schema.org/")
 (add-prefix "skos" "http://www.w3.org/2004/02/skos/core#")
 (add-prefix "vcard" "http://www.w3.org/2006/vcard/ns#")
 (add-prefix "oa" "http://www.w3.org/ns/oa#")
