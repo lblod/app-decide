@@ -22,14 +22,13 @@ services:
     platform: linux/amd64
   job-controller:
     platform: linux/arm64
+  scheduled-job-controller:
+    image: lblod/scheduled-job-controller-service:latest
   harvest_sameas:
     image: brechtvdv/import-with-sameas-service-arm:latest
     platform: linux/arm64
   harvest_diff:
     platform: linux/amd64
-  oparl-to-eli:
-    image: brechtvdv/mu-javascript-template:1.9.1
-    platform: linux/arm64
   project-scripts:
     platform: linux/amd64
   lokaal-beslist-consumer:

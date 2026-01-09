@@ -77,6 +77,18 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://resource/tasks/"
   end
 
+  match "/scheduled-jobs/*path", %{accept: [:json], layer: :api_services} do
+    Proxy.forward conn, path, "http://resource/scheduled-jobs/"
+  end
+
+  match "/scheduled-tasks/*path", %{accept: [:json], layer: :api_services} do
+    Proxy.forward conn, path, "http://resource/scheduled-tasks/"
+  end
+
+  match "/cron-schedules/*path", %{accept: [:json], layer: :api_services} do
+    Proxy.forward conn, path, "http://resource/cron-schedules/"
+  end
+
   #################
   # Frontend Harvesting
   #################
