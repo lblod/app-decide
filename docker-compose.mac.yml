@@ -23,7 +23,7 @@ services:
   job-controller:
     platform: linux/arm64
   scheduled-job-controller:
-    image: brechtvdv/scheduled-job-controller-service:1.2.1
+    image: lblod/scheduled-job-controller-service:latest
   harvest_sameas:
     image: brechtvdv/import-with-sameas-service-arm:latest
     platform: linux/arm64
