@@ -63,19 +63,19 @@ agent:945e9df0-c9e6-4f5c-a249-34075169e68d a foaf:Agent;
 
 dataset:2bb49e25-feb1-4daf-b98a-6c274e7d6d7d a dcat:Dataset;
     mu:uuid "2bb49e25-feb1-4daf-b98a-6c274e7d6d7d";
-    dct:title "Lokaal Beslist Harvester 0";
-    dct:description "SPARQL endpoint met lokale besluiten van Vlaamse gemeenten.";
+    dct:title "Lokaal Beslist Harvester 0"@nl;
+    dct:description "SPARQL endpoint met lokale besluiten van Vlaamse gemeenten."@nl;
     dct:publisher agent:;
     dcat:contactPoint agent:436c5bce-8380-401e-8027-f34ef4acd97e;
-    dcat:theme <https://vocab.belgif.be/auth/datatheme/GOVE>;
+    dcat:theme <http://vocab.belgif.be/auth/datatheme/GOVE>;
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
     dcat:distribution distribution:4697a3e9-9225-4ca1-a17c-0df585b4f872
 .
 distribution:4697a3e9-9225-4ca1-a17c-0df585b4f872 a dcat:Distribution;
     mu:uuid "4697a3e9-9225-4ca1-a17c-0df585b4f872";
     dct:format <http://publications.europa.eu/resource/authority/file-type/SPARQLQRES>;
-    dct:title "Lokaal Beslist SPARQL Endpoint 0";
-    dct:description "Endpoint met lokale besluiten van Vlaamse gemeenten";
+    dct:title "Lokaal Beslist SPARQL Endpoint 0"@nl;
+    dct:description "Endpoint met lokale besluiten van Vlaamse gemeenten"@nl;
     dcat:accessURL "https://lokaalbeslist-harvester-0.s.redhost.be/sparql"^^xsd:anyURI;
     dcat:accessService service:df87f118-165c-468d-b558-99f5c324d334;
     dct:license <http://opendatacommons.org/licenses/pddl/1.0/>
@@ -83,85 +83,97 @@ distribution:4697a3e9-9225-4ca1-a17c-0df585b4f872 a dcat:Distribution;
 service:df87f118-165c-468d-b558-99f5c324d334 a dcat:DataService ;
     mu:uuid "df87f118-165c-468d-b558-99f5c324d334";
     dct:conformsTo <https://www.w3.org/TR/sparql11-protocol/> ;
+    dct:title "Lokaal Beslist SPARQL Endpoint 0"@nl;
+    dcat:endpointDescription "Endpoint met lokale besluiten van Vlaamse gemeenten"@nl;
     dcat:endpointURL "https://lokaalbeslist-harvester-0.s.redhost.be/sparql"^^xsd:anyURI ;
+    dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
     dcat:servesDataset dataset:2bb49e25-feb1-4daf-b98a-6c274e7d6d7d
 .
 
 dataset:cf4d74f5-f39b-4193-a79c-6b46c8e3c9a6 a dcat:Dataset;
     mu:uuid "cf4d74f5-f39b-4193-a79c-6b46c8e3c9a6";
-    dct:title "Lokaal Beslist Harvester 1";
-    dct:description "SPARQL endpoint met lokale besluiten van Vlaamse gemeenten.";
+    dct:title "Lokaal Beslist Harvester 1"@nl;
+    dct:description "SPARQL endpoint met lokale besluiten van Vlaamse gemeenten."@nl;
     dct:publisher agent:436c5bce-8380-401e-8027-f34ef4acd97e;
     dcat:contactPoint agent:436c5bce-8380-401e-8027-f34ef4acd97e;
-    dcat:theme <https://vocab.belgif.be/auth/datatheme/GOVE>;
+    dcat:theme <http://vocab.belgif.be/auth/datatheme/GOVE>;
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
     dcat:distribution distribution:3e9974a1-2182-404b-b60a-84a64468df31
 .
 distribution:3e9974a1-2182-404b-b60a-84a64468df31 a dcat:Distribution;
     mu:uuid "3e9974a1-2182-404b-b60a-84a64468df31";
     dct:format <http://publications.europa.eu/resource/authority/file-type/SPARQLQRES>;
-    dct:title "Lokaal Beslist SPARQL Endpoint 1";
-    dct:description "Endpoint met lokale besluiten van Vlaamse gemeenten.";
+    dct:title "Lokaal Beslist SPARQL Endpoint 1"@nl;
+    dct:description "Endpoint met lokale besluiten van Vlaamse gemeenten."@nl;
     dcat:accessURL "https://lokaalbeslist-harvester-1.s.redhost.be/sparql"^^xsd:anyURI;
     dcat:accessService service:57638b91-d88b-44cb-9664-61d108bb92e7;
     dct:license <http://opendatacommons.org/licenses/pddl/1.0/>
 .
 service:57638b91-d88b-44cb-9664-61d108bb92e7 a dcat:DataService ;
     mu:uuid "57638b91-d88b-44cb-9664-61d108bb92e7";
+    dct:title "Lokaal Beslist Harvester 1"@nl;
     dct:conformsTo <https://www.w3.org/TR/sparql11-protocol/> ;
+    dcat:endpointDescription "Endpoint met lokale besluiten van Vlaamse gemeenten."@nl;
     dcat:endpointURL "https://lokaalbeslist-harvester-1.s.redhost.be/sparql"^^xsd:anyURI ;
+    dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
     dcat:servesDataset dataset:cf4d74f5-f39b-4193-a79c-6b46c8e3c9a6
 .
 
 dataset:0b2ad45a-eccf-45ac-874d-8b498a172772 a dcat:Dataset;
     mu:uuid "0b2ad45a-eccf-45ac-874d-8b498a172772";
-    dct:title "Lokaal Beslist Harvester 2";
-    dct:description "SPARQL endpoint met lokale besluiten van Vlaamse gemeenten.";
+    dct:title "Lokaal Beslist Harvester 2"@nl;
+    dct:description "SPARQL endpoint met lokale besluiten van Vlaamse gemeenten."@nl;
     dct:publisher agent:436c5bce-8380-401e-8027-f34ef4acd97e;
     dcat:contactPoint agent:436c5bce-8380-401e-8027-f34ef4acd97e;
-    dcat:theme <https://vocab.belgif.be/auth/datatheme/GOVE>;
+    dcat:theme <http://vocab.belgif.be/auth/datatheme/GOVE>;
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
     dcat:distribution distribution:e5f475b5-c6d3-4ff2-b8fc-0a81003138a0
 .
 distribution:e5f475b5-c6d3-4ff2-b8fc-0a81003138a0 a dcat:Distribution;
     mu:uuid "e5f475b5-c6d3-4ff2-b8fc-0a81003138a0";
     dct:format <http://publications.europa.eu/resource/authority/file-type/SPARQLQRES>;
-    dct:title "Lokaal Beslist SPARQL Endpoint 2";
-    dct:description "Endpoint met lokale besluiten van Vlaamse gemeenten.";
+    dct:title "Lokaal Beslist SPARQL Endpoint 2"@nl;
+    dct:description "Endpoint met lokale besluiten van Vlaamse gemeenten."@nl;
     dcat:accessURL "https://lokaalbeslist-harvester-2.s.redhost.be/sparql"^^xsd:anyURI;
     dcat:accessService service:706a5fda-ef6e-496e-a312-15a0620efe12;
     dct:license <http://opendatacommons.org/licenses/pddl/1.0/>
 .
 service:706a5fda-ef6e-496e-a312-15a0620efe12 a dcat:DataService ;
     mu:uuid "706a5fda-ef6e-496e-a312-15a0620efe12";
+    dct:title "Lokaal Beslist Harvester 2"@nl;
     dct:conformsTo <https://www.w3.org/TR/sparql11-protocol/> ;
+    dcat:endpointDescription "SPARQL endpoint met lokale besluiten van Vlaamse gemeenten."@nl;
     dcat:endpointURL "https://lokaalbeslist-harvester-2.s.redhost.be/sparql"^^xsd:anyURI ;
+    dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
     dcat:servesDataset dataset:0b2ad45a-eccf-45ac-874d-8b498a172772
 .
 
 dataset:f7a4bbb3-1fef-4975-9049-ee933cfce30e a dcat:Dataset;
     mu:uuid "f7a4bbb3-1fef-4975-9049-ee933cfce30e";
-    dct:title "Lokaal Beslist Harvester 3";
-    dct:description "SPARQL endpoint met lokale besluiten van Vlaamse gemeenten.";
+    dct:title "Lokaal Beslist Harvester 3"@nl;
+    dct:description "SPARQL endpoint met lokale besluiten van Vlaamse gemeenten."@nl;
     dct:publisher agent:436c5bce-8380-401e-8027-f34ef4acd97e;
     dcat:contactPoint agent:436c5bce-8380-401e-8027-f34ef4acd97e;
-    dcat:theme <https://vocab.belgif.be/auth/datatheme/GOVE>;
+    dcat:theme <http://vocab.belgif.be/auth/datatheme/GOVE>;
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
     dcat:distribution distribution:19bada3c-fc39-4524-a692-d45e735f578f
 .
 distribution:19bada3c-fc39-4524-a692-d45e735f578f a dcat:Distribution;
     mu:uuid "19bada3c-fc39-4524-a692-d45e735f578f";
     dct:format <http://publications.europa.eu/resource/authority/file-type/SPARQLQRES>;
-    dct:title "Lokaal Beslist SPARQL Endpoint 3";
-    dct:description "Endpoint met lokale besluiten van Vlaamse gemeenten.";
+    dct:title "Lokaal Beslist SPARQL Endpoint 3"@nl;
+    dct:description "Endpoint met lokale besluiten van Vlaamse gemeenten."@nl;
     dcat:accessURL "https://lokaalbeslist-harvester-3.s.redhost.be/sparql"^^xsd:anyURI;
     dcat:accessService service:ec5feb51-9108-4c35-adef-d799f64bab9d;
     dct:license <http://opendatacommons.org/licenses/pddl/1.0/>
 .
 service:ec5feb51-9108-4c35-adef-d799f64bab9d a dcat:DataService ;
     mu:uuid "ec5feb51-9108-4c35-adef-d799f64bab9d";
+    dct:title "Lokaal Beslist SPARQL Endpoint 3"@nl;
     dct:conformsTo <https://www.w3.org/TR/sparql11-protocol/> ;
+    dcat:endpointDescription "SPARQL endpoint met lokale besluiten van Vlaamse gemeenten."@nl;
     dcat:endpointURL "https://lokaalbeslist-harvester-3.s.redhost.be/sparql"^^xsd:anyURI ;
+    dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
     dcat:servesDataset dataset:f7a4bbb3-1fef-4975-9049-ee933cfce30e
 .
 
@@ -170,24 +182,27 @@ service:ec5feb51-9108-4c35-adef-d799f64bab9d a dcat:DataService ;
 
 dataset:74c12f17-f0eb-4bf2-8390-0d21655f00e3 a dcat:Dataset;
     mu:uuid "74c12f17-f0eb-4bf2-8390-0d21655f00e3";
-    dct:title "Open Proces Huis procesdata";
-    dct:description "Proces-, diagram- en invatarisdata van Open Proces Huis";
+    dct:title "Open Proces Huis procesdata"@nl;
+    dct:description "Proces-, diagram- en invatarisdata van Open Proces Huis"@nl;
     dct:publisher agent:f45c1220-b250-4b93-8a8a-3e7e4a12a467;
     dcat:contactPoint agent:945e9df0-c9e6-4f5c-a249-34075169e68d;
-    dcat:theme <https://vocab.belgif.be/auth/datatheme/GOVE>;
+    dcat:theme <http://vocab.belgif.be/auth/datatheme/GOVE>;
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/RESTRICTED>;
     dct:distribution distribution:ad94e41e-a790-44bc-8602-e1fe0c7bc1b0
 .
 distribution:ad94e41e-a790-44bc-8602-e1fe0c7bc1b0 a dcat:Distribution;
     mu:uuid "ad94e41e-a790-44bc-8602-e1fe0c7bc1b0";
-    dct:title "SPARQL endpoint";
-    dcat:accessURL "https://openproceshuis.vlaanderen.be/sparql";
+    dct:title "SPARQL endpoint"@nl;
+    dcat:accessURL "https://openproceshuis.vlaanderen.be/sparql"^^xsd:anyURI;
     dcat:accessService service:7333d62b-bd34-4063-ad34-28ec22a098b5
 .
 service:7333d62b-bd34-4063-ad34-28ec22a098b5 a dcat:DataService ;
     mu:uuid "7333d62b-bd34-4063-ad34-28ec22a098b5";
+    dct:title "Open Proces Huis procesdata"@nl;
     dct:conformsTo <https://www.w3.org/TR/sparql11-protocol/> ;
+    dcat:endpointDescription "Proces-, diagram- en invatarisdata van Open Proces Huis"@nl;
     dcat:endpointURL "https://openproceshuis.vlaanderen.be/sparql"^^xsd:anyURI ;
+    dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
     dcat:servesDataset dataset:74c12f17-f0eb-4bf2-8390-0d21655f00e3
 .
 
@@ -196,11 +211,11 @@ service:7333d62b-bd34-4063-ad34-28ec22a098b5 a dcat:DataService ;
 
 dataset:dd91b174-e9bb-4d33-8732-ed064a828b60 a dcat:Dataset;
     mu:uuid "dd91b174-e9bb-4d33-8732-ed064a828b60";
-    dct:title "Ghent Municipal Decisions Roadblocks Classification";
-    dct:description "A comprehensive dataset of Dutch municipal decision documents from Ghent, Belgium, specifically processed and classified for traffic measures, roadblocks, and infrastructure projects that affect urban mobility.";
+    dct:title "Ghent Municipal Decisions Roadblocks Classification"@en;
+    dct:description "A comprehensive dataset of Dutch municipal decision documents from Ghent, Belgium, specifically processed and classified for traffic measures, roadblocks, and infrastructure projects that affect urban mobility."@en;
     dct:publisher agent:bcdaccd2-5651-4c1d-8021-415a43ee4cfb;
     dcat:contactPoint agent:bcdaccd2-5651-4c1d-8021-415a43ee4cfb;
-    dcat:theme <https://vocab.belgif.be/auth/datatheme/REGI>;
+    dcat:theme <http://vocab.belgif.be/auth/datatheme/REGI>;
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
     dcat:distribution distribution:f27a58aa-5cbf-4612-b3d0-a4d49100153f
 .
@@ -208,18 +223,18 @@ distribution:f27a58aa-5cbf-4612-b3d0-a4d49100153f a dcat:Distribution;
     mu:uuid "f27a58aa-5cbf-4612-b3d0-a4d49100153f";
     rdfs:comment "HuggingFace";
     dct:format <http://publications.europa.eu/resource/authority/file-type/PARQUET>;
-    dct:title "Ghent Municipal Decisions Roadblocks Classification";
-    dct:description "HuggingFace data of Dutch municipal decision documents from Ghent, Belgium, specifically processed and classified for traffic measures, roadblocks, and infrastructure projects that affect urban mobility.";
+    dct:title "Ghent Municipal Decisions Roadblocks Classification"@en;
+    dct:description "HuggingFace data of Dutch municipal decision documents from Ghent, Belgium, specifically processed and classified for traffic measures, roadblocks, and infrastructure projects that affect urban mobility."@en;
     dcat:accessURL "https://huggingface.co/datasets/svercoutere/abb-decide-ghent-roadblocks-classification"^^xsd:anyURI
 .
 
 dataset:2e1d52d9-2509-4b60-ac5a-0307897d64ef a dcat:Dataset;
     mu:uuid "2e1d52d9-2509-4b60-ac5a-0307897d64ef";
-    dct:title "llama3 ABB Instruct";
-    dct:description "A comprehensive dataset to fine tune a llama3 model for translation, classification and keyword extraction from decision documents from Ghent";
+    dct:title "llama3 ABB Instruct"@en;
+    dct:description "A comprehensive dataset to fine tune a llama3 model for translation, classification and keyword extraction from decision documents from Ghent"@en;
     dct:publisher agent:bcdaccd2-5651-4c1d-8021-415a43ee4cfb;
     dcat:contactPoint agent:bcdaccd2-5651-4c1d-8021-415a43ee4cfb;
-    dcat:theme <https://vocab.belgif.be/auth/datatheme/GOVE>;
+    dcat:theme <http://vocab.belgif.be/auth/datatheme/GOVE>;
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
     dcat:distribution distribution:4ed47dd1-aa35-4f94-b751-c0984349908c
 .
@@ -227,18 +242,18 @@ distribution:4ed47dd1-aa35-4f94-b751-c0984349908c a dcat:Distribution;
     mu:uuid "4ed47dd1-aa35-4f94-b751-c0984349908c";
     rdfs:comment "HuggingFace";
     dct:format <http://publications.europa.eu/resource/authority/file-type/PARQUET>;
-    dct:title "llama3 ABB Instruct";
-    dct:description "HuggingFace data to fine tune a llama3 model for translation, classification and keyword extraction from decision documents from Ghent";
+    dct:title "llama3 ABB Instruct"@en;
+    dct:description "HuggingFace data to fine tune a llama3 model for translation, classification and keyword extraction from decision documents from Ghent"@en;
     dcat:accessURL "https://huggingface.co/datasets/svercoutere/llama3_abb_instruct_dataset"^^xsd:anyURI
 .
 
 dataset:6aaa542d-410c-4150-bcfd-e5526eab87f4 a dcat:Dataset;
     mu:uuid "6aaa542d-410c-4150-bcfd-e5526eab87f4";
-    dct:title "ABB DECIDe SDGs Antwerp";
-    dct:description "A comprehensive dataset to classify decision documents from Antwerp into Sustainable Development Goals";
+    dct:title "ABB DECIDe SDGs Antwerp"@en;
+    dct:description "A comprehensive dataset to classify decision documents from Antwerp into Sustainable Development Goals"@en;
     dct:publisher agent:bcdaccd2-5651-4c1d-8021-415a43ee4cfb;
     dcat:contactPoint agent:bcdaccd2-5651-4c1d-8021-415a43ee4cfb;
-    dcat:theme <https://vocab.belgif.be/auth/datatheme/ENVI>;
+    dcat:theme <http://vocab.belgif.be/auth/datatheme/ENVI>;
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
     dcat:distribution distribution:6d5607a1-e1b3-4259-b186-760d8fef7da3
 .
@@ -246,18 +261,18 @@ distribution:6d5607a1-e1b3-4259-b186-760d8fef7da3 a dcat:Distribution;
     mu:uuid "6d5607a1-e1b3-4259-b186-760d8fef7da3";
     rdfs:comment "HuggingFace";
     dct:format <http://publications.europa.eu/resource/authority/file-type/PARQUET>;
-    dct:title "ABB DECIDe SDGs Antwerp";
-    dct:description "HuggingFace data to classify decision documents from Antwerp into Sustainable Development Goals";
+    dct:title "ABB DECIDe SDGs Antwerp"@en;
+    dct:description "HuggingFace data to classify decision documents from Antwerp into Sustainable Development Goals"@en;
     dcat:accessURL "https://huggingface.co/datasets/svercoutere/abb-decide-sdgs-antwerp"^^xsd:anyURI
 .
 
-dataset:3d79b143-4009-451a-8b80-423da944d9a8 a dcat:Distribution;
+dataset:3d79b143-4009-451a-8b80-423da944d9a8 a dcat:Dataset;
     mu:uuid "3d79b143-4009-451a-8b80-423da944d9a8";
-    dct:title "ABB DECIDe title extraction instruct";
-    dct:description "A comprehensive dataset to identify and extract the title from plain text decision documents from Ghent with the help of llama3";
+    dct:title "ABB DECIDe title extraction instruct"@en;
+    dct:description "A comprehensive dataset to identify and extract the title from plain text decision documents from Ghent with the help of llama3"@en;
     dct:publisher agent:bcdaccd2-5651-4c1d-8021-415a43ee4cfb;
     dcat:contactPoint agent:bcdaccd2-5651-4c1d-8021-415a43ee4cfb;
-    dcat:theme <https://vocab.belgif.be/auth/datatheme/GOVE>;
+    dcat:theme <http://vocab.belgif.be/auth/datatheme/GOVE>;
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
     dcat:distribution distribution:b8b63c96-f5ce-496a-937e-7406f6aa1b91
 .
@@ -265,18 +280,18 @@ distribution:b8b63c96-f5ce-496a-937e-7406f6aa1b91 a dcat:Distribution;
     mu:uuid "b8b63c96-f5ce-496a-937e-7406f6aa1b91";
     rdfs:comment "HuggingFace";
     dct:format <http://publications.europa.eu/resource/authority/file-type/PARQUET>;
-    dct:title "ABB DECIDe title extraction instruct";
-    dct:description "HuggingFace data to identify and extract the title from plain text decision documents from Ghent with the help of llama3";
+    dct:title "ABB DECIDe title extraction instruct"@en;
+    dct:description "HuggingFace data to identify and extract the title from plain text decision documents from Ghent with the help of llama3"@en;
     dcat:accessURL "https://huggingface.co/datasets/PedroDKE/ABB-DECIDe-title-extraction-instruct-dataset"^^xsd:anyURI
 .
 
 dataset:6b65a734-7d22-4486-97e3-c7eafc7341d5 a dcat:Dataset;
     mu:uuid "6b65a734-7d22-4486-97e3-c7eafc7341d5";
-    dct:title "Flanders NER and Segmentation dataset";
-    dct:description "Labelstudio data to train segmentation and NER models on decision data from Flemish cities";
+    dct:title "Flanders NER and Segmentation dataset"@en;
+    dct:description "Labelstudio data to train segmentation and NER models on decision data from Flemish cities"@en;
     dct:publisher agent:bcdaccd2-5651-4c1d-8021-415a43ee4cfb;
     dcat:contactPoint agent:bcdaccd2-5651-4c1d-8021-415a43ee4cfb;
-    dcat:theme <https://vocab.belgif.be/auth/datatheme/GOVE>;
+    dcat:theme <http://vocab.belgif.be/auth/datatheme/GOVE>;
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/RESTRICTED>;
     dcat:distribution distribution:a9233283-4233-41b0-a4e4-ab470c49a6f6
 .
@@ -284,18 +299,18 @@ distribution:a9233283-4233-41b0-a4e4-ab470c49a6f6 a dcat:Distribution;
     mu:uuid "a9233283-4233-41b0-a4e4-ab470c49a6f6";
     rdfs:comment "Labelstudio";
     dct:format <http://publications.europa.eu/resource/authority/file-type/OCTET>;
-    dct:title "Flanders NER and Segmentation dataset";
-    dct:description "Labelstudio data to train segmentation and NER models on decision data from Flemish cities";
+    dct:title "Flanders NER and Segmentation dataset"@en;
+    dct:description "Labelstudio data to train segmentation and NER models on decision data from Flemish cities"@en;
     dcat:accessURL "https://labelstudio.abb.ml2grow.cloud/projects/25/data?tab=73"^^xsd:anyURI
 .
 
 dataset:38fd6817-f185-478d-9e21-12d6a694834c a dcat:Dataset;
     mu:uuid "38fd6817-f185-478d-9e21-12d6a694834c";
-    dct:title "Freiburg NER and Segmentation dataset";
-    dct:description "A comprehensive dataset to train segmentation and NER models on decision data from Freiburg";
+    dct:title "Freiburg NER and Segmentation dataset"@en;
+    dct:description "A comprehensive dataset to train segmentation and NER models on decision data from Freiburg"@en;
     dct:publisher agent:bcdaccd2-5651-4c1d-8021-415a43ee4cfb;
     dcat:contactPoint agent:bcdaccd2-5651-4c1d-8021-415a43ee4cfb;
-    dcat:theme <https://vocab.belgif.be/auth/datatheme/GOVE>;
+    dcat:theme <http://vocab.belgif.be/auth/datatheme/GOVE>;
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/RESTRICTED>;
     dcat:distribution distribution:66b310c8-4d2b-4f8f-a292-c1882f939e6c
 .
@@ -303,18 +318,18 @@ distribution:66b310c8-4d2b-4f8f-a292-c1882f939e6c a dcat:Distribution;
     mu:uuid "66b310c8-4d2b-4f8f-a292-c1882f939e6c";
     rdfs:comment "Labelstudio";
     dct:format <http://publications.europa.eu/resource/authority/file-type/OCTET>;
-    dct:title "Freiburg NER and Segmentation dataset";
-    dct:description "Labelstudio data to train segmentation and NER models on decision data from Freiburg";
+    dct:title "Freiburg NER and Segmentation dataset"@en;
+    dct:description "Labelstudio data to train segmentation and NER models on decision data from Freiburg"@en;
     dcat:accessURL "https://labelstudio.abb.ml2grow.cloud/projects/26/data?tab=68"^^xsd:anyURI
 .
 
 dataset:2ba4d174-e492-4bf2-b3a6-425f7afa51bf a dcat:Dataset;
     mu:uuid "2ba4d174-e492-4bf2-b3a6-425f7afa51bf";
-    dct:title "Bamberg NER and Segmentation dataset";
-    dct:description "A comprehensive dataset to train segmentation and NER models on decision data from Bamberg";
+    dct:title "Bamberg NER and Segmentation dataset"@en;
+    dct:description "A comprehensive dataset to train segmentation and NER models on decision data from Bamberg"@en;
     dct:publisher agent:bcdaccd2-5651-4c1d-8021-415a43ee4cfb;
     dcat:contactPoint agent:bcdaccd2-5651-4c1d-8021-415a43ee4cfb;
-    dcat:theme <https://vocab.belgif.be/auth/datatheme/GOVE>;
+    dcat:theme <http://vocab.belgif.be/auth/datatheme/GOVE>;
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/RESTRICTED>;
     dcat:distribution distribution:7125af8b-f298-44a5-9c5f-c3db1b296fbd
 .
@@ -322,18 +337,18 @@ distribution:7125af8b-f298-44a5-9c5f-c3db1b296fbd a dcat:Distribution;
     mu:uuid "7125af8b-f298-44a5-9c5f-c3db1b296fbd";
     rdfs:comment "Labelstudio";
     dct:format <http://publications.europa.eu/resource/authority/file-type/OCTET>;
-    dct:title "Bamberg NER and Segmentation dataset";
-    dct:description "Labelstudio data to train segmentation and NER models on decision data from Bamberg";
+    dct:title "Bamberg NER and Segmentation dataset"@en;
+    dct:description "Labelstudio data to train segmentation and NER models on decision data from Bamberg"@en;
     dcat:accessURL "https://labelstudio.abb.ml2grow.cloud/projects/31/data?tab=110"^^xsd:anyURI
 .
 
 dataset:b0d10410-8bd0-408d-81d1-5794296e3e1b a dcat:Dataset;
     mu:uuid "dataset:b0d10410-8bd0-408d-81d1-5794296e3e1b";
-    dct:title "Combined translated dataset";
-    dct:description "A comprehensive dataset to train segmentation and NER models on decision data from Bamberg, Freiburg and Ghent in English";
+    dct:title "Combined translated dataset"@en;
+    dct:description "A comprehensive dataset to train segmentation and NER models on decision data from Bamberg, Freiburg and Ghent in English"@en;
     dct:publisher agent:bcdaccd2-5651-4c1d-8021-415a43ee4cfb;
     dcat:contactPoint agent:bcdaccd2-5651-4c1d-8021-415a43ee4cfb;
-    dcat:theme <https://vocab.belgif.be/auth/datatheme/GOVE>;
+    dcat:theme <http://vocab.belgif.be/auth/datatheme/GOVE>;
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/RESTRICTED>;
     dcat:distribution distribution:ab53349d-155c-4ed4-ad5a-27404488b69b
 .
@@ -341,8 +356,8 @@ distribution:ab53349d-155c-4ed4-ad5a-27404488b69b a dcat:Distribution;
     mu:uuid "ab53349d-155c-4ed4-ad5a-27404488b69b";
     rdfs:comment "Labelstudio";
     dct:format <http://publications.europa.eu/resource/authority/file-type/OCTET>;
-    dct:title "Combined translated dataset";
-    dct:description "Labelstudio data to train segmentation and NER models on decision data from Bamberg, Freiburg and Ghent in English";
+    dct:title "Combined translated dataset"@en;
+    dct:description "Labelstudio data to train segmentation and NER models on decision data from Bamberg, Freiburg and Ghent in English"@en;
     dcat:accessURL "https://labelstudio.abb.ml2grow.cloud/projects/27/data?tab=74"^^xsd:anyURI
 .
 
@@ -352,9 +367,11 @@ distribution:ab53349d-155c-4ed4-ad5a-27404488b69b a dcat:Distribution;
 
 service:0993dd37-87d7-4c20-894b-f7e3ffc87b7c a dcat:DataService ;
     mu:uuid "0993dd37-87d7-4c20-894b-f7e3ffc87b7c";
-    dct:title "Internal SPARQL endpoint";
+    dct:title "Internal SPARQL endpoint"@en, "Intern SPARQL endpoint"@nl;
     dct:conformsTo <https://www.w3.org/TR/sparql11-protocol/> ;
+    dcat:endpointDescription "Internally available triple store for DECIDe"@en;
     dcat:endpointURL "http://database:8890/sparql"^^xsd:anyURI ;
+    dct:accessRights <http://publications.europa.eu/resource/authority/access-right/RESTRICTED>;
     dcat:servesDataset
         dataset:16a89d3f-b75d-4dc8-bee8-69089f734c27,
         dataset:93951be6-e452-4579-807b-df5c969e333e,
@@ -363,11 +380,11 @@ service:0993dd37-87d7-4c20-894b-f7e3ffc87b7c a dcat:DataService ;
 
 dataset:16a89d3f-b75d-4dc8-bee8-69089f734c27 a dcat:Dataset;
     mu:uuid "16a89d3f-b75d-4dc8-bee8-69089f734c27";
-    dct:title "OSLO besluitdata";
-    dct:description "OSLO besluitdata geconsumeerd van Lokaal Beslists harvester 1. De data omvat agendapunten, behandelingen van agendapunten, besluiten, bestuursorganen, mandatarissen en stemmingen, en is onder andere afkomstig van alle Gentse bestuursorganen.";
+    dct:title "OSLO besluitdata"@nl;
+    dct:description "OSLO besluitdata geconsumeerd van Lokaal Beslists harvester 1. De data omvat agendapunten, behandelingen van agendapunten, besluiten, bestuursorganen, mandatarissen en stemmingen, en is onder andere afkomstig van alle Gentse bestuursorganen."@nl;
     dct:publisher agent:ABB;
     dcat:contactPoint agent:7cb46783-0ca2-41a2-b28c-248b99e752e4;
-    dcat:theme <https://vocab.belgif.be/auth/datatheme/GOVE>;
+    dcat:theme <http://vocab.belgif.be/auth/datatheme/GOVE>;
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/RESTRICTED>;
     prov:alternateOf dataset:cf4d74f5-f39b-4193-a79c-6b46c8e3c9a6;
     dcat:distribution distribution:7ccb4d96-a5fe-466b-8d54-74dcd318db31
@@ -376,16 +393,16 @@ distribution:7ccb4d96-a5fe-466b-8d54-74dcd318db31 a dcat:Distribution;
     mu:uuid "7ccb4d96-a5fe-466b-8d54-74dcd318db31";
     dcat:accessURL "http://database:8890/sparqlD"^^xsd:anyURI;
     dcat:accessService service:0993dd37-87d7-4c20-894b-f7e3ffc87b7c;
-    rdfs:comment "Dit is rechtstraaks overgenomen van Lokaal Beslist harvester 1. De graph is enkel bereikbaar door ons op onze server (niet-publiek), maar de orginele Lokaal Beslist data is publiek. Data is opgeslagen in een graph (http://mu.semte.ch/graphs/oslo-decisions/landing) in triplestore op onze dev server"
+    rdfs:comment "Dit is rechtstraaks overgenomen van Lokaal Beslist harvester 1. De graph is enkel bereikbaar door ons op onze server (niet-publiek), maar de orginele Lokaal Beslist data is publiek. Data is opgeslagen in een graph (http://mu.semte.ch/graphs/oslo-decisions/landing) in triplestore op onze dev server"@nl
 .
 
 dataset:93951be6-e452-4579-807b-df5c969e333e a dcat:Dataset;
     mu:uuid "93951be6-e452-4579-807b-df5c969e333e";
-    dct:title "ELI besluitdata Gent";
-    dct:description "ELI besluitdata gebaseerd op Gentse OSLO besluitdata in Lokaal Beslist";
+    dct:title "ELI besluitdata Gent"@nl;
+    dct:description "ELI besluitdata gebaseerd op Gentse OSLO besluitdata in Lokaal Beslist"@nl;
     dct:publisher agent:ABB;
     dcat:contactPoint agent:7cb46783-0ca2-41a2-b28c-248b99e752e4;
-    dcat:theme <https://vocab.belgif.be/auth/datatheme/GOVE>;
+    dcat:theme <http://vocab.belgif.be/auth/datatheme/GOVE>;
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/RESTRICTED>;
     dcat:distribution distribution:c321d079-aa58-4732-a222-c3e9a76cdc8f
 .
@@ -414,18 +431,19 @@ dataset:ead64000-2c7d-4fcc-a255-fd1c3451f956 a dcat:Dataset;
 .
 distribution:33f42ce6-3278-438f-9463-37a9ab17b096 a dcat:Distribution;
     mu:uuid "33f42ce6-3278-438f-9463-37a9ab17b096";
-    dct:title "SPARQL endpoint DEV Decide";
-    dct:description "SPARQL endpoint on the Dev server of Decide";
+    dct:title "SPARQL endpoint DEV Decide"@en;
+    dct:description "SPARQL endpoint on the Dev server of Decide"@en;
     dcat:accessURL "http://database:8890/sparql"^^xsd:anyURI; # only internally available
     dcat:accessService service:0993dd37-87d7-4c20-894b-f7e3ffc87b7c;
+    dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
     dct:format <http://publications.europa.eu/resource/authority/file-type/SPARQLQRES>
 .
 
 
 distribution:743d147f-7079-4425-aa5b-0351dde216f4 a dcat:Distribution;
     mu:uuid "743d147f-7079-4425-aa5b-0351dde216f4";
-    dct:title "OParl-to-eli proxy (ELI)";
-    dct:description "Proxy API that provides OParl responses in ELI format on the fly";
+    dct:title "OParl-to-eli proxy (ELI)"@en;
+    dct:description "Proxy API that provides OParl responses in ELI format on the fly"@en;
     dcat:accessURL "https://vc.decide-dev.s.redhost.be/eli/eli"^^xsd:anyURI;
     dcat:accessService service:e27bea64-2c54-4dc0-8c6d-a6d4a1ed609b;
     dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE>;
@@ -433,7 +451,10 @@ distribution:743d147f-7079-4425-aa5b-0351dde216f4 a dcat:Distribution;
 .
 service:e27bea64-2c54-4dc0-8c6d-a6d4a1ed609b a dcat:DataService ;
     mu:uuid "e27bea64-2c54-4dc0-8c6d-a6d4a1ed609b";
+    dct:title "OParl-to-eli proxy (ELI)"@en;
+    dcat:endpointDescription "Proxy API that provides OParl responses in ELI format on the fly"@en;
     dcat:endpointURL "https://vc.decide-dev.s.redhost.be/eli/eli"^^xsd:anyURI ;
+    dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
     dcat:servesDataset dataset:ead64000-2c7d-4fcc-a255-fd1c3451f956
 .
 
@@ -448,8 +469,11 @@ distribution:46321676-74d9-4ab9-be29-83612ab7ec51 a dcat:Distribution;
 .
 service:a04a2727-d097-4297-93cc-1b3bfe7bf5e2 a dcat:DataService ;
     mu:uuid "a04a2727-d097-4297-93cc-1b3bfe7bf5e2";
+    dct:title "OParl API Freiburg"@en;
     dct:conformsTo <https://oparl.org/spezifikation/> ;
+    dcat:endpointDescription "OParl API is a JSON API offered by the vendor of Freiburg."@en ;
     dcat:endpointURL "https://ris.freiburg.de/oparl"^^xsd:anyURI ;
+    dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
     dcat:servesDataset dataset:ead64000-2c7d-4fcc-a255-fd1c3451f956
 .
 
@@ -489,8 +513,8 @@ dataset:8a84f8a5-613a-45d0-bd43-e430dd3516ce a dcat:Dataset;
 .
 distribution:7661627c-3cae-4991-bbdc-1f0a3f633781 a dcat:Distribution;
     mu:uuid "7661627c-3cae-4991-bbdc-1f0a3f633781";
-    dct:title "Bamberg PDFs on local decisions";
-    dct:description "Bamberg PDFs on local decisions.";
+    dct:title "Bamberg PDFs on local decisions"@en;
+    dct:description "Bamberg PDFs on local decisions."@en;
     dcat:accessURL "https://u486391-sub1.your-storagebox.de/home/datasets/bamberg/bamberg_pdfs"^^xsd:anyURI; # only internally available
     dct:format <http://publications.europa.eu/resource/authority/file-type/PDF>
 .
