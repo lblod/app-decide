@@ -34,7 +34,7 @@ agent:658900ce-63cf-4d45-8fd5-a67ed8deab2c a foaf:Agent;
 .
 
 agent:c3c2a7bf-af3b-43b8-99f5-c3463ec9408a a foaf:Agent;
-    vcard:hasName "Vlaamse Overheid"@nl
+    vcard:hasName "Vlaamse Overheid"@nl, "Flemish government"@en
 .
 
 agent:f45c1220-b250-4b93-8a8a-3e7e4a12a467 a foaf:Agent;
@@ -63,9 +63,9 @@ agent:945e9df0-c9e6-4f5c-a249-34075169e68d a foaf:Agent;
 
 dataset:2bb49e25-feb1-4daf-b98a-6c274e7d6d7d a dcat:Dataset;
     mu:uuid "2bb49e25-feb1-4daf-b98a-6c274e7d6d7d";
-    dct:title "Lokaal Beslist Harvester 0"@nl;
-    dct:description "SPARQL endpoint met lokale besluiten van Vlaamse gemeenten."@nl;
-    dct:publisher agent:;
+    dct:title "Lokaal Beslist Harvester 0"@nl, "Lokaal Beslist Harvester 0"@en;
+    dct:description "Lokale besluiten van Vlaamse gemeenten"@nl, "Local decisions of Flemish municipalities"@en;
+    dct:publisher agent:436c5bce-8380-401e-8027-f34ef4acd97e;
     dcat:contactPoint agent:436c5bce-8380-401e-8027-f34ef4acd97e;
     dcat:theme <http://vocab.belgif.be/auth/datatheme/GOVE>;
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
@@ -74,17 +74,18 @@ dataset:2bb49e25-feb1-4daf-b98a-6c274e7d6d7d a dcat:Dataset;
 distribution:4697a3e9-9225-4ca1-a17c-0df585b4f872 a dcat:Distribution;
     mu:uuid "4697a3e9-9225-4ca1-a17c-0df585b4f872";
     dct:format <http://publications.europa.eu/resource/authority/file-type/SPARQLQRES>;
-    dct:title "Lokaal Beslist SPARQL Endpoint 0"@nl;
-    dct:description "Endpoint met lokale besluiten van Vlaamse gemeenten"@nl;
+    dct:title "Lokaal Beslist SPARQL Endpoint 0"@nl, "Lokaal Beslist SPARQL Endpoint 0"@en;
+    dct:description "SPARQL endpoint met lokale besluiten van Vlaamse gemeenten"@nl, "SPARQL endpoint containing local decisions of Flemish municipalities"@en;
     dcat:accessURL "https://lokaalbeslist-harvester-0.s.redhost.be/sparql"^^xsd:anyURI;
     dcat:accessService service:df87f118-165c-468d-b558-99f5c324d334;
+    dct:format <http://publications.europa.eu/resource/authority/file-type/SPARQLQRES>;
     dct:license <http://opendatacommons.org/licenses/pddl/1.0/>
 .
 service:df87f118-165c-468d-b558-99f5c324d334 a dcat:DataService ;
     mu:uuid "df87f118-165c-468d-b558-99f5c324d334";
     dct:conformsTo <https://www.w3.org/TR/sparql11-protocol/> ;
-    dct:title "Lokaal Beslist SPARQL Endpoint 0"@nl;
-    dcat:endpointDescription "Endpoint met lokale besluiten van Vlaamse gemeenten"@nl;
+    dct:title "Lokaal Beslist SPARQL Endpoint 0"@nl, "Lokaal Beslist SPARQL Endpoint 0"@en;
+    dcat:endpointDescription "SPARQL endpoint met lokale besluiten van Vlaamse gemeenten"@nl, "SPARQL endpoint containing local decisions of Flemish municipalities"@en;
     dcat:endpointURL "https://lokaalbeslist-harvester-0.s.redhost.be/sparql"^^xsd:anyURI ;
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
     dcat:servesDataset dataset:2bb49e25-feb1-4daf-b98a-6c274e7d6d7d
@@ -93,7 +94,7 @@ service:df87f118-165c-468d-b558-99f5c324d334 a dcat:DataService ;
 dataset:cf4d74f5-f39b-4193-a79c-6b46c8e3c9a6 a dcat:Dataset;
     mu:uuid "cf4d74f5-f39b-4193-a79c-6b46c8e3c9a6";
     dct:title "Lokaal Beslist Harvester 1"@nl;
-    dct:description "SPARQL endpoint met lokale besluiten van Vlaamse gemeenten."@nl;
+    dct:description "Lokale besluiten van Vlaamse gemeenten"@nl, "Local decisions of Flemish municipalities"@en;
     dct:publisher agent:436c5bce-8380-401e-8027-f34ef4acd97e;
     dcat:contactPoint agent:436c5bce-8380-401e-8027-f34ef4acd97e;
     dcat:theme <http://vocab.belgif.be/auth/datatheme/GOVE>;
@@ -103,17 +104,18 @@ dataset:cf4d74f5-f39b-4193-a79c-6b46c8e3c9a6 a dcat:Dataset;
 distribution:3e9974a1-2182-404b-b60a-84a64468df31 a dcat:Distribution;
     mu:uuid "3e9974a1-2182-404b-b60a-84a64468df31";
     dct:format <http://publications.europa.eu/resource/authority/file-type/SPARQLQRES>;
-    dct:title "Lokaal Beslist SPARQL Endpoint 1"@nl;
-    dct:description "Endpoint met lokale besluiten van Vlaamse gemeenten."@nl;
+    dct:title "Lokaal Beslist SPARQL Endpoint 1"@nl, "Lokaal Beslist SPARQL Endpoint 1"@en;;
+    dct:description "SPARQL endpoint met lokale besluiten van Vlaamse gemeenten"@nl, "SPARQL endpoint containing local decisions of Flemish municipalities"@en;
     dcat:accessURL "https://lokaalbeslist-harvester-1.s.redhost.be/sparql"^^xsd:anyURI;
     dcat:accessService service:57638b91-d88b-44cb-9664-61d108bb92e7;
+    dct:format <http://publications.europa.eu/resource/authority/file-type/SPARQLQRES>;
     dct:license <http://opendatacommons.org/licenses/pddl/1.0/>
 .
 service:57638b91-d88b-44cb-9664-61d108bb92e7 a dcat:DataService ;
     mu:uuid "57638b91-d88b-44cb-9664-61d108bb92e7";
-    dct:title "Lokaal Beslist Harvester 1"@nl;
+    dct:title "Lokaal Beslist Harvester 1"@nl, "Lokaal Beslist Harvester 2"@en;
     dct:conformsTo <https://www.w3.org/TR/sparql11-protocol/> ;
-    dcat:endpointDescription "Endpoint met lokale besluiten van Vlaamse gemeenten."@nl;
+    dcat:endpointDescription "SPARQL endpoint met lokale besluiten van Vlaamse gemeenten"@nl, "SPARQL endpoint containing local decisions of Flemish municipalities"@en;
     dcat:endpointURL "https://lokaalbeslist-harvester-1.s.redhost.be/sparql"^^xsd:anyURI ;
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
     dcat:servesDataset dataset:cf4d74f5-f39b-4193-a79c-6b46c8e3c9a6
@@ -121,8 +123,8 @@ service:57638b91-d88b-44cb-9664-61d108bb92e7 a dcat:DataService ;
 
 dataset:0b2ad45a-eccf-45ac-874d-8b498a172772 a dcat:Dataset;
     mu:uuid "0b2ad45a-eccf-45ac-874d-8b498a172772";
-    dct:title "Lokaal Beslist Harvester 2"@nl;
-    dct:description "SPARQL endpoint met lokale besluiten van Vlaamse gemeenten."@nl;
+    dct:title "Lokaal Beslist Harvester 2"@nl, "Lokaal Beslist Harvester 2"@en;
+    dct:description "Lokale besluiten van Vlaamse gemeenten"@nl, "Local decisions of Flemish municipalities"@en;
     dct:publisher agent:436c5bce-8380-401e-8027-f34ef4acd97e;
     dcat:contactPoint agent:436c5bce-8380-401e-8027-f34ef4acd97e;
     dcat:theme <http://vocab.belgif.be/auth/datatheme/GOVE>;
@@ -132,17 +134,18 @@ dataset:0b2ad45a-eccf-45ac-874d-8b498a172772 a dcat:Dataset;
 distribution:e5f475b5-c6d3-4ff2-b8fc-0a81003138a0 a dcat:Distribution;
     mu:uuid "e5f475b5-c6d3-4ff2-b8fc-0a81003138a0";
     dct:format <http://publications.europa.eu/resource/authority/file-type/SPARQLQRES>;
-    dct:title "Lokaal Beslist SPARQL Endpoint 2"@nl;
-    dct:description "Endpoint met lokale besluiten van Vlaamse gemeenten."@nl;
+    dct:title "Lokaal Beslist SPARQL Endpoint 2"@nl, "Lokaal Beslist SPARQL Endpoint 2"@en;
+    dct:description "SPARQL endpoint met lokale besluiten van Vlaamse gemeenten"@nl, "SPARQL endpoint containing local decisions of Flemish municipalities"@en;
     dcat:accessURL "https://lokaalbeslist-harvester-2.s.redhost.be/sparql"^^xsd:anyURI;
     dcat:accessService service:706a5fda-ef6e-496e-a312-15a0620efe12;
+    dct:format <http://publications.europa.eu/resource/authority/file-type/SPARQLQRES>;
     dct:license <http://opendatacommons.org/licenses/pddl/1.0/>
 .
 service:706a5fda-ef6e-496e-a312-15a0620efe12 a dcat:DataService ;
     mu:uuid "706a5fda-ef6e-496e-a312-15a0620efe12";
-    dct:title "Lokaal Beslist Harvester 2"@nl;
+    dct:title "Lokaal Beslist Harvester 2"@nl, "Lokaal Beslist Harvester 2"@en;
     dct:conformsTo <https://www.w3.org/TR/sparql11-protocol/> ;
-    dcat:endpointDescription "SPARQL endpoint met lokale besluiten van Vlaamse gemeenten."@nl;
+    dcat:endpointDescription "SPARQL endpoint met lokale besluiten van Vlaamse gemeenten"@nl, "SPARQL endpoint containing local decisions of Flemish municipalities"@en;
     dcat:endpointURL "https://lokaalbeslist-harvester-2.s.redhost.be/sparql"^^xsd:anyURI ;
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
     dcat:servesDataset dataset:0b2ad45a-eccf-45ac-874d-8b498a172772
@@ -150,8 +153,8 @@ service:706a5fda-ef6e-496e-a312-15a0620efe12 a dcat:DataService ;
 
 dataset:f7a4bbb3-1fef-4975-9049-ee933cfce30e a dcat:Dataset;
     mu:uuid "f7a4bbb3-1fef-4975-9049-ee933cfce30e";
-    dct:title "Lokaal Beslist Harvester 3"@nl;
-    dct:description "SPARQL endpoint met lokale besluiten van Vlaamse gemeenten."@nl;
+    dct:title "Lokaal Beslist Harvester 3"@nl, "Lokaal Beslist Harvester 3"@en;
+    dct:description "Lokale besluiten van Vlaamse gemeenten"@nl, "Local decisions of Flemish municipalities"@en;
     dct:publisher agent:436c5bce-8380-401e-8027-f34ef4acd97e;
     dcat:contactPoint agent:436c5bce-8380-401e-8027-f34ef4acd97e;
     dcat:theme <http://vocab.belgif.be/auth/datatheme/GOVE>;
@@ -161,17 +164,18 @@ dataset:f7a4bbb3-1fef-4975-9049-ee933cfce30e a dcat:Dataset;
 distribution:19bada3c-fc39-4524-a692-d45e735f578f a dcat:Distribution;
     mu:uuid "19bada3c-fc39-4524-a692-d45e735f578f";
     dct:format <http://publications.europa.eu/resource/authority/file-type/SPARQLQRES>;
-    dct:title "Lokaal Beslist SPARQL Endpoint 3"@nl;
-    dct:description "Endpoint met lokale besluiten van Vlaamse gemeenten."@nl;
+    dct:title "Lokaal Beslist SPARQL Endpoint 3"@nl, "Lokaal Beslist SPARQL Endpoint 3"@en;
+    dct:description "SPARQL endpoint met lokale besluiten van Vlaamse gemeenten"@nl, "SPARQL endpoint containing local decisions of Flemish municipalities"@en;
     dcat:accessURL "https://lokaalbeslist-harvester-3.s.redhost.be/sparql"^^xsd:anyURI;
     dcat:accessService service:ec5feb51-9108-4c35-adef-d799f64bab9d;
+    dct:format <http://publications.europa.eu/resource/authority/file-type/SPARQLQRES>;
     dct:license <http://opendatacommons.org/licenses/pddl/1.0/>
 .
 service:ec5feb51-9108-4c35-adef-d799f64bab9d a dcat:DataService ;
     mu:uuid "ec5feb51-9108-4c35-adef-d799f64bab9d";
-    dct:title "Lokaal Beslist SPARQL Endpoint 3"@nl;
+    dct:title "Lokaal Beslist SPARQL Endpoint 3"@nl, "Lokaal Beslist SPARQL Endpoint 3"@en;
     dct:conformsTo <https://www.w3.org/TR/sparql11-protocol/> ;
-    dcat:endpointDescription "SPARQL endpoint met lokale besluiten van Vlaamse gemeenten."@nl;
+    dcat:endpointDescription "SPARQL endpoint met lokale besluiten van Vlaamse gemeenten"@nl, "SPARQL endpoint containing local decisions of Flemish municipalities"@en;
     dcat:endpointURL "https://lokaalbeslist-harvester-3.s.redhost.be/sparql"^^xsd:anyURI ;
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
     dcat:servesDataset dataset:f7a4bbb3-1fef-4975-9049-ee933cfce30e
@@ -183,7 +187,7 @@ service:ec5feb51-9108-4c35-adef-d799f64bab9d a dcat:DataService ;
 dataset:74c12f17-f0eb-4bf2-8390-0d21655f00e3 a dcat:Dataset;
     mu:uuid "74c12f17-f0eb-4bf2-8390-0d21655f00e3";
     dct:title "Open Proces Huis procesdata"@nl;
-    dct:description "Proces-, diagram- en invatarisdata van Open Proces Huis"@nl;
+    dct:description "Proces-, diagram- en inventarisdata van Open Proces Huis"@nl, "Process, diagram and inventory data of Open Proces Huis"@en;
     dct:publisher agent:f45c1220-b250-4b93-8a8a-3e7e4a12a467;
     dcat:contactPoint agent:945e9df0-c9e6-4f5c-a249-34075169e68d;
     dcat:theme <http://vocab.belgif.be/auth/datatheme/GOVE>;
@@ -192,17 +196,18 @@ dataset:74c12f17-f0eb-4bf2-8390-0d21655f00e3 a dcat:Dataset;
 .
 distribution:ad94e41e-a790-44bc-8602-e1fe0c7bc1b0 a dcat:Distribution;
     mu:uuid "ad94e41e-a790-44bc-8602-e1fe0c7bc1b0";
-    dct:title "SPARQL endpoint"@nl;
+    dct:title "Open Proces Huis SPARQL endpoint"@nl, "Open Proces Huis SPARQL endpoint"@en;
     dcat:accessURL "https://openproceshuis.vlaanderen.be/sparql"^^xsd:anyURI;
-    dcat:accessService service:7333d62b-bd34-4063-ad34-28ec22a098b5
+    dcat:accessService service:7333d62b-bd34-4063-ad34-28ec22a098b5;
+    dct:format <http://publications.europa.eu/resource/authority/file-type/SPARQLQRES>
 .
 service:7333d62b-bd34-4063-ad34-28ec22a098b5 a dcat:DataService ;
     mu:uuid "7333d62b-bd34-4063-ad34-28ec22a098b5";
-    dct:title "Open Proces Huis procesdata"@nl;
+    dct:title "Open Proces Huis SPARQL Endpoint"@nl, "Open Proces Huis SPARQL Endpoint"@en;
     dct:conformsTo <https://www.w3.org/TR/sparql11-protocol/> ;
-    dcat:endpointDescription "Proces-, diagram- en invatarisdata van Open Proces Huis"@nl;
+    dcat:endpointDescription "Proces-, diagram- en inventarisdata van Open Proces Huis"@nl, "Process, diagram and inventory data of Open Proces Huis"@en;
     dcat:endpointURL "https://openproceshuis.vlaanderen.be/sparql"^^xsd:anyURI ;
-    dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
+    dct:accessRights <http://publications.europa.eu/resource/authority/access-right/RESTRICTED>;
     dcat:servesDataset dataset:74c12f17-f0eb-4bf2-8390-0d21655f00e3
 .
 
@@ -369,8 +374,8 @@ service:0993dd37-87d7-4c20-894b-f7e3ffc87b7c a dcat:DataService ;
     mu:uuid "0993dd37-87d7-4c20-894b-f7e3ffc87b7c";
     dct:title "Internal SPARQL endpoint"@en, "Intern SPARQL endpoint"@nl;
     dct:conformsTo <https://www.w3.org/TR/sparql11-protocol/> ;
-    dcat:endpointDescription "Internally available triple store for DECIDe"@en;
-    dcat:endpointURL "http://database:8890/sparql"^^xsd:anyURI ;
+    dcat:endpointDescription "Internally available triple store for DECIDe."@en;
+    rdfs:comment "Within the internal stack, available at http://database:8890/sparql"@en;
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/RESTRICTED>;
     dcat:servesDataset
         dataset:16a89d3f-b75d-4dc8-bee8-69089f734c27,
@@ -382,7 +387,7 @@ dataset:16a89d3f-b75d-4dc8-bee8-69089f734c27 a dcat:Dataset;
     mu:uuid "16a89d3f-b75d-4dc8-bee8-69089f734c27";
     dct:title "OSLO besluitdata"@nl;
     dct:description "OSLO besluitdata geconsumeerd van Lokaal Beslists harvester 1. De data omvat agendapunten, behandelingen van agendapunten, besluiten, bestuursorganen, mandatarissen en stemmingen, en is onder andere afkomstig van alle Gentse bestuursorganen."@nl;
-    dct:publisher agent:ABB;
+    dct:publisher agent:7cb46783-0ca2-41a2-b28c-248b99e752e4;
     dcat:contactPoint agent:7cb46783-0ca2-41a2-b28c-248b99e752e4;
     dcat:theme <http://vocab.belgif.be/auth/datatheme/GOVE>;
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/RESTRICTED>;
@@ -391,16 +396,16 @@ dataset:16a89d3f-b75d-4dc8-bee8-69089f734c27 a dcat:Dataset;
 .
 distribution:7ccb4d96-a5fe-466b-8d54-74dcd318db31 a dcat:Distribution;
     mu:uuid "7ccb4d96-a5fe-466b-8d54-74dcd318db31";
-    dcat:accessURL "http://database:8890/sparqlD"^^xsd:anyURI;
     dcat:accessService service:0993dd37-87d7-4c20-894b-f7e3ffc87b7c;
-    rdfs:comment "Dit is rechtstraaks overgenomen van Lokaal Beslist harvester 1. De graph is enkel bereikbaar door ons op onze server (niet-publiek), maar de orginele Lokaal Beslist data is publiek. Data is opgeslagen in een graph (http://mu.semte.ch/graphs/oslo-decisions/landing) in triplestore op onze dev server"@nl
+    dct:format <http://publications.europa.eu/resource/authority/file-type/SPARQLQRES>;
+    rdfs:comment "Dit is rechtstreeks overgenomen van Lokaal Beslist harvester 1. De graph is enkel bereikbaar door ons op onze server (niet-publiek), maar de orginele Lokaal Beslist data is publiek. Data is opgeslagen in een graph (http://mu.semte.ch/graphs/oslo-decisions/landing) in triplestore op onze dev server"@nl
 .
 
 dataset:93951be6-e452-4579-807b-df5c969e333e a dcat:Dataset;
     mu:uuid "93951be6-e452-4579-807b-df5c969e333e";
-    dct:title "ELI besluitdata Gent"@nl;
-    dct:description "ELI besluitdata gebaseerd op Gentse OSLO besluitdata in Lokaal Beslist"@nl;
-    dct:publisher agent:ABB;
+    dct:title "ELI besluitdata Gent"@nl, "ELI decision data Ghent";
+    dct:description "ELI besluitdata gebaseerd op Gentse OSLO besluitdata in Lokaal Beslist"@nl, "ELI decision data based on OSLO decision data from Ghent in Lokaal Beslist"@en;
+    dct:publisher agent:7cb46783-0ca2-41a2-b28c-248b99e752e4;
     dcat:contactPoint agent:7cb46783-0ca2-41a2-b28c-248b99e752e4;
     dcat:theme <http://vocab.belgif.be/auth/datatheme/GOVE>;
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/RESTRICTED>;
@@ -408,8 +413,8 @@ dataset:93951be6-e452-4579-807b-df5c969e333e a dcat:Dataset;
 .
 distribution:c321d079-aa58-4732-a222-c3e9a76cdc8f a dcat:Distribution;
     mu:uuid "c321d079-aa58-4732-a222-c3e9a76cdc8f";
-    dcat:accessURL "http://database:8890/sparql"^^xsd:anyURI;
     dcat:accessService service:0993dd37-87d7-4c20-894b-f7e3ffc87b7c;
+    dct:format <http://publications.europa.eu/resource/authority/file-type/SPARQLQRES>;
     rdfs:comment "Data is opgeslagen in een graph (http://mu.semte.ch/graphs/eli-decisions/ghent) in triplestore op onze dev server"
 .
 
@@ -423,7 +428,7 @@ dataset:ead64000-2c7d-4fcc-a255-fd1c3451f956 a dcat:Dataset;
     dct:publisher agent:658900ce-63cf-4d45-8fd5-a67ed8deab2c;
     dcat:contactPoint agent:7365f73a-b57c-4999-aa8b-61464d9d3c6f;
     dcat:theme <http://vocab.belgif.be/auth/datatheme/GOVE>;
-    dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
+    dct:accessRights <http://publications.europa.eu/resource/authority/access-right/RESTRICTED>;
     dcat:distribution
         distribution:33f42ce6-3278-438f-9463-37a9ab17b096,
         distribution:743d147f-7079-4425-aa5b-0351dde216f4,
@@ -433,9 +438,7 @@ distribution:33f42ce6-3278-438f-9463-37a9ab17b096 a dcat:Distribution;
     mu:uuid "33f42ce6-3278-438f-9463-37a9ab17b096";
     dct:title "SPARQL endpoint DEV Decide"@en;
     dct:description "SPARQL endpoint on the Dev server of Decide"@en;
-    dcat:accessURL "http://database:8890/sparql"^^xsd:anyURI; # only internally available
     dcat:accessService service:0993dd37-87d7-4c20-894b-f7e3ffc87b7c;
-    dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
     dct:format <http://publications.europa.eu/resource/authority/file-type/SPARQLQRES>
 .
 
@@ -495,7 +498,6 @@ distribution:db4e1b76-1a09-45fa-99be-32ddc5840a37 a dcat:Distribution;
     mu:uuid "db4e1b76-1a09-45fa-99be-32ddc5840a37";
     dct:title "Freiburg PDFs on local decisions"@en;
     dct:description "Freiburg PDFs on local decisions"@en;
-    rdfs:comment "Only internally available."@en;
     dcat:accessURL "https://u486391-sub1.your-storagebox.de/home/datasets/freiburg/freiburg_pdfs"^^xsd:anyURI;
     dct:format <http://publications.europa.eu/resource/authority/file-type/PDF>
 .
@@ -515,6 +517,6 @@ distribution:7661627c-3cae-4991-bbdc-1f0a3f633781 a dcat:Distribution;
     mu:uuid "7661627c-3cae-4991-bbdc-1f0a3f633781";
     dct:title "Bamberg PDFs on local decisions"@en;
     dct:description "Bamberg PDFs on local decisions."@en;
-    dcat:accessURL "https://u486391-sub1.your-storagebox.de/home/datasets/bamberg/bamberg_pdfs"^^xsd:anyURI; # only internally available
+    dcat:accessURL "https://u486391-sub1.your-storagebox.de/home/datasets/bamberg/bamberg_pdfs"^^xsd:anyURI;
     dct:format <http://publications.europa.eu/resource/authority/file-type/PDF>
 .
