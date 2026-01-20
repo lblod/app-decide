@@ -30,27 +30,24 @@ agent:7365f73a-b57c-4999-aa8b-61464d9d3c6f a foaf:Agent;
 .
 
 agent:658900ce-63cf-4d45-8fd5-a67ed8deab2c a foaf:Agent;
-    vcard:hasName "Municipality of Freiburg"@en
-.
-
-agent:c3c2a7bf-af3b-43b8-99f5-c3463ec9408a a foaf:Agent;
-    vcard:hasName "Vlaamse Overheid"@nl, "Flemish government"@en
+    vcard:hasName "Municipality of Freiburg"@en;
+    vcard:hasEmail "rsk-ratsbuero@freiburg.de"
 .
 
 agent:f45c1220-b250-4b93-8a8a-3e7e4a12a467 a foaf:Agent;
-    vcard:hasName "ABB Open Proces Huis"@nl
-.
-
-agent:436c5bce-8380-401e-8027-f34ef4acd97e a foaf:Agent;
-    vcard:hasName "ABB Lokaal Beslist"@nl
+    vcard:hasName "Agentschap Binnenlands Bestuur"@nl;
+    vcard:hasEmail "binnenland@vlaanderen.be"
 .
 
 agent:7cb46783-0ca2-41a2-b28c-248b99e752e4 a foaf:Agent;
-    vcard:hasName "ABB DECIDe"@nl
+    vcard:hasName "Agentschap Binnenlands Bestuur (DECIDe)"@nl;
+    vcard:hasEmail "binnenland@vlaanderen.be";
+    rdfs:comment "This is for datasets published within the DECIDe project; the actual entity and contact data may be subject to change."@en
 .
 
-agent:bcdaccd2-5651-4c1d-8021-415a43ee4cfb a foaf:Agent;
-    vcard:hasName "ABB DECIDe AI Team"@nl
+agent:436c5bce-8380-401e-8027-f34ef4acd97e a foaf:Agent;
+    vcard:hasName "Lokaal Beslist"@nl;
+    vcard:hasEmail "lokaalbeslist@vlaanderen.be"
 .
 
 agent:945e9df0-c9e6-4f5c-a249-34075169e68d a foaf:Agent;
@@ -218,8 +215,8 @@ dataset:dd91b174-e9bb-4d33-8732-ed064a828b60 a dcat:Dataset;
     mu:uuid "dd91b174-e9bb-4d33-8732-ed064a828b60";
     dct:title "Ghent Municipal Decisions Roadblocks Classification"@en;
     dct:description "A comprehensive dataset of Dutch municipal decision documents from Ghent, Belgium, specifically processed and classified for traffic measures, roadblocks, and infrastructure projects that affect urban mobility."@en;
-    dct:publisher agent:bcdaccd2-5651-4c1d-8021-415a43ee4cfb;
-    dcat:contactPoint agent:bcdaccd2-5651-4c1d-8021-415a43ee4cfb;
+    dct:publisher agent:7cb46783-0ca2-41a2-b28c-248b99e752e4;
+    dcat:contactPoint agent:7cb46783-0ca2-41a2-b28c-248b99e752e4;
     dcat:theme <http://vocab.belgif.be/auth/datatheme/REGI>;
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
     dcat:distribution distribution:f27a58aa-5cbf-4612-b3d0-a4d49100153f
@@ -237,8 +234,8 @@ dataset:2e1d52d9-2509-4b60-ac5a-0307897d64ef a dcat:Dataset;
     mu:uuid "2e1d52d9-2509-4b60-ac5a-0307897d64ef";
     dct:title "llama3 ABB Instruct"@en;
     dct:description "A comprehensive dataset to fine tune a llama3 model for translation, classification and keyword extraction from decision documents from Ghent"@en;
-    dct:publisher agent:bcdaccd2-5651-4c1d-8021-415a43ee4cfb;
-    dcat:contactPoint agent:bcdaccd2-5651-4c1d-8021-415a43ee4cfb;
+    dct:publisher agent:7cb46783-0ca2-41a2-b28c-248b99e752e4;
+    dcat:contactPoint agent:7cb46783-0ca2-41a2-b28c-248b99e752e4;
     dcat:theme <http://vocab.belgif.be/auth/datatheme/GOVE>;
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
     dcat:distribution distribution:4ed47dd1-aa35-4f94-b751-c0984349908c
@@ -256,8 +253,8 @@ dataset:6aaa542d-410c-4150-bcfd-e5526eab87f4 a dcat:Dataset;
     mu:uuid "6aaa542d-410c-4150-bcfd-e5526eab87f4";
     dct:title "ABB DECIDe SDGs Antwerp"@en;
     dct:description "A comprehensive dataset to classify decision documents from Antwerp into Sustainable Development Goals"@en;
-    dct:publisher agent:bcdaccd2-5651-4c1d-8021-415a43ee4cfb;
-    dcat:contactPoint agent:bcdaccd2-5651-4c1d-8021-415a43ee4cfb;
+    dct:publisher agent:7cb46783-0ca2-41a2-b28c-248b99e752e4;
+    dcat:contactPoint agent:7cb46783-0ca2-41a2-b28c-248b99e752e4;
     dcat:theme <http://vocab.belgif.be/auth/datatheme/ENVI>;
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
     dcat:distribution distribution:6d5607a1-e1b3-4259-b186-760d8fef7da3
@@ -275,8 +272,8 @@ dataset:3d79b143-4009-451a-8b80-423da944d9a8 a dcat:Dataset;
     mu:uuid "3d79b143-4009-451a-8b80-423da944d9a8";
     dct:title "ABB DECIDe title extraction instruct"@en;
     dct:description "A comprehensive dataset to identify and extract the title from plain text decision documents from Ghent with the help of llama3"@en;
-    dct:publisher agent:bcdaccd2-5651-4c1d-8021-415a43ee4cfb;
-    dcat:contactPoint agent:bcdaccd2-5651-4c1d-8021-415a43ee4cfb;
+    dct:publisher agent:7cb46783-0ca2-41a2-b28c-248b99e752e4;
+    dcat:contactPoint agent:7cb46783-0ca2-41a2-b28c-248b99e752e4;
     dcat:theme <http://vocab.belgif.be/auth/datatheme/GOVE>;
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
     dcat:distribution distribution:b8b63c96-f5ce-496a-937e-7406f6aa1b91
@@ -294,8 +291,8 @@ dataset:6b65a734-7d22-4486-97e3-c7eafc7341d5 a dcat:Dataset;
     mu:uuid "6b65a734-7d22-4486-97e3-c7eafc7341d5";
     dct:title "Flanders NER and Segmentation dataset"@en;
     dct:description "Labelstudio data to train segmentation and NER models on decision data from Flemish cities"@en;
-    dct:publisher agent:bcdaccd2-5651-4c1d-8021-415a43ee4cfb;
-    dcat:contactPoint agent:bcdaccd2-5651-4c1d-8021-415a43ee4cfb;
+    dct:publisher agent:7cb46783-0ca2-41a2-b28c-248b99e752e4;
+    dcat:contactPoint agent:7cb46783-0ca2-41a2-b28c-248b99e752e4;
     dcat:theme <http://vocab.belgif.be/auth/datatheme/GOVE>;
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/RESTRICTED>;
     dcat:distribution distribution:a9233283-4233-41b0-a4e4-ab470c49a6f6
@@ -313,8 +310,8 @@ dataset:38fd6817-f185-478d-9e21-12d6a694834c a dcat:Dataset;
     mu:uuid "38fd6817-f185-478d-9e21-12d6a694834c";
     dct:title "Freiburg NER and Segmentation dataset"@en;
     dct:description "A comprehensive dataset to train segmentation and NER models on decision data from Freiburg"@en;
-    dct:publisher agent:bcdaccd2-5651-4c1d-8021-415a43ee4cfb;
-    dcat:contactPoint agent:bcdaccd2-5651-4c1d-8021-415a43ee4cfb;
+    dct:publisher agent:7cb46783-0ca2-41a2-b28c-248b99e752e4;
+    dcat:contactPoint agent:7cb46783-0ca2-41a2-b28c-248b99e752e4;
     dcat:theme <http://vocab.belgif.be/auth/datatheme/GOVE>;
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/RESTRICTED>;
     dcat:distribution distribution:66b310c8-4d2b-4f8f-a292-c1882f939e6c
@@ -332,8 +329,8 @@ dataset:2ba4d174-e492-4bf2-b3a6-425f7afa51bf a dcat:Dataset;
     mu:uuid "2ba4d174-e492-4bf2-b3a6-425f7afa51bf";
     dct:title "Bamberg NER and Segmentation dataset"@en;
     dct:description "A comprehensive dataset to train segmentation and NER models on decision data from Bamberg"@en;
-    dct:publisher agent:bcdaccd2-5651-4c1d-8021-415a43ee4cfb;
-    dcat:contactPoint agent:bcdaccd2-5651-4c1d-8021-415a43ee4cfb;
+    dct:publisher agent:7cb46783-0ca2-41a2-b28c-248b99e752e4;
+    dcat:contactPoint agent:7cb46783-0ca2-41a2-b28c-248b99e752e4;
     dcat:theme <http://vocab.belgif.be/auth/datatheme/GOVE>;
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/RESTRICTED>;
     dcat:distribution distribution:7125af8b-f298-44a5-9c5f-c3db1b296fbd
@@ -351,8 +348,8 @@ dataset:b0d10410-8bd0-408d-81d1-5794296e3e1b a dcat:Dataset;
     mu:uuid "dataset:b0d10410-8bd0-408d-81d1-5794296e3e1b";
     dct:title "Combined translated dataset"@en;
     dct:description "A comprehensive dataset to train segmentation and NER models on decision data from Bamberg, Freiburg and Ghent in English"@en;
-    dct:publisher agent:bcdaccd2-5651-4c1d-8021-415a43ee4cfb;
-    dcat:contactPoint agent:bcdaccd2-5651-4c1d-8021-415a43ee4cfb;
+    dct:publisher agent:7cb46783-0ca2-41a2-b28c-248b99e752e4;
+    dcat:contactPoint agent:7cb46783-0ca2-41a2-b28c-248b99e752e4;
     dcat:theme <http://vocab.belgif.be/auth/datatheme/GOVE>;
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/RESTRICTED>;
     dcat:distribution distribution:ab53349d-155c-4ed4-ad5a-27404488b69b
@@ -487,8 +484,8 @@ dataset:3840171f-daf5-4efe-bf42-e7d511e6a1c1 a dcat:Dataset;
     mu:uuid "3840171f-daf5-4efe-bf42-e7d511e6a1c1";
     dct:title "Freiburg local decisions"@en;
     dct:description "The data for Freiburg is retrieved from the city's public meeting API (https://ris.freiburg.de/oparl/). It first requests page 1 to determine the total number of meeting pages, then iterates through all pages to collect agenda items from each meeting. For each agenda item with a resolutionFile, it downloads the file, verifies that the content is a real PDF, and saves it locally with a unique filename. "@en;
-    dct:publisher agent:bcdaccd2-5651-4c1d-8021-415a43ee4cfb;
-    dcat:contactPoint agent:bcdaccd2-5651-4c1d-8021-415a43ee4cfb;
+    dct:publisher agent:7cb46783-0ca2-41a2-b28c-248b99e752e4;
+    dcat:contactPoint agent:7cb46783-0ca2-41a2-b28c-248b99e752e4;
     dcat:theme <http://vocab.belgif.be/auth/datatheme/GOVE>;
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/RESTRICTED>;
     rdfs:seeAlso "https://app.gitbook.com/o/-MP9Yduzf5xu7wIebqPG/s/grRYjcouX0uZY2P6PYBl/ai-analysis-research/ai-approach-uc-0.0/named-entity-recognition"^^xsd:anyURI;
@@ -506,8 +503,8 @@ dataset:8a84f8a5-613a-45d0-bd43-e430dd3516ce a dcat:Dataset;
     mu:uuid "8a84f8a5-613a-45d0-bd43-e430dd3516ce";
     dct:title "Bamberg local decisions"@en;
     dct:description "The Bamberg data is scraped from the city's decision consultation website (https://www.stadt.bamberg.de/buergerinformationssystem/) by iterating through a large range of possible volfdnrs. Multiple workers run in parallel to probe each volfdnr, extract structured page content when a valid record exists, and write results to JSONL files. After scraping, all worker outputs are merged into a single deduplicated dataset. For entries that include a “Vorlage” PDF, the script must first open the item’s resolutionUrl to obtain a valid session cookie, because the PDF links provided by the Bamberg Bürgerinformationssystem are Wicket resource URLs that only work with an active session. "@en;
-    dct:publisher agent:bcdaccd2-5651-4c1d-8021-415a43ee4cfb;
-    dcat:contactPoint agent:bcdaccd2-5651-4c1d-8021-415a43ee4cfb;
+    dct:publisher agent:7cb46783-0ca2-41a2-b28c-248b99e752e4;
+    dcat:contactPoint agent:7cb46783-0ca2-41a2-b28c-248b99e752e4;
     dcat:theme <http://vocab.belgif.be/auth/datatheme/GOVE>;
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/RESTRICTED>;
     dcat:distribution distribution:7661627c-3cae-4991-bbdc-1f0a3f633781
