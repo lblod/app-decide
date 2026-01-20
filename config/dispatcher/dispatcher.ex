@@ -232,6 +232,14 @@ defmodule Dispatcher do
   match "/legal-expressions/*path", %{ accept: [:json], layer: :resources } do
     Proxy.forward conn, path, "http://resource/legal-expressions/"
   end
+  
+  match "/works/*path", %{ accept: [:json], layer: :resources } do
+    Proxy.forward conn, path, "http://resource/works/"
+  end
+
+  match "/expressions/*path", %{ accept: [:json], layer: :resources } do
+    Proxy.forward conn, path, "http://resource/expressions/"
+  end
 
   match "/manifestations/*path", %{ accept: [:json], layer: :resources } do
     Proxy.forward conn, path, "http://resource/manifestations/"

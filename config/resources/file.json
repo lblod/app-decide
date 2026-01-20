@@ -15,7 +15,7 @@
             "name": "file",
             "class": "nfo:FileDataObject",
             "attributes": {
-                "filename": {
+                "name": {
                     "type": "string",
                     "predicate": "nfo:fileName"
                 },
@@ -37,7 +37,7 @@
                 }
             },
             "relationships": {
-                "download": {
+                "data-source": {
                     "predicate": "nie:dataSource",
                     "target": "file",
                     "cardinality": "one",
