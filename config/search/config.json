@@ -1,0 +1,151 @@
+{
+  "persist_indexes": true,
+  "eager_indexing_groups": [[{ "name": "public", "variables": [] }]],
+  "automatic_index_updates": true,
+  "default_settings": {
+    "number_of_replicas": 0,
+    "analysis": {
+      "analyzer": {
+        "dutch_analyzer": {
+          "tokenizer": "standard",
+          "filter": ["lowercase", "asciifolding", "dutch_stemmer", "dutch_stop"]
+        },
+        "german_analyzer": {
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "asciifolding",
+            "german_stemmer",
+            "german_stop"
+          ]
+        }
+      },
+      "filter": {
+        "dutch_stemmer": {
+          "type": "stemmer",
+          "name": "dutch"
+        },
+        "german_stemmer": {
+          "type": "stemmer",
+          "name": "light_german"
+        },
+        "dutch_stop": {
+          "type": "stop",
+          "stopwords": "_dutch_"
+        },
+        "german_stop": {
+          "type": "stop",
+          "stopwords": "_german_"
+        }
+      }
+    }
+  },
+  "types": [
+    {
+      "type": "work",
+      "on_path": "works",
+      "rdf_type": "http://data.europa.eu/eli/ontology#Work",
+      "properties": {
+        "title": {
+          "via": "http://purl.org/dc/terms/title",
+          "type": "language-string"
+        },
+        "identifier": {
+          "via": "http://purl.org/dc/terms/identifier",
+          "type": "language-string"
+        }
+      },
+      "mappings": {
+        "properties": {
+          "title": {
+            "properties": {
+              "default": {
+                "type": "text",
+                "analyzer": "dutch_analyzer"
+              },
+              "nl": {
+                "type": "text",
+                "analyzer": "dutch_analyzer"
+              },
+              "de": {
+                "type": "text",
+                "analyzer": "german_analyzer"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "expression",
+      "on_path": "expressions",
+      "rdf_type": "http://data.europa.eu/eli/ontology#LegalExpression",
+      "properties": {
+        "basis": {
+          "via": "http://data.europa.eu/eli/eli-dl#decision_basis",
+          "type": "language-string"
+        },
+        "title": {
+          "via": "http://data.europa.eu/eli/ontology#title",
+          "type": "language-string"
+        },
+        "description": {
+          "via": "http://data.europa.eu/eli/ontology#description",
+          "type": "language-string"
+        }
+      },
+      "mappings": {
+        "properties": {
+          "title": {
+            "properties": {
+              "default": {
+                "type": "text",
+                "analyzer": "dutch_analyzer"
+              },
+              "nl": {
+                "type": "text",
+                "analyzer": "dutch_analyzer"
+              },
+              "de": {
+                "type": "text",
+                "analyzer": "german_analyzer"
+              }
+            }
+          },
+          "basis": {
+            "properties": {
+              "default": {
+                "type": "text",
+                "analyzer": "dutch_analyzer"
+              },
+              "nl": {
+                "type": "text",
+                "analyzer": "dutch_analyzer"
+              },
+              "de": {
+                "type": "text",
+                "analyzer": "german_analyzer"
+              }
+            }
+          },
+          "description": {
+            "properties": {
+              "default": {
+                "type": "text",
+                "analyzer": "dutch_analyzer"
+              },
+              "nl": {
+                "type": "text",
+                "analyzer": "dutch_analyzer"
+              },
+              "de": {
+                "type": "text",
+                "analyzer": "german_analyzer"
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

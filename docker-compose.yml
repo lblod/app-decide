@@ -75,8 +75,8 @@ services:
       - ./config/odrl-parser:/config
   migrations:
     image: semtech/mu-migrations-service:0.9.0
-    links:
-      - virtuoso:database
+    environment:
+      MU_SPARQL_ENDPOINT: http://virtuoso:8890/sparql
     volumes:
       - ./config/migrations:/data/migrations
   vc-issuer:
@@ -253,3 +253,16 @@ services:
       - "logging=true"
     restart: always
     logging: *default-logging
+  ### search:
+  search:
+    image: semtech/mu-search:0.11.0
+    ports:
+      - "4000:80"
+    volumes:
+      - ./config/search:/config
+  elasticsearch:
+    image: semtech/mu-search-elastic-backend:1.2.0
+    volumes:
+      - ./data/elasticsearch/:/usr/share/elasticsearch/data
+    environment:
+      - discovery.type=single-node
