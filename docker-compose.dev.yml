@@ -30,8 +30,6 @@ services:
     restart: "no"
   file:
     restart: "no"
-  odrl-parser:
-    restart: "no"
   vc-issuer:
     restart: "no"
   mocklogin:
