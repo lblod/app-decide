@@ -23,7 +23,7 @@
       },
       {
         "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/diff",
-        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/publishHarvestedTriples",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/publishHarvestedTriplesWithDeletes",
         "nextIndex": "4"
       }
     ]
