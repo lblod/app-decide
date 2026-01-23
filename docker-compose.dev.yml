@@ -56,3 +56,5 @@ services:
     restart: no
   login:
     restart: no
+  entity-linking:
+    restart: "no"

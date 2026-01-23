@@ -167,6 +167,12 @@ services:
       - "logging=true"
     restart: always
     logging: *default-logging
+  harvest_singleton-job:
+    image: lblod/harvesting-singleton-job-service:1.0.0
+    labels:
+      - "logging=true"
+    restart: always
+    logging: *default-logging
   oparl-to-eli:
     image: lblod/oparl-to-eli-service:latest
     volumes:
@@ -247,9 +253,14 @@ services:
     logging: *default-logging
     labels:
       - "logging=true"
-  harvest_singleton-job:
-    image: lblod/harvesting-singleton-job-service:1.0.0
-    labels:
-      - "logging=true"
-    restart: always
-    logging: *default-logging
+  ################################################################################
+  # AI PIPELINES
+  ################################################################################
+  entity-linking:
+    image: lblod/entity-linking-service:latest
+    environment:
+      TARGET_GRAPH: "http://mu.semte.ch/graphs/public"
+      DEFAULT_GRAPH: "http://mu.semte.ch/graphs/harvesting"
+      HIGH_LOAD_DATABASE_ENDPOINT: http://triplestore:8890/sparql
+    links:
+      - database:database
