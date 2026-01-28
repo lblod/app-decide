@@ -1,0 +1,27 @@
+PREFIX besluit: <http://data.vlaanderen.be/ns/besluit#>
+PREFIX mu: <http://mu.semte.ch/vocabularies/core/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX org: <http://www.w3.org/ns/org#>
+PREFIX euvoc: <http://publications.europa.eu/ontology/euvoc#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+INSERT {
+  GRAPH <http://mu.semte.ch/graphs/organizations> {
+    ?s a org:Organization ;
+       mu:uuid ?uuid ;
+       skos:prefLabel ?prefLabel ;
+       org:classification ?classification1, ?classification2 ;
+       euvoc:represents ?represents .
+  }
+}
+WHERE {
+  GRAPH <http://mu.semte.ch/graphs/bestuurseenheden-bestuursorganen> {
+    ?s a besluit:Bestuursorgaan ;
+      mu:uuid ?uuid ;
+      skos:prefLabel ?prefLabel .
+
+    OPTIONAL { ?s besluit:classificatie ?classification1 . }
+    OPTIONAL { ?s org:classification ?classification2 . }
+    OPTIONAL { ?s besluit:bestuurt ?represents . }
+  }
+}
