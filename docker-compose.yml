@@ -154,7 +154,7 @@ services:
     image: lblod/import-with-sameas-service:4.8.0
     environment:
       RENAME_DOMAIN: "http://data.lblod.info/id/"
-      TARGET_GRAPH: "http://mu.semte.ch/graphs/public"
+      TARGET_GRAPH: "http://mu.semte.ch/graphs/harvesting"
       HIGH_LOAD_DATABASE_ENDPOINT: "http://virtuoso:8890/sparql"
       ROLLBACK_ENABLED: "false"
       TASK_TIMEOUT_HOURS: "20"

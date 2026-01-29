@@ -10,6 +10,21 @@
         "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/singleton-job",
         "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/harvesting/oparl",
         "nextIndex": "1"
+      },
+      {
+        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/harvesting/oparl",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/add-uuids",
+        "nextIndex": "2"
+      },
+      {
+        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/add-uuids",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/diff",
+        "nextIndex": "3"
+      },
+      {
+        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/diff",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/publishHarvestedTriplesWithDeletes",
+        "nextIndex": "4"
       }
     ]
   },
