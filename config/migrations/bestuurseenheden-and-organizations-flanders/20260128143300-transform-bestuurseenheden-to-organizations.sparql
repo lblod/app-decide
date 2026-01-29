@@ -10,7 +10,7 @@ INSERT {
     ?s a org:Organization ;
        mu:uuid ?uuid ;
        dcterms:identifier ?identifier ;
-       skos:prefLabel ?prefLabel ;
+       skos:prefLabel ?prefLabelNl ;
        org:classification ?classification1 , ?classification2 ;
        org:hasSubOrganization ?subOrg .
   }
@@ -25,5 +25,7 @@ WHERE {
     OPTIONAL { ?s besluit:classificatie ?classification1 . }
     OPTIONAL { ?s org:classification ?classification2 . }
     OPTIONAL { ?s org:hasSubOrganization ?subOrg . }
+
+    BIND(STRLANG(STR(?prefLabel), "nl") AS ?prefLabelNl)
   }
 }

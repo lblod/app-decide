@@ -9,7 +9,7 @@ INSERT {
   GRAPH <http://mu.semte.ch/graphs/organizations> {
     ?s a org:Organization ;
        mu:uuid ?uuid ;
-       skos:prefLabel ?prefLabel ;
+       skos:prefLabel ?prefLabelNl ;
        org:classification ?classification1, ?classification2 ;
        euvoc:represents ?represents .
   }
@@ -23,5 +23,7 @@ WHERE {
     OPTIONAL { ?s besluit:classificatie ?classification1 . }
     OPTIONAL { ?s org:classification ?classification2 . }
     OPTIONAL { ?s besluit:bestuurt ?represents . }
+
+    BIND(STRLANG(STR(?prefLabel), "nl") AS ?prefLabelNl)
   }
 }
