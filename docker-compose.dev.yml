@@ -58,9 +58,27 @@ services:
     restart: no
   entity-linking:
     restart: no
-  kibana:
-    image: docker.elastic.co/kibana/kibana:7.17.0
+  search:
     restart: no
+    profiles:
+      - search
+  elasticsearch:
+    restart: no
+    profiles:
+      - search
+  embedding:
+    restart: no
+    profiles:
+      - search
+  embedding-ollama:
+    restart: no
+    profiles:
+      - search
+  kibana:
+    restart: no
+    profiles:
+      - search
+    image: docker.elastic.co/kibana/kibana:9.2.0
     environment:
       ELASTICSEARCH_HOSTS: "http://elasticsearch:9200"
     ports:

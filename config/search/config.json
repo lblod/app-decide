@@ -1,6 +1,12 @@
 {
   "persist_indexes": true,
-  "eager_indexing_groups": [[{ "name": "public", "variables": [] }]],
+  "eager_indexing_groups": [
+    [{ "variables": [], "name": "public" }],
+    [
+      { "variables": [], "name": "logged-in" },
+      { "variables": [], "name": "public" }
+    ]
+  ],
   "automatic_index_updates": true,
   "default_settings": {
     "number_of_replicas": 0,
@@ -42,22 +48,22 @@
   },
   "types": [
     {
-      "type": "work",
-      "on_path": "works",
-      "rdf_type": "http://data.europa.eu/eli/ontology#Work",
+      "type": "organization",
+      "on_path": "organizations",
+      "rdf_type": "https://schema.oparl.org/Organization",
       "properties": {
-        "title": {
-          "via": "http://purl.org/dc/terms/title",
+        "name": {
+          "via": "https://schema.oparl.org/name",
           "type": "language-string"
         },
-        "identifier": {
-          "via": "http://purl.org/dc/terms/identifier",
-          "type": "language-string"
+        "embedding": {
+          "via": "http://mu.semte.ch/vocabularies/ext/embeddingVector",
+          "type": "dense-vector"
         }
       },
       "mappings": {
         "properties": {
-          "title": {
+          "name": {
             "properties": {
               "default": {
                 "type": "text",
@@ -72,6 +78,9 @@
                 "analyzer": "german_analyzer"
               }
             }
+          },
+          "embedding": {
+            "type": "dense_vector"
           }
         }
       }
@@ -79,55 +88,19 @@
     {
       "type": "expression",
       "on_path": "expressions",
-      "rdf_type": "http://data.europa.eu/eli/ontology#LegalExpression",
+      "rdf_type": "http://data.europa.eu/eli/ontology#Expression",
       "properties": {
-        "basis": {
-          "via": "http://data.europa.eu/eli/eli-dl#decision_basis",
-          "type": "language-string"
-        },
-        "title": {
-          "via": "http://data.europa.eu/eli/ontology#title",
-          "type": "language-string"
-        },
         "description": {
-          "via": "http://data.europa.eu/eli/ontology#description",
+          "via": "https://data.europarl.europa.eu/def/epvoc#expressionContent",
           "type": "language-string"
+        },
+        "description-vector": {
+          "via": "http://mu.semte.ch/vocabularies/ext/embeddingVector",
+          "type": "dense-vector"
         }
       },
       "mappings": {
         "properties": {
-          "title": {
-            "properties": {
-              "default": {
-                "type": "text",
-                "analyzer": "dutch_analyzer"
-              },
-              "nl": {
-                "type": "text",
-                "analyzer": "dutch_analyzer"
-              },
-              "de": {
-                "type": "text",
-                "analyzer": "german_analyzer"
-              }
-            }
-          },
-          "basis": {
-            "properties": {
-              "default": {
-                "type": "text",
-                "analyzer": "dutch_analyzer"
-              },
-              "nl": {
-                "type": "text",
-                "analyzer": "dutch_analyzer"
-              },
-              "de": {
-                "type": "text",
-                "analyzer": "german_analyzer"
-              }
-            }
-          },
           "description": {
             "properties": {
               "default": {
@@ -143,6 +116,9 @@
                 "analyzer": "german_analyzer"
               }
             }
+          },
+          "description-vector": {
+            "type": "dense_vector"
           }
         }
       }

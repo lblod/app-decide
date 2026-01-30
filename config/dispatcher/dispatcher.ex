@@ -369,6 +369,14 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://search/"
   end
 
+  post "/large-search/*path", %{layer: :api_services, accept: [:json]} do
+    Proxy.forward conn, path, "http://search/"
+  end
+
+  match "/embedding/*path", %{layer: :api_services, accept: [:json]} do
+    Proxy.forward conn, path, "http://embedding/"
+  end
+
   #################
   # NOT FOUND
   #################
