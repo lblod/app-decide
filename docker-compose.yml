@@ -297,6 +297,8 @@ services:
       TZ: Europe/Brussels
       OLLAMA_HOST: "http://embedding-ollama:11434"
       LOG_SPARQL_ALL: "false"
+    volumes:
+      - ./config/embedding:/config
     depends_on:
       - embedding-ollama
   embedding-ollama:
