@@ -1,5 +1,12 @@
 embedding_targets = [
   {
+    "name": "besluit motivering",
+    "filter": """?target a <http://data.europa.eu/eli/ontology#Expression> . ?target <http://data.vlaanderen.be/ns/besluit#motivering> ?motivering .""",
+    "content_path": """?target <http://data.vlaanderen.be/ns/besluit#motivering> ?content .""",
+    "embedding_predicate": "http://mu.semte.ch/vocabularies/ext/embeddingVectorMotivering"
+  },
+  {
+    "name": "expressions",
     "filter": """?target a <http://data.europa.eu/eli/ontology#Expression> .""",
     "content_path": """?target <https://data.europarl.europa.eu/def/epvoc#expressionContent> ?content .""",
     "embedding_predicate": "http://mu.semte.ch/vocabularies/ext/embeddingVector"
@@ -33,7 +40,8 @@ embedding_targets = [
   }
 ]
 
-batch_size = 100
+max_content_len = 2000
+batch_size = 1000
 embedding_vector_chunk_size = 50
 embedding_graph = "http://mu.semte.ch/graphs/public"
 embedding_null = "http://mu.semte.ch/vocabularies/ext/embeddingVector/null"

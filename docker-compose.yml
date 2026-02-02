@@ -298,7 +298,7 @@ services:
       OLLAMA_HOST: "http://embedding-ollama:11434"
       LOG_SPARQL_ALL: "false"
     volumes:
-      - ./config/embedding:/config
+      - ./config/embedding/config.py:/app/config.py
     depends_on:
       - embedding-ollama
   embedding-ollama:
