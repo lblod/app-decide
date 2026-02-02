@@ -193,6 +193,7 @@ services:
       SYNC_DATASET_SUBJECT: http://data.lblod.info/datasets/delta-producer/dumps/lblod-harvester/BesluitenCacheGraphDump
       LANDING_GRAPH: http://mu.semte.ch/graphs/lokaal-beslist
       BATCH_SIZE: 5000
+      OPERATION_URI: http://lblod.data.gift/id/jobs/concept/TaskOperation/oslo-eli/consume
     labels:
       - logging=true
     restart: always
@@ -203,6 +204,7 @@ services:
       INPUT_GRAPH: http://mu.semte.ch/graphs/lokaal-beslist
       BATCH_SIZE: 1000
       SLEEP_BETWEEN_BATCHES: 5
+      OPERATION_URI: http://lblod.data.gift/id/jobs/concept/TaskOperation/oslo-eli/filter
     labels:
       - logging=true
     restart: always
@@ -214,6 +216,7 @@ services:
       OUTPUT_GRAPH: http://mu.semte.ch/graphs/public/gent
       BATCH_SIZE: 1000
       SLEEP_BETWEEN_BATCHES: 5
+      OPERATION_URI: http://lblod.data.gift/id/jobs/concept/TaskOperation/oslo-eli/transform
     labels:
       - logging=true
     restart: always
