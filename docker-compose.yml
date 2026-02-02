@@ -27,6 +27,7 @@ services:
     image: semtech/sparql-parser:0.0.14
     environment:
       USE_ODRL_POLICY: "false"
+      LISP_DYNAMIC_SPACE_SIZE: 8192
     volumes:
       - ./config/authorization:/config
       - ./config/odrl-parser:/odrl
