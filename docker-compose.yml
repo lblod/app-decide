@@ -186,47 +186,39 @@ services:
   # GHENT DECISIONS PIPELINE
   ################################################################################
   lokaal-beslist-consumer:
-    image: lblod/delta-consumer:feature-initial-sync-with-virtuoso-dump
+    image: lblod/decide-harvester-consumer-service:feature-refactor-for-oslo-eli-pipeline
     environment:
-      DCR_SERVICE_NAME: lokaal-beslist-consumer
-      DCR_SYNC_BASE_URL: https://lokaalbeslist-harvester-1.s.redhost.be/ # Harvester 1 hosts Ghent decisions
-      DCR_SYNC_FILES_PATH: /sync/besluiten/files
-      DCR_SYNC_DATASET_SUBJECT: http://data.lblod.info/datasets/delta-producer/dumps/lblod-harvester/BesluitenCacheGraphDump
-      DCR_INITIAL_SYNC_JOB_OPERATION: http://redpencil.data.gift/id/jobs/concept/JobOperation/deltas/consumer/initialSync/decisions-lokaal-beslist
-      DCR_DELTA_SYNC_JOB_OPERATION: http://redpencil.data.gift/id/jobs/concept/JobOperation/deltas/consumer/deltaSync/decisions-ghent
-      DCR_JOB_CREATOR_URI: http://data.lblod.info/services/id/decisions-ghent-consumer
-      INGEST_GRAPH: http://mu.semte.ch/graphs/oslo-decisions/landing
-      DCR_DISABLE_INITIAL_SYNC: true # Change in override
-      DCR_DISABLE_DELTA_INGEST: true # Change in override
-      BYPASS_MU_AUTH_FOR_EXPENSIVE_QUERIES: true
-      DCR_BATCH_SIZE: 5000
-      SLEEP_BETWEEN_BATCHES: 5
+      SYNC_BASE_URL: https://lokaalbeslist-harvester-1.s.redhost.be/ # Harvester 1 hosts Ghent decisions
+      SYNC_FILES_PATH: /sync/besluiten/files
+      SYNC_DATASET_SUBJECT: http://data.lblod.info/datasets/delta-producer/dumps/lblod-harvester/BesluitenCacheGraphDump
+      LANDING_GRAPH: http://mu.semte.ch/graphs/lokaal-beslist
+      BATCH_SIZE: 5000
     labels:
       - logging=true
     restart: always
     logging: *default-logging
   decisions-ghent-filter:
-    image: lblod/decide-ghent-decisions-extraction-service
+    image: lblod/decide-harvester-filter-service:feature-refactor-for-oslo-eli-pipeline
     environment:
+      INPUT_GRAPH: http://mu.semte.ch/graphs/lokaal-beslist
       BATCH_SIZE: 1000
       SLEEP_BETWEEN_BATCHES: 5
-      INPUT_GRAPH: http://mu.semte.ch/graphs/oslo-decisions/landing
     labels:
       - logging=true
     restart: always
     logging: *default-logging
   oslo-eli-transformer:
-    image: lblod/decide-oslo-to-eli-transformation-service
+    image: lblod/decide-harvester-transformation-service:feature-refactor-for-oslo-eli-pipeline
     environment:
-      BATCH_SIZE: 100
+      INPUT_GRAPH: http://mu.semte.ch/graphs/lokaal-beslist
+      OUTPUT_GRAPH: http://mu.semte.ch/graphs/public/gent
+      BATCH_SIZE: 1000
       SLEEP_BETWEEN_BATCHES: 5
-      INPUT_DECISION_RESOURCES_GRAPH: http://mu.semte.ch/graphs/oslo-decisions/ghent/besluit
-      INPUT_DATA_GRAPH: http://mu.semte.ch/graphs/oslo-decisions/landing
-      OUTPUT_GRAPH: http://mu.semte.ch/graphs/eli-decisions/ghent
     labels:
       - logging=true
     restart: always
     logging: *default-logging
+
   acmidm-login:
     image: lblod/acmidm-login-service:0.12.0
     environment:
