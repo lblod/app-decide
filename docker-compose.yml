@@ -214,7 +214,7 @@ services:
     environment:
       INPUT_GRAPH: http://mu.semte.ch/graphs/oslo-decisions/landing
       OUTPUT_GRAPH: http://mu.semte.ch/graphs/public/gent
-      BATCH_SIZE: 1000
+      BATCH_SIZE: 100
       SLEEP_BETWEEN_BATCHES: 5
       OPERATION_URI: http://lblod.data.gift/id/jobs/concept/TaskOperation/oslo-eli/transform
     labels:
