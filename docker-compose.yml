@@ -307,3 +307,11 @@ services:
     volumes:
       - ./data/ollama:/root/.ollama
     command: serve && pull embeddinggemma:300m
+    # in case you have an nvidia gpu available, like on our server
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
