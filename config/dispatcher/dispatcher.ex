@@ -129,6 +129,10 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://resource/harvesting-collections/"
   end
 
+  match "/node-shapes/*path", %{accept: [:json], layer: :api_services} do
+    Proxy.forward conn, path, "http://resource/node-shapes/"
+  end
+
   #################
   # OPARL PROXY
   #################
