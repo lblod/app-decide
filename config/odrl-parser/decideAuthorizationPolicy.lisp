@@ -52,6 +52,7 @@
   ("dcat:Catalog" -> _)
   ("cogs:Job" -> _)
   ("nfo:DataContainer" -> _)
+  ("sh:NodeShape" -> _)
   ("wot:SecurityScheme" -> _)
   ("dcat:Dataset" -> _)
   ("cogs:ScheduledJob" -> _)

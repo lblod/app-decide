@@ -21,3 +21,4 @@
 @prefix tasks: <http://redpencil.data.gift/vocabularies/tasks/> .
 @prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
 @prefix wot: <https://www.w3.org/2019/wot/security#> .
+@prefix sh: <https://www.w3.org/ns/shacl#> .
