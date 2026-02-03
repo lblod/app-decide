@@ -97,6 +97,10 @@
         "description-vector": {
           "via": "http://mu.semte.ch/vocabularies/ext/embeddingVector",
           "type": "dense-vector"
+        },
+        "motivering-vector": {
+          "via": "http://mu.semte.ch/vocabularies/ext/embeddingVectorMotivering",
+          "type": "dense-vector"
         }
       },
       "mappings": {
@@ -118,6 +122,9 @@
             }
           },
           "description-vector": {
+            "type": "dense_vector"
+          },
+          "motivering-vector": {
             "type": "dense_vector"
           }
         }
