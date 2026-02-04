@@ -41,3 +41,5 @@ services:
     platform: linux/amd64
   harvest_singleton-job:
     platform: linux/amd64
+  pdf-content-service:
+    image: brechtvdv/pdf-content-service:latest-arm

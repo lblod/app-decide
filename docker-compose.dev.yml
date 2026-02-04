@@ -58,3 +58,8 @@ services:
     restart: no
   entity-linking:
     restart: "no"
+  pdf-content:
+    restart: "no"
+  apache-tika:
+    restart: "no"
+
