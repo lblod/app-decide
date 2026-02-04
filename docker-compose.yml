@@ -206,7 +206,6 @@ services:
       BATCH_SIZE: 1000
       SLEEP_BETWEEN_BATCHES: 5
       OPERATION_URI: http://lblod.data.gift/id/jobs/concept/TaskOperation/oslo-eli/filter
-      HIGH_LOAD_DATABASE_ENDPOINT: http://virtuoso:8890/sparql
     labels:
       - logging=true
     restart: always
@@ -219,7 +218,6 @@ services:
       BATCH_SIZE: 100
       SLEEP_BETWEEN_BATCHES: 5
       OPERATION_URI: http://lblod.data.gift/id/jobs/concept/TaskOperation/oslo-eli/transform
-      HIGH_LOAD_DATABASE_ENDPOINT: http://virtuoso:8890/sparql
     labels:
       - logging=true
     restart: always
