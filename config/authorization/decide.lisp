@@ -54,6 +54,10 @@
   ("wot:BasicSecurityScheme" -> _ )
   ("wot:OAuth2SecurityScheme" -> _ ))
 
+(define-graph organizations ("http://mu.semte.ch/graphs/organizations")
+  ("org:Organization" -> _)
+)
+
 (define-graph harvested-freiburg ("http://mu.semte.ch/graphs/public/freiburg")
   ("nfo:RemoteDataObject" -> _)
   ("nfo:FileDataObject" -> _)
@@ -127,6 +131,10 @@
 
 (grant (read)
        :to-graph public
+       :for-allowed-group "public")
+
+(grant (read)
+       :to-graph organizations
        :for-allowed-group "public")
 
 (grant (read)

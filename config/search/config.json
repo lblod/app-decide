@@ -50,11 +50,19 @@
     {
       "type": "organization",
       "on_path": "organizations",
-      "rdf_type": "https://schema.oparl.org/Organization",
+      "rdf_type": "http://www.w3.org/ns/org#Organization",
       "properties": {
         "name": {
-          "via": "https://schema.oparl.org/name",
+          "via": "http://www.w3.org/2004/02/skos/core#prefLabel",
           "type": "language-string"
+        },
+        "classification": {
+          "via": "http://www.w3.org/ns/org#classification",
+          "type": "simple"
+        },
+        "identifier": {
+          "via": "http://purl.org/dc/terms/identifier",
+          "type": "simple"
         },
         "embedding": {
           "via": "http://mu.semte.ch/vocabularies/ext/embeddingVector",
@@ -78,6 +86,12 @@
                 "analyzer": "german_analyzer"
               }
             }
+          },
+          "classification": {
+            "type": "keyword"
+          },
+          "identifier": {
+            "type": "keyword"
           },
           "embedding": {
             "type": "dense_vector"
