@@ -205,6 +205,10 @@
                 "target-node": {
                     "type": "uri-set",
                     "predicate": "sh:targetNode"
+                },
+                "target-class": {
+                    "type": "uri-set",
+                    "predicate": "sh:targetClass"
                 }
             },
             "features": [
