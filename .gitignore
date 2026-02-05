@@ -4,3 +4,4 @@ config/login/*
 .env
 .DS_Store
 node_modules
+config/search/update-handler.store

@@ -291,7 +291,7 @@ services:
     environment:
       - discovery.type=single-node
   embedding:
-    image: semanticai/embedding-service:latest
+    image: semanticai/embedding-service:0.0.3
     labels:
       - logging=true
     environment:
