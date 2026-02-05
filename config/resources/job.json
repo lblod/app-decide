@@ -203,9 +203,8 @@
             "class": "sh:NodeShape",
             "attributes": {
                 "target-node": {
-                    "type": "url",
-                    "predicate": "sh:targetNode",
-                    "cardinality": "many"
+                    "type": "uri-set",
+                    "predicate": "sh:targetNode"
                 }
             },
             "features": [
