@@ -24,3 +24,6 @@
 (add-prefix "dgftOauth" "http://kanselarij.vo.data.gift/vocabularies/oauth-2.0-session/")
 (add-prefix "geosparql" "http://www.opengis.net/ont/geosparql#")
 (add-prefix "locn" "http://www.w3.org/ns/locn#")
+(add-prefix "meb" "http://rdf.myexperiment.org/ontologies/base/")
+(add-prefix "muAccount" "http://mu.semte.ch/vocabularies/account/")
+(add-prefix "dcterms" "http://purl.org/dc/terms/")
