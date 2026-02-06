@@ -67,18 +67,56 @@ services:
     volumes:
       - ./scripts/:/app/scripts/
     restart: "no"
-  dcat:
-    image: lblod/dcat-service:0.0.1
-  odrl-parser:
-    image: lblod/odrl-parser-service:0.0.5
-    volumes:
-      - ./config/odrl-parser:/config
   migrations:
     image: semtech/mu-migrations-service:0.9.0
     links:
       - virtuoso:database
     volumes:
       - ./config/migrations:/data/migrations
+  deltanotifier:
+    image: semtech/mu-delta-notifier:0.4.0
+    volumes:
+      - ./config/delta:/config
+    labels:
+      - "logging=true"
+    restart: always
+    logging: *default-logging
+  acmidm-login:
+    image: lblod/acmidm-login-service:0.12.0
+    environment:
+      MU_APPLICATION_AUTH_DISCOVERY_URL: "https://authenticatie-ti.vlaanderen.be/op"
+      MU_APPLICATION_AUTH_CLIENT_ID: "temp"
+      LOG_SINK_URL: "http://sink"
+      MU_APPLICATION_AUTH_JWK_PRIVATE_KEY: /config/jwk_private_key.json
+      MU_APPLICATION_AUTH_USERID_CLAIM: vo_id
+      MU_APPLICATION_AUTH_REDIRECT_URI: "https://ds.decide.lblod.info/authorization/callback"
+    volumes:
+      - ./config/login:/config
+    labels:
+      - "logging=true"
+    restart: always
+    logging: *default-logging
+  login:
+    image: semtech/mu-login-service:3.0.0
+    links:
+      - database:database
+    environment:
+      USERS_GRAPH: "http://mu.semte.ch/graphs/users"
+      SESSIONS_GRAPH: "http://mu.semte.ch/graphs/sessions"
+    restart: always
+    logging: *default-logging
+    labels:
+      - "logging=true"
+
+  ##############################################################################
+  # DATA SPACE
+  ##############################################################################
+  dcat:
+    image: lblod/dcat-service:0.0.1
+  odrl-parser:
+    image: lblod/odrl-parser-service:0.0.5
+    volumes:
+      - ./config/odrl-parser:/config
   vc-issuer:
     image: lblod/oid4vc-login-service:latest
     environment:
@@ -97,14 +135,10 @@ services:
     restart: always
     labels:
       - "logging=true"
-  deltanotifier:
-    image: semtech/mu-delta-notifier:0.4.0
-    volumes:
-      - ./config/delta:/config
-    labels:
-      - "logging=true"
-    restart: always
-    logging: *default-logging
+
+  ##############################################################################
+  # OPARL HARVESTING PIPELINE
+  ##############################################################################
   frontend-harvesting:
     image: lblod/frontend-harvesting-self-service:feature-oparl-harvesting
     environment:
@@ -149,7 +183,6 @@ services:
       - "logging=true"
     restart: always
     logging: *default-logging
-
   harvest_sameas:
     image: lblod/import-with-sameas-service:4.8.0
     environment:
@@ -182,9 +215,9 @@ services:
       OPARL_ENDPOINT: "https://ris.freiburg.de/oparl"
       SUDO_QUERY_RETRY_FOR_HTTP_STATUS_CODES: "500"
 
-  ################################################################################
+  ##############################################################################
   # GHENT DECISIONS PIPELINE
-  ################################################################################
+  ##############################################################################
   lokaal-beslist-consumer:
     image: lblod/delta-consumer:feature-initial-sync-with-virtuoso-dump
     environment:
@@ -227,35 +260,10 @@ services:
       - logging=true
     restart: always
     logging: *default-logging
-  acmidm-login:
-    image: lblod/acmidm-login-service:0.12.0
-    environment:
-      MU_APPLICATION_AUTH_DISCOVERY_URL: "https://authenticatie-ti.vlaanderen.be/op"
-      MU_APPLICATION_AUTH_CLIENT_ID: "temp"
-      LOG_SINK_URL: "http://sink"
-      MU_APPLICATION_AUTH_JWK_PRIVATE_KEY: /config/jwk_private_key.json
-      MU_APPLICATION_AUTH_USERID_CLAIM: vo_id
-      MU_APPLICATION_AUTH_REDIRECT_URI: "https://ds.decide.lblod.info/authorization/callback"
-    volumes:
-      - ./config/login:/config
-    labels:
-      - "logging=true"
-    restart: always
-    logging: *default-logging
-  login:
-    image: semtech/mu-login-service:3.0.0
-    links:
-      - database:database
-    environment:
-      USERS_GRAPH: "http://mu.semte.ch/graphs/users"
-      SESSIONS_GRAPH: "http://mu.semte.ch/graphs/sessions"
-    restart: always
-    logging: *default-logging
-    labels:
-      - "logging=true"
-  ################################################################################
+
+  ##############################################################################
   # AI PIPELINES
-  ################################################################################
+  ##############################################################################
   entity-linking:
     image: lblod/entity-linking-service:latest
     environment:

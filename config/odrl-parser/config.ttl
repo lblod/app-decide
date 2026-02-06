@@ -33,6 +33,7 @@ ext:decideAuthorizationPolicy a odrl:Set ;
   odrl:profile ext:muAuthProfile ;
   odrl:permission ext:allowReadForPublic ,
     odrl:allowReadForHarvesting ,
+    odrl:allowWriteForHarvesting ,
     odrl:allowReadForHarvestingPublic .
 
 # Parties for groups
@@ -41,11 +42,11 @@ ext:decideSystem a odrl:Party ;
   dct:description "The DECIDe system party used as an assigner of the permissions in this policy." .
 
 ext:publicParty a odrl:PartyCollection ;
-  vcard:fn "Public user" ;
+  vcard:fn "public" ;
   dct:description "This party represent all (possibly not logged in) users of the system." .
 
 ext:authenticatedParty a odrl:PartyCollection ;
-  vcard:fn "Authenticated user" ;
+  vcard:fn "logged-in" ;
   ext:definedBy """PREFIX session: <http://mu.semte.ch/vocabularies/session/>
   SELECT DISTINCT ?account
   WHERE {
@@ -81,6 +82,12 @@ ext:allowReadForPublic a odrl:Permission ;
 
 odrl:allowReadForHarvesting a odrl:Permission ;
   odrl:action odrl:read ;
+  odrl:target ext:decideHarvestingSlice ;
+  odrl:assigner ext:decideSystem ;
+  odrl:assignee ext:authenticatedParty .
+
+odrl:allowWriteForHarvesting a odrl:Permission ;
+  odrl:action odrl:modify ;
   odrl:target ext:decideHarvestingSlice ;
   odrl:assigner ext:decideSystem ;
   odrl:assignee ext:authenticatedParty .
