@@ -28,7 +28,8 @@
   :skos "http://www.w3.org/2004/02/skos/core#"
   :tasks "http://redpencil.data.gift/vocabularies/tasks/"
   :wikidata "http://www.wikidata.org/entity/"
-  :wot "https://www.w3.org/2019/wot/security#")
+  :wot "https://www.w3.org/2019/wot/security#"
+  :sh "http://www.w3.org/ns/shacl#")
 
 (define-graph harvesting ("http://mu.semte.ch/graphs/harvesting")
   ("tasks:Task" -> _ )
@@ -52,7 +53,8 @@
   ("security:OAuth2Credentials" -> _ )
   ("wot:SecurityScheme" -> _ )
   ("wot:BasicSecurityScheme" -> _ )
-  ("wot:OAuth2SecurityScheme" -> _ ))
+  ("wot:OAuth2SecurityScheme" -> _ )
+  ("sh:NodeShape" -> _ ))
 
 (define-graph harvesting-public ("http://mu.semte.ch/graphs/harvesting")
   ("nfo:RemoteDataObject" -> _)

@@ -65,5 +65,19 @@
         "nextIndex": "1"
       }
     ]
+  },
+  "http://lblod.data.gift/id/jobs/concept/JobOperation/match-codelist": {
+    "tasksConfiguration": [
+      {
+        "currentOperation": null,
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/singleton-job",
+        "nextIndex": "0"
+      },
+      {
+        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/singleton-job",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/match-codelist",
+        "nextIndex": "1"
+      }
+    ]
   }
 }

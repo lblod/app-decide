@@ -275,6 +275,10 @@ ext:CogsJobAsset a odrl:Asset, sh:NodeShape ;
   odrl:partOf ext:decideHarvestingSlice ;
   sh:targetClass cogs:Job .
 
+ext:NodeShapeAsset a odrl:Asset, sh:NodeShape ;
+  odrl:partOf ext:decideHarvestingSlice ;
+  sh:targetClass sh:NodeShape .
+
 ext:CogsScheduledJobAsset a odrl:Asset, sh:NodeShape ;
   odrl:partOf ext:decideHarvestingSlice ;
   sh:targetClass cogs:ScheduledJob .
