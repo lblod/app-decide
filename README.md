@@ -1,6 +1,6 @@
 # DECIDe 
 
-This repository contains all configuration to get the DECIDe microservices stack running. It is very much a work in progress.
+This repository contains all configuration to get the DECIDe microservices stack running. It is very much a work in progress. Below, documentation is provided for each use case.  
 
 ## What's included?
 
@@ -49,9 +49,21 @@ There are two main pain points:
 1. Mac has an arm64 processor, a lot of the services don't have a multi-platform image. In the case they only have a amd64 image, docker will gave you a warning about this. In general this is not a real problem since your macbook can just emulate amd64, but still the warnings are annoying, so these are suppressed.
 2. At the moment this project was setup the service mu-identifier weren't working for mac (at least on my device), so you have to build these yourself, and gave them the appropriate image name and tag.
 
-### Consuming decisions
+## Use cases
 
-Decision data from Lokaal Beslist is ingested by a consumer. The initial sync and/or delta ingest should be enabled manually in `docker-compose.override.yml`:
+This README focuses on which services are needed to accomplish the DECIDE use cases. This way, a city can choose which services are desired to reuse for its own use cases.
+
+For all use cases
+
+In DECIDe, four use cases are defined. The first use case (0.0) is about converting and publishing decisions with Linked Data standards so these can be reused interoperable in the data space. The three other use cases (0.1, 1, and 2) are AI-enabled services to enrich the decisions.
+
+### Use Case 0.0: Building up the Data Space
+
+This use case retrieves decisions from a data source, and maps the decisions to the European Legislation Identifier (ELI) standard. For each city, a specific conversion pipeline is defined, because the input data sources are heterogeneous.
+
+#### OSLO (Ghent)
+
+To harvest and convert the decisions from the city of Ghent to ELI, a central data endpoint in Flanders for decisions (Lokaal Beslist) is used. Three services are required to consume, filter on a city, and transform to ELI: lokaal-beslist-consumer (a configured delta consumer), decisions-ghent-filter, and oslo-eli-transformer. See `docker-compose.yml` for the specific configuration. The initial sync and/or delta ingest should be enabled manually in `docker-compose.override.yml`:
 
 ```yml
 services:
@@ -60,6 +72,27 @@ services:
       DCR_DISABLE_INITIAL_SYNC: false
       DCR_DISABLE_DELTA_INGEST: false
 ```
+
+Note: the AI services (used in the other use cases) will be made configurable to directly work with OSLO-compliant data
+
+#### OParl (Freiburg)
+
+
+
+#### PDF (Bamberg)
+
+
+### Use Case 0.1: Linking to higher legislation or overarching goals such as the SDGs
+
+AI-supported enrichment to link decisions to related things (legislation, themes, locations)
+
+### Use Case 1: Mapping Local Decisions on restricted mobility zones to geo-locations for city portals (mobility and green deal)
+
+### Use Case 2: Subsidies for Private Owners – Climate Change and Environment (Green deal)
+
+
+
+
 
 ## Configuring the dashboard
 ### Accessing the dashboard from your local machine

@@ -135,9 +135,9 @@ services:
     restart: always
     labels:
       - "logging=true"
-
-  ##############################################################################
-  # OPARL HARVESTING PIPELINE
+      
+ ##############################################################################
+  # GENERIC PIPELINE COMPONENTS (USED IN OPARL, OSLO, PDF, AND AI PIPELINES)
   ##############################################################################
   frontend-harvesting:
     image: lblod/frontend-harvesting-self-service:feature-oparl-harvesting
@@ -170,6 +170,9 @@ services:
       - "logging=true"
     restart: always
     logging: *default-logging
+  ##############################################################################
+  # OPARL HARVESTING PIPELINE
+  ##############################################################################
   harvest_diff:
     image: lblod/harvesting-diff-service:0.3.0
     environment:
