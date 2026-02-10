@@ -1,0 +1,13 @@
+INSERT {
+  GRAPH <http://mu.semte.ch/graphs/public> {
+    ?s ?p ?oTransformed.
+  }
+} WHERE {
+  ?s a ?type.
+  VALUES ?type {
+    <http://data.europa.eu/eli/ontology#Work>
+    <http://data.europa.eu/eli/ontology#LegalExpression>
+  }
+  ?s ?p ?o.
+  BIND(IF(isLiteral(?o), STRLANG(STR(?o), "nl"), ?o) AS ?oTransformed)
+}

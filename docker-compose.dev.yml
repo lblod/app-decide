@@ -58,3 +58,35 @@ services:
     restart: no
   entity-linking:
     restart: "no"
+  pdf-content:
+    restart: "no"
+  apache-tika:
+    restart: "no"
+  search:
+    restart: no
+    profiles:
+      - search
+  elasticsearch:
+    restart: no
+    profiles:
+      - search
+  embedding:
+    restart: no
+    profiles:
+      - search
+  embedding-ollama:
+    restart: no
+    profiles:
+      - search
+  kibana:
+    restart: no
+    profiles:
+      - search
+    image: docker.elastic.co/kibana/kibana:9.2.0
+    environment:
+      ELASTICSEARCH_HOSTS: "http://elasticsearch:9200"
+    ports:
+      - 127.0.0.1:5601:5601
+    user: root
+    command: |
+      sh -c "/usr/local/bin/kibana-docker --allow-root;"

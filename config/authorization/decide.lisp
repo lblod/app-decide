@@ -56,12 +56,23 @@
   ("wot:OAuth2SecurityScheme" -> _ )
   ("sh:NodeShape" -> _ ))
 
-(define-graph harvesting-public ("http://mu.semte.ch/graphs/harvesting")
+(define-graph organizations ("http://mu.semte.ch/graphs/organizations")
+  ("org:Organization" -> _)
+)
+
+(define-graph harvested-freiburg ("http://mu.semte.ch/graphs/public/freiburg")
   ("nfo:RemoteDataObject" -> _)
   ("nfo:FileDataObject" -> _)
-    ;; NOTE (09/12/2025): The following resources should end up in the `public' graph once the
-  ;; oparl-to-eli pipeline is complete. For the time being we make them publicly readable here to
-  ;; simplify developing a PoC frontend using this data.
+  ("org:Organization" -> _)
+  ("eli-dl:Activity" -> _)
+  ("eli:Expression" -> _)
+  ("eli:Manifestation" -> _)
+  ("eli:Work" -> _))
+
+(define-graph harvested-gent ("http://mu.semte.ch/graphs/public/gent")
+  ("nfo:RemoteDataObject" -> _)
+  ("nfo:FileDataObject" -> _)
+  ("org:Organization" -> _)
   ("eli-dl:Activity" -> _)
   ("eli:Expression" -> _)
   ("eli:Manifestation" -> _)
@@ -125,8 +136,16 @@
        :for-allowed-group "public")
 
 (grant (read)
-       :to harvesting-public
-       :for "public")
+       :to-graph organizations
+       :for-allowed-group "public")
+
+(grant (read)
+       :to-graph harvested-freiburg
+       :for-allowed-group "public")
+
+(grant (read)
+       :to-graph harvested-gent
+       :for-allowed-group "public")
 
 (grant (read write)
        :to harvesting

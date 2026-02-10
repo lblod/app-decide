@@ -1,0 +1,148 @@
+{
+  "persist_indexes": true,
+  "eager_indexing_groups": [
+    [{ "variables": [], "name": "public" }],
+    [
+      { "variables": [], "name": "logged-in" },
+      { "variables": [], "name": "public" }
+    ]
+  ],
+  "automatic_index_updates": true,
+  "default_settings": {
+    "number_of_replicas": 0,
+    "analysis": {
+      "analyzer": {
+        "dutch_analyzer": {
+          "tokenizer": "standard",
+          "filter": ["lowercase", "asciifolding", "dutch_stemmer", "dutch_stop"]
+        },
+        "german_analyzer": {
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "asciifolding",
+            "german_stemmer",
+            "german_stop"
+          ]
+        }
+      },
+      "filter": {
+        "dutch_stemmer": {
+          "type": "stemmer",
+          "name": "dutch"
+        },
+        "german_stemmer": {
+          "type": "stemmer",
+          "name": "light_german"
+        },
+        "dutch_stop": {
+          "type": "stop",
+          "stopwords": "_dutch_"
+        },
+        "german_stop": {
+          "type": "stop",
+          "stopwords": "_german_"
+        }
+      }
+    }
+  },
+  "types": [
+    {
+      "type": "organization",
+      "on_path": "organizations",
+      "rdf_type": "http://www.w3.org/ns/org#Organization",
+      "properties": {
+        "name": {
+          "via": "http://www.w3.org/2004/02/skos/core#prefLabel",
+          "type": "language-string"
+        },
+        "classification": {
+          "via": "http://www.w3.org/ns/org#classification",
+          "type": "simple"
+        },
+        "identifier": {
+          "via": "http://purl.org/dc/terms/identifier",
+          "type": "simple"
+        },
+        "embedding": {
+          "via": "http://mu.semte.ch/vocabularies/ext/embeddingVector",
+          "type": "dense-vector"
+        }
+      },
+      "mappings": {
+        "properties": {
+          "name": {
+            "properties": {
+              "default": {
+                "type": "text",
+                "analyzer": "dutch_analyzer"
+              },
+              "nl": {
+                "type": "text",
+                "analyzer": "dutch_analyzer"
+              },
+              "de": {
+                "type": "text",
+                "analyzer": "german_analyzer"
+              }
+            }
+          },
+          "classification": {
+            "type": "keyword"
+          },
+          "identifier": {
+            "type": "keyword"
+          },
+          "embedding": {
+            "type": "dense_vector"
+          }
+        }
+      }
+    },
+    {
+      "type": "expression",
+      "on_path": "expressions",
+      "rdf_type": "http://data.europa.eu/eli/ontology#Expression",
+      "properties": {
+        "description": {
+          "via": "https://data.europarl.europa.eu/def/epvoc#expressionContent",
+          "type": "language-string"
+        },
+        "description-vector": {
+          "via": "http://mu.semte.ch/vocabularies/ext/embeddingVector",
+          "type": "dense-vector"
+        },
+        "motivering-vector": {
+          "via": "http://mu.semte.ch/vocabularies/ext/embeddingVectorMotivering",
+          "type": "dense-vector"
+        }
+      },
+      "mappings": {
+        "properties": {
+          "description": {
+            "properties": {
+              "default": {
+                "type": "text",
+                "analyzer": "dutch_analyzer"
+              },
+              "nl": {
+                "type": "text",
+                "analyzer": "dutch_analyzer"
+              },
+              "de": {
+                "type": "text",
+                "analyzer": "german_analyzer"
+              }
+            }
+          },
+          "description-vector": {
+            "type": "dense_vector"
+          },
+          "motivering-vector": {
+            "type": "dense_vector"
+          }
+        }
+      }
+    }
+  ]
+}
