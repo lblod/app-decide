@@ -10,7 +10,7 @@ defmodule Dispatcher do
 
   define_layers([:static, :sparql, :api_services, :frontend_fallback, :resources, :not_found])
 
-  options "/*path", _ do
+  options "/*_path", _ do
     conn
     |> Plug.Conn.put_resp_header("access-control-allow-headers", "content-type,accept")
     |> Plug.Conn.put_resp_header("access-control-allow-methods", "*")
@@ -348,12 +348,12 @@ defmodule Dispatcher do
   #################
 
   # self-service
-  match "/*path", %{reverse_host: ["dashboard" | _rest], accept: %{html: true}} do
+  match "/*_path", %{reverse_host: ["dashboard" | _rest], accept: %{html: true}} do
     # we don't forward the path, because the app should take care of this in the browser.
     forward(conn, [], "http://frontend-harvesting/index.html")
   end
 
-  match "/*path", %{layer: :frontend_fallback, accept: %{html: true}} do
+  match "/*_path", %{layer: :frontend_fallback, accept: %{html: true}} do
     # we don't forward the path, because the app should take care of this in the browser.
     forward(conn, [], "http://frontend/index.html")
   end
