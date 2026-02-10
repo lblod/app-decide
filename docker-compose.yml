@@ -277,7 +277,7 @@ services:
     links:
       - database:database
   pdf-content:
-    image: semanticai/decide-pdf-content-extraction:0.0.2
+    image: semanticai/decide-pdf-content-extraction:0.0.3
     environment:
       APACHE_TIKA_URL: "http://apache-tika:9998/tika"
       TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
