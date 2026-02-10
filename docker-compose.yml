@@ -148,6 +148,7 @@ services:
       EMBER_OPARL_HARVESTING_ENABLED: true
       EMBER_PDF_HARVESTING_ENABLED: true
       EMBER_NER_AND_NEL_ANNOTATIONS_ENABLED: true
+      EMBER_CODELIST_MAPPING_ENABLED: true
     labels:
       - "logging=true"
     restart: always

@@ -53,9 +53,9 @@ There are two main pain points:
 
 This README focuses on which services are needed to accomplish the DECIDE use cases. This way, a city can choose which services are desired to reuse for its own use cases.
 
-For all use cases
+For all use cases, the core Semantic.Works services listed at the top of the `docker-compose.yml` file are needed, in addition with the generic pipeline components to run pipelines. To configure the dashboard to run pipelines, see [below](##configuring-the-dashboard).
 
-In DECIDe, four use cases are defined. The first use case (0.0) is about converting and publishing decisions with Linked Data standards so these can be reused interoperable in the data space. The three other use cases (0.1, 1, and 2) are AI-enabled services to enrich the decisions.
+In DECIDe, four use cases are defined. The first use case (0.0) is about converting and publishing decisions with Linked Data standards so these can be reused interoperable in the data space. The three other use cases (0.1, 1, and 2) are AI-enabled services to enrich the decisions with related things, such as policies, themes, and locations.
 
 ### Use Case 0.0: Building up the Data Space
 
@@ -63,7 +63,7 @@ This use case retrieves decisions from a data source, and maps the decisions to 
 
 #### OSLO (Ghent)
 
-To harvest and convert the decisions from the city of Ghent to ELI, a central data endpoint in Flanders for decisions (Lokaal Beslist) is used. Three services are required to consume, filter on a city, and transform to ELI: lokaal-beslist-consumer (a configured delta consumer), decisions-ghent-filter, and oslo-eli-transformer. See `docker-compose.yml` for the specific configuration. The initial sync and/or delta ingest should be enabled manually in `docker-compose.override.yml`:
+To harvest and convert the decisions from the city of Ghent to ELI, a central data endpoint in Flanders for decisions (Lokaal Beslist) is used. Three services are required to consume, filter on a city (currently only Ghent is supported), and transform to ELI: lokaal-beslist-consumer (a configured delta consumer), decisions-ghent-filter, and oslo-eli-transformer. See `docker-compose.yml` for the specific configuration. The initial sync and/or delta ingest should be enabled manually in `docker-compose.override.yml`:
 
 ```yml
 services:
@@ -77,24 +77,31 @@ Note: the AI services (used in the other use cases) will be made configurable to
 
 #### OParl (Freiburg)
 
+The OParl to ELI pipeline consists of multiple services. The main service is the `oparl-to-eli` service, which scrapes all pages from an OParl API, transforms to ELI, and writes to files for further processing.
+Next, the `harvest_singleton-job` service is used to prevent overlapping harvest rounds. The `harvest_sameas` service is used for two things: adding a local identifier (UUID) to each OParl entity, and importing the data in the triple store. The `harvest_diff` generates which triples are deleted, or new to make sure the triple store is in sync with the OParl source.
 
+To start the OParl pipeline, create a "Harvest OParl API & Publish as ELI" job in the pipeline dashboard. Only an "URL" parameter is required. This can be the root OParl URL (`https://ris.freiburg.de/oparl`), or a more specific OParl URL (`https://ris.freiburg.de/oparl/Body/FR/paper`).
 
 #### PDF (Bamberg)
 
+The PDF to ELI pipeline requires three services. The `harvest_singleton-job` service is used, similar to the other pipelines, to guarantee a data source is harvested only once simultaneously. The `pdf-content` service reads a remote or local PDF file, extracts the content of the PDF, and creates ELI entities (Work/Expression/Manifestation) in the triple store. The `apache-tika` service 
+
+In the pipeline dashboard, create a "Harvest PDF & Publish as ELI" pipeline. The URL parameter needs to be provided with a URL resolving with a PDF.
+
+Later, a PDF pipeline will be added to harvest all PDFs from a website.
 
 ### Use Case 0.1: Linking to higher legislation or overarching goals such as the SDGs
 
-AI-supported enrichment to link decisions to related things (legislation, themes, locations)
+In the pipeline dashboard, create a "Codelist mapping" pipeline. First, the `Codelist` parameter needs to be filled in with the URI of a SKOS Concept scheme. For Sustainable Development Goals (SDGs), this is `http://metadata.un.org/sdg`. Optionally, a `Decision to map` can be provided to map a specific decision with the codelist. This must be a URI of an ELI Work or Expression.
+
+To show how decisions are linked with SDGs, a Policy impact report tool is being developed.
 
 ### Use Case 1: Mapping Local Decisions on restricted mobility zones to geo-locations for city portals (mobility and green deal)
 
 ### Use Case 2: Subsidies for Private Owners – Climate Change and Environment (Green deal)
 
+## Pipeline dashboard
 
-
-
-
-## Configuring the dashboard
 ### Accessing the dashboard from your local machine
 
 Since we use dispatcher v2, which dispatches on hostname, we'll have to update `/etc/hosts`.
@@ -103,3 +110,11 @@ Add an entry similar to the following. Ensure the first part of the domain start
 ```
 127.0.0.1 dashboard.localhost
 ```
+
+### Jobs
+
+There are two types of jobs: harvesting and scheduled. The harvesting job is a one-time run of a job, while the scheduled job is triggered periodically following a cron pattern.
+
+By pressing "Create new job", a job type ("operation") can be selected to create a new job.
+
+![alt text](doc/dashboard-create-new-2.png)
