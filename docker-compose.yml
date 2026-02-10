@@ -8,7 +8,7 @@ services:
   identifier:
     image: semtech/mu-identifier:1.11.0
     environment:
-      DEFAULT_MU_AUTH_ALLOWED_GROUPS_HEADER: '[{"variables":[],"name":"public"},{"variables":[],"name":"harvesting-public"},{"variables":[],"name":"logged-in"},{"variables":[],"name":"clean"}]'
+      DEFAULT_MU_AUTH_ALLOWED_GROUPS_HEADER: '[{"variables":[],"name":"public"}]'
       DEFAULT_ACCESS_CONTROL_ALLOW_ORIGIN_HEADER: "*"
       SESSION_COOKIE_SECURE: "true"
     labels:
@@ -27,6 +27,7 @@ services:
     image: semtech/sparql-parser:0.0.14
     environment:
       USE_ODRL_POLICY: "false"
+      LISP_DYNAMIC_SPACE_SIZE: 8192
     volumes:
       - ./config/authorization:/config
       - ./config/odrl-parser:/odrl
@@ -67,20 +68,58 @@ services:
     volumes:
       - ./scripts/:/app/scripts/
     restart: "no"
+  migrations:
+    image: semtech/mu-migrations-service:0.9.0
+    environment:
+      MU_SPARQL_ENDPOINT: http://virtuoso:8890/sparql
+    volumes:
+      - ./config/migrations:/data/migrations
+  deltanotifier:
+    image: semtech/mu-delta-notifier:0.4.0
+    volumes:
+      - ./config/delta:/config
+    labels:
+      - "logging=true"
+    restart: always
+    logging: *default-logging
+  acmidm-login:
+    image: lblod/acmidm-login-service:0.12.0
+    environment:
+      MU_APPLICATION_AUTH_DISCOVERY_URL: "https://authenticatie-ti.vlaanderen.be/op"
+      MU_APPLICATION_AUTH_CLIENT_ID: "temp"
+      LOG_SINK_URL: "http://sink"
+      MU_APPLICATION_AUTH_JWK_PRIVATE_KEY: /config/jwk_private_key.json
+      MU_APPLICATION_AUTH_USERID_CLAIM: vo_id
+      MU_APPLICATION_AUTH_REDIRECT_URI: "https://ds.decide.lblod.info/authorization/callback"
+    volumes:
+      - ./config/login:/config
+    labels:
+      - "logging=true"
+    restart: always
+    logging: *default-logging
+  login:
+    image: semtech/mu-login-service:3.0.0
+    links:
+      - database:database
+    environment:
+      USERS_GRAPH: "http://mu.semte.ch/graphs/users"
+      SESSIONS_GRAPH: "http://mu.semte.ch/graphs/sessions"
+    restart: always
+    logging: *default-logging
+    labels:
+      - "logging=true"
+
+  ##############################################################################
+  # DATA SPACE
+  ##############################################################################
   dcat:
     image: lblod/dcat-service:0.0.1
   odrl-parser:
     image: lblod/odrl-parser-service:0.0.5
     volumes:
       - ./config/odrl-parser:/config
-  migrations:
-    image: semtech/mu-migrations-service:0.9.0
-    links:
-      - virtuoso:database
-    volumes:
-      - ./config/migrations:/data/migrations
   vc-issuer:
-    image: lblod/oid4vc-login-service:latest
+    image: lblod/oid4vc-login-service:0.0.1
     environment:
       ISSUER_DID: did:web:example.com:some:did
       ISSUER_KEY_ID: did:web:example.com:some:did#somekey
@@ -97,20 +136,18 @@ services:
     restart: always
     labels:
       - "logging=true"
-  deltanotifier:
-    image: semtech/mu-delta-notifier:0.4.0
-    volumes:
-      - ./config/delta:/config
-    labels:
-      - "logging=true"
-    restart: always
-    logging: *default-logging
+
+  ##############################################################################
+  # OPARL HARVESTING PIPELINE
+  ##############################################################################
   frontend-harvesting:
     image: lblod/frontend-harvesting-self-service:feature-oparl-harvesting
     environment:
       EMBER_AUTHENTICATION_ENABLED: "true"
       EMBER_LOGIN_ROUTE: "login"
       EMBER_OPARL_HARVESTING_ENABLED: true
+      EMBER_PDF_HARVESTING_ENABLED: true
+      EMBER_NER_AND_NEL_ANNOTATIONS_ENABLED: true
     labels:
       - "logging=true"
     restart: always
@@ -149,12 +186,11 @@ services:
       - "logging=true"
     restart: always
     logging: *default-logging
-
   harvest_sameas:
     image: lblod/import-with-sameas-service:4.8.0
     environment:
       RENAME_DOMAIN: "http://data.lblod.info/id/"
-      TARGET_GRAPH: "http://mu.semte.ch/graphs/harvesting"
+      TARGET_GRAPH: "http://mu.semte.ch/graphs/public/freiburg"
       HIGH_LOAD_DATABASE_ENDPOINT: "http://virtuoso:8890/sparql"
       ROLLBACK_ENABLED: "false"
       TASK_TIMEOUT_HOURS: "20"
@@ -180,11 +216,12 @@ services:
       - ./data/files:/share
     environment:
       OPARL_ENDPOINT: "https://ris.freiburg.de/oparl"
+      TARGET_GRAPH: "http://mu.semte.ch/graphs/public/freiburg"
       SUDO_QUERY_RETRY_FOR_HTTP_STATUS_CODES: "500"
 
-  ################################################################################
+  ##############################################################################
   # GHENT DECISIONS PIPELINE
-  ################################################################################
+  ##############################################################################
   lokaal-beslist-consumer:
     image: lblod/decide-harvester-consumer-service:feature-refactor-for-oslo-eli-pipeline
     environment:
@@ -223,35 +260,9 @@ services:
     restart: always
     logging: *default-logging
 
-  acmidm-login:
-    image: lblod/acmidm-login-service:0.12.0
-    environment:
-      MU_APPLICATION_AUTH_DISCOVERY_URL: "https://authenticatie-ti.vlaanderen.be/op"
-      MU_APPLICATION_AUTH_CLIENT_ID: "temp"
-      LOG_SINK_URL: "http://sink"
-      MU_APPLICATION_AUTH_JWK_PRIVATE_KEY: /config/jwk_private_key.json
-      MU_APPLICATION_AUTH_USERID_CLAIM: vo_id
-      MU_APPLICATION_AUTH_REDIRECT_URI: "https://ds.decide.lblod.info/authorization/callback"
-    volumes:
-      - ./config/login:/config
-    labels:
-      - "logging=true"
-    restart: always
-    logging: *default-logging
-  login:
-    image: semtech/mu-login-service:3.0.0
-    links:
-      - database:database
-    environment:
-      USERS_GRAPH: "http://mu.semte.ch/graphs/users"
-      SESSIONS_GRAPH: "http://mu.semte.ch/graphs/sessions"
-    restart: always
-    logging: *default-logging
-    labels:
-      - "logging=true"
-  ################################################################################
+  ##############################################################################
   # AI PIPELINES
-  ################################################################################
+  ##############################################################################
   entity-linking:
     image: lblod/entity-linking-service:latest
     environment:
@@ -260,3 +271,61 @@ services:
       HIGH_LOAD_DATABASE_ENDPOINT: http://triplestore:8890/sparql
     links:
       - database:database
+  pdf-content:
+    image: semanticai/decide-pdf-content-extraction:0.0.3
+    environment:
+      APACHE_TIKA_URL: "http://apache-tika:9998/tika"
+      TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
+      PUBLICATION_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      MOUNTED_SHARE_FOLDER: "/mnt/share"
+    volumes:
+      - ./data/files:/mnt/share
+    labels:
+      - logging=true
+    restart: always
+    logging: *default-logging
+  apache-tika:
+    image: lblod/apache-tika-service:0.0.3
+    restart: always
+    logging: *default-logging
+
+  ##################################
+  ### elastic and embeddings
+  ##################################
+  search:
+    image: semtech/mu-search:feature-large-dense-vector
+    ports:
+      - "4000:80"
+    volumes:
+      - ./config/search:/config
+  elasticsearch:
+    image: semtech/mu-search-elastic-backend:feature-bump-es-9.2.0
+    volumes:
+      - ./data/elasticsearch/:/usr/share/elasticsearch/data
+    environment:
+      - discovery.type=single-node
+  embedding:
+    image: semanticai/embedding-service:0.0.3
+    labels:
+      - logging=true
+    environment:
+      TZ: Europe/Brussels
+      OLLAMA_HOST: "http://embedding-ollama:11434"
+      LOG_SPARQL_ALL: "false"
+    volumes:
+      - ./config/embedding/config.py:/app/config.py
+    depends_on:
+      - embedding-ollama
+  embedding-ollama:
+    image: ollama/ollama:0.14.1
+    volumes:
+      - ./data/ollama:/root/.ollama
+    command: serve && pull embeddinggemma:300m
+    # in case you have an nvidia gpu available, like on our server
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]

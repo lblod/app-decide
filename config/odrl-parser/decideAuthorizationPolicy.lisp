@@ -37,105 +37,106 @@
   :rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#")
 
 ;; Graphs
-;; This asset collection contains all information that is available to the public in the context of the DECIDe app.
-(define-graph public ("http://mu.semte.ch/graphs/public")
-  ("dcat:Distribution" -> _)
-  ("eli-dl:Vote" -> _)
-  ("foaf:Person" -> _)
-  ("dct:PeriodOfTime" -> _)
-  ("eli-dl:ParliamentaryTerm" -> _)
-  ("org:Membership" -> _)
-  ("wikidata:Q2785216" -> _)
-  ("skos:Concept" -> _)
-  ("eli-dl:Decision" -> _)
-  ("schema:TouristAttraction" -> _)
-  ("oa:SpecificResource" -> _)
-  ("oa:Annotation" -> _)
-  ("eli-dl:LegislativeProcessWork" -> _)
-  ("dcat:Catalog" -> _)
-  ("perceel:Perceel" -> _)
-  ("skos:ConceptScheme" -> _)
-  ("eli:Manifestation" -> _)
-  ("foaf:Agent" -> _)
-  ("eli-dl:Activity" -> _)
-  ("oa:TextPositionSelector" -> _)
-  ("dct:Location" -> _)
-  ("locn:Geometry" -> _)
-  ("locn:Address" -> _)
-  ("eli:Expression" -> _)
-  ("eli-dl:ProcessStage" -> _)
-  ("eli:LegalExpression" -> _)
-  ("eli-dl:DraftLegislationWork" -> _)
-  ("dcat:Dataset" -> _)
-  ("eli:ComplexWork" -> _)
-  ("oparl-temp:Location" -> _)
-  ("eli-dl:LegislativeProcess" -> _)
-  ("eli-dl:Participation" -> _)
-  ("cms:Page" -> _)
-  ("eli:Work" -> _)
-  ("org:Organization" -> _)
-  ("besluit:Bestuurseenheid" -> _)
-  ("dct:MediaTypeOrExtent" -> _)
-  ("eli-dl:ForeseenActivity" -> _))
-
 ;; This asset collection contains all information that is available to public as part of the harvesting done by the DECIDE app.
 (define-graph harvesting-public ("http://mu.semte.ch/graphs/harvesting")
-  ("eli:Manifestation" -> _)
-  ("eli-dl:Activity" -> _)
-  ("eli:LegalExpression" -> _)
-  ("eli:Expression" -> _)
   ("nfo:RemoteDataObject" -> _)
-  ("nfo:FileDataObject" -> _))
+  ("nfo:FileDataObject" -> _)
+  ("eli:Expression" -> _)
+  ("eli:LegalExpression" -> _)
+  ("eli:Manifestation" -> _)
+  ("eli-dl:Activity" -> _))
 
 ;; This asset collection contains all information that is available in as part the harvesting done by the DECIDE app.
 (define-graph harvesting ("http://mu.semte.ch/graphs/harvesting")
   ("core:Error" -> _)
+  ("dcat:Catalog" -> _)
+  ("cogs:Job" -> _)
+  ("nfo:DataContainer" -> _)
+  ("sh:NodeShape" -> _)
+  ("wot:SecurityScheme" -> _)
+  ("dcat:Dataset" -> _)
+  ("cogs:ScheduledJob" -> _)
+  ("nfo:FileDataObject" -> _)
+  ("wot:OAuth2SecurityScheme" -> _)
+  ("tasks:CronSchedule" -> _)
+  ("security:OAuth2Credentials" -> _)
+  ("security:BasicAuthenticationCredentials" -> _)
   ("tasks:Task" -> _)
   ("security:AuthenticationConfiguration" -> _)
-  ("nfo:RemoteDataObject" -> _)
-  ("dcat:Dataset" -> _)
-  ("tasks:CronSchedule" -> _)
-  ("security:Credentials" -> _)
-  ("harvesting:HarvestingCollection" -> _)
-  ("dcat:Catalog" -> _)
-  ("wot:BasicSecurityScheme" -> _)
-  ("security:BasicAuthenticationCredentials" -> _)
-  ("nfo:DataContainer" -> _)
   ("schema:repeatFrequency" -> _)
-  ("wot:SecurityScheme" -> _)
-  ("cogs:Job" -> _)
-  ("cogs:ScheduledJob" -> _)
-  ("security:OAuth2Credentials" -> _)
-  ("nfo:FileDataObject" -> _)
-  ("dcat:Distribution" -> _)
+  ("nfo:RemoteDataObject" -> _)
+  ("harvesting:HarvestingCollection" -> _)
+  ("wot:BasicSecurityScheme" -> _)
   ("tasks:ScheduledTask" -> _)
-  ("wot:OAuth2SecurityScheme" -> _)
-  ("ndo:DownloadEvent" -> _))
+  ("security:Credentials" -> _)
+  ("ndo:DownloadEvent" -> _)
+  ("dcat:Distribution" -> _))
+
+;; This asset collection contains all information that is available to the public in the context of the DECIDe app.
+(define-graph public ("http://mu.semte.ch/graphs/public")
+  ("eli-dl:Decision" -> _)
+  ("locn:Address" -> _)
+  ("locn:Geometry" -> _)
+  ("oparl-temp:Location" -> _)
+  ("org:Membership" -> _)
+  ("dct:PeriodOfTime" -> _)
+  ("dcat:Catalog" -> _)
+  ("eli-dl:LegislativeProcessWork" -> _)
+  ("dct:Location" -> _)
+  ("oa:TextPositionSelector" -> _)
+  ("eli-dl:Participation" -> _)
+  ("schema:TouristAttraction" -> _)
+  ("eli:LegalExpression" -> _)
+  ("eli:ComplexWork" -> _)
+  ("oa:Annotation" -> _)
+  ("dcat:Dataset" -> _)
+  ("eli:Work" -> _)
+  ("wikidata:Q2785216" -> _)
+  ("eli-dl:Vote" -> _)
+  ("skos:Concept" -> _)
+  ("org:Organization" -> _)
+  ("eli:Expression" -> _)
+  ("cms:Page" -> _)
+  ("eli-dl:ForeseenActivity" -> _)
+  ("besluit:Bestuurseenheid" -> _)
+  ("eli-dl:DraftLegislationWork" -> _)
+  ("eli-dl:Activity" -> _)
+  ("eli-dl:ProcessStage" -> _)
+  ("oa:SpecificResource" -> _)
+  ("eli-dl:ParliamentaryTerm" -> _)
+  ("skos:ConceptScheme" -> _)
+  ("foaf:Agent" -> _)
+  ("dcat:Distribution" -> _)
+  ("perceel:Perceel" -> _)
+  ("foaf:Person" -> _)
+  ("dct:MediaTypeOrExtent" -> _)
+  ("eli-dl:LegislativeProcess" -> _)
+  ("eli:Manifestation" -> _))
 
 
 ;; Groups
-;; This party represent all (possibly not logged in) users of the system.
-(supply-allowed-group "public-user")
-
 ;; This represents all logged in users of the system.
-(supply-allowed-group "authenticated-user"
+(supply-allowed-group "logged-in"
   :query "PREFIX session: <http://mu.semte.ch/vocabularies/session/>
   SELECT DISTINCT ?account
   WHERE {
     <SESSION_ID> session:account ?account .
   }")
 
+;; This party represent all (possibly not logged in) users of the system.
+(supply-allowed-group "public")
+
 
 ;; Grants
 (grant (read)
-  :to-graph public
-  :for-allowed-group "public-user")
-
-(grant (read)
   :to-graph harvesting-public
-  :for-allowed-group "public-user")
+  :for-allowed-group "public")
+
+(grant (write read)
+  :to-graph harvesting
+  :for-allowed-group "logged-in")
 
 (grant (read)
-  :to-graph harvesting
-  :for-allowed-group "authenticated-user")
+  :to-graph public
+  :for-allowed-group "public")
 

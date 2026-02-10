@@ -24,3 +24,4 @@
 (add-prefix "dgftOauth" "http://kanselarij.vo.data.gift/vocabularies/oauth-2.0-session/")
 (add-prefix "geosparql" "http://www.opengis.net/ont/geosparql#")
 (add-prefix "locn" "http://www.w3.org/ns/locn#")
+(add-prefix "sh" "http://www.w3.org/ns/shacl#")

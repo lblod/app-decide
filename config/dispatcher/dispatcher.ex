@@ -129,6 +129,10 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://resource/harvesting-collections/"
   end
 
+  match "/node-shapes/*path", %{accept: [:json], layer: :api_services} do
+    Proxy.forward conn, path, "http://resource/node-shapes/"
+  end
+
   #################
   # OPARL PROXY
   #################
@@ -232,7 +236,7 @@ defmodule Dispatcher do
   match "/legal-expressions/*path", %{ accept: [:json], layer: :resources } do
     Proxy.forward conn, path, "http://resource/legal-expressions/"
   end
-  
+
   match "/works/*path", %{ accept: [:json], layer: :resources } do
     Proxy.forward conn, path, "http://resource/works/"
   end
@@ -360,6 +364,21 @@ defmodule Dispatcher do
 
   match "/dcat/*path" do
     forward(conn, path, "http://dcat/")
+  end
+
+  ##################
+  # SEARCH
+  ##################
+  get "/search/*path", %{layer: :api_services, accept: [:json]} do
+    Proxy.forward conn, path, "http://search/"
+  end
+
+  post "/search/:type/large-search", %{layer: :api_services, accept: [:json]} do
+    Proxy.forward conn, [(type <> "/large-search")], "http://search/"
+  end
+
+  match "/embedding/*path", %{layer: :api_services, accept: [:json]} do
+    Proxy.forward conn, path, "http://embedding/"
   end
 
   #################

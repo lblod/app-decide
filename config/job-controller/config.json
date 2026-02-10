@@ -32,11 +32,25 @@
     "tasksConfiguration": [
       {
         "currentOperation": null,
-        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/pdf-to-eli",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/singleton-job",
         "nextIndex": "0"
       },
       {
-        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/pdf-to-eli",
+        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/singleton-job",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/pdf-to-eli",
+        "nextIndex": "1"
+      }
+    ]
+  },
+  "http://lblod.data.gift/id/jobs/concept/JobOperation/eli-enrichment": {
+    "tasksConfiguration": [
+      {
+        "currentOperation": null,
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/singleton-job",
+        "nextIndex": "0"
+      },
+      {
+        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/singleton-job",
         "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/eli-translation",
         "nextIndex": "1"
       },
@@ -66,7 +80,7 @@
       }
     ]
   },
-   "http://lblod.data.gift/id/jobs/concept/JobOperation/eli-entity-linking-test": {
+  "http://lblod.data.gift/id/jobs/concept/JobOperation/eli-entity-linking-test": {
     "tasksConfiguration": [
       {
         "currentOperation": null,
@@ -76,6 +90,20 @@
       {
         "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/singleton-job",
         "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/entity-linking",
+        "nextIndex": "1"
+      }
+    ]
+  },
+  "http://lblod.data.gift/id/jobs/concept/JobOperation/match-codelist": {
+    "tasksConfiguration": [
+      {
+        "currentOperation": null,
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/singleton-job",
+        "nextIndex": "0"
+      },
+      {
+        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/singleton-job",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/match-codelist",
         "nextIndex": "1"
       }
     ]
