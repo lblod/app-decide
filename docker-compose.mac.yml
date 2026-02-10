@@ -11,7 +11,7 @@ services:
     image: semtech/mu-delta-notifier:latest
     platform: linux/arm64
   frontend-harvesting:
-    platform: linux/amd64
+    platform: linux/arm64
   odrl-parser:
     platform: linux/arm64
   vc-issuer:
@@ -40,4 +40,6 @@ services:
   login:
     platform: linux/amd64
   harvest_singleton-job:
+    platform: linux/amd64
+  pdf-content:
     platform: linux/amd64

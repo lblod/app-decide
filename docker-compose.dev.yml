@@ -57,7 +57,11 @@ services:
   login:
     restart: no
   entity-linking:
-    restart: no
+    restart: "no"
+  pdf-content:
+    restart: "no"
+  apache-tika:
+    restart: "no"
   search:
     restart: no
     profiles:

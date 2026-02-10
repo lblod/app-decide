@@ -146,6 +146,8 @@ services:
       EMBER_AUTHENTICATION_ENABLED: "true"
       EMBER_LOGIN_ROUTE: "login"
       EMBER_OPARL_HARVESTING_ENABLED: true
+      EMBER_PDF_HARVESTING_ENABLED: true
+      EMBER_NER_AND_NEL_ANNOTATIONS_ENABLED: true
     labels:
       - "logging=true"
     restart: always
@@ -188,7 +190,7 @@ services:
     image: lblod/import-with-sameas-service:4.8.0
     environment:
       RENAME_DOMAIN: "http://data.lblod.info/id/"
-      TARGET_GRAPH: "http://mu.semte.ch/graphs/harvesting"
+      TARGET_GRAPH: "http://mu.semte.ch/graphs/public/freiburg"
       HIGH_LOAD_DATABASE_ENDPOINT: "http://virtuoso:8890/sparql"
       ROLLBACK_ENABLED: "false"
       TASK_TIMEOUT_HOURS: "20"
@@ -274,6 +276,23 @@ services:
       HIGH_LOAD_DATABASE_ENDPOINT: http://triplestore:8890/sparql
     links:
       - database:database
+  pdf-content:
+    image: semanticai/decide-pdf-content-extraction:0.0.3
+    environment:
+      APACHE_TIKA_URL: "http://apache-tika:9998/tika"
+      TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
+      PUBLICATION_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      MOUNTED_SHARE_FOLDER: "/mnt/share"
+    volumes:
+      - ./data/files:/mnt/share
+    labels:
+      - logging=true
+    restart: always
+    logging: *default-logging
+  apache-tika:
+    image: lblod/apache-tika-service:0.0.3
+    restart: always
+    logging: *default-logging
 
   ##################################
   ### elastic and embeddings
