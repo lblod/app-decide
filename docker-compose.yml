@@ -108,6 +108,14 @@ services:
     logging: *default-logging
     labels:
       - "logging=true"
+  sink:
+    image: nginx:1.15.2
+    volumes:
+      - ./config/sink/sink.conf:/etc/nginx/conf.d/default.conf
+    labels:
+      - "logging=true"
+    restart: always
+    logging: *default-logging
 
   ##############################################################################
   # DATA SPACE
