@@ -119,7 +119,7 @@ services:
     volumes:
       - ./config/odrl-parser:/config
   vc-issuer:
-    image: lblod/oid4vc-login-service:latest
+    image: lblod/oid4vc-login-service:0.0.1
     environment:
       ISSUER_DID: did:web:example.com:some:did
       ISSUER_KEY_ID: did:web:example.com:some:did#somekey
