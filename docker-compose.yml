@@ -120,6 +120,12 @@ services:
       - "logging=true"
     restart: always
     logging: *default-logging
+  frontend:
+    image: lblod/frontend-decide:0.0.2
+    labels:
+      - "logging=true"
+    restart: always
+    logging: *default-logging
 
   ##############################################################################
   # DATA SPACE
