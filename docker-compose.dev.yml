@@ -38,6 +38,8 @@ services:
     restart: "no"
   deltanotifier:
     restart: "no"
+  frontend:
+    restart: "no"
   frontend-harvesting:
     restart: "no"
   oparl-to-eli:

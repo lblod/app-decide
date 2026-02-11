@@ -14,8 +14,8 @@
 
 (define-resource specific-resource ()
   :class (s-prefix "oa:SpecificResource")
-  :has-one `((work :via ,(s-prefix "oa:source")
-                   :as "source")
+  :has-one `((expression :via ,(s-prefix "oa:source")
+                         :as "source")
              (text-position-selector :via ,(s-prefix "oa:selector")
                                      :as "selector"))
   :resource-base (s-url "http://data.lblod.info/id/specific-resource/")

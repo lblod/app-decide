@@ -1,6 +1,7 @@
 (in-package :acl)
 
 (define-prefixes
+  :adms "http://www.w3.org/ns/adms#"
   :besluit "http://data.vlaanderen.be/ns/besluit#"
   :cms "http://mu.semte.ch/vocabulary/cms/"
   :cogs "http://vocab.deri.ie/cogs#"
@@ -129,6 +130,11 @@
   ("tasks:CronSchedule" -> _ )
   ("schema:repeatFrequency" -> _ ))
 
+(define-graph organization ("http://mu.semte.ch/graphs/organizations/")
+  ("foaf:Person" -> _)
+  ("foaf:OnlineAccount" -> _)
+  ("adms:Identifier" -> _))
+
 (supply-allowed-group "public")
 
 (grant (read)
@@ -156,3 +162,26 @@
       SELECT DISTINCT ?account WHERE {
       <SESSION_ID> session:account ?account.
       }")
+
+(supply-allowed-group "organization-member"
+  :parameters ("session_group")
+  :query "PREFIX ext: <http://mu.semte.ch/vocabularies/ext/>
+          PREFIX mu: <http://mu.semte.ch/vocabularies/core/>
+          SELECT ?session_group ?session_role WHERE {
+            <SESSION_ID> ext:sessionGroup/mu:uuid ?session_group.
+          }")
+
+(grant (read)
+       :to-graph organization
+       :for-allowed-group "organization-member")
+
+;; TODO: Is this supposed to be the final graph?
+;; NOTE (10/02/2026): Graphs <http://mu.semte.ch/graphs/organizations> does NOT contain the
+;; `besluit:Bestuurseenheid' type (only `org:Organization'), used that one causes resource service
+;; to bug out
+(define-graph organizations ("http://mu.semte.ch/graphs/bestuurseenheden-bestuursorganen")
+  ("besluit:Bestuurseenheid" -> _))
+
+(grant (read)
+       :to-graph organizations
+       :for-allowed-group "public")
