@@ -122,6 +122,14 @@ services:
     logging: *default-logging
   frontend:
     image: lblod/frontend-decide:0.0.2
+    environment:
+      # The following are environment-specific and should be set in the
+      # environment's appropriate override file.
+      EMBER_OAUTH_API_KEY: "<OAUTH_API_KEY>"
+      EMBER_OAUTH_API_REDIRECT_URL: "<OAUTH_API_REDIRECT_URL>"
+      EMBER_OAUTH_API_BASE_URL: "<OAUTH_API_BASE_URL>"
+      EMBER_OAUTH_API_LOGOUT_URL: "<OAUTH_API_LOGOUT_URL"
+      EMBER_OAUTH_API_SCOPE: "<OAUTH_API_SCOPE>"
     labels:
       - "logging=true"
     restart: always
