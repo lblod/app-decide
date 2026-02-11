@@ -294,14 +294,6 @@ services:
   ##############################################################################
   # AI PIPELINES
   ##############################################################################
-  entity-linking:
-    image: lblod/entity-linking-service:latest
-    environment:
-      TARGET_GRAPH: "http://mu.semte.ch/graphs/public"
-      DEFAULT_GRAPH: "http://mu.semte.ch/graphs/harvesting"
-      HIGH_LOAD_DATABASE_ENDPOINT: http://triplestore:8890/sparql
-    links:
-      - database:database
   pdf-content:
     image: semanticai/decide-pdf-content-extraction:0.0.3
     environment:
@@ -319,6 +311,36 @@ services:
     image: lblod/apache-tika-service:0.0.3
     restart: always
     logging: *default-logging
+  entity-linking:
+    image: semanticai/entity-linking-backend:latest
+    environment:
+      - LLM_PROVIDER=ollama
+      - OLLAMA_HOST=http://ollama:11434
+      - NOMINATIM_ENDPOINT=http://nominatim:8080/
+      - MCP_SERVER_URL=http://localhost:80/mcp/sse
+      - ENABLED_TOOLS=search_sparql_docs,execute_sparql_query
+    depends_on:
+      - qdrant
+      - nominatim
+      - ollama
+    volumes:
+      - ./data/files:/mnt/share
+    labels:
+      - logging=true
+    restart: always
+    logging: *default-logging
+  qdrant:
+    image: qdrant/qdrant
+    ports:
+        - "6333:6333"
+  nominatim:
+    image: mediagis/nominatim:4.2
+    ports:
+        - "8080:8080"
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
 
   ##################################
   ### elastic and embeddings
