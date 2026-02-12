@@ -266,6 +266,7 @@ services:
     image: lblod/decide-harvester-filter-service:feature-refactor-for-oslo-eli-pipeline
     environment:
       INPUT_GRAPH: http://mu.semte.ch/graphs/oslo-decisions/landing
+      BYPASS_MU_SPARQL_ENDPOINT: true
       BATCH_SIZE: 1000
       SLEEP_BETWEEN_BATCHES: 5
       OPERATION_URI: http://lblod.data.gift/id/jobs/concept/TaskOperation/oslo-eli/filter
@@ -279,7 +280,8 @@ services:
       INPUT_GRAPH: http://mu.semte.ch/graphs/oslo-decisions/landing
       OUTPUT_GRAPH: http://mu.semte.ch/graphs/public/gent
       ORGANIZATIONS_GRAPH: http://mu.semte.ch/graphs/bestuurseenheden-bestuursorganen
-      BATCH_SIZE: 100
+      BYPASS_MU_SPARQL_ENDPOINT: true
+      BATCH_SIZE: 1000
       SLEEP_BETWEEN_BATCHES: 5
       OPERATION_URI: http://lblod.data.gift/id/jobs/concept/TaskOperation/oslo-eli/transform
     labels:
