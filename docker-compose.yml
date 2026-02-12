@@ -303,7 +303,7 @@ services:
     links:
       - database:database
   pdf-scraper:
-    image: semanticai/decide-pdf-scraper:latest
+    image: semanticai/decide-pdf-scraper:0.0.1
     environment:
       TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
       PUBLICATION_GRAPH: http://mu.semte.ch/graphs/public/pdf
@@ -313,7 +313,7 @@ services:
     restart: always
     logging: *default-logging
   pdf-content:
-    image: semanticai/decide-pdf-content-extraction:latest
+    image: semantic-ai/decide-pdf-content-extraction:0.0.4
     environment:
       APACHE_TIKA_URL: "http://apache-tika:9998/tika"
       TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
