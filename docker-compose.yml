@@ -313,7 +313,7 @@ services:
     restart: always
     logging: *default-logging
   pdf-content:
-    image: semantic-ai/decide-pdf-content-extraction:0.0.4
+    image: semanticai/decide-pdf-content-extraction:0.0.4
     environment:
       APACHE_TIKA_URL: "http://apache-tika:9998/tika"
       TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
