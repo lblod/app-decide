@@ -61,6 +61,10 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://vc-issuer/issuer/"
   end
 
+  match "/question-answering/*path", %{ accept: [:any], layer: :api_services } do
+    Proxy.forward conn, path, "http://question-answering/uc2/"
+  end
+
   #################
   # Jobs & tasks
   #################

@@ -64,6 +64,8 @@ services:
     restart: "no"
   apache-tika:
     restart: "no"
+  question-answering:
+    restart: "no"
   search:
     restart: no
     profiles:
