@@ -79,6 +79,15 @@
   ("eli:Manifestation" -> _)
   ("eli:Work" -> _))
 
+(define-graph harvested-pdf ("http://mu.semte.ch/graphs/public/pdf")
+  ("nfo:RemoteDataObject" -> _)
+  ("nfo:FileDataObject" -> _)
+  ("org:Organization" -> _)
+  ("eli-dl:Activity" -> _)
+  ("eli:Expression" -> _)
+  ("eli:Manifestation" -> _)
+  ("eli:Work" -> _))
+
 (define-graph public ("http://mu.semte.ch/graphs/public")
   ("besluit:Bestuurseenheid" -> _)
   ("cms:Page" -> _)
@@ -151,6 +160,10 @@
 
 (grant (read)
        :to-graph harvested-gent
+       :for-allowed-group "public")
+
+(grant (read)
+       :to-graph harvested-pdf
        :for-allowed-group "public")
 
 (grant (read write)

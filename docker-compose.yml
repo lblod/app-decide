@@ -320,6 +320,11 @@ services:
     restart: always
     logging: *default-logging
 
+  question-answering:
+    image: semanticai/decide-question-answering:0.0.0
+    restart: always
+    logging: *default-logging
+
   ##################################
   ### elastic and embeddings
   ##################################
