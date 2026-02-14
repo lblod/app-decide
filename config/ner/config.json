@@ -1,0 +1,44 @@
+{
+  "app": {
+    "mode": "development",
+    "log_level": "debug"
+  },
+  "ner": {
+    "language": "nl",
+    "method": "composite",
+    "post_process": true,
+    "labels": ["CITY", "DOMAIN", "HOUSENUMBERS", "INTERSECTION", "POSTCODE", "PROVINCE", "ROAD", "STREET"],
+    "enable_refinement": true
+  },
+  "geocoding": {
+    "nominatim_base_url": "http://nominatim:8080"
+  },
+  "llm": {
+    "model_name": "gpt-4o-mini",
+    "temperature": 0.1,
+    "api_key": null
+  },
+  "translation": {
+    "target_language": "en",
+    "provider": "huggingface",
+    "etranslation": {
+      "base_url": "https://language-tools.ec.europa.eu/etranslation/api",
+      "bearer_token": null,
+      "username": null,
+      "password": null,
+      "domain": "GEN",
+      "timeout_seconds": 60,
+      "callback_wait_timeout": 180,
+      "max_text_length": 4000,
+      "callback_url": null
+    }
+  },
+  "ml_training": {
+    "transformer": "distilbert/distilbert-base-uncased",
+    "learning_rate": 2e-5,
+    "epochs": 2,
+    "weight_decay": 0.01,
+    "huggingface_token": null,
+    "huggingface_output_model_id": null
+  }
+}

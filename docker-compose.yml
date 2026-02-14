@@ -303,7 +303,7 @@ services:
     links:
       - database:database
   pdf-scraper:
-    image: semanticai/decide-pdf-scraper:0.0.1
+    image: docker.io/semanticai/decide-pdf-scraper:0.0.1
     environment:
       TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
       PUBLICATION_GRAPH: http://mu.semte.ch/graphs/public/pdf
@@ -313,7 +313,7 @@ services:
     restart: always
     logging: *default-logging
   pdf-content:
-    image: semanticai/decide-pdf-content-extraction:0.0.4
+    image: docker.io/semanticai/decide-pdf-content-extraction:0.0.4
     environment:
       APACHE_TIKA_URL: "http://apache-tika:9998/tika"
       TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
@@ -332,9 +332,37 @@ services:
     logging: *default-logging
 
   question-answering:
-    image: semanticai/decide-question-answering:0.0.0
+    image: docker.io/semanticai/decide-question-answering:0.0.0
     restart: always
     logging: *default-logging
+
+  nominatim:
+    image: mediagis/nominatim:5.1
+    expose:
+      - "8080:8080"
+    environment:
+      - PBF_URL=https://download.geofabrik.de/europe/belgium-latest.osm.pbf
+    restart: unless-stopped
+    volumes:
+      - ./data/nominatim:/var/lib/postgresql/16/main
+
+  qdrant:
+    image: qdrant/qdrant
+    ports:
+      - "6333:6333"
+
+  named-entity-recognition:
+    image: semanticai/decide-geocoding-service:0.0.1
+    ports:
+      - "8082:80"
+    environment:
+      EXPECTED_TASK_PREDICATE: 'http://www.w3.org/ns/adms#status'
+      EXPECTED_TASK_OBJECT: 'http://redpencil.data.gift/id/concept/JobStatus/scheduled'
+      ALLOW_MU_AUTH_SUDO: true
+    volumes:
+      - ./config/ner/config.json:/app/config.json:ro  # Mount config as read-only
+    depends_on:
+      - virtuoso
 
   ##################################
   ### elastic and embeddings

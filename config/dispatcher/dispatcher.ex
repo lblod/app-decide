@@ -65,6 +65,11 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://question-answering/uc2/"
   end
 
+  # layer order matters! we need to intercept the .well-known variants first, hence :static
+  match "/etranslation/*path", %{ accept: [:any], layer: :static } do
+    Proxy.forward conn, path, "http://geocoding/etranslation/"
+  end
+
   #################
   # Jobs & tasks
   #################
