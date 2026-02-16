@@ -121,7 +121,7 @@ services:
     restart: always
     logging: *default-logging
   frontend:
-    image: lblod/frontend-decide:0.0.2
+    image: lblod/frontend-decide:0.0.3
     environment:
       # The following are environment-specific and should be set in the
       # environment's appropriate override file.
