@@ -73,7 +73,7 @@ services:
       DCR_DISABLE_DELTA_INGEST: false
 ```
 
-Note: the AI services (used in the other use cases) will be made configurable to directly work with OSLO-compliant data
+Note: the AI services (used in the other use cases) will be configurable so they can directly work with OSLO-compliant data
 
 #### OParl (Freiburg)
 
