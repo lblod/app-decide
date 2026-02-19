@@ -10,8 +10,6 @@ services:
   deltanotifier:
     image: semtech/mu-delta-notifier:latest
     platform: linux/arm64
-  frontend-harvesting:
-    platform: linux/arm64
   odrl-parser:
     platform: linux/arm64
   vc-issuer:
