@@ -51,7 +51,7 @@ There are two main pain points:
 
 ## Use cases
 
-This README focuses on which services are needed to accomplish the DECIDE use cases. This way, a city can choose which services are desired to reuse for its own use cases.
+The DECIDe project is designed to address a set of pre-defined use cases. This README outlines each service individually, allowing cities to select and deploy only the specific components required for their unique needs.
 
 For all use cases, the core Semantic.Works services listed at the top of the `docker-compose.yml` file are needed, in addition with the generic pipeline components to run pipelines. To configure the dashboard to run pipelines, see [below](##configuring-the-dashboard).
 
