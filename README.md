@@ -88,7 +88,7 @@ The PDF to ELI pipeline requires three services. The `harvest_singleton-job` ser
 
 In the pipeline dashboard, create a "Harvest PDF & Publish as ELI" pipeline. The URL parameter needs to be provided with a URL resolving with a PDF.
 
-Later, a PDF pipeline will be added to harvest all PDFs from a website.
+In the future a PDF pipeline will be added to harvest all PDFs from a website.
 
 ### Use Case 0.1: Linking to higher legislation or overarching goals such as the SDGs
 
