@@ -84,7 +84,7 @@ To start the OParl pipeline, create a "Harvest OParl API & Publish as ELI" job i
 
 #### PDF (Bamberg)
 
-The PDF to ELI pipeline requires three services. The `harvest_singleton-job` service is used, similar to the other pipelines, to guarantee a data source is harvested only once simultaneously. The `pdf-content` service reads a remote or local PDF file, extracts the content of the PDF, and creates ELI entities (Work/Expression/Manifestation) in the triple store. The `apache-tika` service 
+The PDF to ELI pipeline requires three services. The `harvest_singleton-job` service is used, similar to the other pipelines, to guarantee a data source is harvested only once. The `pdf-content` service reads a remote or local PDF file, extracts the content of the PDF, and creates ELI entities (Work/Expression/Manifestation) in the triple store. The `apache-tika` service is used by the `pdf-content` service that is responsible for extracting text from a PDF.
 
 In the pipeline dashboard, create a "Harvest PDF & Publish as ELI" pipeline. The URL parameter needs to be provided with a URL resolving with a PDF.
 
