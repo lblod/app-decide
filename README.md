@@ -59,7 +59,7 @@ In DECIDe, four use cases are defined. The first use case (0.0) is about convert
 
 ### Use Case 0.0: Building up the Data Space
 
-This use case retrieves decisions from a data source, and maps the decisions to the European Legislation Identifier (ELI) standard. For each city, a specific conversion pipeline is defined, because the input data sources are heterogeneous.
+This use case retrieves decisions from a data source, and maps the decisions to the European Legislation Identifier (ELI) standard. Because the input data sources are heterogeneous a specific conversion pipeline is defined for each city.
 
 #### OSLO (Ghent)
 
