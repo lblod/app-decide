@@ -1,6 +1,6 @@
 # DECIDe 
 
-This repository contains all configuration to get the DECIDe microservices stack running. It is very much a work in progress. Below, documentation is provided for each use case.  
+This repository contains all configuration to get the DECIDe microservices stack running. It is very much a work in progress. Documentation for each use case is provided below.
 
 ## What's included?
 
