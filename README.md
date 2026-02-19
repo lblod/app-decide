@@ -53,7 +53,7 @@ There are two main pain points:
 
 The DECIDe project is designed to address a set of pre-defined use cases. This README outlines each service individually, allowing cities to select and deploy only the specific components required for their unique needs.
 
-For all use cases, the core Semantic.Works services listed at the top of the `docker-compose.yml` file are needed, in addition with the generic pipeline components to run pipelines. To configure the dashboard to run pipelines, see [below](##configuring-the-dashboard).
+The services defined at the top of the `docker-compose.yml` file are the core _Semantic.Works_ services required for running the project. In addition to the core service, we also need the generic pipeline components to run the pipelines. To configure the dashboard for your pipelines, see [below](##configuring-the-dashboard).
 
 In DECIDe, four use cases are defined. The first use case (0.0) is about converting and publishing decisions with Linked Data standards so these can be reused interoperable in the data space. The three other use cases (0.1, 1, and 2) are AI-enabled services to enrich the decisions with related things, such as policies, themes, and locations.
 
