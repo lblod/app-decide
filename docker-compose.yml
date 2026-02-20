@@ -299,7 +299,7 @@ services:
   # AI PIPELINES
   ##############################################################################
   entity-linking:
-    image: brechtvdv/entity-linking-backend
+    image: docker.io/semanticai/entity-linking-backend:0.0.0
     environment:
       DEFAULT_GRAPH: "http://mu.semte.ch/graphs/harvesting"
       ALLOW_MU_AUTH_SUDO: "true"
