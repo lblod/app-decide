@@ -299,11 +299,10 @@ services:
   # AI PIPELINES
   ##############################################################################
   entity-linking:
-    image: lblod/entity-linking-service:latest
+    image: brechtvdv/entity-linking-backend
     environment:
-      TARGET_GRAPH: "http://mu.semte.ch/graphs/public"
       DEFAULT_GRAPH: "http://mu.semte.ch/graphs/harvesting"
-      HIGH_LOAD_DATABASE_ENDPOINT: http://triplestore:8890/sparql
+      ALLOW_MU_AUTH_SUDO: "true"
     links:
       - database:database
   pdf-scraper:
