@@ -240,7 +240,7 @@ services:
     restart: always
     logging: *default-logging
   oparl-to-eli:
-    image: lblod/oparl-to-eli-service:latest
+    image: lblod/oparl-to-eli-service:0.0.3
     volumes:
       - ./config/oparl-to-eli/:/config/
       - ./data/files:/share
