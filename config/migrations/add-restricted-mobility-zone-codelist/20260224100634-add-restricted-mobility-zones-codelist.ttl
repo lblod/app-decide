@@ -192,6 +192,7 @@
 <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/512d62cb-2b22-449b-8416-93ffd109b7b7> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/a486a968-e498-4708-8820-901686f0712f>.
 <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/8fe2554e-0d2a-4662-b003-486d85e7a7e0> skos:prefLabel "Kabel/leiding (deprecated)";
     mu:uuid "8fe2554e-0d2a-4662-b003-486d85e7a7e0";
+    <http://www.w3.org/2002/07/owl#deprecated> true;
     skos:inscheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
     skos:definition "Kabel/leiding (deprecated)";
     a skos:Concept.
@@ -216,6 +217,7 @@
 <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/512d62cb-2b22-449b-8416-93ffd109b7b7> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/29c35b68-5d3a-4995-9da5-3102a31e543e>.
 <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/abf55560-9c84-46cf-98ff-a84881e2e0e7> skos:prefLabel "Riolering (deprecated)";
     mu:uuid "abf55560-9c84-46cf-98ff-a84881e2e0e7";
+    <http://www.w3.org/2002/07/owl#deprecated> true;
     skos:inscheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
     skos:definition "Riolering (deprecated)";
     a skos:Concept.
