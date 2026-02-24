@@ -121,7 +121,7 @@ services:
     restart: always
     logging: *default-logging
   frontend:
-    image: lblod/frontend-decide:0.0.2
+    image: lblod/frontend-decide:0.0.3
     environment:
       # The following are environment-specific and should be set in the
       # environment's appropriate override file.
@@ -162,9 +162,9 @@ services:
     restart: always
     labels:
       - "logging=true"
-
-  ##############################################################################
-  # OPARL HARVESTING PIPELINE
+      
+ ##############################################################################
+  # GENERIC PIPELINE COMPONENTS (USED IN OPARL, OSLO, PDF, AND AI PIPELINES)
   ##############################################################################
   frontend-harvesting:
     image: lblod/frontend-harvesting-self-service:feature-oparl-harvesting
@@ -174,6 +174,7 @@ services:
       EMBER_OPARL_HARVESTING_ENABLED: true
       EMBER_PDF_HARVESTING_ENABLED: true
       EMBER_NER_AND_NEL_ANNOTATIONS_ENABLED: true
+      EMBER_CODELIST_MAPPING_ENABLED: true
     labels:
       - "logging=true"
     restart: always
@@ -199,6 +200,9 @@ services:
       - "logging=true"
     restart: always
     logging: *default-logging
+  ##############################################################################
+  # OPARL HARVESTING PIPELINE
+  ##############################################################################
   harvest_diff:
     image: lblod/harvesting-diff-service:0.3.0
     environment:
@@ -300,12 +304,23 @@ services:
       HIGH_LOAD_DATABASE_ENDPOINT: http://triplestore:8890/sparql
     links:
       - database:database
+  pdf-scraper:
+    image: semanticai/decide-pdf-scraper:0.0.1
+    environment:
+      TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
+      PUBLICATION_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      ALLOW_MU_AUTH_SUDO: true
+    labels:
+      - logging=true
+    restart: always
+    logging: *default-logging
   pdf-content:
-    image: semanticai/decide-pdf-content-extraction:0.0.3
+    image: semanticai/decide-pdf-content-extraction:0.0.4
     environment:
       APACHE_TIKA_URL: "http://apache-tika:9998/tika"
       TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
       PUBLICATION_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      ALLOW_MU_AUTH_SUDO: true
       MOUNTED_SHARE_FOLDER: "/mnt/share"
     volumes:
       - ./data/files:/mnt/share
@@ -315,6 +330,11 @@ services:
     logging: *default-logging
   apache-tika:
     image: lblod/apache-tika-service:0.0.3
+    restart: always
+    logging: *default-logging
+
+  question-answering:
+    image: semanticai/decide-question-answering:0.0.0
     restart: always
     logging: *default-logging
 
