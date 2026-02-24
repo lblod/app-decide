@@ -247,7 +247,6 @@ services:
     environment:
       OPARL_ENDPOINT: "https://ris.freiburg.de/oparl"
       TARGET_GRAPH: "http://mu.semte.ch/graphs/public/freiburg"
-      SUDO_QUERY_RETRY_FOR_HTTP_STATUS_CODES: "500"
 
   ##############################################################################
   # GHENT DECISIONS PIPELINE
