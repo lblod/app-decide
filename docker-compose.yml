@@ -379,3 +379,18 @@ services:
     #         - driver: nvidia
     #           count: all
     #           capabilities: [gpu]
+
+  ################################################################################
+  ### REPORTING
+  ################################################################################
+  report-generation:
+    image: lblod/loket-report-generation-service:0.8.3
+    environment:
+      DEFAULT_GRAPH: "http://mu.semte.ch/graphs/reports"
+    volumes:
+      - ./data/files:/share
+      - ./config/reports:/config
+    restart: always
+    labels:
+      - "logging=true"
+    logging: *default-logging
