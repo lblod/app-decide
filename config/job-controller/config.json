@@ -70,13 +70,18 @@
     "tasksConfiguration": [
       {
         "currentOperation": null,
-        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/oslo-eli/filter",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/oslo-eli/consume",
         "nextIndex": "0"
+      },
+      {
+        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/oslo-eli/consume",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/oslo-eli/filter",
+        "nextIndex": "1"
       },
       {
         "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/oslo-eli/filter",
         "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/oslo-eli/transform",
-        "nextIndex": "1"
+        "nextIndex": "2"
       }
     ]
   },
