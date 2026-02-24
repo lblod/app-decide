@@ -19,8 +19,8 @@
   a skos:Concept ;
   mu:uuid "dea804b7-b4b1-47c3-8438-40a04be013c7" ;
   <http://www.w3.org/2002/07/owl#deprecated> false;
-  skos:definition "Lage Emissie Zone (LEZ)"@nl;
-  skos:definition "Low Emission Zone"@en;
+  skos:definition "Een geografisch gedefinieerd gebied waar toegang wordt beperkt op basis van de emissiestandaard van voertuigen."@nl;
+  skos:definition "A geographically defined area where access is restricted based on vehicle emission standards."@en;
   skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types>;
   skos:prefLabel "Lage Emissie Zone (LEZ)"@nl;
   skos:prefLabel "Low Emission Zone"@en;
@@ -30,8 +30,8 @@
   a skos:Concept ;
   mu:uuid "efc8d1ed-61b0-4bbb-8811-def871a6367b" ;
   <http://www.w3.org/2002/07/owl#deprecated> false;
-  skos:definition "Zero Emissie Zone (ZEZ)"@nl;
-  skos:definition "Zero Emission Zone"@en;
+  skos:definition "Een geografisch gedefinieerd gebied waar toegang wordt beperkt op basis van de emissiestandaard van voertuigen."@nl;
+  skos:definition "A geographically defined area where access is restricted based on vehicle emission standards."@en;
   skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types>;
   skos:prefLabel "Zero Emissie Zone (ZEZ)"@nl;
   skos:prefLabel "Zero Emission Zone"@en;
@@ -41,8 +41,8 @@
   a skos:Concept ;
   mu:uuid "bf79aa98-a214-4aee-a915-5328b0b05c07" ;
   <http://www.w3.org/2002/07/owl#deprecated> false;
-  skos:definition "Autoluwe zone"@nl;
-  skos:definition "Car-free zone"@en;
+  skos:definition "Een zone waarvoor voetgangers prioriteit hebben en motorvoertuigen verboden of sterk beperkt zijn (bijvoorbeeld alleen toegang voor gemachtigden binnen bepaalde uren)"@nl;
+  skos:definition "A zone prioritised for pedestrians where motorised traffic is prohibited or heavily restricted (eg. only access to permit holders between certain hours)"@en;
   skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types>;
   skos:prefLabel "Autoluwe zone"@nl;
   skos:prefLabel "Car-free zone"@en;
@@ -52,8 +52,8 @@
   a skos:Concept ;
   mu:uuid "c463f4ff-6453-43dc-8266-0c4af80d5b10" ;
   <http://www.w3.org/2002/07/owl#deprecated> false;
-  skos:definition "Voetgangerszone"@nl;
-  skos:definition "Pedestrian zone"@en;
+  skos:definition "Een zone waarvoor voetgangers prioriteit hebben en motorvoertuigen verboden of sterk beperkt zijn (bijvoorbeeld alleen toegang voor gemachtigden binnen bepaalde uren)"@nl;
+  skos:definition "A zone prioritised for pedestrians where motorised traffic is prohibited or heavily restricted (eg. only access to permit holders between certain hours)"@en;
   skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types>;
   skos:prefLabel "Voetgangerszone"@nl;
   skos:prefLabel "Pedestrian zone"@en;
@@ -63,8 +63,8 @@
   a skos:Concept ;
   mu:uuid "3c95845d-b5fd-47a4-a784-b99f081f5bc4" ;
   <http://www.w3.org/2002/07/owl#deprecated> false;
-  skos:definition "Woonerf"@nl;
-  skos:definition "Residential zone"@en;
+  skos:definition "Een straat of zone ontworpen als een sociaal gebied voor voetgangers en fietsers; motorvoertuigen zijn toegestaan, maar beperkt"@nl;
+  skos:definition "A street/zone designed as a social space for pedestrians and cyclists; motorized transport is permitted, but limited"@en;
   skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types>;
   skos:prefLabel "Woonerf"@nl;
   skos:prefLabel "Residential zone"@en;
@@ -74,11 +74,33 @@
   a skos:Concept ;
   mu:uuid "502c3398-4842-4408-9543-574bd9c31b36" ;
   <http://www.w3.org/2002/07/owl#deprecated> false;
-  skos:definition "Fietsstraat"@nl;
-  skos:definition "Bicycle street"@en;
+  skos:definition "Een straat waar fietsers prioriteit hebben en motorvoertuigen subordineerd of beperkt zijn."@nl;
+  skos:definition "A street where cyclists have priority and motor vehicles are subordinated or restricted."@en;
   skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types>;
   skos:prefLabel "Fietsstraat"@nl;
   skos:prefLabel "Bicycle street"@en;
+  skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> .
+
+<https://data.vlaanderen.be/id/concept/ZoneType/8cc0caf8-2789-4191-bd40-05d5749714cf>
+  a skos:Concept ;
+  mu:uuid "8cc0caf8-2789-4191-bd40-05d5749714cf" ;
+  <http://www.w3.org/2002/07/owl#deprecated> false;
+  skos:definition "Een straat tijdelijk beperkt tot motorvoertuigen tijdens school drop-off en pick-up uren."@nl;
+  skos:definition "A street temporarily restricted to motorised traffic during school drop-off and pick-up hours."@en;
+  skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types>;
+  skos:prefLabel "Schoolstraat"@nl;
+  skos:prefLabel "School street"@en;
+  skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> .
+
+<https://data.vlaanderen.be/id/concept/ZoneType/6b94b24b-b308-4366-bf1b-cb6f69b93596>
+  a skos:Concept ;
+  mu:uuid "6b94b24b-b308-4366-bf1b-cb6f69b93596" ;
+  <http://www.w3.org/2002/07/owl#deprecated> false;
+  skos:definition "Een inname openbaar domein waarbij een parkeerplaats gereserveerd is voor een andere doeleinde (zoals containers, verhuizing, enz.)"@nl;
+  skos:definition "Occupancy in which a parking space is reserved for another purpose (such as containers, moving, etc.)"@en;
+  skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types>;
+  skos:prefLabel "Parkeerverbod"@nl;
+  skos:prefLabel "Reserved parking space"@en;
   skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> .
 
 # -------------------------------
@@ -87,7 +109,8 @@
 
 <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/0aee5e89-610b-4572-9a81-c3de1d413de2> skos:prefLabel "Evenement";
     mu:uuid "0aee5e89-610b-4572-9a81-c3de1d413de2";
-    skos:definition "Evenement";
+    skos:definition "Occupancy of public domain by a temporary event, such as sport events, markets, festivals"@en;
+    skos:definition "Inname openbaar domein door een tijdelijk evenement, zoals sportevenementen, markten, festivals"@nl;
     skos:inscheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
     skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> .
 <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/7b840712-729c-489d-b438-527b9e37e88c> skos:prefLabel "Ambulante handel";
@@ -128,7 +151,8 @@
 <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/0aee5e89-610b-4572-9a81-c3de1d413de2> skos:narrower  <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/8253b70f-ca10-4c15-88b4-2b97893bb786>.
 <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/a818cefd-f490-4ec9-9028-2106c6c2cdee> skos:prefLabel "Speelstraat";
     mu:uuid "a818cefd-f490-4ec9-9028-2106c6cdee";
-    skos:definition "Speelstraat";
+    skos:definition "A street closed to motorised traffic on certain days/hours, creating a pedestrian zone allowing children to play on the street."@en;
+    skos:definition "Een straat die op bepaalde dagen/uren afgesloten is voor gemotoriseerd verkeer, waardoor een voetgangerszone ontstaat waar kinderen op straat kunnen spelen."@nl;
     skos:inscheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
     a skos:Concept.
 <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/0aee5e89-610b-4572-9a81-c3de1d413de2> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/a818cefd-f490-4ec9-9028-2106c6c2cdee>.
@@ -173,7 +197,8 @@
     mu:uuid "718225ee-78e8-4b6f-bc63-7748cfd0a4d2";
     skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
     skos:inscheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
-    skos:definition "Grondwerk".
+    skos:definition "Occupancy of public domain for road, sewer and/or utility works."@en;
+    skos:definition "Inname openbaar domein voor wegen, riolering en/of nijverheidswerken."@nl.
 <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/64c0aee7-dd02-4eb5-ac0f-ebc0746fccc4> skos:prefLabel "Kunstwerk";
     mu:uuid "64c0aee7-dd02-4eb5-ac0f-ebc0746fccc4";
     skos:inscheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
@@ -271,7 +296,8 @@
     mu:uuid "60ad4826-893d-4695-b815-a0adb39287e4";
     skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
     skos:inscheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
-    skos:definition "Werk".
+    skos:definition "Occupancy of public domain for works (eg. scaffolding, construction crane, etc.)"@en;
+    skos:definition "Inname openbaar domein voor werken (bijv. schermen, bouwkracht, enz.)"@nl.
 <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/7194c73c-726c-4522-8ba5-5241d5eab033> skos:prefLabel "Bouwwerken";
     mu:uuid "7194c73c-726c-4522-8ba5-5241d5eab033";
     skos:inscheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
