@@ -266,7 +266,7 @@ services:
     restart: always
     logging: *default-logging
   decisions-ghent-filter:
-    image: lblod/decide-harvester-filter-service:feature-refactor-for-oslo-eli-pipeline
+    image: lblod/decide-harvester-filter-service:1.0.0
     environment:
       INPUT_GRAPH: http://mu.semte.ch/graphs/oslo-decisions/landing
       BYPASS_MU_SPARQL_ENDPOINT: true
@@ -278,7 +278,7 @@ services:
     restart: always
     logging: *default-logging
   oslo-eli-transformer:
-    image: lblod/decide-harvester-transformation-service:feature-refactor-for-oslo-eli-pipeline
+    image: lblod/decide-harvester-transformation-service:1.0.0
     environment:
       INPUT_GRAPH: http://mu.semte.ch/graphs/oslo-decisions/landing
       OUTPUT_GRAPH: http://mu.semte.ch/graphs/public/gent
