@@ -1,0 +1,51 @@
+x-logging: &default-logging
+  driver: 'json-file'
+  options:
+    max-size: '10m'
+    max-file: '3'
+
+services:
+  ##############################################################################
+  # AI PIPELINES
+  ##############################################################################
+  entity-linking:
+    image: lblod/entity-linking-service:latest
+    environment:
+      TARGET_GRAPH: 'http://mu.semte.ch/graphs/public'
+      DEFAULT_GRAPH: 'http://mu.semte.ch/graphs/harvesting'
+      HIGH_LOAD_DATABASE_ENDPOINT: http://triplestore:8890/sparql
+    links:
+      - database:database
+  pdf-scraper:
+    image: semanticai/decide-pdf-scraper:0.0.1
+    environment:
+      TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
+      PUBLICATION_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      ALLOW_MU_AUTH_SUDO: true
+    labels:
+      - logging=true
+    restart: always
+    logging: *default-logging
+  pdf-content:
+    image: semanticai/decide-pdf-content-extraction:0.0.4
+    environment:
+      APACHE_TIKA_URL: 'http://apache-tika:9998/tika'
+      TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
+      PUBLICATION_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      ALLOW_MU_AUTH_SUDO: true
+      MOUNTED_SHARE_FOLDER: '/mnt/share'
+    volumes:
+      - ../data/files:/mnt/share
+    labels:
+      - logging=true
+    restart: always
+    logging: *default-logging
+  apache-tika:
+    image: lblod/apache-tika-service:0.0.3
+    restart: always
+    logging: *default-logging
+
+  question-answering:
+    image: semanticai/decide-question-answering:0.0.0
+    restart: always
+    logging: *default-logging

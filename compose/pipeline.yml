@@ -1,0 +1,47 @@
+x-logging: &default-logging
+  driver: 'json-file'
+  options:
+    max-size: '10m'
+    max-file: '3'
+include:
+  - oparl.yml
+  - gent.yml
+  - ai.yml
+services:
+  ##############################################################################
+  # GENERIC PIPELINE COMPONENTS (USED IN OPARL, OSLO, PDF, AND AI PIPELINES)
+  ##############################################################################
+  frontend-harvesting:
+    image: lblod/frontend-harvesting-self-service:feature-oparl-harvesting
+    environment:
+      EMBER_AUTHENTICATION_ENABLED: 'true'
+      EMBER_LOGIN_ROUTE: 'login'
+      EMBER_OPARL_HARVESTING_ENABLED: true
+      EMBER_PDF_HARVESTING_ENABLED: true
+      EMBER_NER_AND_NEL_ANNOTATIONS_ENABLED: true
+      EMBER_CODELIST_MAPPING_ENABLED: true
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging
+  job-controller:
+    image: lblod/job-controller-service:1.2.0
+    volumes:
+      - ../config/job-controller:/config
+    environment:
+      MU_APPLICATION_GRAPH: 'http://mu.semte.ch/graphs/harvesting'
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging
+  scheduled-job-controller:
+    image: lblod/scheduled-job-controller-service:1.2.1
+    environment:
+      LOG_SPARQL_ALL: 'false'
+      DEBUG_AUTH_HEADERS: 'false'
+      MAX_CONCURRENT_JOBS: 3
+      MU_APPLICATION_GRAPH: 'http://mu.semte.ch/graphs/harvesting'
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging
