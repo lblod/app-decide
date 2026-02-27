@@ -253,7 +253,7 @@ services:
   # GHENT DECISIONS PIPELINE
   ##############################################################################
   lokaal-beslist-consumer:
-    image: lblod/decide-harvester-consumer-service:feature-refactor-for-oslo-eli-pipeline
+    image: lblod/decide-harvester-consumer-service:1.0.0
     environment:
       SYNC_BASE_URL: https://lokaalbeslist-harvester-1.s.redhost.be/ # Harvester 1 hosts Ghent decisions
       SYNC_FILES_PATH: /sync/besluiten/files
