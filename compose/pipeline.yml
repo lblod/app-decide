@@ -5,7 +5,7 @@ x-logging: &default-logging
     max-file: '3'
 include:
   - oparl.yml
-  - gent.yml
+  - oslo.yml
   - ai.yml
 services:
   ##############################################################################
@@ -24,6 +24,17 @@ services:
       - 'logging=true'
     restart: always
     logging: *default-logging
+  login:
+    image: semtech/mu-login-service:3.0.0
+    links:
+      - database:database
+    environment:
+      USERS_GRAPH: 'http://mu.semte.ch/graphs/users'
+      SESSIONS_GRAPH: 'http://mu.semte.ch/graphs/sessions'
+    restart: always
+    logging: *default-logging
+    labels:
+      - 'logging=true'
   job-controller:
     image: lblod/job-controller-service:1.2.0
     volumes:

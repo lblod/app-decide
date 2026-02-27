@@ -1,6 +1,5 @@
 include:
   - compose/base-compose.yml
-  - compose/login.yml
   - compose/data-space.yml
   - compose/pipeline.yml
   - compose/search.yml
