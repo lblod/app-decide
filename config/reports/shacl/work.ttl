@@ -2,11 +2,16 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix dct: <http://purl.org/dc/terms/> .
 @prefix eli: <http://data.europa.eu/eli/ontology#> .
+@prefix mu: <http://mu.semte.ch/vocabularies/core/> .
 
 <http://example.org/work_1_shape>
     a sh:NodeShape ;
     sh:targetClass <http://data.europa.eu/eli/ontology#Work> ;
     sh:prefixes [ sh:declare [
+        a sh:PrefixDeclaration ;
+        sh:namespace "http://mu.semte.ch/vocabularies/core/"^^xsd:anyURI ;
+        sh:prefix "mu" ;
+    ] ], [ sh:declare [
         a sh:PrefixDeclaration ;
         sh:namespace "http://data.europa.eu/eli/ontology#"^^xsd:anyURI ;
         sh:prefix "eli" ;
@@ -24,31 +29,39 @@
         sh:prefix "besluit" ;
     ] ];
     sh:property [
+        sh:path mu:uuid ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:property [
         sh:name "titel" ;
         sh:description "De titel van het werk." ;
-        sh:path <http://purl.org/dc/terms/title> ;
-        sh:datatype <http://www.w3.org/2001/XMLSchema#string> ;
-        sh:minCount 0 ;
-        sh:maxCount 0 ;
+        sh:path dct:title ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
     ] ;
     sh:property [
         sh:path dct:identifier ;
         sh:minCount 1 ;
+        sh:maxCount 1 ;
         sh:datatype xsd:string ;
     ] ;
     sh:property [
         sh:path eli:date_document ;
         sh:minCount 1 ;
+        sh:maxCount 1 ;
         sh:datatype xsd:date ;
     ] ;
     sh:property [
         sh:path eli:work_type ;
-        sh:minCount 0 ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
         sh:nodeKind sh:IRI ;    # assuming this points to a concept
     ] ; 
     sh:property [
         sh:path eli:is_realized_by ;
-        sh:minCount 1 ;
+        sh:minCount 0 ;
         sh:nodeKind sh:IRI ;
     ] ;
     sh:property [
@@ -57,7 +70,9 @@
         sh:nodeKind sh:IRI ;    # attachment, optional
     ] ;
     sh:property [
-        sh:path dct:creator ;
+        sh:path [
+            sh:alternativePath(dct:creator eli:passed_by)
+        ] ;
         sh:minCount 1 ;
         sh:nodeKind sh:IRI ;
     ] ;
