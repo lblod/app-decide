@@ -1,0 +1,68 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
+
+<http://example.org/work_1_shape>
+    a sh:NodeShape ;
+    sh:targetClass <http://data.europa.eu/eli/ontology#Work> ;
+    sh:prefixes [ sh:declare [
+        a sh:PrefixDeclaration ;
+        sh:namespace "http://data.europa.eu/eli/ontology#"^^xsd:anyURI ;
+        sh:prefix "eli" ;
+    ] ], [ sh:declare [
+        a sh:PrefixDeclaration ;
+        sh:namespace "http://purl.org/dc/terms/"^^xsd:anyURI ;
+        sh:prefix "dct" ;
+    ] ], [ sh:declare [
+        a sh:PrefixDeclaration ;
+        sh:namespace "http://www.w3.org/ns/org#"^^xsd:anyURI ;
+        sh:prefix "org" ;
+    ] ], [ sh:declare [
+        a sh:PrefixDeclaration ;
+        sh:namespace "http://data.vlaanderen.be/ns/besluit#"^^xsd:anyURI ;
+        sh:prefix "besluit" ;
+    ] ];
+    sh:property [
+        sh:name "titel" ;
+        sh:description "De titel van het werk." ;
+        sh:path <http://purl.org/dc/terms/title> ;
+        sh:datatype <http://www.w3.org/2001/XMLSchema#string> ;
+        sh:minCount 0 ;
+        sh:maxCount 0 ;
+    ] ;
+    sh:property [
+        sh:path dct:identifier ;
+        sh:minCount 1 ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:property [
+        sh:path eli:date_document ;
+        sh:minCount 1 ;
+        sh:datatype xsd:date ;
+    ] ;
+    sh:property [
+        sh:path eli:work_type ;
+        sh:minCount 0 ;
+        sh:nodeKind sh:IRI ;    # assuming this points to a concept
+    ] ; 
+    sh:property [
+        sh:path eli:is_realized_by ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:IRI ;
+    ] ;
+    sh:property [
+        sh:path eli:related_to ;
+        sh:minCount 0 ;
+        sh:nodeKind sh:IRI ;    # attachment, optional
+    ] ;
+    sh:property [
+        sh:path dct:creator ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:IRI ;
+    ] ;
+    sh:property [
+        sh:path dct:contributor ;
+        sh:minCount 0 ;
+        sh:nodeKind sh:IRI ;
+    ] .

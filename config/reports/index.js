@@ -1,3 +1,5 @@
-export default [
+import ShaclReport from './shacl-report';
 
+export default [
+    ShaclReport
 ];
