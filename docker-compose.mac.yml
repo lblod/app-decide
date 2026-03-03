@@ -41,8 +41,6 @@ services:
     platform: linux/amd64
   pdf-content:
     platform: linux/amd64
-  report-generation:
-    platform: linux/amd64
   question-answering:
     platform: linux/amd64
   pdf-scraper:
