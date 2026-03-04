@@ -67,7 +67,7 @@
   skos:definition "A street/zone designed as a social space for pedestrians and cyclists; motorized transport is permitted, but limited"@en;
   skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types>;
   skos:prefLabel "Woonerf"@nl;
-  skos:prefLabel "Residential zone"@en;
+  skos:prefLabel "Home zone"@en;
   skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> .
 
 <https://data.vlaanderen.be/id/concept/ZoneType/502c3398-4842-4408-9543-574bd9c31b36>
@@ -77,8 +77,8 @@
   skos:definition "Een straat waar fietsers prioriteit hebben en motorvoertuigen subordineerd of beperkt zijn."@nl;
   skos:definition "A street where cyclists have priority and motor vehicles are subordinated or restricted."@en;
   skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types>;
-  skos:prefLabel "Fietsstraat"@nl;
-  skos:prefLabel "Bicycle street"@en;
+  skos:prefLabel "Fietszone"@nl;
+  skos:prefLabel "Bicycle zone"@en;
   skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> .
 
 <https://data.vlaanderen.be/id/concept/ZoneType/8cc0caf8-2789-4191-bd40-05d5749714cf>
