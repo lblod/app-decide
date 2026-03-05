@@ -6,7 +6,7 @@ services:
       ONLY_KEEP_LATEST_REPORT: true
       RUN_REPORT_NOW: true
     volumes:
-      - .//config/reports:/config
+      - ../config/reports:/config
     restart: always
     labels:
       - "logging=true"
