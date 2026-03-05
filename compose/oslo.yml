@@ -1,0 +1,49 @@
+x-logging: &default-logging
+  driver: 'json-file'
+  options:
+    max-size: '10m'
+    max-file: '3'
+services:
+  ##############################################################################
+  # GHENT DECISIONS PIPELINE
+  ##############################################################################
+  lokaal-beslist-consumer:
+    image: lblod/decide-harvester-consumer-service:1.0.0
+    environment:
+      SYNC_BASE_URL: https://lokaalbeslist-harvester-1.s.redhost.be/ # Harvester 1 hosts Ghent decisions
+      SYNC_FILES_PATH: /sync/besluiten/files
+      SYNC_DATASET_SUBJECT: http://data.lblod.info/datasets/delta-producer/dumps/lblod-harvester/BesluitenCacheGraphDump
+      LANDING_GRAPH: http://mu.semte.ch/graphs/oslo-decisions/landing
+      BATCH_SIZE: 5000
+      OPERATION_URI: http://lblod.data.gift/id/jobs/concept/TaskOperation/oslo-eli/consume
+      HIGH_LOAD_DATABASE_ENDPOINT: http://virtuoso:8890/sparql
+    labels:
+      - logging=true
+    restart: always
+    logging: *default-logging
+  decisions-ghent-filter:
+    image: lblod/decide-harvester-filter-service:1.0.0
+    environment:
+      INPUT_GRAPH: http://mu.semte.ch/graphs/oslo-decisions/landing
+      BYPASS_MU_SPARQL_ENDPOINT: true
+      BATCH_SIZE: 1000
+      SLEEP_BETWEEN_BATCHES: 5
+      OPERATION_URI: http://lblod.data.gift/id/jobs/concept/TaskOperation/oslo-eli/filter
+    labels:
+      - logging=true
+    restart: always
+    logging: *default-logging
+  oslo-eli-transformer:
+    image: lblod/decide-harvester-transformation-service:1.0.0
+    environment:
+      INPUT_GRAPH: http://mu.semte.ch/graphs/oslo-decisions/landing
+      OUTPUT_GRAPH: http://mu.semte.ch/graphs/public/gent
+      ORGANIZATIONS_GRAPH: http://mu.semte.ch/graphs/bestuurseenheden-bestuursorganen
+      BYPASS_MU_SPARQL_ENDPOINT: true
+      BATCH_SIZE: 1000
+      SLEEP_BETWEEN_BATCHES: 5
+      OPERATION_URI: http://lblod.data.gift/id/jobs/concept/TaskOperation/oslo-eli/transform
+    labels:
+      - logging=true
+    restart: always
+    logging: *default-logging

@@ -65,6 +65,10 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://question-answering/uc2/"
   end
 
+  match "/api/sparql", %{ accept: [:any], layer: :api_services } do
+    Proxy.forward conn, [], "http://database:8890/sparql"
+  end
+
   #################
   # Jobs & tasks
   #################
