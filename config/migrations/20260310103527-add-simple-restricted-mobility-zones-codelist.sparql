@@ -2,7 +2,7 @@ prefix skos: <http://www.w3.org/2004/02/skos/core#>
 prefix mu: <http://mu.semte.ch/vocabularies/core/>
 
 INSERT {
-  graph ?g {
+  graph <http://mu.semte.ch/graphs/public> {
     <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-simple> a skos:ConceptScheme ;
         mu:uuid "5490f09a-49b9-44fd-8203-d0801699e779" ;
         skos:prefLabel "Simpele lijst van beperkte mobiliteitszone"@nl ;
@@ -17,7 +17,7 @@ INSERT {
   }
 }
 where {
-  graph ?g {
+  graph <http://mu.semte.ch/graphs/public> {
     {
         select (group_concat(?labelAndDefinition ; separator='; ') as ?concatLabelAndDefinitionEn)
         where {
