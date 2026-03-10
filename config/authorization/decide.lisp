@@ -59,6 +59,7 @@
 
 (define-graph organizations ("http://mu.semte.ch/graphs/organizations")
   ("org:Organization" -> _)
+  ("besluit:Bestuurseenheid" -> _)
 )
 
 (define-graph harvested-freiburg ("http://mu.semte.ch/graphs/public/freiburg")
@@ -170,6 +171,10 @@
        :to harvesting
        :for "logged-in")
 
+(grant (read write)
+       :to organizations
+       :for "logged-in")
+
 (supply-allowed-group "logged-in"
                       :query "PREFIX session: <http://mu.semte.ch/vocabularies/session/>
       SELECT DISTINCT ?account WHERE {
@@ -188,13 +193,6 @@
        :to-graph organization
        :for-allowed-group "organization-member")
 
-;; TODO: Is this supposed to be the final graph?
-;; NOTE (10/02/2026): Graphs <http://mu.semte.ch/graphs/organizations> does NOT contain the
-;; `besluit:Bestuurseenheid' type (only `org:Organization'), used that one causes resource service
-;; to bug out
-(define-graph organizations ("http://mu.semte.ch/graphs/bestuurseenheden-bestuursorganen")
-  ("besluit:Bestuurseenheid" -> _))
-
 (grant (read)
-       :to-graph organizations
+       :to-graph bestuurseenheden-bestuursorganen
        :for-allowed-group "public")
