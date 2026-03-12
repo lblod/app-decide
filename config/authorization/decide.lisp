@@ -59,7 +59,6 @@
 
 (define-graph organizations ("http://mu.semte.ch/graphs/organizations")
   ("org:Organization" -> _)
-  ("besluit:Bestuurseenheid" -> _)
 )
 
 (define-graph harvested-freiburg ("http://mu.semte.ch/graphs/public/freiburg")
@@ -193,6 +192,13 @@
        :to-graph organization
        :for-allowed-group "organization-member")
 
+;; TODO: Is this supposed to be the final graph?
+;; NOTE (10/02/2026): Graphs <http://mu.semte.ch/graphs/organizations> does NOT contain the
+;; `besluit:Bestuurseenheid' type (only `org:Organization'), used that one causes resource service
+;; to bug out
+(define-graph oslo-organizations ("http://mu.semte.ch/graphs/bestuurseenheden-bestuursorganen")
+  ("besluit:Bestuurseenheid" -> _))
+
 (grant (read)
-       :to-graph bestuurseenheden-bestuursorganen
+       :to-graph oslo-organizations
        :for-allowed-group "public")
