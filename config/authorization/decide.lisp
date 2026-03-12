@@ -170,10 +170,6 @@
        :to harvesting
        :for "logged-in")
 
-(grant (read write)
-       :to organizations
-       :for "logged-in")
-
 (supply-allowed-group "logged-in"
                       :query "PREFIX session: <http://mu.semte.ch/vocabularies/session/>
       SELECT DISTINCT ?account WHERE {
