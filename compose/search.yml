@@ -1,0 +1,41 @@
+services:
+  ##################################
+  ### elastic and embeddings
+  ##################################
+  search:
+    image: semtech/mu-search:feature-large-dense-vector
+    ports:
+      - '4000:80'
+    volumes:
+      - ../config/search:/config
+  elasticsearch:
+    image: semtech/mu-search-elastic-backend:feature-bump-es-9.2.0
+    volumes:
+      - ../data/elasticsearch/:/usr/share/elasticsearch/data
+    environment:
+      - discovery.type=single-node
+  embedding:
+    image: semanticai/embedding-service:0.0.3
+    labels:
+      - logging=true
+    environment:
+      TZ: Europe/Brussels
+      OLLAMA_HOST: 'http://embedding-ollama:11434'
+      LOG_SPARQL_ALL: 'false'
+    volumes:
+      - ../config/embedding/config.py:/app/config.py
+    depends_on:
+      - embedding-ollama
+  embedding-ollama:
+    image: ollama/ollama:0.14.1
+    volumes:
+      - ../data/ollama:/root/.ollama
+    command: serve && pull embeddinggemma:300m
+    # in case you have an nvidia gpu available, like on our server
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
