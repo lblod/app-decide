@@ -48,7 +48,7 @@ services:
       ALLOW_MU_AUTH_SUDO: true
       MOUNTED_SHARE_FOLDER: "/mnt/share"
     volumes:
-      - ./data/files:/mnt/share
+      - ./../data/files:/mnt/share
     labels:
       - logging=true
     restart: always
@@ -71,7 +71,7 @@ services:
       - PBF_URL=https://download.geofabrik.de/europe/belgium-latest.osm.pbf
     restart: unless-stopped
     volumes:
-      - ./data/nominatim:/var/lib/postgresql/16/main
+      - ./../data/nominatim:/var/lib/postgresql/16/main
 
   qdrant:
     image: qdrant/qdrant
@@ -87,7 +87,7 @@ services:
       PUBLICATION_GRAPH: http://mu.semte.ch/graphs/public/pdf
       ALLOW_MU_AUTH_SUDO: true
     volumes:
-      - ./config/ner/config.json:/app/config.json:ro  # Mount config as read-only
+      - ./../config/ner/config.json:/app/config.json:ro  # Mount config as read-only
     depends_on:
       - virtuoso
     labels:
