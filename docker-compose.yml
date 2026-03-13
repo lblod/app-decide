@@ -295,15 +295,28 @@ services:
   # AI PIPELINES
   ##############################################################################
   entity-linking:
-    image: lblod/entity-linking-service:latest
+    image: semantic-ai/entity-linking-backend:0.0.1
+    ports:
+      - "81:80"
     environment:
       TARGET_GRAPH: "http://mu.semte.ch/graphs/public"
       DEFAULT_GRAPH: "http://mu.semte.ch/graphs/harvesting"
-      HIGH_LOAD_DATABASE_ENDPOINT: http://triplestore:8890/sparql
+      ALLOW_MU_AUTH_SUDO: "true"
+      QDRANT_HOST: "qdrant"
+      QDRANT_PORT: 6333
+      OLLAMA_HOST: "http://ollama:11434"
+      NOMINATIM_ENDPOINT: "http://nominatim:8080/"
+      MCP_SERVER_URL: "http://localhost:80/mcp/sse"
+      ENABLED_TOOLS: "search_sparql_docs,execute_sparql_query"
+      
+      LLM_PROVIDER: "mistral"
+      LLM_MAX_RETRIES: 3
+      MISTRAL_API_KEY: "SECRET_KEY"
+      MISTRAL_MODEL: "ministral-14b-2512"
     links:
       - database:database
   pdf-scraper:
-    image: docker.io/semanticai/decide-pdf-scraper:0.0.1
+    image: semanticai/decide-pdf-scraper:0.0.1
     environment:
       TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
       PUBLICATION_GRAPH: http://mu.semte.ch/graphs/public/pdf
@@ -313,7 +326,7 @@ services:
     restart: always
     logging: *default-logging
   pdf-content:
-    image: docker.io/semanticai/decide-pdf-content-extraction:0.0.4
+    image: semanticai/decide-pdf-content-extraction:0.0.5
     environment:
       APACHE_TIKA_URL: "http://apache-tika:9998/tika"
       TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
@@ -352,17 +365,26 @@ services:
       - "6333:6333"
 
   named-entity-recognition:
-    image: semanticai/decide-geocoding-service:0.0.1
+    image: semanticai/decide-geocoding-service:0.0.2
     ports:
       - "8082:80"
     environment:
-      EXPECTED_TASK_PREDICATE: 'http://www.w3.org/ns/adms#status'
-      EXPECTED_TASK_OBJECT: 'http://redpencil.data.gift/id/concept/JobStatus/scheduled'
+      TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
+      PUBLICATION_GRAPH: http://mu.semte.ch/graphs/public/pdf
       ALLOW_MU_AUTH_SUDO: true
     volumes:
       - ./config/ner/config.json:/app/config.json:ro  # Mount config as read-only
     depends_on:
       - virtuoso
+    labels:
+      - logging=true
+    restart: always
+    logging: *default-logging
+
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
 
   ##################################
   ### elastic and embeddings

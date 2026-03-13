@@ -8,7 +8,22 @@
     "method": "composite",
     "post_process": true,
     "labels": ["CITY", "DOMAIN", "HOUSENUMBERS", "INTERSECTION", "POSTCODE", "PROVINCE", "ROAD", "STREET"],
-    "enable_refinement": true
+    "enable_refinement": true,
+    "label_to_predicate": {
+      "CONTEXT_DATE": "",
+      "CONTEXT_LOCATION": "",
+      "CONTEXT_PERIOD": "",
+      "PUBLICATION_DATE": "eli:date_publication",
+      "SESSION_DATE": "eli:date_document",
+      "ENTRY_DATE": "eli:first_date_entry_in_force",
+      "EXPIRY_DATE": "eli:date_no_longer_in_force",
+      "LEGAL_DATE": "",
+      "VALIDITY_PERIOD": "",
+      "IMPACT_LOCATION": "",
+      "LEGAL_GROUND": "eli:based_on",
+      "ADMINISTRATIVE_BODY": "eli:passed_by",
+      "MANDATARY": "eli:mandatary"
+    }
   },
   "geocoding": {
     "nominatim_base_url": "http://nominatim:8080"
@@ -40,5 +55,12 @@
     "weight_decay": 0.01,
     "huggingface_token": null,
     "huggingface_output_model_id": null
+  },
+  "segmentation": {
+        "model_name": "gpt-4.1",
+        "api_key": "SECRET_KEY",
+        "endpoint": "https://api.openai.com/v1",
+        "max_new_tokens": 14000,
+        "temperature": 0.0
   }
 }
