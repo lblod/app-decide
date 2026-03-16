@@ -1,4 +1,20 @@
+# Usage
 
+Migration `20260224100634-add-restricted-mobility-zones-codelist.ttl` is a full-blown codelist with types of restricted mobility zones.
+To generate a simplified SKOS codelist from this list, do following steps:
+
+```
+cd path/to/add-restricted-mobility-zone-codelist
+http-server
+```
+
+Note: http-server can be used for hosting the TTL file (`npm install -g http-server`)
+
+Go to Comunica `https://query.comunica.dev/`
+Add datasource: `http://localhost:8080/20260224100634-add-restricted-mobility-zones-codelist.ttl`
+
+Run following query:
+```
 prefix skos: <http://www.w3.org/2004/02/skos/core#>
 prefix mu: <http://mu.semte.ch/vocabularies/core/>
 
@@ -16,7 +32,6 @@ CONSTRUCT {
         skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-simple> .
 }
 where {
-  graph <http://mu.semte.ch/graphs/public> {
     {
         select distinct (group_concat(?labelAndDefinition ; separator='; ') as ?concatLabelAndDefinitionEn)
         where {
@@ -63,5 +78,5 @@ where {
     }
     
     BIND(strlang(concat("Dit is een niet-volledige lijst van beperkte mobiliteitszones: ", str(?concatLabelAndDefinitionNl)), 'nl') as ?finalDefinitionNl)
-  }
 }
+```
