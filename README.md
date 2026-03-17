@@ -1,12 +1,13 @@
-# DECIDe 
+# DECIDe
 
 This repository contains all configuration to get the DECIDe microservices stack running. It is very much a work in progress. Documentation for each use case is provided below.
 
 ## What's included?
 
 This repository contains multiple docker-compose files
-- *docker-compose.yml* provides the backend components.
-- *docker-compose.dev.yml* provides small changes for development purposes.
+
+- _docker-compose.yml_ provides the backend components.
+- _docker-compose.dev.yml_ provides small changes for development purposes.
   - Publishes the entrypoint to the services on port 80, so all endpoints can be reached easily.
   - Publishes the triplestore on port 8890, so the SPARQL endpoint (`/sparql`) can be reached easily.
 
@@ -74,6 +75,8 @@ services:
 ```
 
 Note: the AI services (used in the other use cases) will be configurable so they can directly work with OSLO-compliant data
+
+The OSLO configuration depends on consuming all data from a full LBLOD harvester. This results in a lot of extra data that is not necessary, see ./OSLO_PRUNING.md for info on how to reduce the database size after initial load.
 
 #### OParl (Freiburg)
 
