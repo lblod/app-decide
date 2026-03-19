@@ -8,7 +8,7 @@ defmodule Dispatcher do
     any: ["*/*"]
   ]
 
-  define_layers([:static, :sparql, :api_services, :frontend_fallback, :resources, :not_found])
+  define_layers([:static, :sparql, :frontend, :api_services, :frontend_fallback, :resources, :not_found])
 
   options "/*_path", _ do
     conn
@@ -65,11 +65,7 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://question-answering/uc2/"
   end
 
-  match "/api/sparql", %{ accept: [:any], layer: :api_services, reverse_host: ["yasgui" | _rest]} do
-    Proxy.forward conn, [], "http://database:8890/sparql"
-  end
-
-  match "/api/sparql", %{ accept: [:any], layer: :api_services } do
+  match "/api/sparql", %{ reverse_host: ["yasgui" | _rest], accept: [:any], layer: :sparql } do
     Proxy.forward conn, [], "http://database:8890/sparql"
   end
 
@@ -396,19 +392,19 @@ defmodule Dispatcher do
   # we don't forward the path, because the app should take care of this in the browser.
 
   # self-service
-  match "/*_path", %{reverse_host: ["dashboard" | _rest], accept: %{html: true}} do
+  match "/*_path", %{reverse_host: ["dashboard" | _rest], accept: %{html: true}, layer: :frontend } do
     forward(conn, [], "http://frontend-harvesting/index.html")
   end
 
-  match "/*_path", %{reverse_host: ["dcat" | _rest], accept: %{html: true}} do
+  match "/*_path", %{reverse_host: ["dcat" | _rest], accept: %{html: true}, layer: :frontend} do
     forward(conn, [], "http://frontend-dcat/index.html")
   end
 
-  match "/*_path", %{reverse_host: ["human-validator" | _rest], accept: %{html: true}} do
+  match "/*_path", %{reverse_host: ["human-validator" | _rest], accept: %{html: true}, layer: :frontend} do
     forward(conn, [], "http://frontend-human-validator/index.html")
   end
 
-  match "/*_path", %{reverse_host: ["yasgui" | _rest], accept: %{html: true}} do
+  match "/*_path", %{reverse_host: ["yasgui" | _rest], accept: %{html: true}, layer: :frontend } do
     forward(conn, [], "http://frontend-yasgui/index.html")
   end
 
