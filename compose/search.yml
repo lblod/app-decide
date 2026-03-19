@@ -33,7 +33,7 @@ services:
     entrypoint:
       - /bin/sh
       - -c
-      - ollama serve & pid=$$! && sleep 5 && ollama pull embeddinggemma:300m && ollama
+      - ollama serve & pid=$$! && sleep 5 && ollama pull embeddinggemma:300m && wait $pid
     # in case you have an nvidia gpu available, like on our server
     # deploy:
     #   resources:
