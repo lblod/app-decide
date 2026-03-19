@@ -105,15 +105,6 @@ To show how decisions are linked with SDGs, a Policy impact report tool is being
 
 ## Pipeline dashboard
 
-### Accessing the dashboard from your local machine
-
-Since we use dispatcher v2, which dispatches on hostname, we'll have to update `/etc/hosts`.
-Add an entry similar to the following. Ensure the first part of the domain starts with `dashboard`.:
-
-```
-127.0.0.1 dashboard.localhost
-```
-
 ### Jobs
 
 There are two types of jobs: harvesting and scheduled. The harvesting job is a one-time run of a job, while the scheduled job is triggered periodically following a cron pattern.
@@ -121,3 +112,16 @@ There are two types of jobs: harvesting and scheduled. The harvesting job is a o
 By pressing "Create new job", a job type ("operation") can be selected to create a new job.
 
 ![alt text](doc/dashboard-create-new-2.png)
+
+## Frontends
+
+### Accessing the frontends from your local machine
+
+We use dispatcher v2, which dispatches different frontends based on hostname. If this does not work out of the box, you may have to add an entry similar to the following to your `/etc/hosts`:
+
+```
+127.0.0.1 dashboard.localhost
+127.0.0.1 dcat.localhost
+127.0.0.1 human-validator.localhost
+127.0.0.1 yasgui.localhost
+```
