@@ -13,7 +13,7 @@ services:
     environment:
       TARGET_GRAPH: 'http://mu.semte.ch/graphs/public'
       DEFAULT_GRAPH: 'http://mu.semte.ch/graphs/harvesting'
-      HIGH_LOAD_DATABASE_ENDPOINT: http://triplestore:8890/sparql
+      HIGH_LOAD_DATABASE_ENDPOINT: http://virtuoso:8890/sparql
     links:
       - database:database
   pdf-scraper:

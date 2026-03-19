@@ -20,17 +20,20 @@ services:
       - logging=true
     environment:
       TZ: Europe/Brussels
-      OLLAMA_HOST: 'http://embedding-ollama:11434'
+      OLLAMA_HOST: 'http://ollama:11434'
       LOG_SPARQL_ALL: 'false'
     volumes:
       - ../config/embedding/config.py:/app/config.py
     depends_on:
-      - embedding-ollama
-  embedding-ollama:
+      - ollama
+  ollama:
     image: ollama/ollama:0.14.1
     volumes:
       - ../data/ollama:/root/.ollama
-    command: serve && pull embeddinggemma:300m
+    entrypoint:
+      - /bin/sh
+      - -c
+      - ollama serve & pid=$$! && sleep 5 && ollama pull embeddinggemma:300m && ollama
     # in case you have an nvidia gpu available, like on our server
     # deploy:
     #   resources:
