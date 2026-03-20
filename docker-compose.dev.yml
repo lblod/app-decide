@@ -78,7 +78,7 @@ services:
     restart: no
     profiles:
       - search
-  embedding-ollama:
+  ollama:
     restart: no
     profiles:
       - search
