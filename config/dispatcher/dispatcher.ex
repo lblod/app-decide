@@ -8,7 +8,7 @@ defmodule Dispatcher do
     any: ["*/*"]
   ]
 
-  define_layers([:static, :sparql, :frontend, :api_services, :frontend_fallback, :resources, :not_found])
+  define_layers([:static, :sparql, :api_services, :frontend, :resources, :not_found])
 
   options "/*_path", _ do
     conn
@@ -406,10 +406,6 @@ defmodule Dispatcher do
 
   match "/*_path", %{reverse_host: ["yasgui" | _rest], accept: %{html: true}, layer: :frontend } do
     forward(conn, [], "http://frontend-yasgui/index.html")
-  end
-
-  match "/*_path", %{layer: :frontend_fallback, accept: %{html: true}} do
-    forward(conn, [], "http://frontend-dcat/index.html")
   end
 
   #################
