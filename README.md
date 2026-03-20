@@ -64,19 +64,56 @@ This use case retrieves decisions from a data source, and maps the decisions to 
 
 #### OSLO (Ghent)
 
-To harvest and convert the decisions from the city of Ghent to ELI, a central data endpoint in Flanders for decisions (Lokaal Beslist) is used. Three services are required to consume, filter on a city (currently only Ghent is supported), and transform to ELI: lokaal-beslist-consumer (a configured delta consumer), decisions-ghent-filter, and oslo-eli-transformer. See `docker-compose.yml` for the specific configuration. The initial sync and/or delta ingest should be enabled manually in `docker-compose.override.yml`:
+To harvest and convert decisions from the city of Ghent to ELI, a central data endpoint in Flanders for decisions (Lokaal Beslist) is used. Three services are required to consume this data, filter it for a specific city (currently only Ghent is supported), and transform it to ELI. See `docker-compose.yml` for the specific configuration.
 
-```yml
-services:
-  lokaal-beslist-consumer:
-    environment:
-      DCR_DISABLE_INITIAL_SYNC: false
-      DCR_DISABLE_DELTA_INGEST: false
-```
+1. `singleton-job`: This service is used to guarantee no two same jobs are running at the same time.
+2. `lokaal-beslist-consumer`: A [configurable consumer](https://github.com/lblod/decide-harvester-consumer-service) that ingests harvester tasks and injests decision data from the central Flanders "Lokaal Beslist" endpoint into our local landing database.
+3. `decisions-ghent-filter`: A [filtering service](https://github.com/lblod/decide-harvester-filter-service) that identifies and extracts only the decisions belonging to the city of Ghent from the ingested metadata stream.
+4. `oslo-eli-transformer`: [This service](https://github.com/lblod/decide-harvester-transformation-service) transforms Ghent's OSLO-formatted decisions into the standardized ELI format used for further AI processing.
 
-Note: the AI services (used in the other use cases) will be configurable so they can directly work with OSLO-compliant data
+To summarize, this pipeline connects to the existing Lokaal Beslist infrastructure, filters the high-volume stream specifically for Ghent's decisions, and transforms them from the OSLO standard into the ELI format used internally.
+
+> Note: the AI services (used in the other use cases) will be configurable so they can directly work with OSLO-compliant data
 
 The OSLO configuration depends on consuming all data from a full LBLOD harvester. This results in a lot of extra data that is not necessary, see ./OSLO_PRUNING.md for info on how to reduce the database size after initial load.
+
+##### Consumer
+
+In essence, a consumer service makes its own copy of the data provided by a producer. In this case, the consumer is configured to take in all data from the Lokaal Beslist producer. This producer holds all decision data from local governments in Flanders.
+
+All consumed data is stored in a configurable graph (`LANDING_GRAPH`). The next tasks in the pipeline rely on it.
+
+The consumer service can be triggered in one or two ways, by firing an initial sync or a delta sync.
+
+**Initial sync**:
+An initial sync operation takes in **all data** that the producer has available at that moment in time. Depending on the size of the dataset, this might take some time. Usually, the initial sync needs to be run only once. When finished, the consumer stores the current datetime in order for a future delta sync operation to know which moment in time to proceed from.
+
+**Delta sync**:
+A delta sync operation brings the dataset **up to date** (inserts/deletes), starting from the last registered timestamp. When finished, the consumer stores a new timestamp, ready for the next delta sync operation.
+
+In order to keep the dataset up to date throughout time, a delta sync operation should be triggered at regular intervals. It is therefore suitable to configure this pipeline as a scheduled job.
+
+To make sure the next tasks in the pipeline can focus specifically on the new data inserted by a delta sync (and not the entire landing graph), that same data is also inserted in a temporary graph. This temporary graph is provided to the next service in line.
+
+> Since decisions should never receive partial updates, we don't expect Lokaal Beslist to deliver any of those. The temporary graph created during delta sync therefore only holds **inserted** data, and the final transformation service will always **create** resources/properties (not update or delete).
+
+#### Filter
+
+The filter service allows to configure which resources should effectively be transformed in the next step. It does this by running a **SPARQL select query** on the consumer's landing graph, and writes the resulting resource URIs to a new temporary graph.
+
+In case the service detects an input graph from the previous step (cfr. delta sync), it will **restrict** the query run on the landing graph to only inspect the resources listed in that input graph.
+
+The filter service's **default** SPARQL select query looks for **`besluit:Besluit` instances** that belong to **Ghent** administrative bodies.
+
+#### Transformer
+
+The transformation service allows to configure several **SPARQL insert-where queries**. Each of these looks for resources/properties in the consumer's landing graph and inserts them (usually in a new *format*) in a configured output graph.
+
+> While it would in theory be possible to provide a single large insert-where query, it is advised to work with multiple smaller ones, as the triplestore might struggle with large queries on large input graphs.
+
+The SPARQL insert-where queries are further **restricted** to take into account only those resources that appear in the temporary graph provided by the filter service.
+
+The transformation service's **default** SPARQL insert-where queries map specific **`besluit:Besluit` properties to `eli:Expression` and/or `eli:Work` properties**. In fact, the service doesn't create completely new resources, but instead *expands* the existing `besluit:Besluit` resources with ELI properties (type definitions included). Still, the fact that the transformation service writes to a different output graph than the consumer's landing graph, divides the original OSLO data from the newly created ELI data.
 
 #### OParl (Freiburg)
 
