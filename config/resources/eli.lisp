@@ -13,7 +13,7 @@
               (organization :via ,(s-prefix "dct:creator")
                            :as "creator")
               (organization :via ,(s-prefix "eli:passed_by")
-                           :as "passedBy")
+                           :as "passed-by")
               (organization :via ,(s-prefix "dct:contributor")
                            :as "contributor"))
   :features '(include-uri)
@@ -24,12 +24,16 @@
   :class (s-prefix "eli:Expression")
   :properties `((:title :language-string ,(s-prefix "eli:title"))
                 (:language :uri ,(s-prefix "eli:language"))
+                (:was-derived-from :url ,(s-prefix "prov:wasDerivedFrom"))
                 (:expression-content :language-string ,(s-prefix "epvoc:expressionContent")))
-  :has-one `((work :via ,(s-prefix "eli:is_realization_of")
+  :has-one `((work :via ,(s-prefix "eli:is_realized_by")
                  :inverse t
                  :as "realizes"))
   :has-many `((manifestation :via ,(s-prefix "eli:is_embodied_by")
                            :as "is-embodied-by")
+              (specific-resource :via ,(s-prefix "oa:source")
+                           :inverse t
+                           :as "is-source-of")
               (annotation :via ,(s-prefix "oa:hasTarget")
                            :as "annotations"
                            :inverse t))
