@@ -1,12 +1,13 @@
-# DECIDe 
+# DECIDe
 
 This repository contains all configuration to get the DECIDe microservices stack running. It is very much a work in progress. Documentation for each use case is provided below.
 
 ## What's included?
 
 This repository contains multiple docker-compose files
-- *docker-compose.yml* provides the backend components.
-- *docker-compose.dev.yml* provides small changes for development purposes.
+
+- _docker-compose.yml_ provides the backend components.
+- _docker-compose.dev.yml_ provides small changes for development purposes.
   - Publishes the entrypoint to the services on port 80, so all endpoints can be reached easily.
   - Publishes the triplestore on port 8890, so the SPARQL endpoint (`/sparql`) can be reached easily.
 
@@ -75,6 +76,8 @@ services:
 
 Note: the AI services (used in the other use cases) will be configurable so they can directly work with OSLO-compliant data
 
+The OSLO configuration depends on consuming all data from a full LBLOD harvester. This results in a lot of extra data that is not necessary, see ./OSLO_PRUNING.md for info on how to reduce the database size after initial load.
+
 #### OParl (Freiburg)
 
 The OParl to ELI pipeline consists of multiple services. The main service is the `oparl-to-eli` service, which scrapes all pages from an OParl API, transforms to ELI, and writes to files for further processing.
@@ -102,15 +105,6 @@ To show how decisions are linked with SDGs, a Policy impact report tool is being
 
 ## Pipeline dashboard
 
-### Accessing the dashboard from your local machine
-
-Since we use dispatcher v2, which dispatches on hostname, we'll have to update `/etc/hosts`.
-Add an entry similar to the following. Ensure the first part of the domain starts with `dashboard`.:
-
-```
-127.0.0.1 dashboard.localhost
-```
-
 ### Jobs
 
 There are two types of jobs: harvesting and scheduled. The harvesting job is a one-time run of a job, while the scheduled job is triggered periodically following a cron pattern.
@@ -118,3 +112,16 @@ There are two types of jobs: harvesting and scheduled. The harvesting job is a o
 By pressing "Create new job", a job type ("operation") can be selected to create a new job.
 
 ![alt text](doc/dashboard-create-new-2.png)
+
+## Frontends
+
+### Accessing the frontends from your local machine
+
+We use dispatcher v2, which dispatches different frontends based on hostname. If this does not work out of the box, you may have to add an entry similar to the following to your `/etc/hosts`:
+
+```
+127.0.0.1 dashboard.localhost
+127.0.0.1 dcat.localhost
+127.0.0.1 human-validator.localhost
+127.0.0.1 yasgui.localhost
+```
