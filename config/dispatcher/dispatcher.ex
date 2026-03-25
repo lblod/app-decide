@@ -347,15 +347,15 @@ defmodule Dispatcher do
   end
 
   # dcat
-  match "/index.html",  %{reverse_host: ["dcat" | _rest], layer: :static} do
+  match "/index.html",  %{reverse_host: ["ds" | _rest], layer: :static} do
     forward(conn, [], "http://frontend-dcat/index.html")
   end
 
-  get "/assets/*path", %{reverse_host: ["dcat" | _rest], layer: :static} do
+  get "/assets/*path", %{reverse_host: ["ds" | _rest], layer: :static} do
     forward(conn, path, "http://frontend-dcat/assets/")
   end
 
-  get "/@appuniversum/*path",  %{reverse_host: ["dcat" | _rest], layer: :static} do
+  get "/@appuniversum/*path",  %{reverse_host: ["ds" | _rest], layer: :static} do
     forward(conn, path, "http://frontend-dcat/@appuniversum/")
   end
 
@@ -396,7 +396,7 @@ defmodule Dispatcher do
     forward(conn, [], "http://frontend-harvesting/index.html")
   end
 
-  match "/*_path", %{reverse_host: ["dcat" | _rest], accept: %{html: true}, layer: :frontend} do
+  match "/*_path", %{reverse_host: ["ds" | _rest], accept: %{html: true}, layer: :frontend} do
     forward(conn, [], "http://frontend-dcat/index.html")
   end
 
