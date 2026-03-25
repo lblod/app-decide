@@ -38,8 +38,8 @@
         sh:name "titel" ;
         sh:description "De titel van het werk." ;
         sh:path dct:title ;
-        sh:datatype xsd:string ;
-        sh:minCount 1 ;
+        sh:datatype rdf:langString ;
+        sh:minCount 2 ;
     ] ;
     sh:property [
         sh:path dct:identifier ;
