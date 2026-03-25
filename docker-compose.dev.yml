@@ -86,6 +86,10 @@ services:
     restart: no
     profiles:
       - search
+  annotation-review:
+    restart: no
+  frontend-hvt:
+    restart: no
   kibana:
     restart: no
     profiles:

@@ -3,3 +3,4 @@ include:
   - compose/data-space.yml
   - compose/pipeline.yml
   - compose/search.yml
+  - compose/validation.yml
