@@ -6,7 +6,7 @@ from rdflib import Graph
 
 # NOTE (05/09/2025): To further generalise this script, this constant should be
 # made into a argument that can be passed by the caller.
-CONFIG_PATH = "/app/config/odrl-parser/"
+CONFIG_PATH = "/app/config/authorization/"
 TTL_EXT = ".ttl"
 NTRIPLES_EXT = ".nt"
 

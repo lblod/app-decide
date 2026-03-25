@@ -7,7 +7,7 @@
 (add-delta-messenger "http://deltanotifier/")
 
 
-; CONFIGURATION
+;; CONFIGURATION
 
 (in-package :client)
 (setf *log-sparql-query-roundtrip* t)
@@ -19,18 +19,8 @@
 (in-package :server)
 (setf *log-incoming-requests-p* t)
 
-; ACCESS RIGHTS
-;; The following functionality allows to easily switch between the manually written policy and one
-;; generated from an ODRL policy. When updating the app's policy, apply the necessary changes in the
-;; `decide.lisp' file.
-(defparameter *use-odrl-policy-p*
-  (and (uiop:getenv "USE_ODRL_POLICY")
-       (string-equal (uiop:getenv "USE_ODRL_POLICY") "true"))
-  "Indicate whether to use the configuration generated from ODRL or the rules in this file.")
+(in-package :odrl-config)
+(setf *use-odrl-config-p* t)
 
-(let ((config-path
-        (if *use-odrl-policy-p*
-            "./odrl/decideAuthorizationPolicy.lisp"
-            "./config/decide.lisp")))
-  (format t "~& >> Loading policy from file: ~A" config-path)
-  (load config-path))
+;; ACCESS RIGHTS
+;; The access policy is defined using ODRL in `./config.ttl'.
