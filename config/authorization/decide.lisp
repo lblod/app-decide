@@ -144,6 +144,9 @@
   ("foaf:OnlineAccount" -> _)
   ("adms:Identifier" -> _))
 
+(define-graph human-validation ("http://mu.semte.ch/graphs/public/human-validation/")
+  ("ext:ReviewAnnotation" -> _))
+
 (supply-allowed-group "public")
 
 (grant (read)
@@ -169,6 +172,41 @@
 (grant (read write)
        :to harvesting
        :for "logged-in")
+
+;; our ODRL implementation currently cannot handle scopes, but it would be more secure to do so
+; (with-scope "http://services.semantic.works/annotation-review-service"
+;   (grant (read write)
+;     :to human-validation
+;     :for "public"
+;   ))       
+
+; (with-scope "http://services.semantic.works/annotation-review-service"
+;   (grant (read)
+;     :to public
+;     :for "public"
+;   ))       
+
+; (with-scope "http://services.semantic.works/annotation-review-service"
+;   (grant (read)
+;     :to harvested-gent
+;     :for "public"
+;   ))       
+
+; (with-scope "http://services.semantic.works/annotation-review-service"
+;   (grant (read)
+;     :to harvested-freiburg
+;     :for "public"
+;   ))       
+
+; (with-scope "http://services.semantic.works/annotation-review-service"
+;   (grant (read)
+;     :to harvested-pdf
+;     :for "public"
+;   ))       
+;; instead we need to give public write access to user reviews
+(grant (read write)
+       :to-graph human-validation
+       :for-allowed-group "public")
 
 (supply-allowed-group "logged-in"
                       :query "PREFIX session: <http://mu.semte.ch/vocabularies/session/>
