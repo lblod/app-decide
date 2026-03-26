@@ -121,7 +121,7 @@ We use dispatcher v2, which dispatches different frontends based on hostname. If
 
 ```
 127.0.0.1 dashboard.localhost
-127.0.0.1 dcat.localhost
+127.0.0.1 ds.localhost
 127.0.0.1 human-validator.localhost
 127.0.0.1 yasgui.localhost
 ```
