@@ -41,3 +41,9 @@ services:
     platform: linux/amd64
   pdf-content:
     platform: linux/amd64
+  frontend-yasgui:
+    platform: linux/amd64
+  frontend-dcat:
+    platform: linux/amd64
+  frontend-human-validator:
+    platform: linux/amd64
