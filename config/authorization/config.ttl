@@ -1,3 +1,6 @@
+# For more details in writing authorisation policies in ODRL, see
+# sparql-parser's README.
+# <https://github.com/mu-semtech/sparql-parser/tree/feature/odrl-configuration?tab=readme-ov-file#defining-an-authorization-policy-in-odrl>
 @prefix adms: <http://www.w3.org/ns/adms#> .
 @prefix besluit: <http://data.vlaanderen.be/ns/besluit#> .
 @prefix cms: <http://mu.semte.ch/vocabulary/cms/> .

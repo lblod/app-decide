@@ -1,3 +1,6 @@
+;; WARNING
+;; This configuration is no longer used, any changes should be applied in `./config.ttl'. This file is kept as backup/reference configuration.
+;;
 (in-package :acl)
 
 (define-prefixes
