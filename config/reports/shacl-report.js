@@ -16,6 +16,11 @@ const ONLY_KEEP_LATEST_REPORT =
     ? env.get("ONLY_KEEP_LATEST_REPORT").asBool()
     : false;
 
+const RUN_REPORT_NOW = 
+  process.env.RUN_REPORT_NOW != undefined
+    ? env.get("RUN_REPORT_NOW").asBool()
+    : false;
+
 export const BATCH_SIZE = env
   .get('BATCH_SIZE')
   .default('100')
@@ -25,7 +30,6 @@ import { sparqlEscapeUri, uuid } from "mu";
 import { querySudo } from '@lblod/mu-auth-sudo';
 
 import { Store, DataFactory } from "n3";
-import { report } from "node:process";
 const { namedNode, literal } = DataFactory;
 
 const CRON_PATTERN = "0 3 * * *";
@@ -77,8 +81,7 @@ const cronFunction = async (namedGraph = null) => {
       console.error("Error:", error);
     }
   };
-
-if (process.env.RUN_REPORT_NOW) {
+if (RUN_REPORT_NOW) {
   console.log("Running report in 2 seconds");
   setTimeout(() => cronFunction(), 2000);
 }
@@ -151,6 +154,5 @@ function retrieveTargetClasses(datasets) {
         )]
         .map(q => allTargetClasses.add(q.object.value));
     });
-    console.log("target classes found: " + allTargetClasses.toString());
     return allTargetClasses;
 }
