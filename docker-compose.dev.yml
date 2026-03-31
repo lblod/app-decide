@@ -86,6 +86,8 @@ services:
     restart: no
     profiles:
       - search
+  annotation-review:
+    restart: no
   kibana:
     restart: no
     profiles:

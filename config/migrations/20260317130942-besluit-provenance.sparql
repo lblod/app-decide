@@ -1,0 +1,14 @@
+PREFIX prov: <http://www.w3.org/ns/prov#>
+INSERT {
+  GRAPH <http://mu.semte.ch/graphs/public/gent> {
+    ?besluit prov:wasDerivedFrom ?source .
+  }
+}
+WHERE {
+  GRAPH <http://mu.semte.ch/graphs/oslo-decisions/landing> {
+    ?besluit prov:wasDerivedFrom ?source . 
+  }
+  GRAPH <http://mu.semte.ch/graphs/public/gent> {
+    ?besluit a ?thing .
+  }
+}

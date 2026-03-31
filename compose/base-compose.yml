@@ -103,12 +103,6 @@ services:
       - 'logging=true'
     restart: always
     logging: *default-logging
-  frontend-human-validator:
-    image: lblod/frontend-decide-human-validator:0.0.4
-    labels:
-      - 'logging=true'
-    restart: always
-    logging: *default-logging
   frontend-dcat:
     image: lblod/frontend-decide-dcat:0.0.4
     labels:

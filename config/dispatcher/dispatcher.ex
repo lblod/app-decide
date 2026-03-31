@@ -27,7 +27,7 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://vc-issuer/sessions/"
   end
 
-   match "/vc-verifier/*path", %{ accept: [:any], layer: :static } do
+  match "/vc-verifier/*path", %{ accept: [:any], layer: :static } do
     Proxy.forward conn, path, "http://vc-issuer/verifier/"
   end
 
@@ -69,6 +69,9 @@ defmodule Dispatcher do
     Proxy.forward conn, [], "http://database:8890/sparql"
   end
 
+  match "/annotation-review/*path", %{ accept: [:any], layer: :static } do
+    Proxy.forward conn, path, "http://annotation-review/"
+  end
   #################
   # Jobs & tasks
   #################
