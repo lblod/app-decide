@@ -147,6 +147,11 @@
 (define-graph human-validation ("http://mu.semte.ch/graphs/public/human-validation/")
   ("ext:ReviewAnnotation" -> _))
 
+(define-graph ai ("http://mu.semte.ch/graphs/ai")
+  ("oa:Annotation" -> _)
+  ("oa:SpecificResource" -> _)
+  ("oa:TextPositionSelector" -> _))
+
 (supply-allowed-group "public")
 
 (grant (read)
@@ -167,6 +172,10 @@
 
 (grant (read)
        :to-graph harvested-pdf
+       :for-allowed-group "public")
+
+(grant (read)
+       :to-graph ai
        :for-allowed-group "public")
 
 (grant (read write)
