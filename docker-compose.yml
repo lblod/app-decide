@@ -4,3 +4,4 @@ include:
   - compose/pipeline.yml
   - compose/search.yml
   - compose/validation.yml
+  - compose/reporting.yml
