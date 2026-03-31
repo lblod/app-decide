@@ -1,12 +1,6 @@
 {
   "persist_indexes": true,
-  "eager_indexing_groups": [
-    [{ "variables": [], "name": "public" }],
-    [
-      { "variables": [], "name": "logged-in" },
-      { "variables": [], "name": "public" }
-    ]
-  ],
+  "eager_indexing_groups": [[{ "variables": [], "name": "public" }]],
   "automatic_index_updates": true,
   "default_settings": {
     "number_of_replicas": 0,
@@ -67,6 +61,10 @@
         "embedding": {
           "via": "http://mu.semte.ch/vocabularies/ext/embeddingVector",
           "type": "dense-vector"
+        },
+        "owning-body": {
+          "via": "^http://www.w3.org/ns/org#hasSubOrganization",
+          "type": "simple"
         }
       },
       "mappings": {
@@ -95,6 +93,9 @@
           },
           "embedding": {
             "type": "dense_vector"
+          },
+          "owning-body": {
+            "type": "keyword"
           }
         }
       }
@@ -115,6 +116,14 @@
         "motivering-vector": {
           "via": "http://mu.semte.ch/vocabularies/ext/embeddingVectorMotivering",
           "type": "dense-vector"
+        },
+        "owning-body": {
+          "type": "simple",
+          "via": [
+            "^http://data.europa.eu/eli/ontology#is_realized_by",
+            "http://data.europa.eu/eli/ontology#passed_by",
+            "^http://www.w3.org/ns/org#hasSubOrganization"
+          ]
         }
       },
       "mappings": {
@@ -140,6 +149,9 @@
           },
           "motivering-vector": {
             "type": "dense_vector"
+          },
+          "owning-body": {
+            "type": "keyword"
           }
         }
       }

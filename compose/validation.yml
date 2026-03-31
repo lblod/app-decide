@@ -1,0 +1,20 @@
+x-logging: &default-logging
+  driver: 'json-file'
+  options:
+    max-size: '10m'
+    max-file: '3'
+services:
+  annotation-review:
+    image: lblod/annotation-review-service:latest
+    restart: always
+    labels:
+      - logging=true
+    logging: *default-logging
+    environment:
+      TZ: Europe/Brussels
+  frontend-human-validator:
+    image: lblod/frontend-decide-human-validator:0.0.4
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging

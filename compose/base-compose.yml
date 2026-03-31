@@ -89,8 +89,8 @@ services:
       - 'logging=true'
     restart: always
     logging: *default-logging
-  frontend:
-    image: lblod/frontend-decide:0.0.3
+  frontend-yasgui:
+    image: lblod/frontend-decide-yasgui:0.0.4
     environment:
       # The following are environment-specific and should be set in the
       # environment's appropriate override file.
@@ -99,6 +99,12 @@ services:
       EMBER_OAUTH_API_BASE_URL: '<OAUTH_API_BASE_URL>'
       EMBER_OAUTH_API_LOGOUT_URL: '<OAUTH_API_LOGOUT_URL'
       EMBER_OAUTH_API_SCOPE: '<OAUTH_API_SCOPE>'
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging
+  frontend-dcat:
+    image: lblod/frontend-decide-dcat:0.0.4
     labels:
       - 'logging=true'
     restart: always

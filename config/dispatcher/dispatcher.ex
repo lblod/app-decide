@@ -8,7 +8,7 @@ defmodule Dispatcher do
     any: ["*/*"]
   ]
 
-  define_layers([:static, :sparql, :api_services, :frontend_fallback, :resources, :not_found])
+  define_layers([:static, :sparql, :frontend, :api_services, :frontend_fallback, :resources, :not_found])
 
   options "/*_path", _ do
     conn
@@ -27,7 +27,7 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://vc-issuer/sessions/"
   end
 
-   match "/vc-verifier/*path", %{ accept: [:any], layer: :static } do
+  match "/vc-verifier/*path", %{ accept: [:any], layer: :static } do
     Proxy.forward conn, path, "http://vc-issuer/verifier/"
   end
 
@@ -65,10 +65,13 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://question-answering/uc2/"
   end
 
-  match "/api/sparql", %{ accept: [:any], layer: :api_services } do
+  match "/api/sparql", %{ reverse_host: ["yasgui" | _rest], accept: [:any], layer: :sparql } do
     Proxy.forward conn, [], "http://database:8890/sparql"
   end
 
+  match "/annotation-review/*path", %{ accept: [:any], layer: :static } do
+    Proxy.forward conn, path, "http://annotation-review/"
+  end
   #################
   # Jobs & tasks
   #################
@@ -313,6 +316,14 @@ defmodule Dispatcher do
     Proxy.forward(conn, path, "http://mocklogin/sessions/")
   end
 
+  match "/sessions/*path", %{reverse_host: ["yasgui" | _rest]} do
+    Proxy.forward(conn, path, "http://login/sessions/")
+  end
+
+  match "/mock/sessions/*path", %{reverse_host: ["yasgui" | _rest]} do
+    Proxy.forward(conn, path, "http://mocklogin/sessions/")
+  end
+
   match "/sessions/*path", %{layer: :api_services, accept: %{any: true}} do
     Proxy.forward(conn, path, "http://acmidm-login/sessions/")
   end
@@ -338,32 +349,70 @@ defmodule Dispatcher do
     forward(conn, path, "http://frontend-harvesting/@appuniversum/")
   end
 
-  match "/index.html", %{layer: :static} do
-    forward(conn, [], "http://frontend/index.html")
+  # dcat
+  match "/index.html",  %{reverse_host: ["ds" | _rest], layer: :static} do
+    forward(conn, [], "http://frontend-dcat/index.html")
   end
 
-  get "/assets/*path", %{layer: :static} do
-    forward(conn, path, "http://frontend/assets/")
+  get "/assets/*path", %{reverse_host: ["ds" | _rest], layer: :static} do
+    forward(conn, path, "http://frontend-dcat/assets/")
   end
 
-  get "/@appuniversum/*path", %{layer: :static} do
-    forward(conn, path, "http://frontend/@appuniversum/")
+  get "/@appuniversum/*path",  %{reverse_host: ["ds" | _rest], layer: :static} do
+    forward(conn, path, "http://frontend-dcat/@appuniversum/")
   end
 
+  # human validator
+  match "/index.html",  %{reverse_host: ["human-validator" | _rest], layer: :static} do
+    forward(conn, [], "http://frontend-human-validator/index.html")
+  end
+
+  get "/assets/*path", %{reverse_host: ["human-validator" | _rest], layer: :static} do
+    forward(conn, path, "http://frontend-human-validator/assets/")
+  end
+
+  get "/@appuniversum/*path",  %{reverse_host: ["human-validator" | _rest], layer: :static} do
+    forward(conn, path, "http://frontend-human-validator/@appuniversum/")
+  end
+
+  # yasgui
+  match "/index.html",  %{reverse_host: ["yasgui" | _rest], layer: :static} do
+    forward(conn, [], "http://frontend-yasgui/index.html")
+  end
+
+  get "/assets/*path", %{reverse_host: ["yasgui" | _rest], layer: :static} do
+    forward(conn, path, "http://frontend-yasgui/assets/")
+  end
+
+  get "/@appuniversum/*path",  %{reverse_host: ["yasgui" | _rest], layer: :static} do
+    forward(conn, path, "http://frontend-yasgui/@appuniversum/")
+  end
 
   #################
   # FRONTEND PAGES
   #################
 
+  # we don't forward the path, because the app should take care of this in the browser.
+
   # self-service
-  match "/*_path", %{reverse_host: ["dashboard" | _rest], accept: %{html: true}} do
-    # we don't forward the path, because the app should take care of this in the browser.
+  match "/*_path", %{reverse_host: ["dashboard" | _rest], accept: %{html: true}, layer: :frontend } do
     forward(conn, [], "http://frontend-harvesting/index.html")
   end
 
+  match "/*_path", %{reverse_host: ["ds" | _rest], accept: %{html: true}, layer: :frontend} do
+    forward(conn, [], "http://frontend-dcat/index.html")
+  end
+
+  match "/*_path", %{reverse_host: ["human-validator" | _rest], accept: %{html: true}, layer: :frontend} do
+    forward(conn, [], "http://frontend-human-validator/index.html")
+  end
+
+  match "/*_path", %{reverse_host: ["yasgui" | _rest], accept: %{html: true}, layer: :frontend } do
+    forward(conn, [], "http://frontend-yasgui/index.html")
+  end
+
   match "/*_path", %{layer: :frontend_fallback, accept: %{html: true}} do
-    # we don't forward the path, because the app should take care of this in the browser.
-    forward(conn, [], "http://frontend/index.html")
+    forward(conn, [], "http://frontend-dcat/index.html")
   end
 
   #################

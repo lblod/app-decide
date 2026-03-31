@@ -38,7 +38,11 @@ services:
     restart: "no"
   deltanotifier:
     restart: "no"
-  frontend:
+  frontend-yasgui:
+    restart: "no"
+  frontend-dcat:
+    restart: "no"
+  frontend-human-validator:
     restart: "no"
   frontend-harvesting:
     restart: "no"
@@ -78,10 +82,12 @@ services:
     restart: no
     profiles:
       - search
-  embedding-ollama:
+  ollama:
     restart: no
     profiles:
       - search
+  annotation-review:
+    restart: no
   kibana:
     restart: no
     profiles:
