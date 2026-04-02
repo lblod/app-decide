@@ -72,6 +72,11 @@ defmodule Dispatcher do
   match "/annotation-review/*path", %{ accept: [:any], layer: :static } do
     Proxy.forward conn, path, "http://annotation-review/"
   end
+
+  match "/shacl-reports/*path", %{ accept: [:any], layer: :static } do
+    Proxy.forward conn, path, "http://report-generation/"
+  end
+
   #################
   # Jobs & tasks
   #################

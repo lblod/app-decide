@@ -4,7 +4,7 @@ services:
   dispatcher:
     platform: linux/amd64
   virtuoso:
-    platform: linux/arm64
+    platform: linux/amd64
   database:
     platform: linux/amd64
   deltanotifier:
@@ -40,4 +40,8 @@ services:
   harvest_singleton-job:
     platform: linux/amd64
   pdf-content:
+    platform: linux/amd64
+  question-answering:
+    platform: linux/amd64
+  pdf-scraper:
     platform: linux/amd64
