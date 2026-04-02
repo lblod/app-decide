@@ -4,7 +4,7 @@ services:
   dispatcher:
     platform: linux/amd64
   virtuoso:
-    platform: linux/arm64
+    platform: linux/amd64
   database:
     platform: linux/amd64
   deltanotifier:
@@ -44,6 +44,4 @@ services:
   question-answering:
     platform: linux/amd64
   pdf-scraper:
-    platform: linux/amd64
-  frontend:
     platform: linux/amd64
