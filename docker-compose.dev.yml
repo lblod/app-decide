@@ -26,6 +26,8 @@ services:
       - debug
   resource:
     restart: "no"
+  cache:
+    restart: "no"
   file:
     restart: "no"
   odrl-parser:
