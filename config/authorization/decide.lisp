@@ -144,7 +144,7 @@
   ("foaf:OnlineAccount" -> _)
   ("adms:Identifier" -> _))
 
-(define-graph human-validation ("http://mu.semte.ch/graphs/public/human-validation/")
+(define-graph human-validation ("http://mu.semte.ch/graphs/public/human-validation")
   ("ext:ReviewAnnotation" -> _))
 
 (define-graph ai ("http://mu.semte.ch/graphs/ai")
