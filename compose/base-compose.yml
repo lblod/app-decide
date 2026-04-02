@@ -54,6 +54,14 @@ services:
       - 'logging=true'
     restart: always
     logging: *default-logging
+  cache:
+    image: semtech/mu-cache:2.0.1
+    links:
+      - resource:backend
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging
   file:
     image: semtech/mu-file-service:3.4.0
     volumes:
