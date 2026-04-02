@@ -8,7 +8,7 @@ defmodule Dispatcher do
     any: ["*/*"]
   ]
 
-  define_layers([:static, :sparql, :frontend, :api_services, :frontend_fallback, :resources, :not_found])
+  define_layers([:static, :sparql, :api_services, :frontend, :resources, :not_found])
 
   options "/*_path", _ do
     conn
@@ -95,6 +95,10 @@ defmodule Dispatcher do
 
   match "/scheduled-jobs/*path", %{accept: [:json], layer: :api_services} do
     Proxy.forward conn, path, "http://resource/scheduled-jobs/"
+  end
+
+  match "/scheduled-annotation-jobs/*path", %{accept: [:json], layer: :api_services} do
+    Proxy.forward conn, path, "http://resource/scheduled-annotation-jobs/"
   end
 
   match "/scheduled-tasks/*path", %{accept: [:json], layer: :api_services} do
@@ -414,10 +418,6 @@ defmodule Dispatcher do
 
   match "/*_path", %{reverse_host: ["yasgui" | _rest], accept: %{html: true}, layer: :frontend } do
     forward(conn, [], "http://frontend-yasgui/index.html")
-  end
-
-  match "/*_path", %{layer: :frontend_fallback, accept: %{html: true}} do
-    forward(conn, [], "http://frontend-dcat/index.html")
   end
 
   #################
