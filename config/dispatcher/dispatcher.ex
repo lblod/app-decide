@@ -281,6 +281,10 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://cache/specific-resources/"
   end
 
+  match "/text-position-selectors/*path", %{ accept: [:json], layer: :resources } do
+    Proxy.forward conn, path, "http://resource/text-position-selectors/"
+  end
+
   match "/locations/*path", %{ accept: [:json], layer: :resources } do
     Proxy.forward conn, path, "http://cache/locations/"
   end

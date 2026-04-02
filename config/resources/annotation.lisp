@@ -30,4 +30,5 @@
   :properties `((:start :number ,(s-prefix "oa:start"))
                 (:end :number ,(s-prefix "oa:end")))
   :features '(include-uri)
-  :resource-base (s-url "http://data.lblod.info/id/text-position-selector/"))
+  :resource-base (s-url "http://data.lblod.info/id/text-position-selector/")
+  :on-path "text-position-selectors")
