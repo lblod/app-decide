@@ -26,14 +26,6 @@ services:
       - ../config/embedding/config.py:/app/config.py
     depends_on:
       - ollama
-  ollama:
-    image: ollama/ollama:0.14.1
-    volumes:
-      - ../data/ollama:/root/.ollama
-    entrypoint:
-      - /bin/sh
-      - -c
-      - ollama serve & pid=$$! && sleep 5 && ollama pull embeddinggemma:300m && wait $pid
     # in case you have an nvidia gpu available, like on our server
     # deploy:
     #   resources:

@@ -8,34 +8,11 @@
     "method": "composite",
     "post_process": true,
     "labels": ["CITY", "DOMAIN", "HOUSENUMBERS", "INTERSECTION", "POSTCODE", "PROVINCE", "ROAD", "STREET"],
-    "enable_refinement": true,
-    "label_to_predicate": {
-      "CONTEXT_DATE": "",
-      "CONTEXT_LOCATION": "",
-      "CONTEXT_PERIOD": "",
-      "PUBLICATION_DATE": "eli:date_publication",
-      "SESSION_DATE": "eli:date_document",
-      "ENTRY_DATE": "eli:first_date_entry_in_force",
-      "EXPIRY_DATE": "eli:date_no_longer_in_force",
-      "LEGAL_DATE": "",
-      "VALIDITY_PERIOD": "",
-      "IMPACT_LOCATION": "",
-      "LEGAL_GROUND": "eli:based_on",
-      "ADMINISTRATIVE_BODY": "eli:passed_by",
-      "MANDATARY": "eli:mandatary"
-    }
-  },
-  "geocoding": {
-    "nominatim_base_url": "http://nominatim:8080"
-  },
-  "llm": {
-    "model_name": "gpt-4o-mini",
-    "temperature": 0.1,
-    "api_key": null
+    "enable_refinement": true
   },
   "translation": {
     "target_language": "en",
-    "provider": "huggingface",
+    "provider": "ollama",
     "etranslation": {
       "base_url": "https://language-tools.ec.europa.eu/etranslation/api",
       "bearer_token": null,
@@ -46,21 +23,21 @@
       "callback_wait_timeout": 180,
       "max_text_length": 4000,
       "callback_url": null
+    },
+    "ollama": {
+      "base_url": "http://ollama:11434",
+      "model": "mistral-nemo",
+      "timeout_seconds": 180,
+      "temperature": 0.1,
+      "max_text_length": 6000
     }
   },
-  "ml_training": {
-    "transformer": "distilbert/distilbert-base-uncased",
-    "learning_rate": 2e-5,
-    "epochs": 2,
-    "weight_decay": 0.01,
-    "huggingface_token": null,
-    "huggingface_output_model_id": null
-  },
   "segmentation": {
-        "model_name": "gpt-4.1",
-        "api_key": "SECRET_KEY",
-        "endpoint": "https://api.openai.com/v1",
-        "max_new_tokens": 14000,
-        "temperature": 0.0
+    "model_name": "mistral-large-latest",
+    "api_key": "SECRET_KEY",
+    "endpoint": "https://api.mistral.ai/v1",
+    "max_new_tokens": 20000,
+    "temperature": 0.1,
+    "max_gap": 5
   }
 }

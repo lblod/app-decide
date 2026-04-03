@@ -9,7 +9,7 @@ services:
   # AI PIPELINES
   ##############################################################################
   entity-linking:
-    image: semantic-ai/entity-linking-backend:0.0.1
+    image: local-entity-linking # TO UPDATE
     ports:
       - "81:80"
     environment:
@@ -30,25 +30,50 @@ services:
     links:
       - database:database
   pdf-scraper:
-    image: semanticai/decide-pdf-scraper:0.0.1
+    image: local-scraper # TO UPDATE
     environment:
-      TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
+      TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting      
+      JOB_GRAPH: http://mu.semte.ch/graphs/harvesting
+      DATA_CONTAINER_GRAPH: http://mu.semte.ch/graphs/harvesting
+      HARVEST_COLLECTIONS_GRAPH: http://mu.semte.ch/graphs/harvesting
+      REMOTE_OBJECT_GRAPH: http://mu.semte.ch/graphs/harvesting
+      FILES_GRAPH: http://mu.semte.ch/graphs/harvesting
+      OPARL_TEMP_GRAPH: http://mu.semte.ch/graphs/harvesting
+      OSLO_TEMP_GRAPH: http://mu.semte.ch/graphs/harvesting
+
       PUBLICATION_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      EXPRESSIONS_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      WORKS_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      MANIFESTATIONS_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      AI_GRAPH: http://mu.semte.ch/graphs/public/pdf
       ALLOW_MU_AUTH_SUDO: true
     labels:
       - logging=true
     restart: always
     logging: *default-logging
   pdf-content:
-    image: semanticai/decide-pdf-content-extraction:0.0.5
+    image: local-content # TO UPDATE
     environment:
       APACHE_TIKA_URL: "http://apache-tika:9998/tika"
-      TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
+      TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting      
+      JOB_GRAPH: http://mu.semte.ch/graphs/harvesting
+      DATA_CONTAINER_GRAPH: http://mu.semte.ch/graphs/harvesting
+      HARVEST_COLLECTIONS_GRAPH: http://mu.semte.ch/graphs/harvesting
+      REMOTE_OBJECT_GRAPH: http://mu.semte.ch/graphs/harvesting
+      FILES_GRAPH: http://mu.semte.ch/graphs/harvesting
+      OPARL_TEMP_GRAPH: http://mu.semte.ch/graphs/harvesting
+      OSLO_TEMP_GRAPH: http://mu.semte.ch/graphs/harvesting
+
       PUBLICATION_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      EXPRESSIONS_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      WORKS_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      MANIFESTATIONS_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      AI_GRAPH: http://mu.semte.ch/graphs/public/pdf
       ALLOW_MU_AUTH_SUDO: true
       MOUNTED_SHARE_FOLDER: "/mnt/share"
     volumes:
       - ./../data/files:/mnt/share
+      - ./../config/pdf-content/config.json:/app/config.json:ro  # Mount config as read-only
     labels:
       - logging=true
     restart: always
@@ -79,13 +104,26 @@ services:
       - "6333:6333"
 
   named-entity-recognition:
-    image: semanticai/decide-geocoding-service:0.0.2
+    image: local-ner # TO UPDATE
     ports:
       - "8082:80"
     environment:
       TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
+      JOB_GRAPH: http://mu.semte.ch/graphs/harvesting
+      DATA_CONTAINER_GRAPH: http://mu.semte.ch/graphs/harvesting
+      HARVEST_COLLECTIONS_GRAPH: http://mu.semte.ch/graphs/harvesting
+      REMOTE_OBJECT_GRAPH: http://mu.semte.ch/graphs/harvesting
+      FILES_GRAPH: http://mu.semte.ch/graphs/harvesting
+      OPARL_TEMP_GRAPH: http://mu.semte.ch/graphs/harvesting
+      OSLO_TEMP_GRAPH: http://mu.semte.ch/graphs/harvesting
+
       PUBLICATION_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      EXPRESSIONS_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      WORKS_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      MANIFESTATIONS_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      AI_GRAPH: http://mu.semte.ch/graphs/public/pdf
       ALLOW_MU_AUTH_SUDO: true
+      CONFIG_PATH: /app/config.json
     volumes:
       - ./../config/ner/config.json:/app/config.json:ro  # Mount config as read-only
     depends_on:
@@ -97,5 +135,12 @@ services:
 
   ollama:
     image: ollama/ollama:latest
+    volumes:
+      - ../data/ollama:/root/.ollama
     ports:
       - "11434:11434"
+    restart: always
+    entrypoint:
+      - /bin/sh
+      - -c
+      - ollama serve & pid=$$! && sleep 5 && ollama pull embeddinggemma && wait $$pid
