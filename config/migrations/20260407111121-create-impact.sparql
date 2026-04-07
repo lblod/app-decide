@@ -1,0 +1,16 @@
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX mu: <http://mu.semte.ch/vocabularies/core/>
+
+INSERT DATA {
+  GRAPH <http://mu.semte.ch/graphs/public> {
+    <http://mu.semte.ch/vocabularies/ext/impact/positive> a skos:Concept ;
+    skos:inScheme <http://mu.semte.ch/vocabularies/ext/impact> ;
+    mu:uuid "0e432b1b-87ad-4c32-9fc5-b151dd49f60d" ;
+    skos:prefLabel "Positive" .
+
+    <http://mu.semte.ch/vocabularies/ext/impact/negative> a skos:Concept ;
+    skos:inScheme <http://mu.semte.ch/vocabularies/ext/impact> ;
+    mu:uuid "1e122909-a685-4c0f-8b61-d639173b0a58" ;
+    skos:prefLabel "Negative" .
+  }
+}
