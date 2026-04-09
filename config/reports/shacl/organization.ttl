@@ -64,7 +64,7 @@
         sh:name "preferred label" ;
         sh:description "De preferred label van de organisatie." ;
         sh:path skos:prefLabel ;
-        sh:nodeKind rdf:langString ;
+        sh:datatype rdf:langString ;
         sh:minCount 0 ;
     ] ;
     sh:property [
