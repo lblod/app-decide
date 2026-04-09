@@ -1,0 +1,90 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
+@prefix mu: <http://mu.semte.ch/vocabularies/core/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix epvoc: <https://data.europarl.europa.eu/def/epvoc#> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+
+<http://example.org/organization_1_shape>
+    a sh:NodeShape ;
+    sh:targetClass <http://www.w3.org/ns/org#Organization> ;
+    sh:prefixes [ sh:declare [
+        a sh:PrefixDeclaration ;
+        sh:namespace "http://mu.semte.ch/vocabularies/core/"^^xsd:anyURI ;
+        sh:prefix "mu" ;
+    ] ], [ sh:declare [
+        a sh:PrefixDeclaration ;
+        sh:namespace "http://data.europa.eu/eli/ontology#"^^xsd:anyURI ;
+        sh:prefix "eli" ;
+    ] ], [ sh:declare [
+        a sh:PrefixDeclaration ;
+        sh:namespace "http://purl.org/dc/terms/"^^xsd:anyURI ;
+        sh:prefix "dct" ;
+    ] ], [ sh:declare [
+        a sh:PrefixDeclaration ;
+        sh:namespace "http://www.w3.org/ns/org#"^^xsd:anyURI ;
+        sh:prefix "org" ;
+    ] ], [ sh:declare [
+        a sh:PrefixDeclaration ;
+        sh:namespace "http://data.vlaanderen.be/ns/besluit#"^^xsd:anyURI ;
+        sh:prefix "besluit" ;
+    ] ], [ sh:declare [
+        a sh:PrefixDeclaration ;
+        sh:namespace "https://data.europarl.europa.eu/def/epvoc#"^^xsd:anyURI ;
+        sh:prefix "epvoc" ;
+    ] ], [ sh:declare [
+        a sh:PrefixDeclaration ;
+        sh:namespace "http://www.w3.org/2004/02/skos/core#"^^xsd:anyURI ;
+        sh:prefix "skos" ;
+    ] ], [ sh:declare [
+        a sh:PrefixDeclaration ;
+        sh:namespace "http://www.w3.org/ns/dcat#"^^xsd:anyURI ;
+        sh:prefix "dcat" ;
+    ] ];
+
+    sh:property [
+        sh:path mu:uuid ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:property [
+        sh:name "identifier" ;
+        sh:description "De identifier van de organisatie." ;
+        sh:path dct:identifier ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:name "preferred label" ;
+        sh:description "De preferred label van de organisatie." ;
+        sh:path skos:prefLabel ;
+        sh:nodeKind rdf:langString ;
+        sh:minCount 0 ;
+    ] ;
+    sh:property [
+        sh:name "classificatie" ;
+        sh:description "De classificatie van de organisatie." ;
+        sh:path org:classification ;
+        sh:nodeKind sh:IRI ;
+        sh:minCount 0 ;
+    ] ;
+    sh:property [
+        sh:name "heeft suborganisatie" ;
+        sh:description "Geeft de hiërarchische structuur van organisaties of organisatie-eenheden weer; duidt een organisatie aan die een onderdeel of dochterorganisatie van deze organisatie is." ;
+        sh:path org:hasSuborganization ;
+        sh:minCount 0 ;
+        sh:nodeKind sh:IRI ;
+    ] ;
+    sh:property [
+        sh:name "contactinfo" ;
+        sh:description "Informatie zoals email, telefoon... die toelaat de Organisatie te contacteren." ;
+        sh:path dcat:contactPoint ;
+        sh:minCount 0 ;
+        sh:nodeKind sh:IRI ;
+    ] .
