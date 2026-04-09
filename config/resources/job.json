@@ -90,6 +90,42 @@
             ],
             "new-resource-base": "http://redpencil.data.gift/id/annotation-job/"
         },
+        "scheduled-annotation-jobs": {
+            "name": "scheduled-annotation-job",
+            "class": "ext:ScheduledAnnotationJob",
+            "super": [
+                "scheduled-job"
+            ],
+            "attributes": {
+                "codelist": {
+                    "type": "url",
+                    "predicate": "ext:codelist"
+                },
+                "graph-for-targets": {
+                    "type": "url",
+                    "predicate": "ext:graphForTargets"
+                },
+                "property-path-for-text": {
+                    "type": "url",
+                    "predicate": "ext:propertyPathForText"
+                },
+                "confidence-threshold": {
+                    "type": "number",
+                    "predicate": "ext:confidenceThreshold"
+                }
+            },
+            "relationships": {
+                "shape-for-targets": {
+                    "predicate": "ext:shapeForTargets",
+                    "target": "node-shape",
+                    "cardinality": "many"
+                }
+            },
+            "features": [
+                "include-uri"
+            ],
+            "new-resource-base": "http://redpencil.data.gift/id/scheduled-annotation-job/"
+        },
         "tasks": {
             "name": "task",
             "class": "task:Task",

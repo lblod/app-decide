@@ -17,7 +17,11 @@
   :has-one `((expression :via ,(s-prefix "oa:source")
                          :as "source")
              (text-position-selector :via ,(s-prefix "oa:selector")
-                                     :as "selector"))
+                                     :as "selector")
+             (annotation :via ,(s-prefix "oa:hasTarget")
+                         :as "annotations"
+                         :inverse t))
+  :features '(include-uri)
   :resource-base (s-url "http://data.lblod.info/id/specific-resource/")
   :on-path "specific-resources")
 
@@ -25,4 +29,6 @@
   :class (s-prefix "oa:TextPositionSelector")
   :properties `((:start :number ,(s-prefix "oa:start"))
                 (:end :number ,(s-prefix "oa:end")))
-  :resource-base (s-url "http://data.lblod.info/id/text-position-selector/"))
+  :features '(include-uri)
+  :resource-base (s-url "http://data.lblod.info/id/text-position-selector/")
+  :on-path "text-position-selectors")

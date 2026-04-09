@@ -54,6 +54,14 @@ services:
       - 'logging=true'
     restart: always
     logging: *default-logging
+  cache:
+    image: semtech/mu-cache:2.0.1
+    links:
+      - resource:backend
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging
   file:
     image: semtech/mu-file-service:3.4.0
     volumes:
@@ -99,12 +107,6 @@ services:
       EMBER_OAUTH_API_BASE_URL: '<OAUTH_API_BASE_URL>'
       EMBER_OAUTH_API_LOGOUT_URL: '<OAUTH_API_LOGOUT_URL'
       EMBER_OAUTH_API_SCOPE: '<OAUTH_API_SCOPE>'
-    labels:
-      - 'logging=true'
-    restart: always
-    logging: *default-logging
-  frontend-human-validator:
-    image: lblod/frontend-decide-human-validator:0.0.4
     labels:
       - 'logging=true'
     restart: always

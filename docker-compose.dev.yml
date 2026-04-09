@@ -26,6 +26,8 @@ services:
       - debug
   resource:
     restart: "no"
+  cache:
+    restart: "no"
   file:
     restart: "no"
   odrl-parser:
@@ -86,6 +88,8 @@ services:
     restart: no
     profiles:
       - search
+  annotation-review:
+    restart: no
   kibana:
     restart: no
     profiles:

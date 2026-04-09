@@ -1,7 +1,16 @@
 PREFIX org: <http://www.w3.org/ns/org#>
 PREFIX mandaat: <http://data.vlaanderen.be/ns/mandaat#>
 PREFIX besluit: <http://data.vlaanderen.be/ns/besluit#>
-
+INSERT {
+  GRAPH ?g {
+    ?eenheid org:hasSubOrganization ?orgT .
+  }
+}WHERE {
+  ?orgT mandaat:isTijdspecialisatieVan ?org.
+  GRAPH ?g {
+    ?eenheid org:hasSubOrganization ?org.
+  }
+} 
 INSERT {
   GRAPH ?g {
     ?eenheid org:hasSubOrganization ?org.

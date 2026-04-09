@@ -8,6 +8,7 @@
 (defparameter *cache-count-queries* nil)
 (defparameter *cache-model-properties* t)
 (defparameter *max-group-sorted-properties* nil)
+(setf *treat-uknown-literal-datatypes-from-sparql-as-string-p* t) ; langstrings seem to give problems?
 
 (read-domain-file "user.lisp")
 (read-domain-file "org.lisp")
@@ -16,10 +17,10 @@
 (read-domain-file "dcat.lisp")
 (read-domain-file "annotation.lisp")
 (read-domain-file "file.json")
-(read-domain-file "job.json")
 (read-domain-file "log.json")
 (read-domain-file "report.json")
 (read-domain-file "harvest.json")
 (read-domain-file "authentication.lisp")
 (read-domain-file "master-scheduled-domain.lisp")
+(read-domain-file "job.json")
 (read-domain-file "geo.lisp")

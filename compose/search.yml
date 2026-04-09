@@ -26,11 +26,3 @@ services:
       - ../config/embedding/config.py:/app/config.py
     depends_on:
       - ollama
-    # in case you have an nvidia gpu available, like on our server
-    # deploy:
-    #   resources:
-    #     reservations:
-    #       devices:
-    #         - driver: nvidia
-    #           count: all
-    #           capabilities: [gpu]
