@@ -24,3 +24,7 @@
 
 ;; ACCESS RIGHTS
 ;; The access policy is defined using ODRL in `./config.ttl'.
+;; If you do want to use the Lisp configuration, uncomment the following 3 lines:
+;; (setf *use-odrl-config-p* nil) ; Disables loading the ODRL config
+;; (unless *use-odrl-config-p* ; Extra check to be sure only correct file is loaded
+;;   (load "./config/decide.lisp")) ; Load the policy in the lisp file
