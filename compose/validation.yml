@@ -11,6 +11,7 @@ services:
       - logging=true
     logging: *default-logging
     environment:
+      DEFAULT_MU_AUTH_SCOPE: "http://services.semantic.works/annotation-review-service"
       TZ: Europe/Brussels
   frontend-human-validator:
     image: lblod/frontend-decide-human-validator:0.0.4

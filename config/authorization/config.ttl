@@ -51,7 +51,12 @@ ext:decideAuthorizationPolicy a odrl:Set ;
     ext:allowReadForOsloOrganizations ,
     ext:allowReadForAiSlice ,
     ext:allowReadForHumanValidation ,
-    ext:allowWriteForHumanValidation .
+    ext:allowWriteForHumanValidation ,
+    ext:allowReadAnnotationForPublic ,
+    ext:allowReadAnnotationForGhent ,
+    ext:allowReadAnnotationForFreiburg ,
+    ext:allowReadAnnotationForPdf ,
+    ext:allowAnnotationReadForAiSlice .
 
 # Parties for groups
 ext:decideSystem a odrl:Party ;
@@ -193,14 +198,46 @@ ext:allowReadForHumanValidation a odrl:Permission ;
   odrl:action odrl:read ;
   odrl:target ext:decideHumanValidationSlice ;
   odrl:assigner ext:decideSystem ;
-  odrl:assignee ext:publicParty .
+  odrl:assignee ext:publicParty  ;
+  ext:scope "http://services.semantic.works/annotation-review-service" .
 
-# TODO: once scopes are supported write should only be granted to `annotation-review-service`, see `decide.lisp`
 ext:allowWriteForHumanValidation a odrl:Permission ;
   odrl:action odrl:modify ;
   odrl:target ext:decideHumanValidationSlice ;
   odrl:assigner ext:decideSystem ;
-  odrl:assignee ext:publicParty .
+  odrl:assignee ext:publicParty ;
+  ext:scope "http://services.semantic.works/annotation-review-service" .
+
+ext:allowReadAnnotationForPublic a odrl:Permission ;
+  odrl:action odrl:read ;
+  odrl:target ext:decidePublicSlice ;
+  odrl:assignee ext:publicParty ;
+  ext:scope "http://services.semantic.works/annotation-review-service" .
+
+ext:allowReadAnnotationForGhent a odrl:Permission ;
+  odrl:action odrl:read ;
+  odrl:target ext:decideHarvestedGentSlice ;
+  odrl:assignee ext:publicParty ;
+  ext:scope "http://services.semantic.works/annotation-review-service" .
+
+ext:allowReadAnnotationForFreiburg a odrl:Permission ;
+  odrl:action odrl:read ;
+  odrl:target ext:decideHarvestedFreiburgSlice ;
+  odrl:assignee ext:publicParty ;
+  ext:scope "http://services.semantic.works/annotation-review-service" .
+
+ext:allowReadAnnotationForPdf a odrl:Permission ;
+  odrl:action odrl:read ;
+  odrl:target ext:decideHarvestedPdfSlice ;
+  odrl:assignee ext:publicParty ;
+  ext:scope "http://services.semantic.works/annotation-review-service" .
+
+ext:allowAnnotationReadForAiSlice a odrl:Permission ;
+  odrl:action odrl:read ;
+  odrl:target ext:decideAiSlice ;
+  odrl:assigner ext:decideSystem ;
+  odrl:assignee ext:publicParty ;
+  ext:scope "http://services.semantic.works/annotation-review-service" .
 
 # Assets (SHACL shapes) for type specifications
 ext:BesluitAdministrativeUnitAsset a odrl:Asset, sh:NodeShape ;
