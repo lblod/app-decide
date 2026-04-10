@@ -185,40 +185,35 @@
        :to harvesting
        :for "logged-in")
 
-;; our ODRL implementation currently cannot handle scopes, but it would be more secure to do so
-; (with-scope "http://services.semantic.works/annotation-review-service"
-;   (grant (read write)
-;     :to human-validation
-;     :for "public"
-;   ))       
+(with-scope "http://services.semantic.works/annotation-review-service"
+  (grant (read write)
+    :to-graph human-validation
+    :for-allowed-group "public"))
 
-; (with-scope "http://services.semantic.works/annotation-review-service"
-;   (grant (read)
-;     :to public
-;     :for "public"
-;   ))       
+(with-scope "http://services.semantic.works/annotation-review-service"
+  (grant (read)
+    :to-graph public
+    :for-allowed-group "public"))
 
-; (with-scope "http://services.semantic.works/annotation-review-service"
-;   (grant (read)
-;     :to harvested-gent
-;     :for "public"
-;   ))       
+(with-scope "http://services.semantic.works/annotation-review-service"
+  (grant (read)
+    :to-graph harvested-gent
+    :for-allowed-group "public"))
 
-; (with-scope "http://services.semantic.works/annotation-review-service"
-;   (grant (read)
-;     :to harvested-freiburg
-;     :for "public"
-;   ))       
+(with-scope "http://services.semantic.works/annotation-review-service"
+  (grant (read)
+    :to-graph harvested-freiburg
+    :for-allowed-group "public"))
 
-; (with-scope "http://services.semantic.works/annotation-review-service"
-;   (grant (read)
-;     :to harvested-pdf
-;     :for "public"
-;   ))       
-;; instead we need to give public write access to user reviews
-(grant (read write)
-       :to-graph human-validation
-       :for-allowed-group "public")
+(with-scope "http://services.semantic.works/annotation-review-service"
+  (grant (read)
+    :to-graph harvested-pdf
+    :for-allowed-group "public"))
+
+(with-scope "http://services.semantic.works/annotation-review-service"
+  (grant (read)
+    :to-graph ai
+    :for-allowed-group "public"))
 
 (supply-allowed-group "logged-in"
                       :query "PREFIX session: <http://mu.semte.ch/vocabularies/session/>
