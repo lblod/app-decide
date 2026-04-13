@@ -28,6 +28,7 @@ CONSTRUCT {
     ?newTopConcept a skos:Concept ;
         mu:uuid ?uuid;
         skos:prefLabel ?topConceptLabel ;
+    	skos:altLabel ?topConceptAltLabel ;
         skos:definition ?finalDefinition ;
         skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/sdg-simple> ;
         skos:inScheme <http://data.lblod.gift/id/conceptscheme/sdg-simple> .
@@ -47,6 +48,7 @@ where {
     }
  
     ?topConcept skos:prefLabel ?topConceptLabel ;
+                skos:altLabel ?topConceptAltLabel ;
             skos:note ?note .
     {
       SELECT ?scheme
@@ -57,10 +59,13 @@ where {
     }
     
     FILTER(lang(?topConceptLabel) = 'en')
-	  FILTER(lang(?note) = 'en')
+    FILTER(lang(?topConceptAltLabel) = 'en')
+	FILTER(lang(?note) = 'en')
   
   	BIND(MD5(str(?concatTargetLabel)) as ?uuid)
     BIND(IRI(concat(str(?topConcept), '/', ?uuid)) as ?newTopConcept)
     BIND(strlang(concat("Targets of ", str(?note), ': ', str(?concatTargetLabel)), 'en') as ?finalDefinition)
 }
 ```
+
+Replace the SDG hostname to LBLOD gift URI by running regex: `http://metadata.un.org/sdg/\d+/` to `http://data.lblod.gift/id/concept/`.
