@@ -3,6 +3,10 @@ PREFIX mu: <http://mu.semte.ch/vocabularies/core/>
 
 INSERT DATA {
   GRAPH <http://mu.semte.ch/graphs/public> {
+    <http://mu.semte.ch/vocabularies/ext/impact> a skos:ConceptScheme ;
+       mu:uuid "a3edd7f2-66a8-4eb1-9062-22c72af39476" ;
+       skos:prefLabel "Impact" .
+
     <http://mu.semte.ch/vocabularies/ext/impact/positive> a skos:Concept ;
     skos:inScheme <http://mu.semte.ch/vocabularies/ext/impact> ;
     mu:uuid "0e432b1b-87ad-4c32-9fc5-b151dd49f60d" ;
