@@ -401,6 +401,19 @@ defmodule Dispatcher do
     forward(conn, path, "http://frontend-yasgui/@appuniversum/")
   end
 
+  # smart search
+  match "/index.html",  %{reverse_host: ["smart-search" | _rest], layer: :static} do
+    forward(conn, [], "http://frontend-smart-search/index.html")
+  end
+
+  get "/assets/*path", %{reverse_host: ["smart-search" | _rest], layer: :static} do
+    forward(conn, path, "http://frontend-smart-search/assets/")
+  end
+
+  get "/@appuniversum/*path",  %{reverse_host: ["smart-search" | _rest], layer: :static} do
+    forward(conn, path, "http://frontend-smart-search/@appuniversum/")
+  end
+
   #################
   # FRONTEND PAGES
   #################
@@ -422,6 +435,10 @@ defmodule Dispatcher do
 
   match "/*_path", %{reverse_host: ["yasgui" | _rest], accept: %{html: true}, layer: :frontend } do
     forward(conn, [], "http://frontend-yasgui/index.html")
+  end
+
+  match "/*_path", %{reverse_host: ["smart-search" | _rest], accept: %{html: true}, layer: :frontend} do
+    forward(conn, [], "http://frontend-smart-search/index.html")
   end
 
   #################
