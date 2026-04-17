@@ -50,6 +50,53 @@ There are two main pain points:
 1. Mac has an arm64 processor, a lot of the services don't have a multi-platform image. In the case they only have a amd64 image, docker will gave you a warning about this. In general this is not a real problem since your macbook can just emulate amd64, but still the warnings are annoying, so these are suppressed.
 2. At the moment this project was setup the service mu-identifier weren't working for mac (at least on my device), so you have to build these yourself, and gave them the appropriate image name and tag.
 
+### Running the stack with smart search/question-answering
+
+To get the stack to work properly, including its AI question-answering service, there are a few extra steps that need to be done.
+
+First, add your LLM of choice (e.g., `gemma3:1b`) to your `docker-compose.override.yml`:
+
+```
+question-answering:
+  image: semanticai/decide-question-answering:latest
+  environment:
+    SEARCH_API_URL: "http://search:80/expressions/large-search"
+    EMBEDDING_API_URL: "http://embedding:80/embed"
+    MU_SPARQL_ENDPOINT: "http://database:8890/sparql"
+    MU_SPARQL_TIMEOUT: "30"
+    GENERATION_PROVIDER: "ollama"
+    GENERATION_ENDPOINT: "http://ollama:11434"
+    GENERATION_MODEL: "gemma3:1b"
+    GENERATION_TIMEOUT: "300.0"
+    MAX_CONTENT_CHARS: "1000"
+    REQUEST_TIMEOUT: "60.0"
+    ALLOW_MU_AUTH_SUDO: "true"
+```
+
+To include (smart) search features, the stack needs to be started with the `search` profile: `drc --profile=search up -d`.
+
+However, to avoid issues of started services waiting for the database and/or elasticsearch, it is advisable to start the stack in a 'staggered' manner:
+```
+docker compose --profile=search up -d virtuoso
+docker compose --profile=search up -d database identifier dispatcher resource
+docker compose --profile=search up -d search elasticsearch
+```
+
+After `search` has started, inspect the logs to ensure it is not indexing, for example when you are using an existing dataset: `docker compose logs -f search`.
+
+When everything is up, you need to manually pull the model you entered in `docker-compose.override.yml` in the `ollama` container:
+```
+docker compose exec -T ollama ollama pull gemma3:1b
+```
+
+Finally, you need to restart the `embedding` service and ensure it runs error-free:
+```
+docker compose restart embedding
+docker compose logs -f embedding
+```
+
+The frontend for the Smart Search should now be available at http://smart-search.localhost .
+
 ## Use cases
 
 The DECIDe project is designed to address a set of pre-defined use cases. This README outlines each service individually, allowing cities to select and deploy only the specific components required for their unique needs.
