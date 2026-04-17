@@ -90,7 +90,7 @@ services:
 
   nominatim:
     image: mediagis/nominatim:5.1
-    expose:
+    ports:
       - "8080:8080"
     environment:
       - PBF_URL=https://download.geofabrik.de/europe/belgium-latest.osm.pbf
@@ -144,3 +144,26 @@ services:
       - /bin/sh
       - -c
       - ollama serve & pid=$$! && sleep 5 && ollama pull embeddinggemma && wait $$pid
+
+  codelist-labeling:
+    image: codelist-labeling
+    environment:
+      TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting      
+      JOB_GRAPH: http://mu.semte.ch/graphs/harvesting
+      DATA_CONTAINER_GRAPH: http://mu.semte.ch/graphs/harvesting
+      HARVEST_COLLECTIONS_GRAPH: http://mu.semte.ch/graphs/harvesting
+      REMOTE_OBJECT_GRAPH: http://mu.semte.ch/graphs/harvesting
+      FILES_GRAPH: http://mu.semte.ch/graphs/harvesting
+      OPARL_TEMP_GRAPH: http://mu.semte.ch/graphs/harvesting
+      OSLO_TEMP_GRAPH: http://mu.semte.ch/graphs/harvesting
+
+      PUBLICATION_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      EXPRESSIONS_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      WORKS_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      MANIFESTATIONS_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      AI_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      ALLOW_MU_AUTH_SUDO: true
+      NOMINATIM_ENDPOINT: http://nominatim:8080/
+    volumes:
+      - ./../config/codelist/config.json:/usr/src/app/config.json:ro  # Mount config as read-only
+
