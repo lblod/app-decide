@@ -14,9 +14,9 @@
 
 (define-resource specific-resource ()
   :class (s-prefix "oa:SpecificResource")
-  :has-one `((expression :via ,(s-prefix "oa:source")
+  :has-one `((expression :via ,(s-prefix "oa:hasSource")
                          :as "source")
-             (text-position-selector :via ,(s-prefix "oa:selector")
+             (text-position-selector :via ,(s-prefix "oa:hasSelector")
                                      :as "selector")
              (annotation :via ,(s-prefix "oa:hasTarget")
                          :as "annotations"
