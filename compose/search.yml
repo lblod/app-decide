@@ -4,8 +4,6 @@ services:
   ##################################
   search:
     image: semtech/mu-search:feature-large-dense-vector
-    ports:
-      - '4000:80'
     volumes:
       - ../config/search:/config
   elasticsearch:
