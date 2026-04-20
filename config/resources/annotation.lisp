@@ -22,7 +22,7 @@
                          :as "annotations"
                          :inverse t))
   :features '(include-uri)
-  :resource-base (s-url "http://data.lblod.info/id/specific-resource/")
+  :resource-base (s-url "http://data.lblod.info/id/specific-resources/")
   :on-path "specific-resources")
 
 (define-resource text-position-selector ()
@@ -30,5 +30,5 @@
   :properties `((:start :number ,(s-prefix "oa:start"))
                 (:end :number ,(s-prefix "oa:end")))
   :features '(include-uri)
-  :resource-base (s-url "http://data.lblod.info/id/text-position-selector/")
+  :resource-base (s-url "http://data.lblod.info/id/text-position-selectors/")
   :on-path "text-position-selectors")
