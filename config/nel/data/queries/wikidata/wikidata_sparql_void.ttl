@@ -1,0 +1,92 @@
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix wd: <http://www.wikidata.org/entity/> .
+@prefix wdt: <http://www.wikidata.org/prop/direct/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+# The Dataset Description
+<https://query.wikidata.org/sparql#dataset> a void:Dataset ;
+    dcterms:title "Wikidata Subset for Decide" ;
+    dcterms:description "A subset of Wikidata containing Persons, Countries, Cities and Streets involved in the project." ;
+    void:sparqlEndpoint <https://query.wikidata.org/sparql> ;
+    
+    # Define the Classes found in your queries
+    void:classPartition [
+        void:class wd:Q5 ; # Human / Person
+        rdfs:label "Human" ;
+        rdfs:comment "A real living or deceased human being." ;
+        void:propertyPartition [ 
+            void:property rdfs:label ;
+            rdfs:label "label" ;
+            rdfs:comment "The preferred user-readable label for the entity."
+        ] ;
+        void:propertyPartition [ 
+            void:property wdt:P31 ;
+            rdfs:label "instance of" ; 
+            rdfs:comment "The class of which this entity is a member."
+        ] ;
+        void:propertyPartition [ 
+            void:property wdt:P734 ; # Family Name
+            rdfs:label "family name" ;
+            rdfs:comment "The part of the name that is inherited from parents."
+        ] ;
+        void:propertyPartition [ 
+            void:property wdt:P735 ; # Given Name
+            rdfs:label "given name" ;
+            rdfs:comment "The part of the name that differentiates siblings."
+        ] ;
+    ] ;
+    
+    void:classPartition [
+        void:class wd:Q6256 ; # Country
+        rdfs:label "Country" ;
+        rdfs:comment "A distinct region in geography, usually a sovereign state." ;
+        void:propertyPartition [ 
+            void:property rdfs:label ;
+            rdfs:label "label" ;
+            rdfs:comment "The name of the country."
+        ] ;
+    ] ;
+
+    void:classPartition [
+        void:class wd:Q515 ; # City
+        rdfs:label "City" ;
+        rdfs:comment "A large permanent human settlement." ;
+        void:propertyPartition [ 
+            void:property rdfs:label ;
+            rdfs:label "label" ;
+            rdfs:comment "The name of the city."
+        ] ;
+        void:propertyPartition [ 
+            void:property wdt:P17 ; # Country
+            rdfs:label "country" ;
+            rdfs:comment "The sovereign state of this entity."
+        ] ;
+    ] ;
+
+    void:classPartition [
+        void:class wd:Q3957 ; # Street
+        rdfs:label "Street" ;
+        rdfs:comment "A public thoroughfare in a built environment." ;
+        void:propertyPartition [ 
+            void:property rdfs:label ;
+            rdfs:label "label" ;
+            rdfs:comment "The name of the street."
+        ] ;
+        void:propertyPartition [ 
+            void:property wdt:P131 ; # Admin unit (City)
+            rdfs:label "located in administrative entity" ;
+            rdfs:comment "The administrative territorial entity (e.g. City) where this street is located."
+        ] ;
+    ] .
+
+# Optional: Add specific property relations (Linksets) 
+# to help the validator know that wdt:P17 points to a Country
+<https://query.wikidata.org/sparql#city-to-country> a void:Linkset ;
+    void:target <https://query.wikidata.org/sparql#dataset> ;
+    void:target <https://query.wikidata.org/sparql#dataset> ;
+    void:linkPredicate wdt:P17 ;
+    rdfs:label "City to Country" ;
+    rdfs:comment "Relation linking a City to its Country." .

@@ -1,0 +1,28 @@
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix euvoc: <http://publications.europa.eu/ontology/euvoc#> .
+
+<http://virtuoso:8890/sparql#dataset> a void:Dataset ;
+    dcterms:title "Local Administrative Units" ;
+    dcterms:description "Data about local administrative units and bodies." ;
+    void:sparqlEndpoint <http://virtuoso:8890/sparql> ;
+
+    void:classPartition [
+        void:class org:Organization ;
+        rdfs:label "Organization" ;
+        rdfs:comment "An organization such as an administrative unit or an administrative body." ;
+        void:propertyPartition [
+            void:property skos:prefLabel ;
+            rdfs:label "label"
+        ] ;
+        void:propertyPartition [
+            void:property euvoc:represents ;
+            rdfs:label "represents" ;
+            rdfs:comment "Relates an administrative body to the administrative unit it represents."
+        ]
+    ] .

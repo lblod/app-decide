@@ -1,0 +1,39 @@
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX bd: <http://www.bigdata.com/rdf#>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX mwapi: <https://www.mediawiki.org/ontology#API/>
+
+SELECT DISTINCT ?place ?placeLabel ?cityLabel WHERE {
+  
+  # 1. ANCHOR A: Find "Brussels"
+  SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:api "EntitySearch" .
+      bd:serviceParam wikibase:endpoint "www.wikidata.org" .
+      bd:serviceParam mwapi:search "Ghent" .
+      bd:serviceParam mwapi:language "en" .
+      bd:serviceParam mwapi:limit "1" . 
+      ?city wikibase:apiOutputItem mwapi:item .
+  }
+
+  # 2. ANCHOR B: Find "Grote Markt"
+  # This finds anything with "Grote Markt" in the title/alias.
+  SERVICE wikibase:mwapi {
+      bd:serviceParam wikibase:api "EntitySearch" .
+      bd:serviceParam wikibase:endpoint "www.wikidata.org" .
+      bd:serviceParam mwapi:search "Scaldisstraat" . 
+      bd:serviceParam mwapi:language "en" .
+      bd:serviceParam mwapi:limit "50" . 
+      ?place wikibase:apiOutputItem mwapi:item .
+  }
+
+  # 3. INTERSECTION: Are these specific places inside that specific city?
+  ?place wdt:P131* ?city .
+
+  # Labels
+  SERVICE wikibase:label { 
+    bd:serviceParam wikibase:language "en,nl". 
+  }
+}
+LIMIT 10

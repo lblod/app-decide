@@ -1,0 +1,53 @@
+{
+  "prefixes_map": {
+    "bd": "http://www.bigdata.com/rdf#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "wd": "http://www.wikidata.org/entity/",
+    "wdt": "http://www.wikidata.org/prop/direct/",
+    "wikibase": "http://wikiba.se/ontology#",
+    "besluit": "http://data.vlaanderen.be/ns/besluit#",
+    "mandaat": "http://data.vlaanderen.be/ns/mandaat#",
+    "persoon": "http://data.vlaanderen.be/ns/persoon#",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "org": "http://www.w3.org/ns/org#",
+    "skos": "http://www.w3.org/2004/02/skos/core#"
+  },
+  "classes_schema": {
+    "https://query.wikidata.org/sparql": {
+      "http://www.wikidata.org/entity/Q5": {
+        "http://www.w3.org/2000/01/rdf-schema#label": [],
+        "http://www.wikidata.org/prop/direct/P31": [],
+        "http://www.wikidata.org/prop/direct/P734": [],
+        "http://www.wikidata.org/prop/direct/P735": []
+      },
+      "http://www.wikidata.org/entity/Q6256": {
+        "http://www.w3.org/2000/01/rdf-schema#label": []
+      },
+      "http://www.wikidata.org/entity/Q515": {
+        "http://www.w3.org/2000/01/rdf-schema#label": [],
+        "http://www.wikidata.org/prop/direct/P17": []
+      },
+      "http://www.wikidata.org/entity/Q3957": {
+        "http://www.w3.org/2000/01/rdf-schema#label": [],
+        "http://www.wikidata.org/prop/direct/P131": []
+      },
+      "https://centrale-vindplaats.lblod.info/sparql": {
+        "http://data.vlaanderen.be/ns/besluit#Bestuurseenheid": {
+          "http://data.vlaanderen.be/ns/besluit#werkingsgebied": []
+        },
+        "http://data.vlaanderen.be/ns/besluit#Bestuursorgaan": {
+          "http://data.vlaanderen.be/ns/besluit#bestuurt": [],
+          "http://www.w3.org/2004/02/skos/core#prefLabel": []
+        },
+        "http://data.vlaanderen.be/ns/mandaat#Mandataris": {
+          "http://data.vlaanderen.be/ns/mandaat#isBestuurlijkeAliasVan": [],
+          "http://www.w3.org/ns/org#holds": []
+        },
+        "http://data.vlaanderen.be/ns/persoon#Persoon": {
+          "http://xmlns.com/foaf/0.1/familyName": [],
+          "http://data.vlaanderen.be/ns/persoon#gebruikteVoornaam": []
+        }
+      }
+    }
+  }
+}

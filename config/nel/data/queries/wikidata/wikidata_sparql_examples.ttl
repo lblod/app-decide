@@ -1,0 +1,88 @@
+@prefix ex_wd: <https://query.wikidata.org/.well-known/sparql-examples/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <https://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix spex: <https://purl.expasy.org/sparql-examples/ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# -------------------------------------------------------------------------
+# Prefix Definitions (Required for SHACL/SPARQL validation)
+# -------------------------------------------------------------------------
+
+_:sparql_examples_prefixes
+    a owl:Ontology ;
+    sh:declare
+        [
+            sh:prefix "wd" ;
+            sh:namespace "http://www.wikidata.org/entity/"^^xsd:anyURI
+        ],
+        [
+            sh:prefix "wdt" ;
+            sh:namespace "http://www.wikidata.org/prop/direct/"^^xsd:anyURI
+        ],
+        [
+            sh:prefix "wikibase" ;
+            sh:namespace "http://wikiba.se/ontology#"^^xsd:anyURI
+        ],
+        [
+            sh:prefix "bd" ;
+            sh:namespace "http://www.bigdata.com/rdf#"^^xsd:anyURI
+        ],
+        [
+            sh:prefix "rdfs" ;
+            sh:namespace "http://www.w3.org/2000/01/rdf-schema#"^^xsd:anyURI
+        ] .
+
+# -------------------------------------------------------------------------
+# Examples
+# -------------------------------------------------------------------------
+
+ex_wd:001
+    a sh:SPARQLExecutable, sh:SPARQLSelectExecutable ;
+    rdfs:comment "Find the street 'Scaldisstraat' in the city of Ghent, Belgium"@en ;
+    sh:prefixes _:sparql_examples_prefixes ;
+    sh:select """SELECT ?place ?placeLabel WHERE {
+  ?country rdfs:label "Belgium"@en .
+  ?city rdfs:label "Ghent"@en ;
+        wdt:P17 ?country .
+  ?place wdt:P131 ?city ;
+        rdfs:label ?label .
+  FILTER(CONTAINS(LCASE(STR(?label)), "Scaldisstraat"))
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en,nl".
+  }
+}""" ;
+    schema:keywords "location", "street", "city", "Belgium" ;
+    schema:target <https://query.wikidata.org/sparql> .
+
+ex_wd:002
+    a sh:SPARQLExecutable, sh:SPARQLSelectExecutable ;
+    rdfs:comment "Find the person entity for 'Mathias De Clercq'"@en ;
+    sh:prefixes _:sparql_examples_prefixes ;
+    sh:select """SELECT ?person ?personLabel WHERE {
+  ?person wdt:P31 wd:Q5 ;
+          rdfs:label "Mathias De Clercq"@en .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en,nl".
+  }
+}""" ;
+    schema:keywords "person", "label" ;
+    schema:target <https://query.wikidata.org/sparql> .
+
+ex_wd:003
+    a sh:SPARQLExecutable, sh:SPARQLSelectExecutable ;
+    rdfs:comment "Find the person entity for given name 'Mathias' and family name 'De Clercq'"@en ;
+    sh:prefixes _:sparql_examples_prefixes ;
+    sh:select """SELECT ?person ?personLabel WHERE {
+  ?person wdt:P31 wd:Q5 ;
+          wdt:P735 ?givenName ;
+          wdt:P734 ?familyName .
+  ?givenName rdfs:label "Mathias"@en .
+  ?familyName rdfs:label "De Clercq"@en .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en,nl".
+  }
+}""" ;
+    schema:keywords "person", "name" ;
+    schema:target <https://query.wikidata.org/sparql> .

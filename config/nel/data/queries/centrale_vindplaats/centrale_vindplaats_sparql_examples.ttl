@@ -1,0 +1,123 @@
+@prefix ex_cv: <https://centrale-vindplaats.lblod.info/.well-known/sparql-examples/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <https://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# -------------------------------------------------------------------------
+# Prefix Definitions
+# -------------------------------------------------------------------------
+
+_:sparql_examples_prefixes
+    a owl:Ontology ;
+    sh:declare
+        [ sh:prefix "rdf" ; sh:namespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#"^^xsd:anyURI ],
+        [ sh:prefix "rdfs" ; sh:namespace "http://www.w3.org/2000/01/rdf-schema#"^^xsd:anyURI ],
+        [ sh:prefix "skos" ; sh:namespace "http://www.w3.org/2004/02/skos/core#"^^xsd:anyURI ],
+        [ sh:prefix "besluit" ; sh:namespace "http://data.vlaanderen.be/ns/besluit#"^^xsd:anyURI ],
+        [ sh:prefix "foaf" ; sh:namespace "http://xmlns.com/foaf/0.1/"^^xsd:anyURI ],
+        [ sh:prefix "org" ; sh:namespace "http://www.w3.org/ns/org#"^^xsd:anyURI ],
+        [ sh:prefix "generiek" ; sh:namespace "https://data.vlaanderen.be/ns/generiek#"^^xsd:anyURI ],
+        [ sh:prefix "mandaat" ; sh:namespace "http://data.vlaanderen.be/ns/mandaat#"^^xsd:anyURI ],
+        [ sh:prefix "persoon" ; sh:namespace "http://data.vlaanderen.be/ns/persoon#"^^xsd:anyURI ] .
+
+# -------------------------------------------------------------------------
+# Examples
+# -------------------------------------------------------------------------
+
+
+ex_cv:001
+    a sh:SPARQLExecutable, sh:SPARQLSelectExecutable ;
+    rdfs:comment "Get all the administrative bodies (URIs, label) of region 'Sint-Gillis-Waas'"@en ;
+    sh:prefixes _:sparql_examples_prefixes ;
+    sh:select """SELECT ?administrativeBodyLabel ?administrativeBodyClassLabel ?administrativeBody WHERE {
+  ?administrativeUnit a besluit:Bestuurseenheid ;
+           besluit:werkingsgebied ?region .
+
+  ?region rdfs:label ?label .
+  FILTER(LCASE(STR(?label)) = LCASE("Sint-Gillis-Waas")) .
+
+  ?administrativeBody besluit:bestuurt ?administrativeUnit ;
+          skos:prefLabel ?administrativeBodyLabel ;
+          <http://www.w3.org/ns/org#classification> ?administrativeBodyClass .
+
+  ?administrativeBodyClass skos:prefLabel ?administrativeBodyClassLabel .
+}
+LIMIT 100""" ;
+    schema:keywords "administrativeBody", "region", "Sint-Gillis-Waas" ;
+    schema:target <https://centrale-vindplaats.lblod.info/sparql> .
+
+ex_cv:002
+    a sh:SPARQLExecutable, sh:SPARQLSelectExecutable ;
+    rdfs:comment "Get the administrative body URI of a region 'Gent' with label 'Vast Bureau'"@en ;
+    sh:prefixes _:sparql_examples_prefixes ;
+    sh:select """SELECT ?administrativeBodyLabel ?administrativeBodyClassLabel ?administrativeBody WHERE {
+  ?administrativeUnit a besluit:Bestuurseenheid ;
+           besluit:werkingsgebied ?region .
+
+  ?region rdfs:label ?label .
+  FILTER(LCASE(STR(?label)) = LCASE("Gent")) .
+
+  ?administrativeBody besluit:bestuurt ?administrativeUnit ;
+          skos:prefLabel ?administrativeBodyLabel .
+  FILTER(CONTAINS(LCASE(STR(?administrativeBodyLabel)), LCASE("Vast Bureau"))) .
+
+}
+LIMIT 10""" ;
+    schema:keywords "administrativeBody", "region", "Gent", "Vast Bureau" ;
+    schema:target <https://centrale-vindplaats.lblod.info/sparql> .
+
+ex_cv:003
+    a sh:SPARQLExecutable, sh:SPARQLSelectExecutable ;
+    rdfs:comment "Get all the mandatary (office holder) records"@en ;
+    sh:prefixes _:sparql_examples_prefixes ;
+    sh:select """SELECT ?regionLabel ?firstName ?alias ?familyName ?startMandate ?endMandate ?officeHolder WHERE {
+  ?officeHolder a mandaat:Mandataris ;
+    org:holds ?mandate ;
+    mandaat:start ?startMandate ;
+    mandaat:isBestuurlijkeAliasVan ?person .
+
+  OPTIONAL { ?officeHolder mandaat:einde ?endMandate . }
+
+  ?administrativeBodyInTime org:hasPost ?mandate ;
+    generiek:isTijdspecialisatieVan ?administrativeBody .
+
+  ?administrativeBody besluit:bestuurt ?administrativeUnit .
+  
+  ?administrativeUnit besluit:werkingsgebied ?region .
+  ?region rdfs:label ?regionLabel .
+
+  ?person foaf:familyName ?familyName ;
+    persoon:gebruikteVoornaam ?firstName ;
+    foaf:name ?alias .
+} 
+LIMIT 10""" ;
+    schema:keywords "mandatary", "person" ;
+    schema:target <https://centrale-vindplaats.lblod.info/sparql> .
+
+ex_cv:004
+    a sh:SPARQLExecutable, sh:SPARQLSelectExecutable ;
+    rdfs:comment "Find the uri of the mandatary (office holder) 'Tobias Daneels' of region 'Antwerpen'"@en ;
+    sh:prefixes _:sparql_examples_prefixes ;
+    sh:select """SELECT DISTINCT ?officeHolder WHERE {
+  ?officeHolder a mandaat:Mandataris ;
+    org:holds ?mandate ;
+    mandaat:isBestuurlijkeAliasVan ?person .
+
+  ?administrativeBodyInTime org:hasPost ?mandate ;
+    generiek:isTijdspecialisatieVan ?administrativeBody .
+  
+  ?administrativeBody besluit:bestuurt ?administrativeUnit .
+  
+  ?administrativeUnit skos:prefLabel "Antwerpen" .
+
+  ?person foaf:familyName "Daneels" .
+  
+  OPTIONAL { ?person persoon:gebruikteVoornaam ?firstName . }
+  OPTIONAL { ?person foaf:name ?alias . }
+
+  FILTER (?firstName = "Tobias" || ?alias = "Tobias")
+}""" ;
+    schema:keywords "mandatary", "Antwerpen", "person" ;
+    schema:target <https://centrale-vindplaats.lblod.info/sparql> .

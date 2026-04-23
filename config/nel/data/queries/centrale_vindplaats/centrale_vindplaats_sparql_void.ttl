@@ -1,0 +1,70 @@
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix besluit: <http://data.vlaanderen.be/ns/besluit#> .
+@prefix mandaat: <http://data.vlaanderen.be/ns/mandaat#> .
+@prefix persoon: <http://data.vlaanderen.be/ns/persoon#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+
+<https://centrale-vindplaats.lblod.info/sparql#dataset> a void:Dataset ;
+    dcterms:title "Centrale Vindplaats (LBLOD)" ;
+    dcterms:description "Data about local decisions, mandates, and administrative units in Flanders." ;
+    void:sparqlEndpoint <https://centrale-vindplaats.lblod.info/sparql> ;
+
+    void:classPartition [
+        void:class besluit:Bestuurseenheid ;
+        rdfs:label "Bestuurseenheid" ;
+        rdfs:comment "A unit of administration." ;
+        void:propertyPartition [
+            void:property besluit:werkingsgebied ;
+            rdfs:label "werkingsgebied" ;
+            rdfs:comment "The area of jurisdiction."
+        ]
+    ] ;
+
+    void:classPartition [
+        void:class besluit:Bestuursorgaan ;
+        rdfs:label "Bestuursorgaan" ; 
+        rdfs:comment "A governing body." ;
+        void:propertyPartition [
+             void:property besluit:bestuurt ;
+             rdfs:label "bestuurt" ;
+             rdfs:comment "Relates the organ to the unit it governs."
+        ] ;
+        void:propertyPartition [
+             void:property skos:prefLabel ;
+             rdfs:label "label" 
+        ]
+    ] ;
+
+    void:classPartition [
+        void:class mandaat:Mandataris ;
+        rdfs:label "Mandataris" ;
+        rdfs:comment "A person holding a mandate." ;
+        void:propertyPartition [
+            void:property mandaat:isBestuurlijkeAliasVan ;
+            rdfs:label "alias of"
+        ] ;
+        void:propertyPartition [
+            void:property org:holds ;
+            rdfs:label "holds mandate"
+        ]
+    ] ;
+
+    void:classPartition [
+        void:class persoon:Persoon ; 
+        rdfs:label "Persoon" ;
+        rdfs:comment "A natural person." ;
+        void:propertyPartition [
+            void:property foaf:familyName ;
+            rdfs:label "family name"
+        ] ;
+        void:propertyPartition [
+            void:property persoon:gebruikteVoornaam ;
+            rdfs:label "used first name"
+        ]
+    ] .
