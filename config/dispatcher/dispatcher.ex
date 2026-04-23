@@ -73,6 +73,10 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://annotation-review/"
   end
 
+  match "/policy-impact-report/*path", %{ accept: [:any], layer: :static } do
+    Proxy.forward conn, path, "http://policy-impact-report/"
+  end
+
   match "/shacl-reports/*path", %{ accept: [:any], layer: :static } do
     Proxy.forward conn, path, "http://report-generation/"
   end
@@ -291,6 +295,14 @@ defmodule Dispatcher do
 
   match "/geometries/*path", %{ accept: [:json], layer: :resources } do
     Proxy.forward conn, path, "http://cache/geometries/"
+  end
+
+  match "/sdg-concepts/*path", %{ accept: [:json], layer: :resources } do
+    Proxy.forward conn, path, "http://resource/sdg-concepts/"
+  end
+
+  match "/sdg-concept-schemes/*path", %{ accept: [:json], layer: :resources } do
+    Proxy.forward conn, path, "http://resource/sdg-concept-schemes/"
   end
 
   #################################################################

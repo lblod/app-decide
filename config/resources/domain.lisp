@@ -24,3 +24,4 @@
 (read-domain-file "master-scheduled-domain.lisp")
 (read-domain-file "job.json")
 (read-domain-file "geo.lisp")
+(read-domain-file "sdg-concepts.lisp")
