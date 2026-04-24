@@ -11,14 +11,14 @@ services:
       - logging=true
     restart: always
   vc-issuer:
-    image: lblod/oid4vc-login-service:0.0.1
+    image: lblod/oid4vc-login-service:0.0.2
     environment:
       ISSUER_DID: did:web:example.com:some:did
       ISSUER_KEY_ID: did:web:example.com:some:did#somekey
       VERIFIER_DID: did:web:example.com:some:did
       VERIFIER_KEY_ID: did:web:example.com:some:did#id
-      ISSUER_PUBLIC_KEY: notatallsecretkey
-      ISSUER_PRIVATE_KEY: superultrasecretkey
+      #ISSUER_PUBLIC_KEY: notatallsecretkey
+      #ISSUER_PRIVATE_KEY: superultrasecretkey
       ISSUER_URL: https://example.com/vc-issuer
       VERIFIER_URL: https://example.com/vc-verifier
       LOGO_URL: https://example.com/assets/logo.png
