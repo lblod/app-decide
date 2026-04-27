@@ -32,7 +32,7 @@ services:
       - ./../config/nel/config:/config
       - ./../config/nel/data:/app/data
   pdf-scraper:
-    image: semanticai/decide-pdf-scraper:0.0.2
+    image: semanticai/decide-pdf-scraper:0.0.3
     environment:
       TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting      
       JOB_GRAPH: http://mu.semte.ch/graphs/harvesting
