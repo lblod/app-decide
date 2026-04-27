@@ -25,7 +25,6 @@ services:
       
       LLM_PROVIDER: "mistral"
       LLM_MAX_RETRIES: 3
-      MISTRAL_API_KEY: "SECRET_KEY"
       MISTRAL_MODEL: "ministral-14b-2512"
     links:
       - database:database
@@ -137,12 +136,13 @@ services:
     logging: *default-logging
 
   ollama:
-    image: ollama/ollama:latest
+    image: ollama/ollama:0.21.2
     volumes:
       - ../data/ollama:/root/.ollama
     ports:
       - "11434:11434"
     restart: always
+    gpus: all
     entrypoint:
       - /bin/sh
       - -c

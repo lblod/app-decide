@@ -12,7 +12,7 @@
   },
   "translation": {
     "target_language": "en",
-    "provider": "ollama",
+    "provider": "langchain",
     "etranslation": {
       "base_url": "https://language-tools.ec.europa.eu/etranslation/api",
       "bearer_token": null,
@@ -24,20 +24,23 @@
       "max_text_length": 4000,
       "callback_url": null
     },
-    "ollama": {
+    "langchain": {
+      "provider": "ollama",
+      "model_name": "mistral-nemo",
       "base_url": "http://ollama:11434",
-      "model": "mistral-nemo",
-      "timeout_seconds": 180,
       "temperature": 0.1,
       "max_text_length": 6000
     }
-  },
+    },
   "segmentation": {
-    "model_name": "mistral-large-latest",
-    "api_key": "SECRET_KEY",
-    "endpoint": "https://api.mistral.ai/v1",
+    "llm": {
+      "provider": "mistralai",
+      "model_name": "mistral-large-latest",
+      "api_key": "SECRET_KEY",
+      "base_url": "https://api.mistral.ai/v1",
+      "temperature": 0.1
+    },
     "max_new_tokens": 20000,
-    "temperature": 0.1,
     "max_gap": 5
   }
 }
