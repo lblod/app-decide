@@ -15,6 +15,7 @@ Add datasource: `http://localhost:8080/20260112102218-sdg-codelist.ttl`
 
 Run following query:
 ```
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 prefix skos: <http://www.w3.org/2004/02/skos/core#>
 prefix mu: <http://mu.semte.ch/vocabularies/core/>
 prefix sdgo: <http://metadata.un.org/sdg/ontology#>
@@ -28,6 +29,8 @@ CONSTRUCT {
     ?newTopConcept a skos:Concept ;
         mu:uuid ?uuid;
         skos:prefLabel ?topConceptLabel ;
+    	skos:altLabel ?topConceptAltLabel ;
+    	skos:notation ?topConceptNotationAsInteger ;
         skos:definition ?finalDefinition ;
         skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/sdg-simple> ;
         skos:inScheme <http://data.lblod.gift/id/conceptscheme/sdg-simple> .
@@ -47,7 +50,9 @@ where {
     }
  
     ?topConcept skos:prefLabel ?topConceptLabel ;
-            skos:note ?note .
+                skos:altLabel ?topConceptAltLabel ;
+                skos:notation ?topConceptNotation ;
+            	skos:note ?note .
     {
       SELECT ?scheme
       WHERE {
@@ -57,10 +62,15 @@ where {
     }
     
     FILTER(lang(?topConceptLabel) = 'en')
-	  FILTER(lang(?note) = 'en')
+    FILTER(lang(?topConceptAltLabel) = 'en')
+  	FILTER(datatype(?topConceptNotation) = sdgo:SDGCode)
+	FILTER(lang(?note) = 'en')
   
   	BIND(MD5(str(?concatTargetLabel)) as ?uuid)
     BIND(IRI(concat(str(?topConcept), '/', ?uuid)) as ?newTopConcept)
     BIND(strlang(concat("Targets of ", str(?note), ': ', str(?concatTargetLabel)), 'en') as ?finalDefinition)
+  BIND(STRDT(str(?topConceptNotation), xsd:integer) as ?topConceptNotationAsInteger)
 }
 ```
+
+Replace the SDG hostname to LBLOD gift URI by running regex: `http://metadata.un.org/sdg/\d+/` to `http://data.lblod.gift/id/concept/`.
