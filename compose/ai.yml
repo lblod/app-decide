@@ -9,7 +9,7 @@ services:
   # AI PIPELINES
   ##############################################################################
   entity-linking:
-    image: local-entity-linking # TO UPDATE
+    image: semanticai/entity-linking-backend:0.0.1
     ports:
       - "81:80"
     environment:
@@ -33,7 +33,7 @@ services:
       - ./../config/nel/config:/config
       - ./../config/nel/data:/app/data
   pdf-scraper:
-    image: local-scraper # TO UPDATE
+    image: semanticai/decide-pdf-scraper:0.0.2
     environment:
       TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting      
       JOB_GRAPH: http://mu.semte.ch/graphs/harvesting
@@ -55,7 +55,7 @@ services:
     restart: always
     logging: *default-logging
   pdf-content:
-    image: local-content # TO UPDATE
+    image: semanticai/decide-pdf-content-extraction:0.0.6
     environment:
       APACHE_TIKA_URL: "http://apache-tika:9998/tika"
       TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting      
@@ -107,7 +107,7 @@ services:
       - "6333:6333"
 
   named-entity-recognition:
-    image: local-ner # TO UPDATE
+    image: semanticai/decide-geocoding-service:0.0.2
     ports:
       - "8082:80"
     environment:
@@ -149,7 +149,7 @@ services:
       - ollama serve & pid=$$! && sleep 5 && ollama pull embeddinggemma && wait $$pid
 
   codelist-labeling:
-    image: codelist-labeling
+    image: semanticai/codelist-labeling-service:0.0.1
     environment:
       TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting      
       JOB_GRAPH: http://mu.semte.ch/graphs/harvesting
