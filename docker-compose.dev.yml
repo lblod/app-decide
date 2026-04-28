@@ -88,6 +88,9 @@ services:
       - search
   annotation-review:
     restart: no
+    services:
+  frontend-smart-search:
+    restart: "no"
   kibana:
     restart: no
     profiles:
