@@ -18,7 +18,7 @@
                 (:pref-label :string ,(s-prefix "skos:prefLabel"))
                 (:alt-label :string ,(s-prefix "skos:altLabel"))
                 (:definition :string ,(s-prefix "skos:definition"))
-                (:notation :string ,(s-prefix "skos:notation"))
+                (:notation :number ,(s-prefix "skos:notation"))
                 )
   :has-one `((concept-scheme :via ,(s-prefix "skos:inScheme")
                              :as "concept-scheme"))

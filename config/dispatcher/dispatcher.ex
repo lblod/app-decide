@@ -298,11 +298,11 @@ defmodule Dispatcher do
   end
 
   match "/sdg-concepts/*path", %{ accept: [:json], layer: :resources } do
-    Proxy.forward conn, path, "http://resource/sdg-concepts/"
+    Proxy.forward conn, path, "http://cache/sdg-concepts/"
   end
 
   match "/sdg-concept-schemes/*path", %{ accept: [:json], layer: :resources } do
-    Proxy.forward conn, path, "http://resource/sdg-concept-schemes/"
+    Proxy.forward conn, path, "http://cache/sdg-concept-schemes/"
   end
 
   #################################################################
