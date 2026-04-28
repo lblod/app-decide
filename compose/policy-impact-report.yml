@@ -10,4 +10,8 @@ services:
       - 'logging=true'
     restart: always
     logging: *default-logging
-
+  frontend-policy-impact-report:
+    image: lblod/frontend-decide-policy-impact-report:feature-integrate-policy-impact-report-with-backend-microservice
+    labels:
+      - 'logging=true'
+    restart: always

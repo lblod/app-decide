@@ -297,14 +297,6 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://cache/geometries/"
   end
 
-  match "/sdg-concepts/*path", %{ accept: [:json], layer: :resources } do
-    Proxy.forward conn, path, "http://cache/sdg-concepts/"
-  end
-
-  match "/sdg-concept-schemes/*path", %{ accept: [:json], layer: :resources } do
-    Proxy.forward conn, path, "http://cache/sdg-concept-schemes/"
-  end
-
   #################################################################
   # FILES
   #################################################################
@@ -426,6 +418,20 @@ defmodule Dispatcher do
     forward(conn, path, "http://frontend-smart-search/@appuniversum/")
   end
 
+
+    # policy impact report
+  match "/index.html",  %{reverse_host: ["policy-impact-report" | _rest], layer: :static} do
+    forward(conn, [], "http://frontend-policy-impact-report/index.html")
+  end
+
+  get "/assets/*path", %{reverse_host: ["policy-impact-report" | _rest], layer: :static} do
+    forward(conn, path, "http://frontend-policy-impact-report/assets/")
+  end
+
+  get "/@appuniversum/*path",  %{reverse_host: ["policy-impact-report" | _rest], layer: :static} do
+    forward(conn, path, "http://frontend-policy-impact-report/@appuniversum/")
+  end
+
   #################
   # FRONTEND PAGES
   #################
@@ -453,6 +459,9 @@ defmodule Dispatcher do
     forward(conn, [], "http://frontend-smart-search/index.html")
   end
 
+  match "/*_path", %{reverse_host: ["policy-impact-report" | _rest], accept: %{html: true}, layer: :frontend} do
+    forward(conn, [], "http://frontend-policy-impact-report/index.html")
+  end
   #################
   # DCAT
   #################

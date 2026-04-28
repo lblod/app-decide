@@ -90,7 +90,10 @@
 
 (define-resource concept ()
   :class (s-prefix "skos:Concept")
-  :properties `((:pref-label :string ,(s-prefix "skos:prefLabel")))
+  :properties `((:pref-label :string ,(s-prefix "skos:prefLabel"))
+                (:alt-label :string ,(s-prefix "skos:altLabel"))
+                (:definition :string ,(s-prefix "skos:definition"))
+                (:notation :number ,(s-prefix "skos:notation")))
   :has-many `((dataset :via ,(s-prefix "dcat:theme")
                        :inverse t
                        :as "datasets"))
