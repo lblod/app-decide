@@ -57,8 +57,7 @@ services:
     restart: always
     logging: *default-logging
   annotation-job-splitter:
-    # TODO: Change to tagged version once available
-    image: lblod/annotation-job-splitter-service:feature-initial-implementation-tasks
+    image: lblod/annotation-job-splitter-service:0.0.1
     restart: always
     logging: *default-logging
     labels:
