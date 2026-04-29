@@ -47,7 +47,7 @@
       }
     ]
   },
-  "http://lblod.data.gift/id/jobs/concept/JobOperation/eli-enrichment": {
+  "http://lblod.data.gift/id/jobs/concept/JobOperation/ner-and-nel-annotations": {
     "tasksConfiguration": [
       {
         "currentOperation": null,
