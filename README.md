@@ -66,7 +66,7 @@ To get the stack to work properly, including its AI question-answering service, 
 
 First, add your LLM of choice (e.g., `gemma3:1b`) to your `docker-compose.override.yml`:
 
-```
+```yaml
 question-answering:
   image: semanticai/decide-question-answering:latest
   environment:
@@ -86,7 +86,7 @@ question-answering:
 To include (smart) search features, the stack needs to be started with the `search` profile: `drc --profile=search up -d`.
 
 However, to avoid issues of started services waiting for the database and/or elasticsearch, it is advisable to start the stack in a 'staggered' manner:
-```
+```bash
 docker compose --profile=search up -d virtuoso
 docker compose --profile=search up -d database identifier dispatcher resource
 docker compose --profile=search up -d search elasticsearch
@@ -95,12 +95,12 @@ docker compose --profile=search up -d search elasticsearch
 After `search` has started, inspect the logs to ensure it is not indexing, for example when you are using an existing dataset: `docker compose logs -f search`.
 
 When everything is up, you need to manually pull the model you entered in `docker-compose.override.yml` in the `ollama` container:
-```
+```bash
 docker compose exec -T ollama ollama pull gemma3:1b
 ```
 
 Finally, you need to restart the `embedding` service and ensure it runs error-free:
-```
+```bash
 docker compose restart embedding
 docker compose logs -f embedding
 ```
