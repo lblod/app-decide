@@ -19,7 +19,6 @@ This repository contains multiple docker-compose files
   - _compose/reporting.yml_ provides a service to (periodically) generate reports on the data in the app.
 - _docker-compose.dev.yml_ provides small changes for development purposes.
   - Publishes the entrypoint to the services on port 80, so all endpoints can be reached easily.
-  - Publishes the triplestore on port 8890, so the SPARQL endpoint (`/sparql`) can be reached easily.
 
 ## Running
 
