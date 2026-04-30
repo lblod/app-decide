@@ -70,7 +70,7 @@
                     "predicate": "ext:graphForTargets"
                 },
                 "property-path-for-text": {
-                    "type": "url",
+                    "type": "string",
                     "predicate": "ext:propertyPathForText"
                 },
                 "confidence-threshold": {
@@ -106,7 +106,7 @@
                     "predicate": "ext:graphForTargets"
                 },
                 "property-path-for-text": {
-                    "type": "url",
+                    "type": "string",
                     "predicate": "ext:propertyPathForText"
                 },
                 "confidence-threshold": {

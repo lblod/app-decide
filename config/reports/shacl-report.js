@@ -40,7 +40,8 @@ const namedGraphs = [
     'http://mu.semte.ch/graphs/public/freiburg',
     'http://mu.semte.ch/graphs/public/gent',
     'http://mu.semte.ch/graphs/public/pdf',
-]
+];
+
 const safeNamedGraphs = namedGraphs
   .map((uri) => sparqlEscapeUri(uri))
   .join('\n');
@@ -116,10 +117,31 @@ async function fillDataDataset(targetClass, offset, dataDataset) {
 
     // Shorten strings to avoid insert problems
     dataDataset.forEach((quad) => {
-        if (quad.object.termType === 'Literal' && typeof quad.object.value === 'string') {
-            const shorterObject = literal(quad.object.value.substr(0, MAX_STRING_LENGTH), quad.object.datatype)
-            dataDataset.addQuad(quad.subject, quad.predicate, shorterObject);
+        if (quad.object.termType === 'Literal' && 
+            typeof quad.object.value === 'string' &&
+            quad.object.value.length > MAX_STRING_LENGTH
+        ) {
+            const shortenedValue = quad.object.value.slice(0, MAX_STRING_LENGTH);
+            let shorterObject;
+            if (quad.object.language) {
+                // language-tagged literal
+                shorterObject = literal(shortenedValue, quad.object.language);
+            } else if (quad.object.datatype) {
+                // typed literal
+                shorterObject = literal(shortenedValue, quad.object.datatype);
+            } else {
+                // plain literal fallback
+                shorterObject = literal(shortenedValue);
+            }
+
+            // Replace quad
             dataDataset.removeQuad(quad);
+            dataDataset.addQuad(
+                quad.subject,
+                quad.predicate,
+                shorterObject,
+                quad.graph // preserve graph if present
+            );
         }
     })
 }

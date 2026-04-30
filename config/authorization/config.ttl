@@ -1,30 +1,39 @@
+# For more details in writing authorisation policies in ODRL, see
+# sparql-parser's README.
+# <https://github.com/mu-semtech/sparql-parser/tree/feature/odrl-configuration?tab=readme-ov-file#defining-an-authorization-policy-in-odrl>
+@prefix adms: <http://www.w3.org/ns/adms#> .
 @prefix besluit: <http://data.vlaanderen.be/ns/besluit#> .
 @prefix cms: <http://mu.semte.ch/vocabulary/cms/> .
 @prefix cogs: <http://vocab.deri.ie/cogs#> .
 @prefix core: <http://open-services.net/ns/core#> .
 @prefix dcat: <http://www.w3.org/ns/dcat#> .
 @prefix dct: <http://purl.org/dc/terms/> .
+@prefix defend: <https://d3fend.mitre.org/ontologies/d3fend#> .
 @prefix eli: <http://data.europa.eu/eli/ontology#> .
 @prefix eli-dl: <http://data.europa.eu/eli/eli-draft-legislation-ontology#> .
 @prefix ext: <http://mu.semte.ch/vocabularies/ext/> .
-@prefix harvesting: <http://lblod.data.gift/vocabularies/harvesting/> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix generiek: <https://data.vlaanderen.be/ns/generiek#> .
+@prefix harvesting: <http://lblod.data.gift/vocabularies/harvesting/> .
 @prefix locn: <http://www.w3.org/ns/locn#> .
+@prefix mandaat: <http://data.vlaanderen.be/ns/mandaat#> .
 @prefix ndo: <http://oscaf.sourceforge.net/ndo.html#> .
 @prefix nfo: <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#> .
-@prefix schema: <http://schema.org/> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix oa: <http://www.w3.org/ns/oa#> .
 @prefix odrl: <http://www.w3.org/ns/odrl/2/> .
 @prefix oparl-temp: <http://mu.semte.ch/vocabularies/ext/oparl/> .
 @prefix org: <http://www.w3.org/ns/org#> .
 @prefix perceel: <https://data.vlaanderen.be/ns/perceel#> .
+@prefix person: <http://www.w3.org/ns/person#> .
+@prefix schema: <http://schema.org/> .
 @prefix security: <http://lblod.data.gift/vocabularies/security/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix tasks: <http://redpencil.data.gift/vocabularies/tasks/> .
 @prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
 @prefix wikidata: <http://www.wikidata.org/entity/> .
 @prefix wot: <https://www.w3.org/2019/wot/security#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
 
 ext:muAuthProfile a odrl:Profile ;
   dct:description "ODRL profile describing access to mu-auth resources." .
@@ -32,9 +41,22 @@ ext:muAuthProfile a odrl:Profile ;
 ext:decideAuthorizationPolicy a odrl:Set ;
   odrl:profile ext:muAuthProfile ;
   odrl:permission ext:allowReadForPublic ,
-    odrl:allowReadForHarvesting ,
-    odrl:allowWriteForHarvesting ,
-    odrl:allowReadForHarvestingPublic .
+    ext:allowReadForOrganizations ,
+    ext:allowReadForHarvestedFreiburg ,
+    ext:allowReadForHarvestedGent ,
+    ext:allowReadForHarvestedPdf ,
+    ext:allowReadForHarvesting ,
+    ext:allowWriteForHarvesting ,
+    ext:allowReadForOrganization ,
+    ext:allowReadForOsloOrganizations ,
+    ext:allowReadForAiSlice ,
+    ext:allowReadForHumanValidation ,
+    ext:allowWriteForHumanValidation ,
+    ext:allowReadAnnotationForPublic ,
+    ext:allowReadAnnotationForGhent ,
+    ext:allowReadAnnotationForFreiburg ,
+    ext:allowReadAnnotationForPdf ,
+    ext:allowAnnotationReadForAiSlice .
 
 # Parties for groups
 ext:decideSystem a odrl:Party ;
@@ -54,24 +76,62 @@ ext:authenticatedParty a odrl:PartyCollection ;
   }""" ;
   dct:description "This represents all logged in users of the system." .
 
+ext:organizationMemberParty a odrl:PartyCollection ;
+  vcard:fn "organization-member" ;
+  ext:queryParameters "session_group" ;
+  ext:definedBy """PREFIX ext: <http://mu.semte.ch/vocabularies/ext/>
+          PREFIX mu: <http://mu.semte.ch/vocabularies/core/>
+          SELECT ?session_group ?session_role WHERE {
+            <SESSION_ID> ext:sessionGroup/mu:uuid ?session_group.
+          }""" .
 
 # Asset collections for graphs
-ext:decidePublicSlice a odrl:AssetCollection ;
-  vcard:fn "public" ;
-  # no query parameters added to the group so the graph is exactly this uri
-  ext:graphPrefix <http://mu.semte.ch/graphs/public> ;
-  dct:description "This asset collection contains all information that is available to the public in the context of the DECIDe app." .
-
 ext:decideHarvestingSlice a odrl:AssetCollection ;
   vcard:fn "harvesting" ;
   ext:graphPrefix <http://mu.semte.ch/graphs/harvesting> ;
   dct:description "This asset collection contains all information that is available in as part the harvesting done by the DECIDE app." .
 
-ext:decideHarvestingPublicSlice a odrl:AssetCollection ;
-  vcard:fn "harvesting-public" ;
-  ext:graphPrefix <http://mu.semte.ch/graphs/harvesting> ;
-  dct:description "This asset collection contains all information that is available to public as part of the harvesting done by the DECIDE app." .
+# NOTE (24/03/2026): plural organizationS
+ext:decideOrganizationsSlice a odrl:AssetCollection ;
+  vcard:fn "organizations" ;
+  ext:graphPrefix <http://mu.semte.ch/graphs/organizations> .
 
+# NOTE (24/03/2026): singular organization
+ext:decideOrganizationSlice a odrl:AssetCollection ;
+  vcard:fn "organization" ;
+  ext:graphPrefix <http://mu.semte.ch/graphs/organizations/> .
+
+# NOTE (10/02/2026): Graph <http://mu.semte.ch/graphs/organizations> does NOT
+# contain the `besluit:Bestuurseenheid` type (only `org:Organization`), using
+# that graph causes resource service to bug out for acm/idm login.
+ext:decideOsloOrganizationsSlice a odrl:AssetCollection ;
+  vcard:fn "oslo-organizations" ;
+  ext:graphPrefix <http://mu.semte.ch/graphs/bestuurseenheden-bestuursorganen> .
+
+ext:decideHarvestedFreiburgSlice a odrl:AssetCollection ;
+  vcard:fn "harvested-freiburg" ;
+  ext:graphPrefix <http://mu.semte.ch/graphs/public/freiburg> .
+
+ext:decideHarvestedGentSlice a odrl:AssetCollection ;
+  vcard:fn "harvested-gent" ;
+  ext:graphPrefix <http://mu.semte.ch/graphs/public/gent> .
+
+ext:decideHarvestedPdfSlice a odrl:AssetCollection ;
+  vcard:fn "harvested-pdf" ;
+  ext:graphPrefix <http://mu.semte.ch/graphs/public/pdf> .
+
+ext:decidePublicSlice a odrl:AssetCollection ;
+  vcard:fn "public" ;
+  ext:graphPrefix <http://mu.semte.ch/graphs/public> ;
+  dct:description "This asset collection contains all information that is available to the public in the context of the DECIDe app." .
+
+ext:decideHumanValidationSlice a odrl:AssetCollection ;
+  vcard:fn "human-validation" ;
+  ext:graphPrefix <http://mu.semte.ch/graphs/public/human-validation> .
+
+ext:decideAiSlice a odrl:AssetCollection ;
+  vcard:fn "ai" ;
+  ext:graphPrefix <http://mu.semte.ch/graphs/ai> .
 
 # Permissions for grants
 ext:allowReadForPublic a odrl:Permission ;
@@ -80,28 +140,109 @@ ext:allowReadForPublic a odrl:Permission ;
   odrl:assigner ext:decideSystem ;
   odrl:assignee ext:publicParty .
 
-odrl:allowReadForHarvesting a odrl:Permission ;
+ext:allowReadForOrganizations a odrl:Permission ;
+  odrl:action odrl:read ;
+  odrl:target ext:decideOrganizationsSlice ; # NOTE (24/03/2026): plural organizationS
+  odrl:assigner ext:decideSystem ;
+  odrl:assignee ext:publicParty .
+
+ext:allowReadForHarvestedFreiburg a odrl:Permission ;
+  odrl:action odrl:read ;
+  odrl:target ext:decideHarvestedFreiburgSlice ;
+  odrl:assigner ext:decideSystem ;
+  odrl:assignee ext:publicParty .
+
+ext:allowReadForHarvestedGent a odrl:Permission ;
+  odrl:action odrl:read ;
+  odrl:target ext:decideHarvestedGentSlice ;
+  odrl:assigner ext:decideSystem ;
+  odrl:assignee ext:publicParty .
+
+ext:allowReadForHarvestedPdf a odrl:Permission ;
+  odrl:action odrl:read ;
+  odrl:target ext:decideHarvestedPdfSlice ;
+  odrl:assigner ext:decideSystem ;
+  odrl:assignee ext:publicParty .
+
+ext:allowReadForHarvesting a odrl:Permission ;
   odrl:action odrl:read ;
   odrl:target ext:decideHarvestingSlice ;
   odrl:assigner ext:decideSystem ;
   odrl:assignee ext:authenticatedParty .
 
-odrl:allowWriteForHarvesting a odrl:Permission ;
+ext:allowWriteForHarvesting a odrl:Permission ;
   odrl:action odrl:modify ;
   odrl:target ext:decideHarvestingSlice ;
   odrl:assigner ext:decideSystem ;
   odrl:assignee ext:authenticatedParty .
 
-odrl:allowReadForHarvestingPublic a odrl:Permission ;
+ext:allowReadForOrganization a odrl:Permission ;
   odrl:action odrl:read ;
-  odrl:target ext:decideHarvestingPublicSlice ;
+  odrl:target ext:decideOrganizationSlice ; # NOTE (24/03/2026): Singular organization
+  odrl:assigner ext:decideSystem ;
+  odrl:assignee ext:organizationMemberParty .
+
+ext:allowReadForOsloOrganizations a odrl:Permission ;
+  odrl:action odrl:read ;
+  odrl:target ext:decideOsloOrganizationsSlice ;
   odrl:assigner ext:decideSystem ;
   odrl:assignee ext:publicParty .
 
+ext:allowReadForAiSlice a odrl:Permission ;
+  odrl:action odrl:read ;
+  odrl:target ext:decideAiSlice ;
+  odrl:assigner ext:decideSystem ;
+  odrl:assignee ext:publicParty .
+
+ext:allowReadForHumanValidation a odrl:Permission ;
+  odrl:action odrl:read ;
+  odrl:target ext:decideHumanValidationSlice ;
+  odrl:assigner ext:decideSystem ;
+  odrl:assignee ext:publicParty  ;
+  ext:scope "http://services.semantic.works/annotation-review-service" .
+
+ext:allowWriteForHumanValidation a odrl:Permission ;
+  odrl:action odrl:modify ;
+  odrl:target ext:decideHumanValidationSlice ;
+  odrl:assigner ext:decideSystem ;
+  odrl:assignee ext:publicParty ;
+  ext:scope "http://services.semantic.works/annotation-review-service" .
+
+ext:allowReadAnnotationForPublic a odrl:Permission ;
+  odrl:action odrl:read ;
+  odrl:target ext:decidePublicSlice ;
+  odrl:assignee ext:publicParty ;
+  ext:scope "http://services.semantic.works/annotation-review-service" .
+
+ext:allowReadAnnotationForGhent a odrl:Permission ;
+  odrl:action odrl:read ;
+  odrl:target ext:decideHarvestedGentSlice ;
+  odrl:assignee ext:publicParty ;
+  ext:scope "http://services.semantic.works/annotation-review-service" .
+
+ext:allowReadAnnotationForFreiburg a odrl:Permission ;
+  odrl:action odrl:read ;
+  odrl:target ext:decideHarvestedFreiburgSlice ;
+  odrl:assignee ext:publicParty ;
+  ext:scope "http://services.semantic.works/annotation-review-service" .
+
+ext:allowReadAnnotationForPdf a odrl:Permission ;
+  odrl:action odrl:read ;
+  odrl:target ext:decideHarvestedPdfSlice ;
+  odrl:assignee ext:publicParty ;
+  ext:scope "http://services.semantic.works/annotation-review-service" .
+
+ext:allowAnnotationReadForAiSlice a odrl:Permission ;
+  odrl:action odrl:read ;
+  odrl:target ext:decideAiSlice ;
+  odrl:assigner ext:decideSystem ;
+  odrl:assignee ext:publicParty ;
+  ext:scope "http://services.semantic.works/annotation-review-service" .
 
 # Assets (SHACL shapes) for type specifications
 ext:BesluitAdministrativeUnitAsset a odrl:Asset, sh:NodeShape ;
-  odrl:partOf ext:decidePublicSlice ;
+  odrl:partOf ext:decidePublicSlice ,
+    ext:decideOsloOrganizationsSlice;
   sh:targetClass besluit:Bestuurseenheid .
 
 ext:CmsPageAsset a odrl:Asset, sh:NodeShape ;
@@ -133,7 +274,10 @@ ext:DctPeriodOfTimeAsset a odrl:Asset, sh:NodeShape ;
 
 ext:ElidlActivityAsset a odrl:Asset, sh:NodeShape ;
   odrl:partOf ext:decidePublicSlice ,
-    ext:decideHarvestingPublicSlice ;
+    ext:decideHarvestingPublicSlice ,
+    ext:decideHarvestedFreiburgSlice ,
+    ext:decideHarvestedGentSlice ,
+    ext:decideHarvestedPdfSlice ;
   sh:targetClass eli-dl:Activity .
 
 ext:ElidlDecisionAsset a odrl:Asset, sh:NodeShape ;
@@ -178,7 +322,10 @@ ext:EliComplexWorkAsset a odrl:Asset, sh:NodeShape ;
 
 ext:EliExpressionAsset a odrl:Asset, sh:NodeShape ;
   odrl:partOf ext:decidePublicSlice ,
-    ext:decideHarvestingPublicSlice ;
+    ext:decideHarvestingPublicSlice ,
+    ext:decideHarvestedFreiburgSlice ,
+    ext:decideHarvestedGentSlice ,
+    ext:decideHarvestedPdfSlice ;
   sh:targetClass eli:Expression .
 
 ext:EliLegalExpressionAsset a odrl:Asset, sh:NodeShape ;
@@ -188,11 +335,17 @@ ext:EliLegalExpressionAsset a odrl:Asset, sh:NodeShape ;
 
 ext:EliManifestationAsset a odrl:Asset, sh:NodeShape ;
   odrl:partOf ext:decidePublicSlice ,
-    ext:decideHarvestingPublicSlice ;
+    ext:decideHarvestingPublicSlice ,
+    ext:decideHarvestedFreiburgSlice ,
+    ext:decideHarvestedGentSlice ,
+    ext:decideHarvestedPdfSlice ;
   sh:targetClass eli:Manifestation .
 
 ext:EliWorkAsset a odrl:Asset, sh:NodeShape ;
-  odrl:partOf ext:decidePublicSlice ;
+  odrl:partOf ext:decidePublicSlice ,
+    ext:decideHarvestedFreiburgSlice ,
+    ext:decideHarvestedGentSlice ,
+    ext:decideHarvestedPdfSlice ;
   sh:targetClass eli:Work .
 
 ext:FoafAgentAsset a odrl:Asset, sh:NodeShape ;
@@ -200,8 +353,17 @@ ext:FoafAgentAsset a odrl:Asset, sh:NodeShape ;
   sh:targetClass foaf:Agent .
 
 ext:FoafPersonAsset a odrl:Asset, sh:NodeShape ;
-  odrl:partOf ext:decidePublicSlice ;
+  odrl:partOf ext:decidePublicSlice ,
+    ext:decideOrganizationSlice ;
   sh:targetClass foaf:Person .
+
+ext:FoafOnlineAccountAsset a odrl:Asset, sh:NodeShape ;
+  odrl:partOf ext:decideOrganizationSlice ;
+  sh:targetClass foaf:OnlineAccount .
+
+ext:AdmsIdentifierAsset a odrl:Asset, sh:NodeShape ;
+  odrl:partOf ext:decideOrganizationSlice ;
+  sh:targetClass adms:Identifier .
 
 ext:OparltempLocationAsset a odrl:Asset, sh:NodeShape ;
   odrl:partOf ext:decidePublicSlice ;
@@ -212,7 +374,11 @@ ext:OrgMembershipAsset a odrl:Asset, sh:NodeShape ;
   sh:targetClass org:Membership .
 
 ext:OrgOrganizationAsset a odrl:Asset, sh:NodeShape ;
-  odrl:partOf ext:decidePublicSlice ;
+  odrl:partOf ext:decidePublicSlice ,
+    ext:decideOrganizationsSlice ,
+    ext:decideHarvestedFreiburgSlice ,
+    ext:decideHarvestedGentSlice ,
+    ext:decideHarvestedPdfSlice ;
   sh:targetClass org:Organization .
 
 ext:SkosConceptAsset a odrl:Asset, sh:NodeShape ;
@@ -248,43 +414,60 @@ ext:WikidataQ2785216Asset a odrl:Asset, sh:NodeShape ;
   sh:targetClass wikidata:Q2785216 .
 
 ext:OaAnnotationAsset a odrl:Asset, sh:NodeShape ;
-  odrl:partOf ext:decidePublicSlice ;
+  odrl:partOf ext:decidePublicSlice ,
+    ext:decideAiSlice ;
   sh:targetClass oa:Annotation .
 
-ext:AaSpecificResourceAsset a odrl:Asset, sh:NodeShape ;
-  odrl:partOf ext:decidePublicSlice ;
+ext:OaSpecificResourceAsset a odrl:Asset, sh:NodeShape ;
+  odrl:partOf ext:decidePublicSlice ,
+    ext:decideAiSlice ;
   sh:targetClass oa:SpecificResource .
 
 ext:OaTextPositionSelectorAsset a odrl:Asset, sh:NodeShape ;
-  odrl:partOf ext:decidePublicSlice ;
+  odrl:partOf ext:decidePublicSlice ,
+    ext:decideAiSlice ;
   sh:targetClass oa:TextPositionSelector .
 
 ext:TasksTaskAsset a odrl:Asset, sh:NodeShape ;
-  odrl:partOf ext:decideHarvestingSlice ;
+  odrl:partOf ext:decideHarvestingSlice ,
+    ext:decidePublicSlice ;
   sh:targetClass tasks:Task .
 
 ext:TasksScheduledTaskAsset a odrl:Asset, sh:NodeShape ;
-  odrl:partOf ext:decideHarvestingSlice ;
+  odrl:partOf ext:decideHarvestingSlice ,
+    ext:decidePublicSlice ;
   sh:targetClass tasks:ScheduledTask .
 
 ext:TasksCronScheduleAsset a odrl:Asset, sh:NodeShape ;
-  odrl:partOf ext:decideHarvestingSlice ;
+  odrl:partOf ext:decideHarvestingSlice ,
+    ext:decidePublicSlice ;
   sh:targetClass tasks:CronSchedule .
 
 ext:CogsJobAsset a odrl:Asset, sh:NodeShape ;
-  odrl:partOf ext:decideHarvestingSlice ;
+  odrl:partOf ext:decideHarvestingSlice ,
+    ext:decidePublicSlice ;
   sh:targetClass cogs:Job .
+
+ext:ExtAnnotionJobAsset a odrl:Asset, sh:NodeShape ;
+  odrl:partOf ext:decidePublicSlice ;
+  sh:targetClass ext:AnnotationJob .
+
+ext:ExtReviewAnnotationAsset a odrl:Asset, sh:NodeShape ;
+  odrl:partOf ext:decideHumanValidationSlice ;
+  sh:targetClass ext:ReviewAnnotation .
 
 ext:NodeShapeAsset a odrl:Asset, sh:NodeShape ;
   odrl:partOf ext:decideHarvestingSlice ;
   sh:targetClass sh:NodeShape .
 
 ext:CogsScheduledJobAsset a odrl:Asset, sh:NodeShape ;
-  odrl:partOf ext:decideHarvestingSlice ;
+  odrl:partOf ext:decideHarvestingSlice ,
+    ext:decidePublicSlice ;
   sh:targetClass cogs:ScheduledJob .
 
 ext:SchemaRepeatFrequencyAsset a odrl:Asset, sh:NodeShape ;
-  odrl:partOf ext:decideHarvestingSlice ;
+  odrl:partOf ext:decideHarvestingSlice ,
+    ext:decidePublicSlice ;
   sh:targetClass schema:repeatFrequency .
 
 ext:CoreErrorAsset a odrl:Asset, sh:NodeShape ;
@@ -297,16 +480,23 @@ ext:HarvestingHarvestingCollectionAsset a odrl:Asset, sh:NodeShape ;
 
 ext:NfoRemoteDataObjectAsset a odrl:Asset, sh:NodeShape ;
   odrl:partOf ext:decideHarvestingSlice ,
-    ext:decideHarvestingPublicSlice ;
+    ext:decideHarvestingPublicSlice ,
+    ext:decideHarvestedFreiburgSlice ,
+    ext:decideHarvestedGentSlice ,
+    ext:decideHarvestedPdfSlice ;
   sh:targetClass nfo:RemoteDataObject .
 
 ext:NfoFileDataObjectAsset a odrl:Asset, sh:NodeShape ;
   odrl:partOf ext:decideHarvestingSlice ,
-    ext:decideHarvestingPublicSlice ;
+    ext:decideHarvestingPublicSlice ,
+    ext:decideHarvestedFreiburgSlice ,
+    ext:decideHarvestedGentSlice ,
+    ext:decideHarvestedPdfSlice ;
   sh:targetClass nfo:FileDataObject .
 
 ext:NfoDataContainerAsset a odrl:Asset, sh:NodeShape ;
-  odrl:partOf ext:decideHarvestingSlice ;
+  odrl:partOf ext:decideHarvestingSlice ,
+    ext:decidePublicSlice ;
   sh:targetClass nfo:DataContainer .
 
 ext:NdoDownloadEventAsset a odrl:Asset, sh:NodeShape ;

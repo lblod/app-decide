@@ -90,6 +90,10 @@
 
 (define-resource concept ()
   :class (s-prefix "skos:Concept")
+  :properties `((:pref-label :string ,(s-prefix "skos:prefLabel"))
+                (:alt-label :string ,(s-prefix "skos:altLabel"))
+                (:definition :string ,(s-prefix "skos:definition"))
+                (:notation :number ,(s-prefix "skos:notation")))
   :has-many `((dataset :via ,(s-prefix "dcat:theme")
                        :inverse t
                        :as "datasets"))
@@ -101,6 +105,7 @@
 
 (define-resource concept-scheme ()
   :class (s-prefix "skos:ConceptScheme")
+  :properties `((:pref-label :string ,(s-prefix "skos:prefLabel")))
   :resource-base (s-url "http://data.lblod.info/id/concept-schemes/")
   :has-many `((catalog :via ,(s-prefix "dcat:themeTaxonomy")
                        :inverse t

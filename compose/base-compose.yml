@@ -23,13 +23,11 @@ services:
     restart: always
     logging: *default-logging
   database:
-    image: semtech/sparql-parser:0.0.14
+    image: semtech/sparql-parser:feature-odrl-configuration
     environment:
-      USE_ODRL_POLICY: 'false'
       LISP_DYNAMIC_SPACE_SIZE: 8192
     volumes:
       - ../config/authorization:/config
-      - ../config/odrl-parser:/odrl
       - ../data/authorization:/data
     labels:
       - 'logging=true'
@@ -48,6 +46,8 @@ services:
     logging: *default-logging
   resource:
     image: semtech/mu-cl-resources:1.27.2
+    environment:
+      CACHE_CLEAR_PATH: 'http://cache/.mu/clear-keys'
     volumes:
       - ../config/resources:/config
     labels:

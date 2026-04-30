@@ -1,10 +1,6 @@
 services:
   dcat:
     image: lblod/dcat-service:0.0.1
-  odrl-parser:
-    image: lblod/odrl-parser-service:0.0.5
-    volumes:
-      - ../config/odrl-parser:/config
   vc-issuer:
     image: lblod/oid4vc-login-service:0.0.1
     environment:

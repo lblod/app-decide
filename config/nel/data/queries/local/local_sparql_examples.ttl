@@ -1,0 +1,54 @@
+@prefix ex: <http://virtuoso:8890/.well-known/sparql-examples/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <https://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+_:sparql_examples_prefixes
+    a owl:Ontology ;
+    sh:declare
+        [ sh:prefix "skos" ; sh:namespace "http://www.w3.org/2004/02/skos/core#"^^xsd:anyURI ],
+        [ sh:prefix "org" ; sh:namespace "http://www.w3.org/ns/org#"^^xsd:anyURI ],
+        [ sh:prefix "euvoc" ; sh:namespace "http://publications.europa.eu/ontology/euvoc#"^^xsd:anyURI ] .
+
+ex:001
+    a sh:SPARQLExecutable, sh:SPARQLSelectExecutable ;
+    rdfs:comment "Get all the administrative bodies (URIs, label) of region 'Sint-Gillis-Waas'"@en ;
+    sh:prefixes _:sparql_examples_prefixes ;
+    sh:select """SELECT ?administrativeBody ?administrativeBodyLabel WHERE {
+  ?administrativeBody a org:Organization ;
+          skos:prefLabel ?administrativeBodyLabel ;
+          euvoc:represents ?administrativeUnit .
+
+  ?administrativeUnit a org:Organization ;
+           skos:prefLabel ?regionLabel .
+
+  FILTER(CONTAINS(LCASE(STR(?regionLabel)), LCASE("Sint-Gillis-Waas"))) .
+  FILTER(lang(?administrativeBodyLabel) = "nl") .
+  FILTER(lang(?regionLabel) = "nl") .
+}
+LIMIT 100""" ;
+    schema:keywords "administrativeBody", "region", "Sint-Gillis-Waas" ;
+    schema:target <http://virtuoso:8890/sparql> .
+
+ex:002
+    a sh:SPARQLExecutable, sh:SPARQLSelectExecutable ;
+    rdfs:comment "Get the administrative body URI of a region 'Gent' with label 'Vast Bureau'"@en ;
+    sh:prefixes _:sparql_examples_prefixes ;
+    sh:select """SELECT ?administrativeBody ?administrativeBodyLabel WHERE {
+  ?administrativeBody a org:Organization ;
+          skos:prefLabel ?administrativeBodyLabel ;
+          euvoc:represents ?administrativeUnit .
+
+  ?administrativeUnit a org:Organization ;
+           skos:prefLabel ?regionLabel .
+
+  FILTER(CONTAINS(LCASE(STR(?regionLabel)), LCASE("Gent"))) .
+  FILTER(CONTAINS(LCASE(STR(?administrativeBodyLabel)), LCASE("Vast Bureau"))) .
+  FILTER(lang(?administrativeBodyLabel) = "nl") .
+  FILTER(lang(?regionLabel) = "nl") .
+}
+LIMIT 10""" ;
+    schema:keywords "administrativeBody", "region", "Gent", "Vast Bureau" ;
+    schema:target <http://virtuoso:8890/sparql> .

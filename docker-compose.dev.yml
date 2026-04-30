@@ -30,8 +30,6 @@ services:
     restart: "no"
   file:
     restart: "no"
-  odrl-parser:
-    restart: "no"
   vc-issuer:
     restart: "no"
   mocklogin:
@@ -90,6 +88,17 @@ services:
       - search
   annotation-review:
     restart: no
+  pdf-scraper:
+    restart: "no"
+  nominatim:
+    restart: "no"
+  qdrant:
+    restart: "no"
+  named-entity-recognition:
+    restart: "no"
+  codelist-labeling:
+  frontend-smart-search:
+    restart: "no"
   kibana:
     restart: no
     profiles:
@@ -102,3 +111,7 @@ services:
     user: root
     command: |
       sh -c "/usr/local/bin/kibana-docker --allow-root;"
+  policy-impact-report:
+    restart: no
+  frontend-policy-impact-report:
+    restart: no
