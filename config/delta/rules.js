@@ -5,6 +5,7 @@ import osloToEli from './oslo-to-eli';
 import search from './search';
 import resource from './resource';
 import codelist from './codelist';
+import annotationJobSplitter from './annotation-job-splitter';
 
 export default [
   ...resource,
@@ -14,4 +15,5 @@ export default [
   ...osloToEli,
   ...search,
   ...codelist,
+  ...annotationJobSplitter,
 ];

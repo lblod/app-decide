@@ -5,3 +5,5 @@ include:
   - compose/search.yml
   - compose/validation.yml
   - compose/reporting.yml
+  - compose/smart-search.yml
+  - compose/policy-impact-report.yml

@@ -97,6 +97,7 @@ services:
   named-entity-recognition:
     restart: "no"
   codelist-labeling:
+  frontend-smart-search:
     restart: "no"
   kibana:
     restart: no
@@ -110,3 +111,7 @@ services:
     user: root
     command: |
       sh -c "/usr/local/bin/kibana-docker --allow-root;"
+  policy-impact-report:
+    restart: no
+  frontend-policy-impact-report:
+    restart: no
