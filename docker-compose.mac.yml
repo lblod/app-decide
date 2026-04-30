@@ -10,8 +10,6 @@ services:
   deltanotifier:
     image: semtech/mu-delta-notifier:latest
     platform: linux/arm64
-  odrl-parser:
-    platform: linux/arm64
   vc-issuer:
     platform: linux/amd64
   mocklogin:
@@ -44,4 +42,8 @@ services:
   question-answering:
     platform: linux/amd64
   pdf-scraper:
+    platform: linux/amd64
+  frontend-policy-impact-report:
+    platform: linux/amd64
+  frontend-smart-search:
     platform: linux/amd64
