@@ -14,7 +14,8 @@
     "model_name": "mistral-large-latest",
     "api_key": "SECRET_KEY",
     "endpoint": "https://api.mistral.ai/v1",
-    "max_new_tokens": 20000,
+    "max_new_tokens": 250000,
+    "text_limit_chars": 1000000,
     "temperature": 0.1,
     "max_gap": 5
   }
