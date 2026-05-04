@@ -56,7 +56,8 @@ ext:decideAuthorizationPolicy a odrl:Set ;
     ext:allowReadAnnotationForGhent ,
     ext:allowReadAnnotationForFreiburg ,
     ext:allowReadAnnotationForPdf ,
-    ext:allowAnnotationReadForAiSlice .
+    ext:allowAnnotationReadForAiSlice ,
+    ext:allowPublicReadForAuthz .
 
 # Parties for groups
 ext:decideSystem a odrl:Party ;
@@ -457,7 +458,8 @@ ext:ExtReviewAnnotationAsset a odrl:Asset, sh:NodeShape ;
   sh:targetClass ext:ReviewAnnotation .
 
 ext:NodeShapeAsset a odrl:Asset, sh:NodeShape ;
-  odrl:partOf ext:decideHarvestingSlice ;
+  odrl:partOf ext:decideHarvestingSlice ,
+    ext:decideAuthzSlice ;
   sh:targetClass sh:NodeShape .
 
 ext:CogsScheduledJobAsset a odrl:Asset, sh:NodeShape ;
@@ -530,3 +532,39 @@ ext:WotBasicSecuritySchemeAsset a odrl:Asset, sh:NodeShape ;
 ext:WotOAuth2SecuritySchemeAsset a odrl:Asset, sh:NodeShape ;
   odrl:partOf ext:decideHarvestingSlice ;
   sh:targetClass wot:OAuth2SecurityScheme .
+
+
+# Access rights to the stored copy of this policy itself
+ext:decideAuthzSlice a odrl:AssetCollection ;
+  vcard:fn "odrl-authorization-policy" ;
+  ext:graphPrefix <http://mu.semte.ch/graphs/odrl-authorization-policy> .
+
+ext:OdrlProfileAsset a odrl:Asset, sh:NodeShape ;
+  odrl:partOf ext:decideAuthzSlice ;
+  sh:targetClass odrl:Profile .
+
+ext:OdrlPartyAsset a odrl:Asset, sh:NodeShape ;
+  odrl:partOf ext:decideAuthzSlice ;
+  sh:targetClass odrl:Party .
+
+ext:OdrlPartyCollectionAsset a odrl:Asset, sh:NodeShape ;
+  odrl:partOf ext:decideAuthzSlice ;
+  sh:targetClass odrl:PartyCollection .
+
+ext:OdrlAssetCollectionAsset a odrl:Asset, sh:NodeShape ;
+  odrl:partOf ext:decideAuthzSlice ;
+  sh:targetClass odrl:AssetCollection .
+
+ext:OdrlAssetAsset a odrl:Asset, sh:NodeShape ;
+  odrl:partOf ext:decideAuthzSlice ;
+  sh:targetClass odrl:Asset .
+
+ext:OdrlPermissionAsset a odrl:Asset, sh:NodeShape ;
+  odrl:partOf ext:decideAuthzSlice ;
+  sh:targetClass odrl:Permission .
+
+ext:allowPublicReadForAuthz a odrl:Permission ;
+  odrl:action odrl:read ;
+  odrl:target ext:decideAuthzSlice ;
+  odrl:assigner ext:decideSystem ;
+  odrl:assignee ext:publicParty .
