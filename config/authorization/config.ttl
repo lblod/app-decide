@@ -33,7 +33,6 @@
 @prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
 @prefix wikidata: <http://www.wikidata.org/entity/> .
 @prefix wot: <https://www.w3.org/2019/wot/security#> .
-@prefix sh: <http://www.w3.org/ns/shacl#> .
 
 ext:muAuthProfile a odrl:Profile ;
   dct:description "ODRL profile describing access to mu-auth resources." .
