@@ -29,6 +29,7 @@ services:
     volumes:
       - ./../config/nel/config:/config
       - ./../config/nel/data:/app/data
+    restart: always
   pdf-scraper:
     image: semanticai/decide-pdf-scraper:0.0.3
     environment:
@@ -49,6 +50,7 @@ services:
       ALLOW_MU_AUTH_SUDO: true
     labels:
       - logging=true
+    restart: always
     logging: *default-logging
   pdf-content:
     image: semanticai/decide-pdf-content-extraction:0.0.7
@@ -75,24 +77,29 @@ services:
       - ./../config/pdf-content/config.json:/app/config.json:ro  # Mount config as read-only
     labels:
       - logging=true
+    restart: always
     logging: *default-logging
   apache-tika:
     image: lblod/apache-tika-service:0.0.3
+    restart: always
     logging: *default-logging
 
   question-answering:
     image: docker.io/semanticai/decide-question-answering:0.0.0
+    restart: always
     logging: *default-logging
 
   nominatim:
     image: mediagis/nominatim:5.1
     environment:
       - PBF_URL=https://download.geofabrik.de/europe/belgium-latest.osm.pbf
+    restart: always
     volumes:
       - ./../data/nominatim:/var/lib/postgresql/16/main
 
   qdrant:
     image: qdrant/qdrant
+    restart: always
 
   named-entity-recognition:
     image: semanticai/decide-geocoding-service:0.0.2
@@ -119,12 +126,14 @@ services:
       - virtuoso
     labels:
       - logging=true
+    restart: always
     logging: *default-logging
 
   ollama:
     image: ollama/ollama:0.21.2
     volumes:
       - ../data/ollama:/root/.ollama
+    restart: always
     gpus: all
     entrypoint:
       - /bin/sh
@@ -150,6 +159,7 @@ services:
       AI_GRAPH: http://mu.semte.ch/graphs/public/pdf
       ALLOW_MU_AUTH_SUDO: true
       NOMINATIM_ENDPOINT: http://nominatim:8080/
+    restart: always
     volumes:
       - ./../config/codelist/config.json:/usr/src/app/config.json:ro  # Mount config as read-only
 
