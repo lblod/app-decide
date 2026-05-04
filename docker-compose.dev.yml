@@ -88,6 +88,15 @@ services:
       - search
   annotation-review:
     restart: no
+  pdf-scraper:
+    restart: "no"
+  nominatim:
+    restart: "no"
+  qdrant:
+    restart: "no"
+  named-entity-recognition:
+    restart: "no"
+  codelist-labeling:
   frontend-smart-search:
     restart: "no"
   kibana:

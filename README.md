@@ -109,6 +109,9 @@ In DECIDe, four use cases are defined. The first use case (0.0) is about convert
 
 This use case retrieves decisions from a data source, and maps the decisions to the European Legislation Identifier (ELI) standard. Because the input data sources are heterogeneous a specific conversion pipeline is defined for each city.
 
+> [!IMPORTANT]
+> Be sure to add a folder "[nel](https://github.com/lblod/app-decide/blob/7f9bc93afb2ff1c3bb009a51ff6a88f2b2b73c41/compose/ai.yml#L31)" to your local data folder containing the [queries/local folder](https://github.com/semantic-ai/entity-linking-backend/tree/master/data/queries/local) and [endpoints_metadata.json file](https://github.com/semantic-ai/entity-linking-backend/blob/master/data/endpoints_metadata.json) from the [entity-linking service](https://github.com/semantic-ai/entity-linking-backend).
+
 #### OSLO (Ghent)
 
 To harvest and convert the decisions from the city of Ghent to ELI, a central data endpoint in Flanders for decisions (Lokaal Beslist) is used. Three services are required to consume, filter on a city (currently only Ghent is supported), and transform to ELI: lokaal-beslist-consumer (a configured delta consumer), decisions-ghent-filter, and oslo-eli-transformer. See `docker-compose.yml` for the specific configuration. The initial sync and/or delta ingest should be enabled manually in `docker-compose.override.yml`:
