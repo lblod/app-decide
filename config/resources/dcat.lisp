@@ -90,15 +90,10 @@
 
 (define-resource concept ()
   :class (s-prefix "skos:Concept")
-<<<<<<< karel/lbron-1358-hvt-fixes
   :properties `((:pref-label :language-string-set ,(s-prefix "skos:prefLabel"))
-                (:notation :string ,(s-prefix "skos:notation")))
-=======
-  :properties `((:pref-label :string ,(s-prefix "skos:prefLabel"))
-                (:alt-label :string ,(s-prefix "skos:altLabel"))
-                (:definition :string ,(s-prefix "skos:definition"))
+                (:alt-label :language-string-set ,(s-prefix "skos:altLabel"))
+                (:definition :language-string-set ,(s-prefix "skos:definition"))
                 (:notation :number ,(s-prefix "skos:notation")))
->>>>>>> development
   :has-many `((dataset :via ,(s-prefix "dcat:theme")
                        :inverse t
                        :as "datasets"))
