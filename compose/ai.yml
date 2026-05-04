@@ -28,7 +28,7 @@ services:
       - database:database
     volumes:
       - ./../config/nel/config:/config
-      - ./../config/nel/data:/app/data
+      - ./../data/nel:/app/data
     restart: always
   pdf-scraper:
     image: semanticai/decide-pdf-scraper:0.0.3
