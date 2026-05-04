@@ -123,7 +123,7 @@ This use case retrieves decisions from a data source, and maps the decisions to 
 
 #### OSLO (Ghent)
 
-The OSLO to ELI pipeline consists of three task-driven services. The `harvester-consumer-service` ingests data from the remote LBLOD harvester into a landing graph, downloading a full dump for initial syncs or delta files for subsequent runs. The `harvester-filter-service` then filters the landing graph by RDF type and a configured whitelist of bestuursorganen, writing matched subjects to a result graph. Finally, the `harvester-transformation-service` reads that result graph and transforms the OSLO besluiten into ELI triples stored in the output graph.
+The OSLO to ELI pipeline consists of three task-driven services. The [harvester-consumer-service](https://github.com/lblod/decide-harvester-consumer-service) ingests data from the remote LBLOD harvester into a landing graph, downloading a full dump for initial syncs or delta files for subsequent runs. The [harvester-filter-service](https://github.com/lblod/decide-harvester-filter-service) then filters the landing graph by RDF type and a configured whitelist of bestuursorganen, writing matched subjects to a result graph. Finally, the [harvester-transformation-service](https://github.com/lblod/decide-harvester-transformation-service) reads that result graph and transforms the OSLO besluiten into ELI triples stored in the output graph.
 
 To start the pipeline, create a "Harvest Lokaal Beslist OSLO & Publish as ELI" job in the pipeline dashboard and select a "Sync mode": choose "Initial sync" to download the full dataset (run once) or "Delta sync" to ingest incremental updates (suited for a recurring scheduled job). See `docker-compose.yml` for the service configuration.
 
