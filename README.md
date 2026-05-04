@@ -110,7 +110,7 @@ The frontend for the Smart Search should now be available at http://smart-search
 
 The DECIDe project is designed to address a set of pre-defined use cases. This README outlines each service individually, allowing cities to select and deploy only the specific components required for their unique needs.
 
-The services defined at the top of the `docker-compose.yml` file are the core _Semantic.Works_ services required for running the project. In addition to the core service, we also need the generic pipeline components to run the pipelines. To configure the dashboard for your pipelines, see [below](##configuring-the-dashboard).
+The services defined in the `compose/base-compose.yml` file are the core _Semantic.Works_ services required for running the project. In addition to the core service, we also need the generic pipeline components to run the pipelines. To configure the dashboard for your pipelines, see [below](##configuring-the-dashboard).
 
 In DECIDe, four use cases are defined. The first use case (0.0) is about converting and publishing decisions with Linked Data standards so these can be reused interoperable in the data space. The three other use cases (0.1, 1, and 2) are AI-enabled services to enrich the decisions with related things, such as policies, themes, and locations.
 
@@ -139,11 +139,18 @@ To start the OParl pipeline, create a "Harvest OParl API & Publish as ELI" job i
 
 #### PDF (Bamberg)
 
-The PDF to ELI pipeline requires three services. The `harvest_singleton-job` service is used, similar to the other pipelines, to guarantee a data source is harvested only once. The `pdf-content` service reads a remote or local PDF file, extracts the content of the PDF, and creates ELI entities (Work/Expression/Manifestation) in the triple store. The `apache-tika` service is used by the `pdf-content` service that is responsible for extracting text from a PDF.
+The PDF to ELI pipeline allows to gather PDFs containing decisions from the web and transform them the linked data following the [ELI](https://eur-lex.europa.eu/eli-register/about.html) standard. This pipeline consists of three main services:
 
-In the pipeline dashboard, create a "Harvest PDF & Publish as ELI" pipeline. The URL parameter needs to be provided with a URL resolving with a PDF.
+1. The [harvest_singleton-job](https://github.com/lblod/harvesting-singleton-job-service) service ensures that no duplicate jobs are created for the same data sources. When a new job is created, it checks whether one is already scheduled or busy for the same data sources. If so, the new job is automatically failed.
+2. The [pdf-scraper](https://github.com/semantic-ai/decide-pdf-scraper) service gathers the download URLs for new PDF files and stores these URLs in the triple store.
+3.  The [pdf-content](https://github.com/semantic-ai/decide-pdf-content-extraction) service reads a remote or local PDF file, extracts the content of the PDF, and creates corresponding ELI entities (Work/Expression/Manifestation) in the triple store. This `pdf-content` services depends on the [apache-tika](https://github.com/lblod/apache-tika-service) service to extract text from a PDF.
 
-In the future a PDF pipeline will be added to harvest all PDFs from a website.
+In the pipeline dashboard, the "_Harvest PDFs from Website URL & Publish as ELI_" job is used to harvest PDFs from some locations and convert them to linked data following ELI.
+
+> [!WARNING]
+> Currently, this PDF to ELI pipeline also automatically performs tasks to translate, segment and link entities to the created ELI data. This will be split into two separate pipelines in a future version.
+
+
 
 ### Use Case 0.1: Linking to higher legislation or overarching goals such as the SDGs
 
