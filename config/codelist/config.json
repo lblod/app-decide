@@ -1,0 +1,23 @@
+{
+  "llm": {
+    "provider": "mistralai",
+    "model_name": "mistral-small-latest",
+    "temperature": 0.1,
+    "api_key": "",
+    "base_url": null,
+    "timeout": 120
+  },
+  "ml_training": {
+    "transformer": "distilbert/distilbert-base-uncased",
+    "learning_rate": 0.00002,
+    "epochs": 2,
+    "weight_decay": 0.01,
+    "huggingface_token": "",
+    "huggingface_output_model_id": ""
+  },
+  "ml_inference": {
+    "huggingface_model_id": "",
+    "huggingface_token": "",
+    "confidence_threshold": 0.5
+  }
+}

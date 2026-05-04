@@ -46,6 +46,8 @@ services:
     logging: *default-logging
   resource:
     image: semtech/mu-cl-resources:1.27.2
+    environment:
+      CACHE_CLEAR_PATH: 'http://cache/.mu/clear-keys'
     volumes:
       - ../config/resources:/config
     labels:

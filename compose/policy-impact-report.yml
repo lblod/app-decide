@@ -1,0 +1,17 @@
+x-logging: &default-logging
+  driver: 'json-file'
+  options:
+    max-size: '10m'
+    max-file: '3'
+services:
+  policy-impact-report:
+    image: lblod/policy-impact-report-service:latest
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging
+  frontend-policy-impact-report:
+    image: lblod/frontend-decide-policy-impact-report:latest
+    labels:
+      - 'logging=true'
+    restart: always

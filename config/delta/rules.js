@@ -4,6 +4,8 @@ import pdfToEli from './pdf-to-eli';
 import osloToEli from './oslo-to-eli';
 import search from './search';
 import resource from './resource';
+import codelist from './codelist';
+import annotationJobSplitter from './annotation-job-splitter';
 
 export default [
   ...resource,
@@ -12,4 +14,6 @@ export default [
   ...pdfToEli,
   ...osloToEli,
   ...search,
+  ...codelist,
+  ...annotationJobSplitter,
 ];

@@ -1,0 +1,22 @@
+{
+  "app": {
+    "mode": "development",
+    "log_level": "debug"
+  },
+  "ner": {
+    "language": "nl",
+    "method": "composite",
+    "post_process": true,
+    "labels": ["CITY", "DOMAIN", "HOUSENUMBERS", "INTERSECTION", "POSTCODE", "PROVINCE", "ROAD", "STREET"],
+    "enable_refinement": true
+  },
+  "segmentation": {
+    "model_name": "mistral-large-latest",
+    "api_key": "SECRET_KEY",
+    "endpoint": "https://api.mistral.ai/v1",
+    "max_new_tokens": 250000,
+    "text_limit_chars": 1000000,
+    "temperature": 0.1,
+    "max_gap": 5
+  }
+}
