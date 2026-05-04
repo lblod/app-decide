@@ -174,12 +174,12 @@
       },
       {
         "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/codelist-matching/evaluation-split-tasks",
-        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/codelist-matching/annotate",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/codelist-matching/classifier-annotate",
         "nextIndex": "2",
         "external": true
       },
       {
-        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/codelist-matching/annotate",
+        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/codelist-matching/classifier-annotate",
         "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/codelist-matching/assess-impact",
         "nextIndex": "3"
       }
