@@ -4,7 +4,23 @@ This folder contains additional documentation, primarily aimed at configuring an
 
 
 ## Server setup
-TODO
+### Requirements
+#### Hardware
+To run the full app a sufficiently powerful server is advised. A GPU is only required if you want to locally run the LLM-based functionality. Otherwise, the relevant services should be configured to outsource such functionality to cloud services.
+
+Our server has the following specifications:
+
+- CPU: 13th Gen Intel(R) Core(TM) i5-13500
+- GPU: NVIDIA RTX 4000 SFF Ada Generation
+- Memory: 64GB
+- Storage: 2TB
+
+#### Software
+This application is a [semantic.works](https://semantic.works/) app and thereby has limited dependencies. The following software is required to run the application:
+
+- `git` to obtain the application source code
+- `docker` and `docker compose` to configure and run the application's microservices
+- A reverse proxy that forwards HTTP requests to the app's identifier service. We typically use [app-letsencrypt](https://github.com/redpencilio/app-letsencrypt) for this purpose.
 
 
 ## Service configuration

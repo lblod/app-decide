@@ -21,6 +21,7 @@ This repository contains multiple docker-compose files
   - Publishes the entrypoint to the services on port 80, so all endpoints can be reached easily.
 
 ## Running
+The following sections describe how the setup the app as a whole in a development environment. If your are also interested in setting the app up on a server you can find more information in the additional [documentation](./docs/README.md)
 
 ### Getting started
 
