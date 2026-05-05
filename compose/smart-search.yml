@@ -1,6 +1,6 @@
 services:
   frontend-smart-search:
-    image: lblod/frontend-decide-question-answering:0.0.2
+    image: lblod/frontend-decide-question-answering:0.0.3
     labels:
       - 'logging=true'
     restart: always
