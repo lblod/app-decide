@@ -47,3 +47,11 @@ services:
     platform: linux/amd64
   frontend-smart-search:
     platform: linux/amd64
+  policy-impact-report:
+    platform: linux/amd64
+  entity-linking:
+    platform: linux/amd64
+  codelist-labeling:
+    platform: linux/amd64
+  named-entity-recognition:
+    platform: linux/amd64

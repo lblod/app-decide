@@ -97,6 +97,7 @@ services:
   named-entity-recognition:
     restart: "no"
   codelist-labeling:
+    restart: "no"
   frontend-smart-search:
     restart: "no"
   kibana:
