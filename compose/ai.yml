@@ -11,19 +11,19 @@ services:
   entity-linking:
     image: semanticai/entity-linking-backend:0.0.1
     environment:
-      TARGET_GRAPH: "http://mu.semte.ch/graphs/public"
-      DEFAULT_GRAPH: "http://mu.semte.ch/graphs/harvesting"
-      ALLOW_MU_AUTH_SUDO: "true"
-      QDRANT_HOST: "qdrant"
+      TARGET_GRAPH: 'http://mu.semte.ch/graphs/public'
+      DEFAULT_GRAPH: 'http://mu.semte.ch/graphs/harvesting'
+      ALLOW_MU_AUTH_SUDO: 'true'
+      QDRANT_HOST: 'qdrant'
       QDRANT_PORT: 6333
-      OLLAMA_HOST: "http://ollama:11434"
-      NOMINATIM_ENDPOINT: "http://nominatim:8080/"
-      MCP_SERVER_URL: "http://localhost:80/mcp/sse"
-      ENABLED_TOOLS: "search_sparql_docs,execute_sparql_query,search_location"
-      
-      LLM_PROVIDER: "mistral"
+      OLLAMA_HOST: 'http://ollama:11434'
+      NOMINATIM_ENDPOINT: 'http://nominatim:8080/'
+      MCP_SERVER_URL: 'http://localhost:80/mcp/sse'
+      ENABLED_TOOLS: 'search_sparql_docs,execute_sparql_query,search_location'
+
+      LLM_PROVIDER: 'mistral'
       LLM_MAX_RETRIES: 3
-      MISTRAL_MODEL: "ministral-14b-2512"
+      MISTRAL_MODEL: 'ministral-14b-2512'
     links:
       - database:database
     volumes:
@@ -33,7 +33,7 @@ services:
   pdf-scraper:
     image: semanticai/decide-pdf-scraper:0.0.3
     environment:
-      TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting      
+      TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
       JOB_GRAPH: http://mu.semte.ch/graphs/harvesting
       DATA_CONTAINER_GRAPH: http://mu.semte.ch/graphs/harvesting
       HARVEST_COLLECTIONS_GRAPH: http://mu.semte.ch/graphs/harvesting
@@ -55,8 +55,8 @@ services:
   pdf-content:
     image: semanticai/decide-pdf-content-extraction:0.0.7
     environment:
-      APACHE_TIKA_URL: "http://apache-tika:9998/tika"
-      TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting      
+      APACHE_TIKA_URL: 'http://apache-tika:9998/tika'
+      TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
       JOB_GRAPH: http://mu.semte.ch/graphs/harvesting
       DATA_CONTAINER_GRAPH: http://mu.semte.ch/graphs/harvesting
       HARVEST_COLLECTIONS_GRAPH: http://mu.semte.ch/graphs/harvesting
@@ -71,10 +71,10 @@ services:
       MANIFESTATIONS_GRAPH: http://mu.semte.ch/graphs/public/pdf
       AI_GRAPH: http://mu.semte.ch/graphs/public/pdf
       ALLOW_MU_AUTH_SUDO: true
-      MOUNTED_SHARE_FOLDER: "/mnt/share"
+      MOUNTED_SHARE_FOLDER: '/mnt/share'
     volumes:
       - ./../data/files:/mnt/share
-      - ./../config/pdf-content/config.json:/app/config.json:ro  # Mount config as read-only
+      - ./../config/pdf-content/config.json:/app/config.json:ro # Mount config as read-only
     labels:
       - logging=true
     restart: always
@@ -121,7 +121,7 @@ services:
       ALLOW_MU_AUTH_SUDO: true
       CONFIG_PATH: /app/config.json
     volumes:
-      - ./../config/ner/config.json:/app/config.json:ro  # Mount config as read-only
+      - ./../config/ner/config.json:/app/config.json:ro # Mount config as read-only
     depends_on:
       - virtuoso
     labels:
@@ -134,7 +134,14 @@ services:
     volumes:
       - ../data/ollama:/root/.ollama
     restart: always
-    gpus: all
+    # in case you have an nvidia gpu available, like on our server
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
     entrypoint:
       - /bin/sh
       - -c
@@ -143,7 +150,7 @@ services:
   codelist-labeling:
     image: semanticai/codelist-labeling-service:0.0.1
     environment:
-      TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting      
+      TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
       JOB_GRAPH: http://mu.semte.ch/graphs/harvesting
       DATA_CONTAINER_GRAPH: http://mu.semte.ch/graphs/harvesting
       HARVEST_COLLECTIONS_GRAPH: http://mu.semte.ch/graphs/harvesting
@@ -161,5 +168,5 @@ services:
       NOMINATIM_ENDPOINT: http://nominatim:8080/
     restart: always
     volumes:
-      - ./../config/codelist/config.json:/usr/src/app/config.json:ro  # Mount config as read-only
+      - ./../config/codelist/config.json:/usr/src/app/config.json:ro # Mount config as read-only
 
