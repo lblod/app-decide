@@ -4,6 +4,8 @@ services:
   ##################################
   search:
     image: semtech/mu-search:feature-large-dense-vector
+    environment:
+      INCLUDE_SCORE: true
     volumes:
       - ../config/search:/config
   elasticsearch:
