@@ -160,7 +160,11 @@ To show how decisions are linked with SDGs, a Policy impact report tool is being
 
 ### Use Case 1: Mapping Local Decisions on restricted mobility zones to geo-locations for city portals (mobility and green deal)
 
+TODO
+
 ### Use Case 2: Subsidies for Private Owners – Climate Change and Environment (Green deal)
+
+TODO
 
 ## Pipeline dashboard
 
