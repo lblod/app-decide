@@ -19,6 +19,7 @@
                 (:type :string ,(s-prefix "dct:type"))
                 (:created :datetime ,(s-prefix "dct:created"))
                 (:modified :datetime ,(s-prefix "dct:modified"))
+                (:show-in-hvt :boolean ,(s-prefix "ext:showInHVT"))
                 (:represents :uri ,(s-prefix "euvoc:represents")))
   :has-one `((temporal :via ,(s-prefix "dct:temporal")
                        :as "temporal")

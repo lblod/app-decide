@@ -31,7 +31,7 @@
                  :as "realizes"))
   :has-many `((manifestation :via ,(s-prefix "eli:is_embodied_by")
                            :as "is-embodied-by")
-              (specific-resource :via ,(s-prefix "oa:source")
+              (specific-resource :via ,(s-prefix "oa:hasSource")
                            :inverse t
                            :as "is-source-of")
               (annotation :via ,(s-prefix "oa:hasTarget")

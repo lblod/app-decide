@@ -14,15 +14,15 @@
 
 (define-resource specific-resource ()
   :class (s-prefix "oa:SpecificResource")
-  :has-one `((expression :via ,(s-prefix "oa:source")
+  :has-one `((expression :via ,(s-prefix "oa:hasSource")
                          :as "source")
-             (text-position-selector :via ,(s-prefix "oa:selector")
+             (text-position-selector :via ,(s-prefix "oa:hasSelector")
                                      :as "selector")
              (annotation :via ,(s-prefix "oa:hasTarget")
                          :as "annotations"
                          :inverse t))
   :features '(include-uri)
-  :resource-base (s-url "http://data.lblod.info/id/specific-resource/")
+  :resource-base (s-url "http://data.lblod.info/id/specific-resources/")
   :on-path "specific-resources")
 
 (define-resource text-position-selector ()
@@ -30,5 +30,5 @@
   :properties `((:start :number ,(s-prefix "oa:start"))
                 (:end :number ,(s-prefix "oa:end")))
   :features '(include-uri)
-  :resource-base (s-url "http://data.lblod.info/id/text-position-selector/")
+  :resource-base (s-url "http://data.lblod.info/id/text-position-selectors/")
   :on-path "text-position-selectors")
