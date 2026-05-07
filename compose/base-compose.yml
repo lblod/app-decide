@@ -34,7 +34,7 @@ services:
     restart: always
     logging: *default-logging
   virtuoso:
-    image: redpencil/virtuoso:1.4.0-rc.1
+    image: redpencil/virtuoso:1.4.0
     environment:
       SPARQL_UPDATE: 'true'
     volumes:
