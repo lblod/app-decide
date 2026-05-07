@@ -1,0 +1,67 @@
+services:
+  # Disable unneeded services for UC0.0 Dataspace
+  # This disables services that are used to collect decisions from other sources
+  # than PDFs
+  frontend-harvesting:
+    environment:
+      # Disable functionality to create jobs to harvest data from OParl
+      # endpoints
+      EMBER_OPARL_HARVESTING_ENABLED: false
+      # Disable functionality to create jobs to harvest data from OSLO endpoints
+      EMBER_OSLO_HARVESTING_ENABLED: false
+
+  ## Disable services to harvest data from OParl endpoints
+  ## Alternatively, comment the oparl.yml line in `pipeline.yml`
+  oparl-to-eli:
+    entrypoint: ["echo", "Service oparl-to-eli is disabled"]
+  harvest_sameas:
+    entrypoint: ["echo", "Service harvest_sameas is disabled"]
+  harvest_diff:
+    entrypoint: ["echo", "Service harvest_diff is disabled"]
+  ## Disable services to harvest data from OSLO endpoints (used by local
+  ## governments in Flanders)
+  ## Alternatively, comment the oslo.yml line in `pipeline.yml`
+  lokaal-beslist-consumer:
+    entrypoint: ["echo", "Service lokaal-beslist-consumer is disabled"]
+  decisions-ghent-filter:
+    entrypoint: ["echo", "Service decisions-ghent-filter is disabled"]
+  oslo-eli-transformer:
+    entrypoint: ["echo", "Service oslo-eli-transformer is disabled"]
+
+
+  # Configure AI services to offload LLM work to the cloud
+  # TODO: configured in service's config files currently
+  #       (API key part should move to docker compose config)
+
+
+  # Uncomment to disable the services related to the Human validation interface
+  # Alternatively, comment the validation.yml line in `docker-compose.yml`
+  # annotation-review:
+  #   entrypoint: ["echo", "Service annotation-review is disabled"]
+  # frontend-human-validator:
+  #   entrypoint: ["echo", "Service frontend-human-validator is disabled"]
+
+
+  # Uncomment to disable general data space services
+  # frontend-dcat:
+  #   entrypoint: ["echo", "Service frontend-dcat is disabled"]
+  # dcat:
+  #   entrypoint: ["echo", "Service dcat is disabled"]
+  # frontend-yasgui:
+  #   entrypoint: ["echo", "Service frontend-yasgui is disabled"]
+  # vc-issuer:
+  #   entrypoint: ["echo", "Service vc-issuer is disabled"]
+
+
+  # Comment to enable general services
+  report-generation:
+    # This service allows to generate reports about data quality, meant for
+    # internal monitoring
+    entrypoint: ["echo", "Service report-generation is disabled"]
+  acmidm-login:
+    # This service is used to integrate with ACMIDM, a Belgian single sign-on
+    # solution based on Oauth2 and OpenID
+    entrypoint: ["echo", "Service acmidm-login is disabled"]
+  nominatim:
+    # This service is used to
+    entrypoint: ["echo", "Service nominatim is disabled"]
