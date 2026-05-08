@@ -9,6 +9,7 @@ INSERT DATA {
     <https://ris.freiburg.de/oparl/body/FR> a besluit:Bestuurseenheid;
     besluit:classificatie <http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000001> ;
     org:classification <http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000001> ;
-    dct:identifier "freiburg" .
+    dct:identifier "freiburg" ;
+    skos:prefLabel "Freiburg" .
   }
 }
