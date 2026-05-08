@@ -18,7 +18,7 @@ export default {
             currentOperation:
               'http://lblod.data.gift/id/jobs/concept/TaskOperation/codelist-matching/evaluation-split-tasks',
             nextOperation:
-              'http://lblod.data.gift/id/jobs/concept/TaskOperation/codelist-matching/classifier-annotate',
+              'http://lblod.data.gift/id/jobs/concept/TaskOperation/codelist-matching/annotate',
           },
         ],
       },
@@ -29,7 +29,7 @@ export default {
             currentOperation:
               'http://lblod.data.gift/id/jobs/concept/TaskOperation/annotation-split-tasks',
             nextOperation:
-              'http://lblod.data.gift/id/jobs/concept/TaskOperation/eli-translation',
+              'http://lblod.data.gift/id/jobs/concept/TaskOperation/translating',
           },
         ],
       },
