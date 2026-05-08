@@ -16,23 +16,25 @@ INSERT {
 }
 WHERE {
   GRAPH <http://mu.semte.ch/graphs/public/gent> {
-  {
-    SELECT ?expr (GROUP_CONCAT(?nummerAndValue; separator="\n") AS ?newAggrContent)
-	  WHERE {
-      {
-        SELECT ?expr ?nummerAndValue
-        WHERE {
-          ?expr eli:has_part ?artikel .
-          ?artikel eli:number ?nummer ;
-                   prov:value ?value .
-          BIND(concat(?nummer, '\n', ?value) as ?nummerAndValue)
+    {
+      SELECT ?expr (GROUP_CONCAT(?nummerAndValue; separator="\n") AS ?newAggrContent)
+      WHERE {
+        {
+          SELECT ?expr ?nummerAndValue
+          WHERE {
+            GRAPH <http://mu.semte.ch/graphs/oslo-decisions/landing> {
+              ?expr eli:has_part ?artikel .
+              ?artikel eli:number ?nummer ;
+                      prov:value ?value .
+              BIND(concat(?nummer, '\n', ?value) as ?nummerAndValue)
+            }
+          }
+          ORDER BY ?nummer
         }
-		    ORDER BY ?nummer
       }
+      GROUP BY ?expr
     }
-    GROUP BY ?expr
-  }
-  ?expr epvoc:expressionContent ?oldContent .
-  BIND(strlang(?newAggrContent, 'nl') as ?newAggrContentWithLang) 
+    ?expr epvoc:expressionContent ?oldContent .
+    BIND(strlang(?newAggrContent, 'nl') as ?newAggrContentWithLang)
   }
 }
