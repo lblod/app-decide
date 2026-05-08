@@ -9,7 +9,12 @@ services:
       EMBER_OPARL_HARVESTING_ENABLED: false
       # Disable functionality to create jobs to harvest data from OSLO endpoints
       EMBER_OSLO_HARVESTING_ENABLED: false
-
+  ## Additional service to providing the persisted decision PDFs to the
+  ## `pdf-scraper` service.
+  internal-files:
+    image: nginx:1.30.0-alpine
+    volumes:
+      - ./data/internal-files:/usr/share/nginx/html:ro
   ## Disable services to harvest data from OParl endpoints
   ## Alternatively, comment the oparl.yml line in `pipeline.yml`
   oparl-to-eli:
