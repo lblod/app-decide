@@ -57,7 +57,7 @@
   :has-one `((question            :via ,(s-prefix "schema:suggestedAnswer")
                                   :inverse t
                                   :as "question"))
-  :has-many `((answer-source      :via ,(s-prefix "schema:hasPart") ;; the set of decisions that were used
+  :has-many `((quotation      :via ,(s-prefix "schema:citation") ;; the set of decisions that were used
                                   :as "sources")
               (annotation         :via ,(s-prefix "oa:hasTarget") ;; annotations for the answer as a whole
                                   :inverse t
@@ -65,16 +65,16 @@
   :resource-base (s-url "http://data.lblod.info/id/answers/")
   :on-path "answers")
 
-(define-resource answer-source (annotation-target)
-  :class (s-prefix "schema:Answer")
+(define-resource quotation (annotation-target)
+  :class (s-prefix "schema:Quotation")
   :properties `((:confidence      :number ,(s-prefix "ext:confidence"))) ;; relevance score according to mu-search (NIF is not really suitable, since this is not an oa:Annotation)
   :has-one `((expression          :via ,(s-prefix "oa:hasSource") ;; decision (eli:Expression)
                                   :as "source")
-             (answer              :via ,(s-prefix "schema:hasPart")
+             (answer              :via ,(s-prefix "schema:citation")
                                   :inverse t
                                   :as "answer"))
-  :has-many `((annotation         :via ,(s-prefix "oa:hasTarget") ;; annotations for this answer & answer-source combination specifically
+  :has-many `((annotation         :via ,(s-prefix "oa:hasTarget") ;; annotations for this answer & quotation combination specifically
                                   :inverse t
                                   :as "annotations"))
-  :resource-base (s-url "http://data.lblod.info/id/answer-sources/")
-  :on-path "answer-sources")
+  :resource-base (s-url "http://data.lblod.info/id/quotations/")
+  :on-path "quotations")
