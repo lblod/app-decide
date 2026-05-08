@@ -59,7 +59,16 @@ Note, take care **not** to include the `docker-compose.dev.yml` file here as thi
 
 
 ### Bamberg
-- TODO PDFs via file service (cf. issue with session link and PDF download link)
+The city of Bamberg is mostly interested in use case 0.1 and 2. Therefore their [partner-specific configuration](./docker-compose.override.bamberg.yml) disables unnecessary services as well as provide some placeholders for configuring specific services. See the comments in the override file for more information.
+
+#### Data harvesting
+Due to technical limitations our `pdf-scraper` service cannot directly retrieve PDFs from the [web portal](https://www.stadt.bamberg.de/buergerinformationssystem/tr010) of the city of Bamberg. A workaround is to obtain the PDFs via another method and feed them into the app from disk using an additional service.
+
+To this end, an `internal-files` service is configured in `docker-compose.override.bamberg.yml`. This service mounts a folder `data/internal-files`, make sure to create this folder, in which PDFs can be placed.
+
+In the pipeline dashboard you can use `http://internal-files/FILENAME.pdf` as input decision URLs. As municipality select `Stadt Bamberg` from the options in the dropdown, as illustrated in the following screenshot.
+
+![Example form for harvesting PDFs](./harvest-bamberg-form-example.png)
 
 
 ### Freiburg
