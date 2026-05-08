@@ -53,7 +53,7 @@
   :class (s-prefix "schema:Answer")
   :properties `((:created         :datetime ,(s-prefix "dct:created")) ;; timestamp of the answer
                 (:text            :string   ,(s-prefix "schema:text"))) ;; content of the answer
-                (:llm             :url      ,(s-prefix "dct:creator"))) ;; LLM that was used (should this be a has-one relation to a resource representing the LLM? If so, we need a resource config for it)
+                (:llm             :url      ,(s-prefix "dct:creator")) ;; LLM that was used (should this be a has-one relation to a resource representing the LLM? If so, we need a resource config for it)
   :has-one `((question            :via ,(s-prefix "schema:suggestedAnswer")
                                   :inverse t
                                   :as "question"))
