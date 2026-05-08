@@ -40,6 +40,17 @@ TODO: note about dispatcher and subdomains
 - point to dispatcher config + rules involving `reverse_host`
 - list frontend and expected subdomain
 
+
+### Outsource LLM to the cloud
+The AI services relying on LLMs by default use local models. But they can also be configured to outsource such computations to external services in the cloud. The READMEs for each individual service describe in more detail how to configure them as such. Note that this requires obtaining appropriate API keys for each service.
+
+- The  [named-entity-recognition (NER)](https://github.com/semantic-ai/decide-geocoding-service/blob/master/README.md#L39) service allows to configure providers for several of its features.
+- The [entity-linking-backend](https://github.com/semantic-ai/entity-linking-backend/blob/master/README.md) service README documents how to configure external providers.
+- The [codelist-labeling](https://github.com/semantic-ai/codelist-labeling-service/blob/master/README.md) service can be configured to use a mistral as external provider. Using another external provider requires adding the appropriate `langchain-*` package to the service by editing its `requirements.txt` file and building your own image.
+- The [Question-answering](https://github.com/semantic-ai/decide-question-answering/blob/master/README.md) service can be configured to use different providers. This does require adding the appropriate `langchain-*` package to the service by editing its `requirements.txt` file and building your own image.
+- The [Embedding](https://github.com/semantic-ai/embedding-service/blob/master/README.md) service currently does not **not** support using an external provider. Embeddings can generated locally without a GPU, but this will take considerable longer.
+
+
 ### Pipeline dashboard
 TODO: better authentication credentials for harvester frontend (example migration)
 [Migration](config/migrations/add-test-user/20251211000000-add-test-user.sparql)

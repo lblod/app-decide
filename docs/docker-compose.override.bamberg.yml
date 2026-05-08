@@ -34,9 +34,26 @@ services:
     entrypoint: ["echo", "Service oslo-eli-transformer is disabled"]
 
 
-  # Configure AI services to offload LLM work to the cloud
-  # TODO: configured in service's config files currently
-  #       (API key part should move to docker compose config)
+  # Configure AI services for UC0.1 and UC2
+  # named-entity-recognition:
+    # This service is configured via the file `../config/ner/config.json`
+  entity-linking:
+    environment:
+      LLM_PROVIDER: <REPLACE-WITH-PROVIDER>
+      # Replace <PROVIDER> with the appropriate name based on the provider set
+      # in the previous line. For example, `OPENAI` or `MISTRAL`.
+      <PROVIDER>_MODEL: <REPLACE-WITH-MODEL>
+      <PROVIDER>_API_KEY: <REPLACE-WITH-API-KEY>
+  # codelist-labeling:
+    # This service is configured via the file `../config/codelist/config.json`
+  question-answering:
+    # This service requires you to add appropriate the `langchain-*` packages to
+    # its requirements.txt and build the service locally.
+    # image: question-answering-local
+    environment:
+      GENERATION_PROVIDER: <REPLACE-WITH-PROVIDER>
+      GENERATION_MODEL: <REPLACE-WITH-MODEL>
+      GENERATION_API_KEY: <REPLACE-WITH-API-KEY>
 
 
   # Uncomment to disable the services related to the Human validation interface
