@@ -61,7 +61,6 @@ There are two main pain points:
 2. At the moment this project was setup the service mu-identifier weren't working for mac (at least on my device), so you have to build these yourself, and gave them the appropriate image name and tag.
 
 ### Running the stack with smart search/question-answering
-
 To get the stack to work properly, including its AI question-answering service, there are a few extra steps that need to be done.
 
 First, add your LLM of choice (e.g., `gemma3:1b`) to your `docker-compose.override.yml`:
@@ -83,29 +82,67 @@ question-answering:
     ALLOW_MU_AUTH_SUDO: "true"
 ```
 
-To include (smart) search features, the stack needs to be started with the `search` profile: `drc --profile=search up -d`.
+To include (smart) search features, the stack needs to be started with the `search` profile: `docker compose --profile=search up -d`.
 
 However, to avoid issues of started services waiting for the database and/or elasticsearch, it is advisable to start the stack in a 'staggered' manner:
+
 ```bash
-docker compose --profile=search up -d virtuoso
+docker compose --profile=search up -d virtuoso migrations
 docker compose --profile=search up -d database identifier dispatcher resource
 docker compose --profile=search up -d search elasticsearch
 ```
 
 After `search` has started, inspect the logs to ensure it is not indexing, for example when you are using an existing dataset: `docker compose logs -f search`.
 
-When everything is up, you need to manually pull the model you entered in `docker-compose.override.yml` in the `ollama` container:
+When everything is up, you can start the `ollama` service and manually pull the appropriate model:
+
+```bash
+docker compose --profile=search up -d ollama
+docker compose exec -T ollama ollama pull mistral-nemo
+```
+
+Afterwards, you can start the `embedding` service and ensure it runs error-free. Note, this may take a long time at first as the service will calculate embeddings for all configured targets that do not have an embedding yet. If necessary, consult the `embedding` service [README](https://github.com/semantic-ai/embedding-service/blob/master/README.md#L5) for more details on its configuration.
+
+```bash
+docker compose --profile=search up -d embedding
+docker compose logs -f embedding
+```
+
+Finally, you can start the remaining services of the stack:
+
+```bash
+docker compose --profile-search up -d
+```
+
+The frontend for the Smart Search should now be available at http://smart-search.localhost .
+
+#### Using different LLM models
+
+By default, the underlying AI [question-answering service](https://github.com/semantic-ai/decide-question-answering) service uses the `mistral-nemo` LLM, locally via the ollama service. If you want to change the used model, some additional setup steps are required:
+
+First, specify your LLM of choice (e.g., `gemma3:1b`) to your `docker-compose.override.yml`:
+
+```yaml
+question-answering:
+  environment:
+    GENERATION_MODEL: "gemma3:1b"
+```
+
+Second, tell the `ollama` service to pull the configured model:
+
 ```bash
 docker compose exec -T ollama ollama pull gemma3:1b
 ```
 
-Finally, you need to restart the `embedding` service and ensure it runs error-free:
-```bash
-docker compose restart embedding
-docker compose logs -f embedding
+Third, restart the `question-answering` service:
+
+```
+docker compose --profile=search up -d question-answering
 ```
 
-The frontend for the Smart Search should now be available at http://smart-search.localhost .
+### Using an external LLM provider
+
+See the question-answer service documentation of configuring [LLM providers](https://github.com/semantic-ai/decide-question-answering/blob/master/README.md#L18).
 
 ## Use cases
 
@@ -165,7 +202,14 @@ TODO: add example screenshot(s)
 
 TODO
 
-### Use Case 2: Subsidies for Private Owners – Climate Change and Environment (Green deal)
+
+### Use Case 2: Smart Search
+This use case provides smart, LLM-powered search functionality for the decisions in the app. The [smart-search](https://github.com/lblod/frontend-decide-question-answering) frontend allows users to enter their questions. The [question-answering](https://github.com/semantic-ai/decide-question-answering) service orchestrates the subsequent request flow between the involved backend services. The [embedding](https://github.com/semantic-ai/embedding-service) service creates an embedding of the user's question. The [mu-search](https://github.com/mu-semtech/mu-search) and [elasticsearch](https://github.com/mu-semtech/mu-search-elastic-backend) services are used to find the most relevant decisions based on a vector similarity search. Finally, the `question-answering` service asks the configured LLM to formulate an answer to the user's question based on the contents of the found decisions.
+
+For a more detailed description of this use case and how it was developed withing the DECIDe project see the dedicated [gitbook page](https://app.gitbook.com/o/-MP9Yduzf5xu7wIebqPG/s/PzeOtGh2pfnNKyqa7G5w/decide-project/write-up-uc2-smart-search).
+
+For more information on configuring an app instance to support smart search see the [above configuration section](#running-the-stack-with-smart-searchquestion-answering).
+>>>>>>> 02ccdbd (chore(doc): revise section on smart search setup)
 
 TODO
 
