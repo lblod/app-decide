@@ -48,4 +48,5 @@ embedding_null = "http://mu.semte.ch/vocabularies/ext/embeddingVector/null"
 #embedding_model = "embeddinggemma:300m-bf16" bigger, but slower
 embedding_model = "embeddinggemma:300m-qat-q4_0"
 #qwen3-embedding:0.6b has a larger context size, but is not recommended by AI advisory board
-cron_schedule = "* * * * *" # every 5 minutes
+# qwen3-embedding:0.6b has a larger context size, but is not recommended by AI advisory board
+cron_schedule = "* * * * *"  # every minute
