@@ -1,4 +1,20 @@
 services:
+  # Example configuration when using app-letsencrypt as reverse proxy to forward
+  # traffic to the app's identifier.
+  # identifier:
+  #   environment:
+  #     # Note, <BASE-URL> should be replaced by the base URL used for your
+  #     # app. For example, for ABB's instance of the app this is
+  #     # `decide.lblod.info`.
+  #     VIRTUAL_HOST: "ds.<BASE-URL>,dashboard.<BASE-URL>,yasgui.<BASE-URL>,human-validator.<BASE-URL>"
+  #     LETSENCRYPT_HOST: "ds.<BASE-URL>,dashboard.<BASE-URL>,yasgui.<BASE-URL>,human-validator.<BASE-URL>"
+  #     LETSENCRYPT_EMAIL: "<SUPPORT-EMAIL>"
+  #   # Make sure the identifier service is both part of the app's default network
+  #   # as well as the `proxy` network configured at the end of this file.
+  #   networks:
+  #     - default
+  #     - proxy
+
   # Disable unneeded services for UC0.0 Dataspace
   # This disables services that are used to collect decisions from other sources
   # than PDFs
@@ -87,3 +103,10 @@ services:
   nominatim:
     # This service is used to
     entrypoint: ["echo", "Service nominatim is disabled"]
+
+
+# Uncomment to configure network exposed by app-letsencrypt
+# networks:
+#   proxy:
+#     name: letsencrypt_default
+#     external: true
