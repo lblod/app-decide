@@ -28,17 +28,47 @@ For each service `A` that was added or updated (version bump or changed environm
 
 
 ## Service configuration
-TODO
+Most of the services in this app are configured via the docker compose configurations files and appropriate configuration files in the `config` folder in this project. Note, the [gitbook page](https://app.gitbook.com/o/-MP9Yduzf5xu7wIebqPG/s/PzeOtGh2pfnNKyqa7G5w/decide-project/write-up-uc0.0-dataspace) on UC0.0 contains background on the overal architecture of a semantic.works application.
+
 
 ### Identifier
-TODO: identifier (cf. `docker-compose.override.yml` on TEST/DEV)
-- Environment variables
-- networks
+The `identifier` service is an HTTP proxy that acts as access point to the app. All external requests should be forwarded to this service for further processing in an app. On servers we typically use [app-letsencrypt](https://github.com/redpencilio/app-letsencrypt) as a reverse proxy to forward incoming requests the the correct app instance. To allow `app-letsencrypt` to forward requests to the correct app, the app's `identifier` service should
+
+- expose the appropriate environment variables; and
+- be part of of `app-letsencrypt`'s default network.
+
+This is most easily done in the app's `docker-compose.override.yml` configuration file. For example, the DECIDe app instance hosted by ABB has the following configuration entries:
+
+```yaml
+services:
+  identifier:
+    environment:
+      VIRTUAL_HOST: "ds.decide.lblod.info,dashboard.decide.lblod.info,yasgui.decide.lblod.info,human-validator.decide.lblod.info"
+      LETSENCRYPT_HOST: "ds.decide.lblod.info,dashboard.decide.lblod.info,yasgui.decide.lblod.info,human-validator.decide.lblod.info"
+      LETSENCRYPT_EMAIL: "support+servers@redpencil.io"
+  # Configuration for other services
+  # ...
+
+networks:
+  proxy:
+    name: letsencrypt_default
+    external: true
+```
+
+The example docker compose override files in this folder contain commented template entries that can be used for your app.
+
 
 ### Subdomains used for different frontends
-TODO: note about dispatcher and subdomains
-- point to dispatcher config + rules involving `reverse_host`
-- list frontend and expected subdomain
+This app contains several frontends to which the `dispatcher` service forwards requests based on subdomains. This can be seen in the `dispatcher` service [configuration](../config/dispatcher/dispatcher.ex) in rules using `reverse_host` to match incoming requests. Should you use different subdomains in you app instance, make sure to update the appropriate rules in your app's dispatcher configuration.
+
+| Frontend                                                                                                      | Subdomain              |
+|---------------------------------------------------------------------------------------------------------------|------------------------|
+| [Pipeline dashboard](https://github.com/lblod/frontend-harvesting-self-service/tree/feature/oparl-harvesting) | `dashboard`            |
+| [Yasgui](https://github.com/lblod/frontend-decide-yasgui)                                                     | `yasgui`               |
+| [dcat](https://github.com/lblod/frontend-decide-dcat)                                                         | `ds`                   |
+| [Human Validation Tool](https://github.com/lblod/frontend-decide-human-validator)                             | `human-validator`      |
+| [Smart search](https://github.com/lblod/frontend-decide-question-answering)                                   | 'smart-search'         |
+| [Policy impact report](https://github.com/lblod/frontend-decide-policy-impact-report)                         | `policy-impact-report` |
 
 
 ### Outsource LLM to the cloud
