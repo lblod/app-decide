@@ -14,7 +14,7 @@
 
 (define-resource annotation-target () ;; generic resource class to serve as a target for annotations, to be extended with specific classes
   :class (s-prefix "ext:AnnotationTarget")
-  :has-one `((annotation :via ,(s-prefix "oa:hasTarget")
+  :has-many `((annotation :via ,(s-prefix "oa:hasTarget")
               :as "annotations"
               :inverse t))
   :resource-base (s-url "http://data.lblod.info/id/annotation-targets/")
@@ -23,7 +23,7 @@
 (define-resource annotation-body () ;; generic resource class to serve as a body for annotations, to be extended with specific classes
   :class (s-prefix "ext:AnnotationBody")
   :has-one `((annotation :via ,(s-prefix "oa:hasBody")
-              :as "annotations"
+              :as "annotation"
               :inverse t))
   :resource-base (s-url "http://data.lblod.info/id/annotation-bodies/")
   :on-path "annotation-bodies")
