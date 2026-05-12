@@ -1,0 +1,221 @@
+@prefix dct:    <http://purl.org/dc/terms/> .
+@prefix mu:     <http://mu.semte.ch/vocabularies/core/> .
+@prefix org:    <http://www.w3.org/ns/org#> .
+@prefix skos:   <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+
+# --- Codelist: Governing Bodies of Bamberg ---
+
+<https://decide.smartcitybamberg.de/codelists#governing-bodies-bamberg>
+    a                   skos:ConceptScheme ;
+    skos:prefLabel      "Governing Bodies of Bamberg"@en ,
+                        "Gremien der Stadt Bamberg"@de ;
+    dct:modified        "2026-05-12"^^xsd:date .
+
+# --- Parent organisation ---
+
+<https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7>
+    a                        org:Organization ;
+    org:hasSubOrganization   <https://decide.smartcitybamberg.de/organizations#d029ed62-8cad-4415-b016-7c07d4cbbc87> ,
+                             <https://decide.smartcitybamberg.de/organizations#fcc373bd-99c5-46c8-b0e8-43e3affeeb09> ,
+                             <https://decide.smartcitybamberg.de/organizations#29b3759f-08d9-40ff-be42-e8917dd4386d> ,
+                             <https://decide.smartcitybamberg.de/organizations#b49e8499-7999-41cf-81b9-43f581501198> ,
+                             <https://decide.smartcitybamberg.de/organizations#04198aa5-707b-4755-83ee-3c83c5cc4cd6> ,
+                             <https://decide.smartcitybamberg.de/organizations#37a583a9-7c08-4931-9008-485a37024cd5> ,
+                             <https://decide.smartcitybamberg.de/organizations#2d0d0b0b-33d5-4a76-9d2f-867611c57590> ,
+                             <https://decide.smartcitybamberg.de/organizations#c9d3b275-762b-4293-b642-aa05f2c6742f> ,
+                             <https://decide.smartcitybamberg.de/organizations#30803feb-7820-4477-834f-4d3e3e63cc36> ,
+                             <https://decide.smartcitybamberg.de/organizations#7f1feb1f-998a-4562-b1f4-73d8f9b45d0c> ,
+                             <https://decide.smartcitybamberg.de/organizations#ec08ee9d-2455-484e-bdfa-84a8a579979d> ,
+                             <https://decide.smartcitybamberg.de/organizations#85e9ad3d-b4e9-4221-a028-c26583ca1bab> ,
+                             <https://decide.smartcitybamberg.de/organizations#bf34d05b-a8a3-477f-ac1f-e2f41ced1dbf> ,
+                             <https://decide.smartcitybamberg.de/organizations#a8740497-b1a3-4c1f-b384-ee6fa76816b6> ,
+                             <https://decide.smartcitybamberg.de/organizations#9241cf2b-0fc8-472a-9624-f6046665bcb1> ,
+                             <https://decide.smartcitybamberg.de/organizations#c74102cc-f1c4-4b8b-98c6-591e40cd9962> ,
+                             <https://decide.smartcitybamberg.de/organizations#5a985a2a-9b94-48d3-9b57-ad8e7428a012> ,
+                             <https://decide.smartcitybamberg.de/organizations#283ed02a-f8b7-41b5-a68e-c9592df5f09e> ,
+                             <https://decide.smartcitybamberg.de/organizations#a4cc7383-2308-4f11-9af3-e28d23274807> ,
+                             <https://decide.smartcitybamberg.de/organizations#86969c62-c86e-4e5d-a40e-24620b77d7bf> .
+
+# --- Governing Bodies ---
+
+<https://decide.smartcitybamberg.de/organizations#d029ed62-8cad-4415-b016-7c07d4cbbc87>
+    a                   skos:Concept , org:Organization ;
+    mu:uuid             "d029ed62-8cad-4415-b016-7c07d4cbbc87" ;
+    skos:prefLabel      "Stadtrat der Stadt Bamberg"@de ,
+                        "City Council of Bamberg"@en ;
+    dct:identifier      "stadtrat" ;
+    skos:inScheme       <https://decide.smartcitybamberg.de/codelists#governing-bodies-bamberg> ;
+    org:subOrganizationOf <https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> .
+
+
+<https://decide.smartcitybamberg.de/organizations#fcc373bd-99c5-46c8-b0e8-43e3affeeb09>
+    a                   skos:Concept , org:Organization ;
+    mu:uuid             "fcc373bd-99c5-46c8-b0e8-43e3affeeb09" ;
+    skos:prefLabel      "Bau- und Werksenat"@de ,
+                        "Construction and Municipal Works Senate"@en ;
+    dct:identifier      "bau-und-werksenat" ;
+    skos:inScheme       <https://decide.smartcitybamberg.de/codelists#governing-bodies-bamberg> ;
+    org:subOrganizationOf <https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> .
+
+<https://decide.smartcitybamberg.de/organizations#29b3759f-08d9-40ff-be42-e8917dd4386d>
+    a                   skos:Concept , org:Organization ;
+    mu:uuid             "29b3759f-08d9-40ff-be42-e8917dd4386d" ;
+    skos:prefLabel      "Finanzsenat"@de ,
+                        "Finance Senate"@en ;
+    dct:identifier      "finanzsenat" ;
+    skos:inScheme       <https://decide.smartcitybamberg.de/codelists#governing-bodies-bamberg> ;
+    org:subOrganizationOf <https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> .
+
+<https://decide.smartcitybamberg.de/organizations#b49e8499-7999-41cf-81b9-43f581501198>
+    a                   skos:Concept , org:Organization ;
+    mu:uuid             "b49e8499-7999-41cf-81b9-43f581501198" ;
+    skos:prefLabel      "Konversions- und Sicherheitssenat"@de ,
+                        "Conversion and Public Safety Senate"@en ;
+    dct:identifier      "konversions-und-sicherheitssenat" ;
+    skos:inScheme       <https://decide.smartcitybamberg.de/codelists#governing-bodies-bamberg> ;
+    org:subOrganizationOf <https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> .
+
+<https://decide.smartcitybamberg.de/organizations#04198aa5-707b-4755-83ee-3c83c5cc4cd6>
+    a                   skos:Concept , org:Organization ;
+    mu:uuid             "04198aa5-707b-4755-83ee-3c83c5cc4cd6" ;
+    skos:prefLabel      "Kultursenat"@de ,
+                        "Culture Senate"@en ;
+    dct:identifier      "kultursenat" ;
+    skos:inScheme       <https://decide.smartcitybamberg.de/codelists#governing-bodies-bamberg> ;
+    org:subOrganizationOf <https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> .
+
+<https://decide.smartcitybamberg.de/organizations#37a583a9-7c08-4931-9008-485a37024cd5>
+    a                   skos:Concept , org:Organization ;
+    mu:uuid             "37a583a9-7c08-4931-9008-485a37024cd5" ;
+    skos:prefLabel      "Mobilitätssenat"@de ,
+                        "Mobility Senate"@en ;
+    dct:identifier      "mobilitaetssenat" ;
+    skos:inScheme       <https://decide.smartcitybamberg.de/codelists#governing-bodies-bamberg> ;
+    org:subOrganizationOf <https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> .
+
+<https://decide.smartcitybamberg.de/organizations#2d0d0b0b-33d5-4a76-9d2f-867611c57590>
+    a                   skos:Concept , org:Organization ;
+    mu:uuid             "2d0d0b0b-33d5-4a76-9d2f-867611c57590" ;
+    skos:prefLabel      "Familien- und Integrationssenat"@de ,
+                        "Family and Integration Senate"@en ;
+    dct:identifier      "familien-und-integrationssenat" ;
+    skos:inScheme       <https://decide.smartcitybamberg.de/codelists#governing-bodies-bamberg> ;
+    org:subOrganizationOf <https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> .
+
+<https://decide.smartcitybamberg.de/organizations#c9d3b275-762b-4293-b642-aa05f2c6742f>
+    a                   skos:Concept , org:Organization ;
+    mu:uuid             "c9d3b275-762b-4293-b642-aa05f2c6742f" ;
+    skos:prefLabel      "Jugendhilfeausschuss"@de ,
+                        "Youth Welfare Committee"@en ;
+    dct:identifier      "jugendhilfeausschuss" ;
+    skos:inScheme       <https://decide.smartcitybamberg.de/codelists#governing-bodies-bamberg> ;
+    org:subOrganizationOf <https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> .
+
+<https://decide.smartcitybamberg.de/organizations#30803feb-7820-4477-834f-4d3e3e63cc36>
+    a                   skos:Concept , org:Organization ;
+    mu:uuid             "30803feb-7820-4477-834f-4d3e3e63cc36" ;
+    skos:prefLabel      "Feriensenat"@de ,
+                        "Recess Senate"@en ;
+    dct:identifier      "feriensenat" ;
+    skos:inScheme       <https://decide.smartcitybamberg.de/codelists#governing-bodies-bamberg> ;
+    org:subOrganizationOf <https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> .
+
+<https://decide.smartcitybamberg.de/organizations#7f1feb1f-998a-4562-b1f4-73d8f9b45d0c>
+    a                   skos:Concept , org:Organization ;
+    mu:uuid             "7f1feb1f-998a-4562-b1f4-73d8f9b45d0c" ;
+    skos:prefLabel      "Regionaler Klimarat von Stadt und Landkreis Bamberg"@de ,
+                        "Regional Climate Council of the City and District of Bamberg"@en ;
+    dct:identifier      "regionaler-klimarat" ;
+    skos:inScheme       <https://decide.smartcitybamberg.de/codelists#governing-bodies-bamberg> ;
+    org:subOrganizationOf <https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> .
+
+<https://decide.smartcitybamberg.de/organizations#ec08ee9d-2455-484e-bdfa-84a8a579979d>
+    a                   skos:Concept , org:Organization ;
+    mu:uuid             "ec08ee9d-2455-484e-bdfa-84a8a579979d" ;
+    skos:prefLabel      "Senat für Bauwesen und Stadtentwicklung"@de ,
+                        "Senate for Construction and Urban Development"@en ;
+    dct:identifier      "senat-bauwesen-stadtentwicklung" ;
+    skos:inScheme       <https://decide.smartcitybamberg.de/codelists#governing-bodies-bamberg> ;
+    org:subOrganizationOf <https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> .
+
+<https://decide.smartcitybamberg.de/organizations#85e9ad3d-b4e9-4221-a028-c26583ca1bab>
+    a                   skos:Concept , org:Organization ;
+    mu:uuid             "85e9ad3d-b4e9-4221-a028-c26583ca1bab" ;
+    skos:prefLabel      "Senat für Personal und Verwaltungsorganisation"@de ,
+                        "Senate for Personnel and Administrative Organisation"@en ;
+    dct:identifier      "senat-personal-verwaltungsorganisation" ;
+    skos:inScheme       <https://decide.smartcitybamberg.de/codelists#governing-bodies-bamberg> ;
+    org:subOrganizationOf <https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> .
+
+<https://decide.smartcitybamberg.de/organizations#bf34d05b-a8a3-477f-ac1f-e2f41ced1dbf>
+    a                   skos:Concept , org:Organization ;
+    mu:uuid             "bf34d05b-a8a3-477f-ac1f-e2f41ced1dbf" ;
+    skos:prefLabel      "Senat für Umwelt und Verkehr"@de ,
+                        "Senate for Environment and Transport"@en ;
+    dct:identifier      "senat-umwelt-verkehr" ;
+    skos:inScheme       <https://decide.smartcitybamberg.de/codelists#governing-bodies-bamberg> ;
+    org:subOrganizationOf <https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> .
+
+<https://decide.smartcitybamberg.de/organizations#a8740497-b1a3-4c1f-b384-ee6fa76816b6>
+    a                   skos:Concept , org:Organization ;
+    mu:uuid             "a8740497-b1a3-4c1f-b384-ee6fa76816b6" ;
+    skos:prefLabel      "Senat für Wirtschaft, Finanzen und städtische Beteiligungen"@de ,
+                        "Senate for Economy, Finance and Municipal Shareholdings"@en ;
+    dct:identifier      "senat-wirtschaft-finanzen-beteiligungen" ;
+    skos:inScheme       <https://decide.smartcitybamberg.de/codelists#governing-bodies-bamberg> ;
+    org:subOrganizationOf <https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> .
+
+<https://decide.smartcitybamberg.de/organizations#9241cf2b-0fc8-472a-9624-f6046665bcb1>
+    a                   skos:Concept , org:Organization ;
+    mu:uuid             "9241cf2b-0fc8-472a-9624-f6046665bcb1" ;
+    skos:prefLabel      "Sozialhilfeausschuss"@de ,
+                        "Social Welfare Committee"@en ;
+    dct:identifier      "sozialhilfeausschuss" ;
+    skos:inScheme       <https://decide.smartcitybamberg.de/codelists#governing-bodies-bamberg> ;
+    org:subOrganizationOf <https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> .
+
+<https://decide.smartcitybamberg.de/organizations#c74102cc-f1c4-4b8b-98c6-591e40cd9962>
+    a                   skos:Concept , org:Organization ;
+    mu:uuid             "c74102cc-f1c4-4b8b-98c6-591e40cd9962" ;
+    skos:prefLabel      "Beirat für Menschen mit Behinderung"@de ,
+                        "Advisory Board for People with Disabilities"@en ;
+    dct:identifier      "beirat-menschen-behinderung" ;
+    skos:inScheme       <https://decide.smartcitybamberg.de/codelists#governing-bodies-bamberg> ;
+    org:subOrganizationOf <https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> .
+
+<https://decide.smartcitybamberg.de/organizations#5a985a2a-9b94-48d3-9b57-ad8e7428a012>
+    a                   skos:Concept , org:Organization ;
+    mu:uuid             "5a985a2a-9b94-48d3-9b57-ad8e7428a012" ;
+    skos:prefLabel      "Beirat für Seniorinnen und Senioren der Stadt Bamberg"@de ,
+                        "Senior Citizens Advisory Board of the City of Bamberg"@en ;
+    dct:identifier      "beirat-senioren-bamberg" ;
+    skos:inScheme       <https://decide.smartcitybamberg.de/codelists#governing-bodies-bamberg> ;
+    org:subOrganizationOf <https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> .
+
+<https://decide.smartcitybamberg.de/organizations#283ed02a-f8b7-41b5-a68e-c9592df5f09e>
+    a                   skos:Concept , org:Organization ;
+    mu:uuid             "283ed02a-f8b7-41b5-a68e-c9592df5f09e" ;
+    skos:prefLabel      "Stadtgestaltungsbeirat"@de ,
+                        "Urban Design Advisory Board"@en ;
+    dct:identifier      "stadtgestaltungsbeirat" ;
+    skos:inScheme       <https://decide.smartcitybamberg.de/codelists#governing-bodies-bamberg> ;
+    org:subOrganizationOf <https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> .
+
+<https://decide.smartcitybamberg.de/organizations#a4cc7383-2308-4f11-9af3-e28d23274807>
+    a                   skos:Concept , org:Organization ;
+    mu:uuid             "a4cc7383-2308-4f11-9af3-e28d23274807" ;
+    skos:prefLabel      "Kommunaler Beirat für Menschen mit Behinderung (Behindertenbeirat)"@de ,
+                        "Municipal Advisory Board for People with Disabilities"@en ;
+    dct:identifier      "kommunaler-beirat-behinderung" ;
+    skos:inScheme       <https://decide.smartcitybamberg.de/codelists#governing-bodies-bamberg> ;
+    org:subOrganizationOf <https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> .
+
+<https://decide.smartcitybamberg.de/organizations#86969c62-c86e-4e5d-a40e-24620b77d7bf>
+    a                   skos:Concept , org:Organization ;
+    mu:uuid             "86969c62-c86e-4e5d-a40e-24620b77d7bf" ;
+    skos:prefLabel      "Zweckverband Gymnasien Stadt und Landkreis Bamberg"@de ,
+                        "Special Purpose Association for Secondary Schools of the City and District of Bamberg"@en ;
+    dct:identifier      "zweckverband-gymnasien-bamberg" ;
+    skos:inScheme       <https://decide.smartcitybamberg.de/codelists#governing-bodies-bamberg> ;
+    org:subOrganizationOf <https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> .
