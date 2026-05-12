@@ -8,6 +8,7 @@
 
 <https://decide.smartcitybamberg.de/codelists#governing-bodies-bamberg>
     a                   skos:ConceptScheme ;
+    mu:uuid             "143d04b0-5d7f-4901-a016-502c69af3807" ;
     skos:prefLabel      "Governing Bodies of Bamberg"@en ,
                         "Gremien der Stadt Bamberg"@de ;
     dct:modified        "2026-05-12"^^xsd:date .
