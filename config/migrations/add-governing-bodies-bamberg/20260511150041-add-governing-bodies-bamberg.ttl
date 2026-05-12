@@ -16,7 +16,12 @@
 # --- Parent organisation ---
 
 <https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7>
-    a                        org:Organization ;
+    a                        besluit:Bestuurseenheid, org:Organization ;
+    besluit:classificatie <http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000001> ;
+    org:classification <http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000001> ;
+    mu:uuid "c8e6b8ef-0a33-425a-b9d5-96354823f6e7" ;
+    dct:identifier "bamberg" ;
+    skos:prefLabel "Stadt Bamberg"@de ;
     org:hasSubOrganization   <https://decide.smartcitybamberg.de/organizations#d029ed62-8cad-4415-b016-7c07d4cbbc87> ,
                              <https://decide.smartcitybamberg.de/organizations#fcc373bd-99c5-46c8-b0e8-43e3affeeb09> ,
                              <https://decide.smartcitybamberg.de/organizations#29b3759f-08d9-40ff-be42-e8917dd4386d> ,
