@@ -6,7 +6,7 @@
                 (:motivated-by :url ,(s-prefix "oa:motivatedBy")))
   :has-one `((annotation-target :via ,(s-prefix "oa:hasTarget")
                                 :as "has-target")
-             (location :via ,(s-prefix "oa:hasBody")
+             (annotation-body :via ,(s-prefix "oa:hasBody")
                        :as "has-body"))
   :features '(include-uri)
   :resource-base (s-url "http://data.lblod.info/id/annotations/")
@@ -19,6 +19,14 @@
               :inverse t))
   :resource-base (s-url "http://data.lblod.info/id/annotation-targets/")
   :on-path "annotation-targets")
+
+(define-resource annotation-body () ;; generic resource class to serve as a body for annotations, to be extended with specific classes
+  :class (s-prefix "ext:AnnotationBody")
+  :has-one `((annotation :via ,(s-prefix "oa:hasBody")
+              :as "annotations"
+              :inverse t))
+  :resource-base (s-url "http://data.lblod.info/id/annotation-bodies/")
+  :on-path "annotation-bodies")
 
 (define-resource specific-resource (annotation-target)
   :class (s-prefix "oa:SpecificResource")
@@ -52,8 +60,8 @@
 (define-resource answer (annotation-target) ;; created by the question-answering-service, amended by the frontend upon evaluation
   :class (s-prefix "schema:Answer")
   :properties `((:created         :datetime ,(s-prefix "dct:created")) ;; timestamp of the answer
-                (:text            :string   ,(s-prefix "schema:text"))) ;; content of the answer
-                (:llm             :url      ,(s-prefix "dct:creator")) ;; LLM that was used (should this be a has-one relation to a resource representing the LLM? If so, we need a resource config for it)
+                (:text            :string   ,(s-prefix "schema:text")) ;; content of the answer
+                (:llm             :url      ,(s-prefix "dct:creator"))) ;; LLM that was used (should this be a has-one relation to a resource representing the LLM? If so, we need a resource config for it)
   :has-one `((question            :via ,(s-prefix "schema:suggestedAnswer")
                                   :inverse t
                                   :as "question"))
