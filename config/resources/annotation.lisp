@@ -67,9 +67,7 @@
                                   :as "question"))
   :has-many `((quotation      :via ,(s-prefix "schema:citation") ;; the set of decisions that were used
                                   :as "sources")
-              (annotation         :via ,(s-prefix "oa:hasTarget") ;; annotations for the answer as a whole
-                                  :inverse t
-                                  :as "annotations"))
+  ;; has-many annotations for the answer as a whole (inherited from annotation-target)
   :resource-base (s-url "http://data.lblod.info/id/answers/")
   :on-path "answers")
 
@@ -81,8 +79,6 @@
              (answer              :via ,(s-prefix "schema:citation")
                                   :inverse t
                                   :as "answer"))
-  :has-many `((annotation         :via ,(s-prefix "oa:hasTarget") ;; annotations for this answer & quotation combination specifically
-                                  :inverse t
-                                  :as "annotations"))
+  ;; has-many annotations for this answer & quotation combination specifically (inherited from annotation-target)
   :resource-base (s-url "http://data.lblod.info/id/quotations/")
   :on-path "quotations")
