@@ -1,0 +1,22 @@
+PREFIX ext: <http://mu.semte.ch/vocabularies/ext/>
+PREFIX dct: <http://purl.org/dc/terms/>
+
+INSERT {
+  GRAPH ?g {
+    ?location a ext:AnnotationBody .
+  }
+} WHERE {
+  GRAPH ?g {
+    ?location a dct:Location .
+  }
+}
+
+INSERT {
+  GRAPH ?g {
+    ?specificResource a ext:AnnotationTarget .
+  }
+} WHERE {
+  GRAPH ?g {
+    ?specificResource a oa:SpecificResource .
+  }
+}
