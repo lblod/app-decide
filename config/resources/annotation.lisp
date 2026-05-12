@@ -66,7 +66,7 @@
                                   :inverse t
                                   :as "question"))
   :has-many `((quotation      :via ,(s-prefix "schema:citation") ;; the set of decisions that were used
-                                  :as "sources")
+                                  :as "sources"))
   ;; has-many annotations for the answer as a whole (inherited from annotation-target)
   :resource-base (s-url "http://data.lblod.info/id/answers/")
   :on-path "answers")
