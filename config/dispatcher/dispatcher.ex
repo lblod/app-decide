@@ -61,8 +61,16 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://vc-issuer/issuer/"
   end
 
+  get "/question-answering/docs", %{ accept: [:any], layer: :api_services } do
+    Proxy.forward conn, [], "http://question-answering/docs"
+  end
+
+  get "/question-answering/openapi.json", %{ accept: [:any], layer: :api_services } do
+    Proxy.forward conn, [], "http://question-answering/openapi.json"
+  end
+
   match "/question-answering/*path", %{ accept: [:any], layer: :api_services } do
-    Proxy.forward conn, path, "http://question-answering/uc2/"
+    Proxy.forward conn, path, "http://question-answering/question-answering/"
   end
 
   match "/api/sparql", %{ reverse_host: ["yasgui" | _rest], accept: [:any], layer: :sparql } do

@@ -64,3 +64,9 @@ services:
       - ../config/annotation-job-splitter:/config
     labels:
       - 'logging=true'
+  harvest_singleton-job:
+    image: lblod/harvesting-singleton-job-service:1.0.0
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging
