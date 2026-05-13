@@ -3,6 +3,7 @@
 @prefix org:    <http://www.w3.org/ns/org#> .
 @prefix skos:   <http://www.w3.org/2004/02/skos/core#> .
 @prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix besluit: <http://data.vlaanderen.be/ns/besluit#> .
 
 # --- Codelist: Governing Bodies of Bamberg ---
 
