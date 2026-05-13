@@ -1,3 +1,8 @@
+x-logging: &default-logging
+  driver: 'json-file'
+  options:
+    max-size: '10m'
+    max-file: '3'
 services:
   ##################################
   ### elastic and embeddings
@@ -6,16 +11,19 @@ services:
     image: semtech/mu-search:feature-large-dense-vector
     environment:
       INCLUDE_SCORE: true
+    logging: *default-logging
     volumes:
       - ../config/search:/config
   elasticsearch:
     image: semtech/mu-search-elastic-backend:feature-bump-es-9.2.0
+    logging: *default-logging
     volumes:
       - elasticsearch-data:/usr/share/elasticsearch/data
     environment:
       - discovery.type=single-node
   embedding:
     image: semanticai/embedding-service:0.0.3
+    logging: *default-logging
     labels:
       - logging=true
     environment:
@@ -28,6 +36,7 @@ services:
       - ollama
   municipality-linker:
     image: lblod/decide-municipality-linker-service:0.0.1
+    logging: *default-logging
 
 volumes:
   elasticsearch-data:
