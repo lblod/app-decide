@@ -1,3 +1,8 @@
+x-logging: &default-logging
+  driver: 'json-file'
+  options:
+    max-size: '10m'
+    max-file: '3'
 services:
   dcat:
     image: lblod/dcat-service:0.0.1
@@ -17,6 +22,7 @@ services:
       NO_DID_PREFIX: true
       SINGLE_CREDENTIAL_RESPONSE: true
     restart: always
+    logging: *default-logging
     labels:
       - 'logging=true'
   acmidm-login:
@@ -58,4 +64,3 @@ services:
       - 'logging=true'
     restart: always
     logging: *default-logging
-  
