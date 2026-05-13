@@ -105,6 +105,13 @@ services:
     entrypoint: ["echo", "Service nominatim is disabled"]
 
 
+  # Uncomment to use script to create new user accounts
+  # registration:
+  #   image: semtech/mu-registration-service:2.8.0
+  #   links:
+  #     - database:database
+
+
 # Uncomment to configure network exposed by app-letsencrypt
 # networks:
 #   proxy:
