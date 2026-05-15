@@ -78,6 +78,10 @@ services:
     restart: no
     profiles:
       - search
+  municipality-linker:
+    restart: no
+    profiles:
+      - search
   embedding:
     restart: no
     profiles:

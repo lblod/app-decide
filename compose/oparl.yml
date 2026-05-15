@@ -37,12 +37,6 @@ services:
       - 'logging=true'
     restart: always
     logging: *default-logging
-  harvest_singleton-job:
-    image: lblod/harvesting-singleton-job-service:1.0.0
-    labels:
-      - 'logging=true'
-    restart: always
-    logging: *default-logging
   oparl-to-eli:
     image: lblod/oparl-to-eli-service:0.0.3
     volumes:
