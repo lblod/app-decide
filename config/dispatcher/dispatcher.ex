@@ -61,10 +61,6 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://vc-issuer/issuer/"
   end
 
-  get "/question-answering/docs", %{ accept: [:any], layer: :api_services } do
-    Proxy.forward conn, [], "http://question-answering/docs"
-  end
-
   get "/question-answering/openapi.json", %{ accept: [:any], layer: :api_services } do
     Proxy.forward conn, [], "http://question-answering/openapi.json"
   end
