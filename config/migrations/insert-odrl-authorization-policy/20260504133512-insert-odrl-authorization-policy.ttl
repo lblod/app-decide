@@ -1,6 +1,3 @@
-# For more details in writing authorisation policies in ODRL, see
-# sparql-parser's README.
-# <https://github.com/mu-semtech/sparql-parser/tree/feature/odrl-configuration?tab=readme-ov-file#defining-an-authorization-policy-in-odrl>
 @prefix adms: <http://www.w3.org/ns/adms#> .
 @prefix besluit: <http://data.vlaanderen.be/ns/besluit#> .
 @prefix cms: <http://mu.semte.ch/vocabulary/cms/> .
@@ -33,6 +30,7 @@
 @prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
 @prefix wikidata: <http://www.wikidata.org/entity/> .
 @prefix wot: <https://www.w3.org/2019/wot/security#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
 
 ext:muAuthProfile a odrl:Profile ;
   dct:description "ODRL profile describing access to mu-auth resources." .
@@ -457,8 +455,7 @@ ext:ExtReviewAnnotationAsset a odrl:Asset, sh:NodeShape ;
   sh:targetClass ext:ReviewAnnotation .
 
 ext:NodeShapeAsset a odrl:Asset, sh:NodeShape ;
-  odrl:partOf ext:decideHarvestingSlice ,
-    ext:decideAuthzSlice ;
+  odrl:partOf ext:decideHarvestingSlice ;
   sh:targetClass sh:NodeShape .
 
 ext:CogsScheduledJobAsset a odrl:Asset, sh:NodeShape ;
@@ -531,7 +528,6 @@ ext:WotBasicSecuritySchemeAsset a odrl:Asset, sh:NodeShape ;
 ext:WotOAuth2SecuritySchemeAsset a odrl:Asset, sh:NodeShape ;
   odrl:partOf ext:decideHarvestingSlice ;
   sh:targetClass wot:OAuth2SecurityScheme .
-
 
 # Access rights to the stored copy of this policy itself
 ext:decideAuthzSlice a odrl:AssetCollection ;

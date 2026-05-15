@@ -60,6 +60,8 @@ services:
     image: lblod/annotation-job-splitter-service:0.0.1
     restart: always
     logging: *default-logging
+    volumes:
+      - ../config/annotation-job-splitter:/config
     labels:
       - 'logging=true'
   harvest_singleton-job:
