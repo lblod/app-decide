@@ -46,3 +46,25 @@ TODO: better authentication credentials for harvester frontend (example migratio
 
 ### Verifiable credentials
 - TODO VC configuration
+
+
+## Partner configurations
+This folder also contains some pre-configured docker compose configurations disabling services that are unnecessary for the use cases specific partners are interested in. The easiest way to include this configurations is to add them as last entry in your `.env` file:
+
+```bash
+COMPOSE_FILE=docker-compose.yml:docker-compose.override.yml:./docs/docker-compose.override.NAME.yml
+```
+
+Note, take care **not** to include the `docker-compose.dev.yml` file here as this can expose services to the outside world.
+
+
+### Bamberg
+- TODO PDFs via file service (cf. issue with session link and PDF download link)
+
+
+### Freiburg
+TODO
+
+
+### Ghent
+TODO
