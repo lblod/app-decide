@@ -22,6 +22,10 @@ This application is a [semantic.works](https://semantic.works/) app and thereby 
 - `docker` and `docker compose` to configure and run the application's microservices
 - A reverse proxy that forwards HTTP requests to the app's identifier service. We typically use [app-letsencrypt](https://github.com/redpencilio/app-letsencrypt) for this purpose.
 
+### Updating the app
+Generally updating (parts of) the app consists of pulling the latest version from the remote repository via a  `git pull` and, recreating and/or restarting the appropriate services.
+For each service `A` that was added or updated (version bump or changed environment variables), do `docker compose up [-d] A`. For each service `B` for which their configuration was updated in the `../config/B` folder, do a `docker compose restart B`. Note, that `up` on its own does **not** cause a service to update its configuration.
+
 
 ## Service configuration
 TODO
