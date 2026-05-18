@@ -1,3 +1,5 @@
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
 <http://data.lblod.gift/id/concept/9277af04a59009b6de0777c276f8d397> skos:exactMatch <http://metadata.un.org/sdg/1> .
 <http://data.lblod.gift/id/concept/967cda8e89eb35abff676e188f69c37f> skos:exactMatch <http://metadata.un.org/sdg/2> .
 <http://data.lblod.gift/id/concept/def977cfc4cd819c575874e0d82beada> skos:exactMatch <http://metadata.un.org/sdg/3> .
