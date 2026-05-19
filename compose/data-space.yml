@@ -86,8 +86,7 @@ services:
       LDES_FOLDER: "public"
       WRITE_INITIAL_STATE: "false"
     volumes:
-      # TODO: Uncomment when adding configuration
-      # - ../config/ldes-delta-pusher/:/config/
+      - ../config/ldes-delta-pusher/:/config/
       - ../data/ldes-feed/:/data/
     restart: always
     logging: *default-logging
