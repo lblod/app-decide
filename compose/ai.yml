@@ -14,8 +14,6 @@ services:
       TARGET_GRAPH: 'http://mu.semte.ch/graphs/public'
       DEFAULT_GRAPH: 'http://mu.semte.ch/graphs/harvesting'
       ALLOW_MU_AUTH_SUDO: 'true'
-      QDRANT_HOST: 'qdrant'
-      QDRANT_PORT: 6333
       OLLAMA_HOST: 'http://ollama:11434'
       NOMINATIM_ENDPOINT: 'http://nominatim:8080/'
       MCP_SERVER_URL: 'http://localhost:80/mcp/sse'
@@ -109,10 +107,6 @@ services:
     restart: always
     volumes:
       - ./../data/nominatim:/var/lib/postgresql/16/main
-
-  qdrant:
-    image: qdrant/qdrant
-    restart: always
 
   named-entity-recognition:
     image: semanticai/decide-geocoding-service:0.0.2
