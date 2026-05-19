@@ -120,3 +120,5 @@ services:
     restart: no
   ldes-delta-pusher:
     restart: no
+  ldes-serve-feed:
+    restart: no

@@ -94,3 +94,12 @@ services:
       - "logging=true"
     links:
       - virtuoso:database
+  ldes-serve-feed:
+    image: lblod/ldes-serve-feed-service:0.4.0
+    environment:
+      BASE_URL: "https://ds.decide.lblod.info/ldes/"
+    volumes:
+      - ../data/ldes-feed/:/data/
+    logging: *default-logging
+    labels:
+      - "logging=true"
