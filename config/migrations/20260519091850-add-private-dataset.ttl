@@ -27,8 +27,11 @@ public-ds-ex:policy a odrl:Offer, ext:PublicPolicy ;
     odrl:target public-ds-ex:dataset ;  
     odrl:assigner <http://ds.decide.lblod.info> ;  
     odrl:permission [  
-        odrl:action odrl:use ;  
-    ].
+        odrl:action odrl:read ;  
+    ] ;
+    odrl:prohibition [
+      odrl:action odrl:write ;
+    ] .
 
 
 private-ds-ex:dataset a dcat:Dataset ;  
@@ -49,12 +52,12 @@ private-ds-ex:policy a odrl:Offer, ext:RestrictedPolicy ;
     odrl:assigner <http://ds.decide.lblod.info> ;  
     odrl:target private-ds-ex:dataset ;  
     odrl:permission [  
-        odrl:action odrl:use ;  
+        odrl:action odrl:read ;  
         odrl:assignee private-ds-ex:licensedUserCollection ;  
     ] ;
     odrl:prohibition [  
-        odrl:action odrl:use ;  
-    ].
+        odrl:action odrl:read, odrl:write ;  
+    ] .
 
 # PartyCollection listing the users with a license
 private-ds-ex:licensedUserCollection a odrl:PartyCollection ;  
