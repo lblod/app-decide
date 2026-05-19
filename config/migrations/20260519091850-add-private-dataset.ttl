@@ -12,8 +12,8 @@
 
 public-ds-ex:dataset a dcat:Dataset ;  
     mu:uuid "1ae2da8e-9889-426b-a7e8-9360c15ba2cd" ;
-    dct:title "Licensed Dataset" ;  
-    dct:description "An example dataset available only to users who purchased a valid license." ;  
+    dct:title "Public dataset" ;  
+    dct:description "An example public dataset available any user, even users without a license." ;  
     dcat:distribution public-ds-ex:distribution .
 
 public-ds-ex:distribution a dcat:Distribution ;  
@@ -21,7 +21,7 @@ public-ds-ex:distribution a dcat:Distribution ;
     dct:format "application/sparql-query" ;  
     dcat:accessURL <https://ds.decide.lblod.info/api/sparql> .
 
-public-ds-ex:policy a odrl:Agreement, ext:PublicPolicy ;  
+public-ds-ex:policy a odrl:Offer, ext:PublicPolicy ;  
     mu:uuid "ab4509a9-4676-4966-bc07-8c20a3eb1d80" ;
     dct:description "Anyone may use this dataset" ;
     odrl:target public-ds-ex:dataset ;  
@@ -42,7 +42,7 @@ private-ds-ex:distribution a dcat:Distribution ;
     dct:format "application/sparql-query" ;  
     dcat:accessURL <https://ds.decide.lblod.info/api/private/sparql> .
 
-private-ds-ex:policy a odrl:Agreement, ext:RestrictedPolicy ;  
+private-ds-ex:policy a odrl:Offer, ext:RestrictedPolicy ;  
     mu:uuid "1d8e1e34-ac8c-4fb8-845a-a9e8ca0e9f6b" ;
     dct: "Only licensed users may access this content" ;
     odrl:conflict odrl:perm ;
