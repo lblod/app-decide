@@ -71,7 +71,7 @@ private-ds-ex:licenseOffering a schema:Offer ;
     schema:name "Dataset Access License" ;  
     schema:description "A license granting access to the licensed dataset." ;  
     schema:url <http://ds.decide.lblod.info/licenses/purchase> ;
-    schema:howTo [  
+    schema:about [  
         schema:name "How to Obtain a License" ;  
         schema:description "Visit the license purchase page and complete the checkout process. API access is also available for automated licensing." ;  
         schema:url <http://ds.decide.lblod.info/licenses/purchase> ;
