@@ -118,3 +118,5 @@ services:
     restart: no
   frontend-policy-impact-report:
     restart: no
+  ldes-delta-pusher:
+    restart: no
