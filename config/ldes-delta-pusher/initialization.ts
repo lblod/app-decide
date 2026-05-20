@@ -8,22 +8,32 @@ export const PUBLIC_GRAPH_FILTER = `
   }`;
 
 export const initialization = {
+  // TODO: In the current data not all resources actually have a value for the
+  // `dcterms:modified` predicate.  Either fix this in the data or use the
+  // `track-modified-service`
   public: {
     'http://www.w3.org/ns/dcat#Catalog': {
       graphFilter: PUBLIC_GRAPH_FILTER,
+      healingPredicates: ['http://purl.org/dc/terms/modified'],
     },
     'http://www.w3.org/ns/dcat#Dataset': {
       graphFilter: PUBLIC_GRAPH_FILTER,
+      healingPredicates: ['http://purl.org/dc/terms/modified'],
     },
     'http://www.w3.org/ns/dcat#Distribution': {
       graphFilter: PUBLIC_GRAPH_FILTER,
+      healingPredicates: ['http://purl.org/dc/terms/modified'],
     },
     'http://www.w3.org/ns/dcat#DataService': {
       graphFilter: PUBLIC_GRAPH_FILTER,
     },
     'http://www.w3.org/ns/dcat#CatalogRecord': {
       graphFilter: PUBLIC_GRAPH_FILTER,
+      healingPredicates: ['http://purl.org/dc/terms/modified'],
     },
+    // TODO: The remaining resources currently do NOT have a modified, or
+    // similar, predicate linked to it.  We probably need to add the
+    // `track-modified-service` for these.
     'http://xmlns.com/foaf/0.1/Agent': {
       graphFilter: PUBLIC_GRAPH_FILTER,
       filter: `
