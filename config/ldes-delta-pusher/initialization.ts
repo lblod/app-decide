@@ -2,7 +2,7 @@ import { sparqlEscapeUri } from 'mu';
 
 export const PUBLIC_GRAPH = 'http://mu.semte.ch/graphs/public';
 
-const PUBLIC_GRAPH_FILTER = `
+export const PUBLIC_GRAPH_FILTER = `
   VALUES ?g {
     ${sparqlEscapeUri(PUBLIC_GRAPH)}
   }`;
@@ -99,3 +99,15 @@ export const initialization = {
     },
   },
 };
+
+function getElement(stream, type) {
+  return initialization[stream]?.[type];
+}
+
+export function getGraphFilter(stream, type) {
+  return getElement(stream, type)?.graphFilter;
+}
+
+export function getFilter(stream, type) {
+  return getElement(stream, type)?.filter;
+}
