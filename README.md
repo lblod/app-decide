@@ -209,9 +209,7 @@ This use case provides smart, LLM-powered search functionality for the decisions
 For a more detailed description of this use case and how it was developed withing the DECIDe project see the dedicated [gitbook page](https://app.gitbook.com/o/-MP9Yduzf5xu7wIebqPG/s/PzeOtGh2pfnNKyqa7G5w/decide-project/write-up-uc2-smart-search).
 
 For more information on configuring an app instance to support smart search see the [above configuration section](#running-the-stack-with-smart-searchquestion-answering).
->>>>>>> 02ccdbd (chore(doc): revise section on smart search setup)
 
-TODO
 
 ## Pipeline dashboard
 
