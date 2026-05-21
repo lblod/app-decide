@@ -13,10 +13,15 @@ import {
 type interestingSubject = { subject: string; type: string };
 
 export default async function dispatch(changesets: Changeset[]) {
-  // TODO: Incorporate multiple streams
-  const subjects = filterInsertedSubjects(changesets);
-  const interestingSubjects = await filterInterestingSubjects(subjects);
-  const inserts = await subjectsToQuads(interestingSubjects);
+  // TODO: support for multiple streams will be added later on.
+  const publicStream = 'public';
+
+  const insertedSubjects = filterInsertedSubjects(changesets);
+  const interestingSubjects = await filterInterestingSubjects(
+    insertedSubjects,
+    publicStream,
+  );
+  const inserts = await subjectsToQuads(interestingSubjects, publicStream);
 
   await moveTriples([
     {
@@ -49,17 +54,18 @@ function filterInsertedSubjects(changesets: Changeset[]): string[] {
  * subject is considered interesting if it has an RDF resource type that is
  * configured in `initialization`.
  * @param {string[]} subjects - The subject URIs to filter.
+ * @param {string} stream - The name of a stream as defined in `initialization`.
  * @return {Promise<interestingSubject[]>} An array that contains a subset of
  *   interesting subjects enriched with the RDF resource type of the subject.
  */
 async function filterInterestingSubjects(
   subjects: string[],
+  stream: string,
 ): Promise<interestingSubject[]> {
-  // TODO: Add stream as argument
   const interestingSubjects: interestingSubject[] = [];
 
   for (const subject of subjects) {
-    const interestingType = await hasInterestingType(subject);
+    const interestingType = await hasInterestingType(subject, stream);
     if (interestingType) {
       interestingSubjects.push({ subject, type: interestingType });
     }
@@ -77,13 +83,14 @@ async function filterInterestingSubjects(
  * subject that will be filtered out later.  It is up to subsequent functions to
  * handle this situation.
  * @param {string} subject - The URI of the resource to check.
+ * @param {string} stream - The name of a stream as defined in `initialization`.
  * @return {Promise<string|undefined} The URI of the subject's type if it is
  *   interesting, undefined otherwise.
  */
 async function hasInterestingType(
   subject: string,
+  stream: string,
 ): Promise<string | undefined> {
-  // TODO: Add stream as argument
   // NOTE (21/05/2026): For simplicity this query only returns a single type,
   // whichever type the triplestore decides to answer.  This might cause
   // problems if a subject has multiple interesting types.  Since this is
@@ -93,7 +100,7 @@ async function hasInterestingType(
     WHERE {
       GRAPH ?g {
         VALUES ?type {
-          ${Object.keys(initialization.public)
+          ${Object.keys(initialization[stream])
             .map((type) => sparqlEscapeUri(type))
             .join('\n')}
         }
@@ -128,6 +135,7 @@ async function hasInterestingType(
  */
 async function subjectsToQuads(
   subjects: interestingSubject[],
+  stream: string,
 ): Promise<Quad[]> {
   const quads = (
     await Promise.all(
@@ -146,14 +154,15 @@ async function subjectsToQuads(
  * configured in `initialization`.
  * @param {interestingSubject} subject - The URIs of the resources and their RDF
  *   types for which to retrieve the quads.
+ * @param {string} stream - The name of a stream as defined in `initialization`.
  * @return {Promise<Quad[]>} An array containing all quads for the subject.
  */
 async function getQuadsForSubject(
   subject: interestingSubject,
+  stream: string,
 ): Promise<Quad[]> {
-  // TODO: Pass stream name as argument
-  const graphFilter = getGraphFilter('public', type) ?? '';
-  const filter = getFilter('public', type) ?? '';
+  const graphFilter = getGraphFilter(stream, subject.type) ?? '';
+  const filter = getFilter(stream, subject.type) ?? '';
 
   const triples = await query(`
     SELECT DISTINCT ?s ?p ?o
