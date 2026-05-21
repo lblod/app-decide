@@ -96,8 +96,6 @@ services:
     restart: "no"
   nominatim:
     restart: "no"
-  qdrant:
-    restart: "no"
   named-entity-recognition:
     restart: "no"
   codelist-labeling:
