@@ -1,7 +1,5 @@
 # Data extraction for municipality as .ttl
 
-Extracts RDF data from a Virtuoso triple store into local `.ttl` files using the _Queue Graph_ pattern. Discovery (which URIs to extract) and extraction (fetching their triples) are separated to avoid database timeouts. A temporary named graph acts as a persistent queue so interrupted runs can resume.
-
 ## Requirements
 
 - Python 3.9+
@@ -93,7 +91,7 @@ Results will be merged in a single output file per job, covering all configured 
 
 ## Crash resilience
 
-The tmp graph is a persistent checkpoint. If the script crashes mid-run, simply re-run the same job — it will skip already-processed subjects and continue from where it left off. If it crashed during Step 1 (populating the queue), re-running is still safe because duplicate inserts into the tmp graph are no-ops.
+The temporary graph is a persistent checkpoint. If the script crashes mid-run, simply re-run the same job — it will skip already-processed subjects and continue from where it left off. If it crashed during Step 1 (populating the queue), re-running is still safe because duplicate inserts into the tmp graph are no-ops.
 
 ## Adding a new job
 
@@ -110,8 +108,6 @@ The tmp graph is a persistent checkpoint. If the script crashes mid-run, simply 
      ?subject a ex:SomeClass .
    }
    ```
-
-   The file must end with exactly `}` — no trailing whitespace or comments.
 
 2. Add an entry to `jobs.json`:
    ```json

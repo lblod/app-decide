@@ -1,23 +1,3 @@
-"""
-queue_graph_extract.py
-======================
-Queue Graph extraction pipeline (Steps 1–4 from the strategy doc).
-
-Usage:
-    python queue_graph_extract.py --job <job_name>
-    python queue_graph_extract.py --list          # show all available jobs
-
-Jobs are defined in ./jobs/jobs.json.
-Each job's INSERT query lives in a separate .sparql file, also in ./jobs/.
-
-  jobs/
-    jobs.json
-    sdg_concepts.sparql
-    eli_metadata.sparql
-    my_new_job.sparql
-    ...
-"""
-
 import urllib.request
 import urllib.parse
 import urllib.error
@@ -30,21 +10,16 @@ import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
-# ---------------------------------------------------------------------------
-# Configuration
-# ---------------------------------------------------------------------------
-
 SPARQL_ENDPOINT   = os.environ.get("SPARQL_ENDPOINT", "http://localhost:8890/sparql")
 TMP_GRAPH         = "http://mu.semte.ch/graphs/tmp-export"
-BATCH_SIZE        = 500     # subjects per CONSTRUCT/DELETE cycle (Virtuoso VALUES clause limit)
-INSERT_BATCH_SIZE = 100000  # rows per INSERT page
-CONCURRENCY       = 4       # parallel INSERT workers for Step 1
+BATCH_SIZE        = 500
+INSERT_BATCH_SIZE = 100000
+CONCURRENCY       = 4
 
 JOBS_DIR        = Path(__file__).parent / "./"
 JOBS_FILE       = JOBS_DIR / "jobs.json"
 
 def load_jobs() -> dict:
-    """Read jobs.json and resolve each job's insert_query from its .sparql file."""
     if not JOBS_FILE.exists():
         sys.exit(f"[Error] jobs file not found: {JOBS_FILE}")
 
