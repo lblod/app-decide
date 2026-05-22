@@ -179,8 +179,8 @@ To start the pipeline, create a "Harvest Lokaal Beslist OSLO & Publish as ELI" j
 
 #### OParl (Freiburg)
 
-The OParl to ELI pipeline consists of multiple services. The main service is the `oparl-to-eli` service, which scrapes all pages from an OParl API, transforms to ELI, and writes to files for further processing.
-Next, the `harvest_singleton-job` service is used to prevent overlapping harvest rounds. The `harvest_sameas` service is used for two things: adding a local identifier (UUID) to each OParl entity, and importing the data in the triple store. The `harvest_diff` generates which triples are deleted, or new to make sure the triple store is in sync with the OParl source.
+The OParl to ELI pipeline consists of multiple services. The main service is the [oparl-to-eli](https://github.com/lblod/oparl-to-eli-service) service, which scrapes all pages from an OParl API, transforms them to [ELI](https://eur-lex.europa.eu/eli-register/about.html) data, and writes to files for further processing.
+Next, the [harvest_singleton-job](https://github.com/lblod/harvesting-singleton-job-service) service is used to prevent overlapping harvest rounds. The [harvest_sameas](https://github.com/lblod/import-with-sameas-service) service is used for two things: adding a local identifier (UUID) to each OParl entity, and importing the data in the triple store. The [harvest_diff](https://github.com/lblod/harvesting-diff-service) generates which triples are deleted, or added to make sure the triple store is in sync with the OParl source.
 
 To start the OParl pipeline, create a "Harvest OParl API & Publish as ELI" job in the pipeline dashboard. Only an "URL" parameter is required. This can be the root OParl URL (`https://ris.freiburg.de/oparl`), or a more specific OParl URL (`https://ris.freiburg.de/oparl/Body/FR/paper`).
 
