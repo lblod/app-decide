@@ -142,7 +142,7 @@ docker compose restart migrations; docker compose logs -f migrations
 This folder also contains some pre-configured docker compose configurations disabling services that are unnecessary for the use cases specific partners are interested in. The easiest way to include this configurations is to add them as last entry in your `.env` file:
 
 ```bash
-COMPOSE_FILE=docker-compose.yml:docker-compose.override.yml:./docs/docker-compose.override.NAME.yml
+COMPOSE_FILE=docker-compose.yml:./docs/docker-compose.override.NAME.yml:docker-compose.override.yml
 ```
 
 Note, take care **not** to include the `docker-compose.dev.yml` file here as this can expose services to the outside world.
