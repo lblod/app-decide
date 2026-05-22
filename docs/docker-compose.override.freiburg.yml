@@ -1,0 +1,133 @@
+services:
+  # Example configuration when using app-letsencrypt as reverse proxy to forward
+  # traffic to the app's identifier.
+  # identifier:
+  #   environment:
+  #     # Note, <BASE-URL> should be replaced by the base URL used for your
+  #     # app. For example, for ABB's instance of the app this is
+  #     # `decide.lblod.info`.
+  #     VIRTUAL_HOST: "ds.<BASE-URL>,dashboard.<BASE-URL>,yasgui.<BASE-URL>,human-validator.<BASE-URL>"
+  #     LETSENCRYPT_HOST: "ds.<BASE-URL>,dashboard.<BASE-URL>,yasgui.<BASE-URL>,human-validator.<BASE-URL>"
+  #     LETSENCRYPT_EMAIL: "<SUPPORT-EMAIL>"
+  #   # Make sure the identifier service is both part of the app's default network
+  #   # as well as the `proxy` network configured at the end of this file.
+  #   networks:
+  #     - default
+  #     - proxy
+
+  # Disable unneeded services for UC0.0 Dataspace
+  # This disables services that are used to collect decisions from other sources
+  # than PDFs
+  frontend-harvesting:
+    environment:
+      # Disable functionality to create jobs to harvest PDFs
+      EMBER_PDF_HARVESTING_ENABLED: false
+      # Disable functionality to create jobs to harvest data from OSLO endpoints
+      EMBER_OSLO_HARVESTING_ENABLED: false
+  ## Disable services to harvest data from OSLO endpoints (used by local
+  ## governments in Flanders)
+  ## Alternatively, comment the oslo.yml line in `pipeline.yml`
+  lokaal-beslist-consumer:
+    entrypoint: ["echo", "Service lokaal-beslist-consumer is disabled"]
+  decisions-ghent-filter:
+    entrypoint: ["echo", "Service decisions-ghent-filter is disabled"]
+  oslo-eli-transformer:
+    entrypoint: ["echo", "Service oslo-eli-transformer is disabled"]
+  ## Disable services to harvest data from PDFs
+  pdf-scraper:
+    entrypoint: ["echo", "Service pdf-scraper is disabled"]
+  pdf-content:
+    entrypoint: ["echo", "Service pdf-content is disabled"]
+  apache-tika:
+    entrypoint: ["echo", "Service apache-tika is disabled"]
+
+  # Disable services for UC0.1 Policy impact report
+  policy-impact-report:
+    entrypoint: ["echo", "Service policy-impact-report is disabled"]
+  frontend-policy-impact-report:
+    entrypoint: ["echo", "Service frontend-policy-impact-report is disabled"]
+
+  # Configure services for UC1 Restrictive Mobility Zones
+  codelist-labeling:
+    # This service is mostly configured via the file
+    # `../config/codelist/config.json`, only secrets are configured as
+    # environment variables.
+    environment:
+      LLM__API_KEY: "SECRET"
+  named-entity-recognition:
+    # This service is mostly configured in `../config/ner/config.json`, only
+    # secrets are configured as environment variables.
+   environment:
+     # etranslation
+     TRANSLATION__ETRANSLATION__BEARER_TOKEN: "<REPLACE-WITH-TOKEN-IN-OVERRIDE-FILE>"
+     TRANSLATION__ETRANSLATION__PASSWORD: "<REPLACE-WITH-PASSWORD-IN-OVERRIDE-FILE>"
+     # llm
+     LLM__API_KEY: "<REPLACE-WITH-API-KEY-IN-OVERRIDE-FILE>"
+     # segmentation
+     SEGMENTATION__LLM__API_KEY: "<REPLACE-WITH-API-KEY-IN-OVERRIDE-FILE>"
+  nominatim:
+    environment:
+      # Retrieve OSM data extracts for Germany instead of Belgium, as configured
+      # by default.
+      PBF_URL: https://download.geofabrik.de/europe/germany-latest.osm.pbf
+      # How many threads should be used to import (default: number of processing
+      # units available to the current process via nproc)
+      # Source: https://github.com/mediagis/nominatim-docker/blob/master/howto.md#configuration
+      # THREADS: 20
+
+  # Disable services for UC2 smart search
+  search:
+    entrypoint: ["echo", "Service search is disabled"]
+  elasticsearch:
+    entrypoint: ["echo", "Service elasticsearch is disabled"]
+  embedding:
+    entrypoint: ["echo", "Service embedding is disabled"]
+  municipality-linker:
+    entrypoint: ["echo", "Service municipality-linker is disabled"]
+  question-answering:
+    entrypoint: ["echo", "Service question-answering is disabled"]
+  frontend-smart-search:
+    entrypoint: ["echo", "Service frontend-smart-search is disabled"]
+
+  # Uncomment to disable the services related to the Human validation interface
+  # Alternatively, comment the validation.yml line in `docker-compose.yml`
+  # annotation-review:
+  #   entrypoint: ["echo", "Service annotation-review is disabled"]
+  # frontend-human-validator:
+  #   entrypoint: ["echo", "Service frontend-human-validator is disabled"]
+
+
+  # Uncomment to disable general data space services
+  # frontend-dcat:
+  #   entrypoint: ["echo", "Service frontend-dcat is disabled"]
+  # dcat:
+  #   entrypoint: ["echo", "Service dcat is disabled"]
+  # frontend-yasgui:
+  #   entrypoint: ["echo", "Service frontend-yasgui is disabled"]
+  # vc-issuer:
+  #   entrypoint: ["echo", "Service vc-issuer is disabled"]
+
+
+  # Comment to enable general services
+  report-generation:
+    # This service allows to generate reports about data quality, meant for
+    # internal monitoring
+    entrypoint: ["echo", "Service report-generation is disabled"]
+  acmidm-login:
+    # This service is used to integrate with ACMIDM, a Belgian single sign-on
+    # solution based on Oauth2 and OpenID
+    entrypoint: ["echo", "Service acmidm-login is disabled"]
+
+
+  # Uncomment to use script to create new user accounts
+  # registration:
+  #   image: semtech/mu-registration-service:2.8.0
+  #   links:
+  #     - database:database
+
+
+# Uncomment to configure network exposed by app-letsencrypt
+# networks:
+#   proxy:
+#     name: letsencrypt_default
+#     external: true

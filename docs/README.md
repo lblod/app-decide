@@ -165,6 +165,14 @@ In the pipeline dashboard you can use `http://internal-files/FILENAME.pdf` as in
 ### Freiburg
 TODO
 
+#### Nominatim
+The `nominatim` service should be configured to retrieve the OpenStreetMap (OSM) Data Extracts for Germany instead of Belgium. To do this set the `PBF_URL` environment to the correct URL, as illustrated in `docker-compose.override.freiburg.yml`.
+
+> [!WARNING]
+> The OSM Data Extracts are downloaded and processing only when starting the service for the first time. Be sure to configure the correct `PBF_URL` **before** starting the service. If you (accidentally) started the service with a incorrect `PBF_URL` you can down the service, remove the mounted volume, and up the service with the correct configuration.
+
+> [!NOTE]
+> Downloading and processing the Data Extract for Germany takes a long time, in the order of hours on my development machine, and uses a lot of resources from your machine. You can follow its proces via the service's logs.
 
 ### Ghent
 TODO
