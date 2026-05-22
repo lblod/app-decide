@@ -139,10 +139,6 @@ docker compose restart migrations; docker compose logs -f migrations
 ```
 
 
-### Verifiable credentials
-- TODO VC configuration
-
-
 ## Partner configurations
 This folder also contains some pre-configured docker compose configurations disabling services that are unnecessary for the use cases specific partners are interested in. The easiest way to include this configurations is to add them as last entry in your `.env` file:
 
