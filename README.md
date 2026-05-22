@@ -159,6 +159,15 @@ This use case retrieves decisions from a data source, and maps the decisions to 
 > [!IMPORTANT]
 > Be sure to add a folder "[nel](https://github.com/lblod/app-decide/blob/7f9bc93afb2ff1c3bb009a51ff6a88f2b2b73c41/compose/ai.yml#L31)" to your local data folder containing the [queries/local folder](https://github.com/semantic-ai/entity-linking-backend/tree/master/data/queries/local) and [endpoints_metadata.json file](https://github.com/semantic-ai/entity-linking-backend/blob/master/data/endpoints_metadata.json) from the [entity-linking service](https://github.com/semantic-ai/entity-linking-backend).
 
+#### Background
+
+The data retrieval and processing is organised as several pipelines each one doing a specific job. Each job in turn consists of one or tasks where each task is performed by a single service. The  [job-controler-service](https://github.com/lblod/job-controller-service) is the central service responsible for creating appropriate tasks at the right time based on its configuration.
+
+In summary, the `job-controller` service monitors for the creation of jobs as well as status changes for the tasks it creates. For example when a user creates a new data retrieval job via the pipeline dashboard, the `job-controller` will see this new job and create the first task configured for that kind of job as well as mark the job as "busy" to indicate it is in progress. Another service is then responsible for picking up the created task and marking it as completed, either successful or with a failure, when it has performed the appropriate actions. The `job-controller` monitors for such task status changes and will react to it by creating a subsequent task whenever one is successfully completed. When all tasks within a job are marked as successful the `job-controller` will mark the job as a whole as "success" to indicate it is done. If a service marks a task as "failed", the `job-controller` will not created subsequent tasks and mark the job as a whole also "failed".
+
+For more extensive background information see the [write up](https://app.gitbook.com/o/-MP9Yduzf5xu7wIebqPG/s/PzeOtGh2pfnNKyqa7G5w/decide-project/write-up-uc0.0-dataspace/write-up-uc0.0-pipelines) concerning pipelines or the README files for involved services such as the `job-controller`.
+
+
 #### OSLO (Ghent)
 
 The OSLO to ELI pipeline consists of three task-driven services. The [harvester-consumer-service](https://github.com/lblod/decide-harvester-consumer-service) ingests data from the remote LBLOD harvester into a landing graph, downloading a full dump for initial syncs or delta files for subsequent runs. The [harvester-filter-service](https://github.com/lblod/decide-harvester-filter-service) then filters the landing graph by RDF type and a configured whitelist of bestuursorganen, writing matched subjects to a result graph. Finally, the [harvester-transformation-service](https://github.com/lblod/decide-harvester-transformation-service) reads that result graph and transforms the OSLO besluiten into ELI triples stored in the output graph.
