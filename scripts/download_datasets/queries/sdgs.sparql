@@ -1,0 +1,23 @@
+prefix task: <http://redpencil.data.gift/vocabularies/tasks/>
+prefix ext: <http://mu.semte.ch/vocabularies/ext/>
+prefix skos: <http://www.w3.org/2004/02/skos/core#>
+prefix oa: <http://www.w3.org/ns/oa#>
+insert {
+  graph <http://mu.semte.ch/graphs/tmp-export> {
+    ?annotation a ext:downloadResource .
+  }
+}
+where {
+  values ?participant {
+    <http://data.lblod.info/id/bestuurseenheden/353234a365664e581db5c2f7cc07add2534b47b8e1ab87c821fc6e6365e6bef5> # Gent
+  }
+  ?task a task:Task .
+  ?task task:operation <http://lblod.data.gift/id/jobs/concept/TaskOperation/codelist-matching/annotate> .
+  ?task <http://www.w3.org/ns/prov#generated> ?annotation .
+  ?annotation oa:hasBody ?sdgConcept .
+  ?annotation oa:hasTarget ?expression .
+
+  ?expression ext:owningBody ?participant .
+
+  ?sdgConcept skos:inScheme <http://data.lblod.gift/id/conceptscheme/sdg-simple> .
+}
