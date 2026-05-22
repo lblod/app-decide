@@ -30,6 +30,8 @@ For each service `A` that was added or updated (version bump or changed environm
 ## Service configuration
 Most of the services in this app are configured via the docker compose configurations files and appropriate configuration files in the `config` folder in this project. Note, the [gitbook page](https://app.gitbook.com/o/-MP9Yduzf5xu7wIebqPG/s/PzeOtGh2pfnNKyqa7G5w/decide-project/write-up-uc0.0-dataspace) on UC0.0 contains background on the overal architecture of a semantic.works application.
 
+To simplify configuring the appropriate services we provide [partner-specific configurations](#partner-configurations).
+
 
 ### Identifier
 The `identifier` service is an HTTP proxy that acts as access point to the app. All external requests should be forwarded to this service for further processing in an app. On servers we typically use [app-letsencrypt](https://github.com/redpencilio/app-letsencrypt) as a reverse proxy to forward incoming requests the the correct app instance. To allow `app-letsencrypt` to forward requests to the correct app, the app's `identifier` service should
