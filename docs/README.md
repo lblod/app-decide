@@ -74,7 +74,12 @@ This app contains several frontends to which the `dispatcher` service forwards r
 
 
 ### Outsource LLM to the cloud
-The AI services relying on LLMs by default use local models. But they can also be configured to outsource such computations to external services in the cloud. The READMEs for each individual service describe in more detail how to configure them as such. Note that this requires obtaining appropriate API keys for each service.
+The AI services relying on LLMs by default use local models. But they can also be configured to outsource such computations to external providers in the cloud. This requires at least that you
+
+- obtain the appropriate API keys (or other access tokens) from the providers; and
+- configure the necessary services with these via their environment variables.
+
+The READMEs for each individual service describes the necessary configuration in more detail:
 
 - The  [named-entity-recognition (NER)](https://github.com/semantic-ai/decide-geocoding-service/blob/master/README.md#L39) service allows to configure providers for several of its features.
 - The [entity-linking-backend](https://github.com/semantic-ai/entity-linking-backend/blob/master/README.md) service README documents how to configure external providers.
