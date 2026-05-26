@@ -22,6 +22,9 @@ services:
       LLM_PROVIDER: 'mistral'
       LLM_MAX_RETRIES: 3
       MISTRAL_MODEL: 'ministral-14b-2512'
+    logging: *default-logging
+    labels:
+      - logging=true
     links:
       - database:database
     volumes:
@@ -81,7 +84,8 @@ services:
     image: lblod/apache-tika-service:0.0.3
     restart: always
     logging: *default-logging
-
+    labels:
+      - logging=true
   question-answering:
     image: docker.io/semanticai/decide-question-answering:0.0.1
     environment:
@@ -99,7 +103,8 @@ services:
       ALLOW_MU_AUTH_SUDO: 'true'
     restart: always
     logging: *default-logging
-
+    labels:
+      - logging=true
   nominatim:
     image: mediagis/nominatim:5.1
     environment:
@@ -107,7 +112,9 @@ services:
     restart: always
     volumes:
       - ./../data/nominatim:/var/lib/postgresql/16/main
-
+    logging: *default-logging
+    labels:
+      - logging=true
   named-entity-recognition:
     image: semanticai/decide-geocoding-service:0.0.2
     environment:
@@ -140,7 +147,10 @@ services:
     image: ollama/ollama:0.21.2
     volumes:
       - ../data/ollama:/root/.ollama
+    labels:
+      - logging=true
     restart: always
+    logging: *default-logging
     # in case you have an nvidia gpu available, like on our server
     # deploy:
     #   resources:
@@ -174,6 +184,9 @@ services:
       ALLOW_MU_AUTH_SUDO: true
       NOMINATIM_ENDPOINT: http://nominatim:8080/
     restart: always
+    labels:
+      - logging=true
+    logging: *default-logging
     volumes:
       - ./../config/codelist/config.json:/usr/src/app/config.json:ro # Mount config as read-only
 

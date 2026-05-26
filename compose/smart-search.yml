@@ -1,6 +1,12 @@
+x-logging: &default-logging
+  driver: 'json-file'
+  options:
+    max-size: '10m'
+    max-file: '3'
 services:
   frontend-smart-search:
     image: lblod/frontend-decide-question-answering:0.0.3
     labels:
-      - 'logging=true'
+      - logging=true
     restart: always
+    logging: *default-logging

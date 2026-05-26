@@ -6,6 +6,10 @@ x-logging: &default-logging
 services:
   dcat:
     image: lblod/dcat-service:0.0.1
+    logging: *default-logging
+    labels:
+      - logging=true
+    restart: always
   vc-issuer:
     image: lblod/oid4vc-login-service:0.0.1
     environment:
