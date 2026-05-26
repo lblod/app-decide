@@ -215,7 +215,7 @@ TODO
 ### Use Case 2: Smart Search
 This use case provides smart, LLM-powered search functionality for the decisions in the app. The [smart-search](https://github.com/lblod/frontend-decide-question-answering) frontend allows users to enter their questions. The [question-answering](https://github.com/semantic-ai/decide-question-answering) service orchestrates the subsequent request flow between the involved backend services. The [embedding](https://github.com/semantic-ai/embedding-service) service creates an embedding of the user's question. The [mu-search](https://github.com/mu-semtech/mu-search) and [elasticsearch](https://github.com/mu-semtech/mu-search-elastic-backend) services are used to find the most relevant decisions based on a vector similarity search. Finally, the `question-answering` service asks the configured LLM to formulate an answer to the user's question based on the contents of the found decisions.
 
-For a more detailed description of this use case and how it was developed withing the DECIDe project see the dedicated [gitbook page](https://app.gitbook.com/o/-MP9Yduzf5xu7wIebqPG/s/PzeOtGh2pfnNKyqa7G5w/decide-project/write-up-uc2-smart-search).
+For a more detailed description of this use case and how it was developed within the DECIDe project see the dedicated [gitbook page](https://app.gitbook.com/o/-MP9Yduzf5xu7wIebqPG/s/PzeOtGh2pfnNKyqa7G5w/decide-project/write-up-uc2-smart-search).
 
 For more information on configuring an app instance to support smart search see the [above configuration section](#running-the-stack-with-smart-searchquestion-answering).
 
