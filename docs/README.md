@@ -163,7 +163,12 @@ In the pipeline dashboard you can use `http://internal-files/FILENAME.pdf` as in
 
 
 ### Freiburg
-TODO
+The city of Freiburg is mostly interested in use case 1. Therefore, their [partner-specific configuration](./docker-compose.override.freiburg.yml) disables most services for other use cases and provides some placeholders for configuring relevant services. See the comments in the override file for more information.
+
+#### Data harvesting
+To harvest decisions from your OParl endpoint, use the pipeline dashboard to create a "Harvest OParl API & Publish as ELI" job. For example, the following screenshot illustrate the form to harvest all decisions from `https://ris.freiburg.de/oparl`.
+
+![Example form for harvesting from an OParl endpoint](./harvest-freibur-form-example.png)
 
 #### Nominatim
 The `nominatim` service should be configured to retrieve the OpenStreetMap (OSM) Data Extracts for Germany instead of Belgium. To do this set the `PBF_URL` environment to the correct URL, as illustrated in `docker-compose.override.freiburg.yml`.
