@@ -76,9 +76,12 @@ services:
       # in the previous line. For example, `OPENAI` or `MISTRAL`.
       <PROVIDER>_MODEL: "<REPLACE-WITH-MODEL>"
       <PROVIDER>_API_KEY: "<REPLACE-WITH-API-KEY-IN-OVERRIDE-FILE>"
-  # codelist-labeling:
-    # TODO: Update entry once it supports environment variables for secrets
-    # This service is configured via the file `../config/codelist/config.json`
+  codelist-labeling:
+    # This service is mostly configured via the file
+    # `../config/codelist/config.json`, only secrets are configured as
+    # environment variables.
+    environment:
+      LLM__API_KEY: "SECRET"
   question-answering:
     # This service requires you to add appropriate the `langchain-*` packages to
     # its requirements.txt and build the service locally.
