@@ -201,7 +201,7 @@ In the pipeline dashboard, the "_Harvest PDFs from Website URL & Publish as ELI_
 
 ### Use Case 0.1: Linking to higher legislation or overarching goals such as the SDGs
 
-In the pipeline dashboard, create a "Codelist mapping" pipeline. First, the `Codelist` parameter needs to be filled in with the URI of a SKOS Concept scheme. For Sustainable Development Goals (SDGs), this is `http://metadata.un.org/sdg`. Optionally, a `Decision to map` can be provided to map a specific decision with the codelist. This must be a URI of an ELI Work or Expression.
+In the pipeline dashboard, create a "Codelist mapping" pipeline. First, the `Codelist` parameter needs to be filled in with the URI of a SKOS Concept scheme. For Sustainable Development Goals (SDGs), this is `http://data.lblod.gift/id/conceptscheme/sdg-simple`. Optionally, a `Decisions to map` can be provided to map a specific decision with the codelist. This must be a URI of an ELI Work or Expression.
 
 The [policy impact report frontend](https://github.com/lblod/frontend-decide-policy-impact-report) allows to visualise and assess the annotated data. This frontend relies on the [policy impact report service](https://github.com/lblod/policy-impact-report-service) to retrieve the necessary data.
 
