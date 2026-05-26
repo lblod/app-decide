@@ -31,6 +31,11 @@ services:
     image: nginx:1.30.0-alpine
     volumes:
       - ./data/internal-files:/usr/share/nginx/html:ro
+  pdf-content:
+    # This service is mostly configured in `../config/pdf-content/config.json`,
+    # only secrets are configured via an environment variable.
+    environment:
+      SEGMENTATION__API_KEY: "<REPLACE-WITH-API-KEY-IN-OVERRIDE-FILE>"
   ## Disable services to harvest data from OParl endpoints
   ## Alternatively, comment the oparl.yml line in `pipeline.yml`
   oparl-to-eli:
