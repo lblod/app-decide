@@ -9,7 +9,7 @@ services:
   # AI PIPELINES
   ##############################################################################
   entity-linking:
-    image: semanticai/entity-linking-backend:0.0.1
+    image: semanticai/entity-linking-backend:0.0.2
     environment:
       TARGET_GRAPH: 'http://mu.semte.ch/graphs/public'
       DEFAULT_GRAPH: 'http://mu.semte.ch/graphs/harvesting'
@@ -32,7 +32,7 @@ services:
       - ./../data/nel:/app/data
     restart: always
   pdf-scraper:
-    image: semanticai/decide-pdf-scraper:0.0.3
+    image: semanticai/decide-pdf-scraper:0.0.5
     environment:
       TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
       JOB_GRAPH: http://mu.semte.ch/graphs/harvesting
@@ -54,7 +54,7 @@ services:
     restart: always
     logging: *default-logging
   pdf-content:
-    image: semanticai/decide-pdf-content-extraction:0.0.7
+    image: semanticai/decide-pdf-content-extraction:0.0.11
     environment:
       APACHE_TIKA_URL: 'http://apache-tika:9998/tika'
       TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
@@ -116,7 +116,7 @@ services:
     labels:
       - logging=true
   named-entity-recognition:
-    image: semanticai/decide-geocoding-service:0.0.2
+    image: semanticai/decide-geocoding-service:0.0.7
     environment:
       TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
       JOB_GRAPH: http://mu.semte.ch/graphs/harvesting
