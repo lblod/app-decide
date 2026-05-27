@@ -82,14 +82,14 @@ def sparql_construct(query: str) -> str:
         body = e.read().decode(errors="replace")
         raise RuntimeError(f"HTTP {e.code} from SPARQL endpoint:\n{body}") from e
 
-def _insert_to_count(insert_query: str) -> str:
+def _insert_to_count(insert_query: str, interesting_variable: str) -> str:
     upper      = insert_query.upper()
     insert_pos = upper.index("INSERT")
-    where_pos  = upper.index("WHERE")
+    where_pos  = upper.index("WHERE", insert_pos)
     prefixes   = insert_query[:insert_pos]
     where_body = insert_query[where_pos:].rstrip()
     assert where_body.endswith("}"), "WHERE clause must end with }"
-    return prefixes + "SELECT (COUNT(*) AS ?n) " + where_body + "\n"
+    return prefixes + f"SELECT (COUNT(DISTINCT ?{interesting_variable}) AS ?n) " + where_body + "\n"
 
 
 def _paginate_insert(insert_query: str, limit: int, offset: int) -> str:
@@ -98,17 +98,21 @@ def _paginate_insert(insert_query: str, limit: int, offset: int) -> str:
     return body + f"\nLIMIT {limit} OFFSET {offset}\n"
 
 
-def step1_populate_tmp_graph(insert_query: str) -> None:
-    print("[Step 1] Counting subjects to queue …")
-    rows = sparql_select(_insert_to_count(insert_query))
-    total_count = int(rows[0]["n"]) if rows else 0
+def step1_populate_tmp_graph(insert_query: str, interesting_variables: list[str]) -> None:
+    print(f"[Step 1] Counting distinct subjects (?{'  ?'.join(interesting_variables)}) …")
+    total_count = 0
+    for var in interesting_variables:
+        rows = sparql_select(_insert_to_count(insert_query, var))
+        n = int(rows[0]["n"]) if rows else 0
+        print(f"  [Step 1] ?{var}: {n} distinct")
+        total_count += n
 
     if total_count == 0:
         print("[Step 1] Nothing to queue.")
         return
 
     num_batches = math.ceil(total_count / INSERT_BATCH_SIZE)
-    print(f"[Step 1] {total_count} subjects → {num_batches} batch(es) of {INSERT_BATCH_SIZE} ({CONCURRENCY} parallel)")
+    print(f"[Step 1] {total_count} distinct subject URIs → {num_batches} batch(es) of {INSERT_BATCH_SIZE} ({CONCURRENCY} parallel)")
 
     completed = 0
     with ThreadPoolExecutor(max_workers=CONCURRENCY) as executor:
@@ -119,9 +123,9 @@ def step1_populate_tmp_graph(insert_query: str) -> None:
         for future in as_completed(futures):
             future.result()
             completed += 1
-            print(f"  [Step 1] {completed}/{num_batches} batches done", flush=True)
+            print(f"\r  [Step 1] {completed}/{num_batches} batches done", end="", flush=True)
 
-    print(f"[Step 1] Done. {total_count} subjects queued.")
+    print(f"\n[Step 1] Done. {total_count} distinct subject URIs queued.")
 
 
 def step2_fetch_batch() -> list[str]:
@@ -168,7 +172,7 @@ def run_pipeline(job: dict) -> None:
     print(f"\n=== Job: {job['description']} ===\n")
     output_file = job.get("output_file", "output.ttl")
 
-    step1_populate_tmp_graph(job["insert_query"])
+    step1_populate_tmp_graph(job["insert_query"], job["interesting_variables"])
 
     total = 0
     with open(output_file, "w", encoding="utf-8") as fh:
@@ -178,8 +182,6 @@ def run_pipeline(job: dict) -> None:
                 print("[Pipeline] Tmp graph is empty – extraction complete.")
                 break
 
-            print(f"[Pipeline] Batch of {len(batch)} subjects …", end=" ", flush=True)
-
             turtle = step3_construct_batch(batch)
             fh.write(turtle)
             fh.write("\n")
@@ -187,7 +189,7 @@ def run_pipeline(job: dict) -> None:
             step4_delete_batch(batch)
 
             total += len(batch)
-            print(f"done. Total processed: {total}")
+            print(f"\r[Pipeline] Processed {total} subjects …", end="", flush=True)
             time.sleep(0.1)
 
     print(f"\n[Pipeline] Finished. {total} subjects written to '{output_file}'.")
