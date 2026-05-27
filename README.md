@@ -124,19 +124,12 @@ This use case retrieves decisions from a data source, and maps the decisions to 
 
 #### OSLO (Ghent)
 
-To harvest and convert the decisions from the city of Ghent to ELI, a central data endpoint in Flanders for decisions (Lokaal Beslist) is used. Three services are required to consume, filter on a city (currently only Ghent is supported), and transform to ELI: lokaal-beslist-consumer (a configured delta consumer), decisions-ghent-filter, and oslo-eli-transformer. See `docker-compose.yml` for the specific configuration. The initial sync and/or delta ingest should be enabled manually in `docker-compose.override.yml`:
+The OSLO to ELI pipeline consists of three task-driven services. The `harvester-consumer-service` ingests data from the remote LBLOD harvester into a landing graph, downloading a full dump for initial syncs or delta files for subsequent runs. The `harvester-filter-service` then filters the landing graph by RDF type and a configured whitelist of bestuursorganen, writing matched subjects to a result graph. Finally, the `harvester-transformation-service` reads that result graph and transforms the OSLO besluiten into ELI triples stored in the output graph.
 
-```yml
-services:
-  lokaal-beslist-consumer:
-    environment:
-      DCR_DISABLE_INITIAL_SYNC: false
-      DCR_DISABLE_DELTA_INGEST: false
-```
+To start the pipeline, create a "Harvest Lokaal Beslist OSLO & Publish as ELI" job in the pipeline dashboard and select a "Sync mode": choose "Initial sync" to download the full dataset (run once) or "Delta sync" to ingest incremental updates (suited for a recurring scheduled job). See `docker-compose.yml` for the service configuration.
 
-Note: the AI services (used in the other use cases) will be configurable so they can directly work with OSLO-compliant data
-
-The OSLO configuration depends on consuming all data from a full LBLOD harvester. This results in a lot of extra data that is not necessary, see ./OSLO_PRUNING.md for info on how to reduce the database size after initial load.
+> [!NOTE]
+> The OSLO pipeline ingests all data from the LBLOD harvester, which includes more data than strictly necessary. See [OSLO_PRUNING.md](./OSLO_PRUNING.md) for guidance on reducing the database size after the initial sync.
 
 #### OParl (Freiburg)
 
