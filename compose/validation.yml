@@ -13,8 +13,10 @@ services:
     environment:
       DEFAULT_MU_AUTH_SCOPE: 'http://services.semantic.works/annotation-review-service'
       TZ: Europe/Brussels
+    volumes:
+      - ../config/annotation-review:/config
   frontend-human-validator:
-    image: lblod/frontend-decide-human-validator:0.0.5
+    image: lblod/frontend-decide-human-validator:0.0.6
     labels:
       - 'logging=true'
     restart: always

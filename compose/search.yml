@@ -47,6 +47,8 @@ services:
       - logging=true
     restart: always
     logging: *default-logging
+    volumes:
+      - ../config/municipality-linker:/config
 
 volumes:
   elasticsearch-data:
