@@ -6,7 +6,17 @@ This repository contains all configuration to get the DECIDe microservices stack
 
 This repository contains multiple docker-compose files
 
-- _docker-compose.yml_ provides the backend components.
+- _docker-compose.yml_ provides the backend components included through separate configuration files:
+  - _compose/base-compose.yml_ provides the base services of a semantic.works app along with (very) common additional services.
+  - _compose/data-space.yml_ provides services services relevant for the app operating in a larger data space.
+  - _compose/pipeline.yml_ provides the services that govern the data harvesting and processing pipelines. Specific pipelines are further configured in separate files:
+    - _compose/oparl.yml_ provides services specific to harvesting data from OParl endpoints.
+    - _compose/oslo.yml_ provides services specific to harvesting data for Flemish local authorities.
+    - _compose/ai.yml_ provides AI-based services that are used to enrich the arvested data.
+  - _compose/validation.yml_ provides services for the human validation of the AI generated annotations.
+  - _compose/policy-impact-report.yml_ provides services for generating and showing policy impact reports.
+  - _compose/search.yml_ provides most services for smart searching through decisions.
+  - _compose/reporting.yml_ provides a service to (periodically) generate reports on the data in the app.
 - _docker-compose.dev.yml_ provides small changes for development purposes.
   - Publishes the entrypoint to the services on port 80, so all endpoints can be reached easily.
   - Publishes the triplestore on port 8890, so the SPARQL endpoint (`/sparql`) can be reached easily.
