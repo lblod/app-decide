@@ -89,20 +89,17 @@ python extract_ttl_to_file.py --job human-validations
 
 Results will be merged in a single output file per job, covering all configured municipalities.
 
-## Crash resilience
-
-The temporary graph is a persistent checkpoint. If the script crashes mid-run, simply re-run the same job — it will skip already-processed subjects and continue from where it left off. If it crashed during Step 1 (populating the queue), re-running is still safe because duplicate inserts into the tmp graph are no-ops.
-
 ## Adding a new job
 
-1. Create `queries/<name>.sparql` with an INSERT query that populates the tmp graph:
+1. Create `queries/<name>.sparql` with an INSERT query that populates the tmp graph. Every subject URI you want to extract must be inserted with `a ext:downloadResource` as a marker:
 
    ```sparql
+   PREFIX ext: <http://mu.semte.ch/vocabularies/ext/>
    PREFIX ex: <http://example.org/>
 
    INSERT {
      GRAPH <http://mu.semte.ch/graphs/tmp-export> {
-       ?subject a ?type .
+       ?subject a ext:downloadResource .
      }
    } WHERE {
      ?subject a ex:SomeClass .
@@ -110,12 +107,20 @@ The temporary graph is a persistent checkpoint. If the script crashes mid-run, s
    ```
 
 2. Add an entry to `jobs.json`:
+
    ```json
    "my-job": {
      "description": "Human-readable label shown in --list",
      "output_file": "./output/my-job.ttl",
-     "sparql_file": "./queries/my-job.sparql"
+     "sparql_file": "./queries/my-job.sparql",
+     "interesting_variables": ["subject"]
    }
    ```
 
-No changes to `extract_ttl_to_file.py` are needed.
+   `interesting_variables` is required — list every SPARQL variable from the INSERT head. Step 1 runs a `COUNT(DISTINCT ?var)` query per variable and sums the results to determine how many subjects will be extracted and how many INSERT batches to fire.
+
+   For multi-subject jobs (e.g. expression + work + manifestation):
+
+   ```json
+   "interesting_variables": ["expression", "work", "manifests"]
+   ```
