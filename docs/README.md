@@ -180,4 +180,20 @@ The `nominatim` service should be configured to retrieve the OpenStreetMap (OSM)
 > Downloading and processing the Data Extract for Germany takes a long time, in the order of hours on my development machine, and uses a lot of resources from your machine. You can follow its proces via the service's logs.
 
 ### Ghent
-TODO
+The city of Ghent is mostly interested in use cases 0.1 and 2. Therefore, their [partner-specific configuration](./docker-compose.override.ghent.yml) disables most services for other use cases and provides some placeholders for configuring relevant services. See the comments in the override file for more information.
+
+#### Data harvesting
+Decisions for Ghent are harvested from [Lokaal Beslist](https://lokaalbeslist.vlaanderen.be). The pipeline dashboard can be used to create the relevant jobs to gather data. To initially harvest all decisions create a "Harvest Lokaal Beslist OSLO & Publish as ELI" job and select as "Initial sync" as Sync mode in the form. The URL field will be automatically filled with the correct value.
+
+![Example form for initial sync](./harvest-ghent-initial-sync-form-example.png)
+
+> [!WARNING]
+> The initial sync will take some time as it syncs all data from the configured harvester.
+
+To update your data after an initial sync has completed, also create a "Harvest Lokaal Beslist OSLO & Publish as ELI" job. But select "Delta sync" as Sync mode:
+
+![Example form for delta sync](./harvest-ghent-delta-sync-form-example.png)
+
+To periodically update your data automatically, you can create a Scheduled job for a delta sync. This can be done via the "Scheduled jobs" tab of the pipeline dashboard.
+
+![Example form for scheduled delta sync](./harvest-ghent-delta-sync-scheduled-form-example.png)
