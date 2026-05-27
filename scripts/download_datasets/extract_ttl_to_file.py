@@ -175,6 +175,7 @@ def run_pipeline(job: dict) -> None:
     step1_populate_tmp_graph(job["insert_query"], job["interesting_variables"])
 
     total = 0
+    os.makedirs(os.path.dirname(output_file), exist_ok=True)
     with open(output_file, "w", encoding="utf-8") as fh:
         while True:
             batch = step2_fetch_batch()
