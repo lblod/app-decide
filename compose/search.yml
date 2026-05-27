@@ -49,6 +49,15 @@ services:
     logging: *default-logging
     volumes:
       - ../config/municipality-linker:/config
+  ##################################
+  ### Smart search
+  ##################################
+  frontend-smart-search:
+    image: lblod/frontend-decide-question-answering:0.0.3
+    labels:
+      - 'logging=true'
+    restart: always
+   # The backend question-answering service is configured in compose/ai.yml
 
 volumes:
   elasticsearch-data:
