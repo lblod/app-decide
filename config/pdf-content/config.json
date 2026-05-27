@@ -11,7 +11,7 @@
     "enable_refinement": true
   },
   "segmentation": {
-    "model_name": "mistral-large-latest",
+    "model_name": "mistral-medium-3.5",
     "api_key": "SECRET_KEY",
     "endpoint": "https://api.mistral.ai/v1",
     "max_new_tokens": 250000,
