@@ -1,7 +1,9 @@
-prefix task: <http://redpencil.data.gift/vocabularies/tasks/>
 prefix ext: <http://mu.semte.ch/vocabularies/ext/>
 prefix skos: <http://www.w3.org/2004/02/skos/core#>
 prefix oa: <http://www.w3.org/ns/oa#>
+prefix org: <http://www.w3.org/ns/org#>
+prefix eli: <http://data.europa.eu/eli/ontology#>
+
 insert {
   graph <http://mu.semte.ch/graphs/tmp-export> {
     ?annotation a ext:downloadResource .

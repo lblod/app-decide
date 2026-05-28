@@ -1,5 +1,7 @@
   prefix ext: <http://mu.semte.ch/vocabularies/ext/>
   prefix oa: <http://www.w3.org/ns/oa#>
+  prefix eli: <http://data.europa.eu/eli/ontology#>
+  prefix org: <http://www.w3.org/ns/org#>
   
   insert {
     graph <http://mu.semte.ch/graphs/tmp-export> {
@@ -12,8 +14,16 @@
     }
 
     ?hvAnnotation a ext:ReviewAnnotation .
-    ?hvAnnotation oa:hasTarget ?annotation .
 
-    ?annotation oa:hasTarget / oa:source? ?expression.
-    ?expression ext:owningBody ?participant
+    ?hvAnnotation oa:hasTarget ?originalAnnotation .
+    ?originalAnnotation oa:hasTarget / oa:source? ?expression .
+  
+    {
+      ?work eli:is_realized_by ?expression .
+      ?work eli:passed_by ?org .
+      ?participant org:hasSubOrganization* ?org .
+    }
+    UNION {
+      ?expression ext:owningBody ?participant .
+    }
   }
