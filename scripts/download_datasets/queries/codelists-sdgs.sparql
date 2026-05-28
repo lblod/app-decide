@@ -3,10 +3,13 @@ prefix skos: <http://www.w3.org/2004/02/skos/core#>
 prefix oa: <http://www.w3.org/ns/oa#>
 prefix org: <http://www.w3.org/ns/org#>
 prefix eli: <http://data.europa.eu/eli/ontology#>
+prefix prov: <http://www.w3.org/ns/prov#>
 
 insert {
   graph <http://mu.semte.ch/graphs/tmp-export> {
     ?annotation a ext:downloadResource .
+    ?activity a ext:downloadResource .
+    ?agent a ext:downloadResource .
   }
 }
 where {
@@ -20,6 +23,15 @@ where {
 
   ?annotation oa:hasBody / skos:inScheme ?codelist .
   ?annotation oa:hasTarget ?expression .
+
+
+  OPTIONAL {
+    ?activity prov:generated ?annotation .
+
+    OPTIONAL {
+      ?activity prov:wasAssociatedWith ?agent .
+    }
+  }
 
   {
     ?work eli:is_realized_by ?expression .
