@@ -74,6 +74,9 @@ This app contains several frontends to which the `dispatcher` service forwards r
 
 
 ### Outsource LLM to the cloud
+> [!WARNING]
+> Currently, API keys have to be configured in (versioned) configuration file per service, as documented in the README of each service. This functionality is being reworked to allow configuring such API keys as environment variables. We will update the service's READMEs as well as the [partner-specific configurations](#partner-configurations) when this functionality is available.
+
 The AI services relying on LLMs by default use local models. But they can also be configured to outsource such computations to external providers in the cloud. This requires at least that you
 
 - obtain the appropriate API keys (or other access tokens) from the providers; and
