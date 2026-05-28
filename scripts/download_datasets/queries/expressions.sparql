@@ -1,6 +1,8 @@
 prefix eli: <http://data.europa.eu/eli/ontology#>
 prefix oa: <http://www.w3.org/ns/oa#>
 prefix ext: <http://mu.semte.ch/vocabularies/ext/>
+prefix org: <http://www.w3.org/ns/org#>
+
 insert {
   graph <http://mu.semte.ch/graphs/tmp-export> {
     ?expression a ext:downloadResource .
@@ -18,10 +20,11 @@ where {
   ?work eli:is_realized_by ?expression .
 
   {
-    ?work eli:passed_by ?participant  
+    ?work eli:passed_by ?org .
+    ?participant org:hasSubOrganization* ?org .
   }
   UNION {
-    ?expression ext:owningBody ?participant
+    ?expression ext:owningBody ?participant .
   }
 
   filter not exists {
