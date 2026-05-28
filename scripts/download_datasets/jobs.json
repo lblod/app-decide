@@ -1,20 +1,43 @@
 {
-  "sdgs": {
-    "description": "SDG Concept annotations for bestuurseenheid",
-    "output_file":  "./output/sdgs.ttl",
-    "sparql_file":  "./queries/sdgs.sparql",
-    "interesting_variables": ["annotation"]
+  "codelists": {
+    "description": "Codelist annotations (SDG) for municipality",
+    "output_file": "./output/codelists.ttl",
+    "sparql_file": "./queries/codelists.sparql",
+    "interesting_variables": [
+      "annotation",
+      "activity",
+      "agent"
+    ]
+  },
+  "rmz": {
+    "description": "Restricted Mobility Zone (RMZ) Concept annotations + locations for municipality",
+    "output_file": "./output/rmz.ttl",
+    "sparql_file": "./queries/rmz.sparql",
+    "interesting_variables": [
+      "locationAnnotation",
+      "rmzAnnotation",
+      "location",
+      "geometry",
+      "selector"
+    ]
   },
   "expressions": {
     "description": "ELI metadata (expression + work + manifestation)",
-    "output_file":  "./output/expressions.ttl",
-    "sparql_file":  "./queries/expressions.sparql",
-    "interesting_variables": ["expression", "work", "manifests", "annotation"]
+    "output_file": "./output/expressions.ttl",
+    "sparql_file": "./queries/expressions.sparql",
+    "interesting_variables": [
+      "expression",
+      "work",
+      "manifests",
+      "annotation"
+    ]
   },
   "human-validations": {
     "description": "Human validation annotations",
-    "output_file":  "./output/human-validations.ttl",
-    "sparql_file":  "./queries/human-validations.sparql",
-    "interesting_variables": ["hvAnnotation"]
+    "output_file": "./output/human-validations.ttl",
+    "sparql_file": "./queries/human-validations.sparql",
+    "interesting_variables": [
+      "hvAnnotation"
+    ]
   }
 }
