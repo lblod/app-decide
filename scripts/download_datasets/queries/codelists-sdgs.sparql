@@ -4,6 +4,7 @@ prefix oa: <http://www.w3.org/ns/oa#>
 prefix org: <http://www.w3.org/ns/org#>
 prefix eli: <http://data.europa.eu/eli/ontology#>
 prefix prov: <http://www.w3.org/ns/prov#>
+prefix schema: <http://schema.org/>
 
 insert {
   graph <http://mu.semte.ch/graphs/tmp-export> {

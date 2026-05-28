@@ -2,10 +2,18 @@
   prefix oa: <http://www.w3.org/ns/oa#>
   prefix eli: <http://data.europa.eu/eli/ontology#>
   prefix org: <http://www.w3.org/ns/org#>
-  
+  prefix schema: <http://schema.org/>
+
   insert {
     graph <http://mu.semte.ch/graphs/tmp-export> {
-     ?hvAnnotation a ext:downloadResource .
+      ?hvAnnotation a ext:downloadResource .
+      ?originalAnnotation a ext:downloadResource .
+      ?originalBody a ext:downloadResource .
+      ?specificResource a ext:downloadResource .
+      ?quotation a ext:downloadResource .
+      ?answer a ext:downloadResource .
+      ?question a ext:downloadResource .
+      ?selector a ext:downloadResource .
     }
   }
   where {
@@ -13,11 +21,42 @@
       <http://data.lblod.info/id/bestuurseenheden/353234a365664e581db5c2f7cc07add2534b47b8e1ab87c821fc6e6365e6bef5> # Gent
     }
 
-    ?hvAnnotation a ext:ReviewAnnotation .
+    ?hvAnnotation a ext:ReviewAnnotation ;
+                  oa:hasTarget ?originalAnnotation .
+    
+    ?originalAnnotation oa:hasBody ?originalBody ; # body is a statement for NER and NEL, a concept URI for codelist annotations
+                        oa:hasTarget ?originalTarget .
+    
+    # codelist annotations have the whole expression as target
+    {
+      ?originalTarget a eli:Expression .
+      BIND(?originalTarget AS ?expression) .
+    }
+    UNION {
+      # NER annotations have specific part of expression as target
+      ?originalTarget oa:hasSource ?expression ;
+          oa:hasSelector ?selector .
+      BIND(?originalTarget AS ?specificResource) .
+    }
+    UNION {
+      # Quotations only have an expression as source, no selector
+      ?originalTarget a schema:Quotation .
+      BIND(?originalTarget AS ?quotation) .
+      
+      ?quotation oa:hasSource ?expression .
+      ?answer schema:citation ?quotation .
+      ?question schema:suggestedAnswer ?answer .
+    }
+    UNION {
+      # Answers have a link with expression(s) through its quotations
+      ?originalTarget a schema:Answer .
+      BIND(?originalTarget AS ?answer)
 
-    ?hvAnnotation oa:hasTarget ?originalAnnotation .
-    ?originalAnnotation oa:hasTarget / oa:source? ?expression .
-  
+      ?quotation oa:hasSource ?expression .
+      ?answer schema:citation ?quotation .
+      ?question schema:suggestedAnswer ?answer .
+    }
+
     {
       ?work eli:is_realized_by ?expression .
       ?work eli:passed_by ?org .
