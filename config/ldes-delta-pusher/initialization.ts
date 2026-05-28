@@ -5,35 +5,35 @@ export const PUBLIC_GRAPH = 'http://mu.semte.ch/graphs/public';
 export const PUBLIC_GRAPH_FILTER = `
   VALUES ?g {
     ${sparqlEscapeUri(PUBLIC_GRAPH)}
-  }`;
+}`;
+
+// NOTE (28/05/2026): Not all interesting resources have a triple for this
+// predicate already.  It is up to us to add it when updating an existing
+// resource, otherwise the changes will not be picked up.
+const HEALING_PREDICATE = 'http://purl.org/dc/terms/modified';
 
 export const initialization = {
-  // TODO: In the current data not all resources actually have a value for the
-  // `dcterms:modified` predicate.  Either fix this in the data or use the
-  // `track-modified-service`
   public: {
     'http://www.w3.org/ns/dcat#Catalog': {
       graphFilter: PUBLIC_GRAPH_FILTER,
-      healingPredicates: ['http://purl.org/dc/terms/modified'],
+      healingPredicates: [HEALING_PREDICATE],
     },
     'http://www.w3.org/ns/dcat#Dataset': {
       graphFilter: PUBLIC_GRAPH_FILTER,
-      healingPredicates: ['http://purl.org/dc/terms/modified'],
+      healingPredicates: [HEALING_PREDICATE],
     },
     'http://www.w3.org/ns/dcat#Distribution': {
       graphFilter: PUBLIC_GRAPH_FILTER,
-      healingPredicates: ['http://purl.org/dc/terms/modified'],
+      healingPredicates: [HEALING_PREDICATE],
     },
     'http://www.w3.org/ns/dcat#DataService': {
       graphFilter: PUBLIC_GRAPH_FILTER,
+      healingPredicates: [HEALING_PREDICATE],
     },
     'http://www.w3.org/ns/dcat#CatalogRecord': {
       graphFilter: PUBLIC_GRAPH_FILTER,
-      healingPredicates: ['http://purl.org/dc/terms/modified'],
+      healingPredicates: [HEALING_PREDICATE],
     },
-    // TODO: The remaining resources currently do NOT have a modified, or
-    // similar, predicate linked to it.  We probably need to add the
-    // `track-modified-service` for these.
     'http://xmlns.com/foaf/0.1/Agent': {
       graphFilter: PUBLIC_GRAPH_FILTER,
       filter: `
@@ -49,6 +49,7 @@ export const initialization = {
             <http://www.w3.org/ns/dcat#Dataset>
           }
         }`,
+      healingPredicates: [HEALING_PREDICATE],
     },
     'http://www.w3.org/2004/02/skos/core#ConceptScheme': {
       graphFilter: PUBLIC_GRAPH_FILTER,
@@ -62,6 +63,7 @@ export const initialization = {
             }
           }
         }`,
+      healingPredicates: [HEALING_PREDICATE],
     },
     'http://www.w3.org/2004/02/skos/core#Concept': {
       graphFilter: PUBLIC_GRAPH_FILTER,
@@ -75,6 +77,7 @@ export const initialization = {
             }
           }
         }`,
+      healingPredicates: [HEALING_PREDICATE],
     },
     'http://purl.org/dc/terms/MediaTypeOrExtent': {
       graphFilter: PUBLIC_GRAPH_FILTER,
@@ -88,6 +91,7 @@ export const initialization = {
             }
           }
         }`,
+      healingPredicates: [HEALING_PREDICATE],
     },
     'http://mu.semte.ch/vocabulary/cms/Page': {
       graphFilter: PUBLIC_GRAPH_FILTER,
@@ -106,6 +110,7 @@ export const initialization = {
             }
           }
         }`,
+      healingPredicates: [HEALING_PREDICATE],
     },
   },
 };

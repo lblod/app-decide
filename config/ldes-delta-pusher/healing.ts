@@ -1,22 +1,26 @@
-import { initialization } from './initialization';
+import { initialization, PUBLIC_GRAPH_FILTER } from './initialization';
 
 export type HealingConfig = Awaited<ReturnType<typeof getHealingConfig>>;
-// NOTE (20/05/2026): Modified from configuration in OPH
-// <https://github.com/lblod/app-openproceshuis/blob/development/config/ldes-delta-pusher/healing.ts>
 export const getHealingConfig = async () => {
-  const entities: any = {};
-  Object.keys(initialization).map((typeUri) => {
-    if (initialization[typeUri].healingPredicates) {
-      entities[typeUri] = {
-        healingPredicates: initialization[typeUri].healingPredicates,
-        instanceFilter: initialization[typeUri].filter,
+  // TODO: support for multiple streams will be added later on.
+  const publicStream = 'public';
+  const streams = {
+    public: { graphFilter: PUBLIC_GRAPH_FILTER, entities: {} },
+  };
+
+  const stream = initialization[publicStream];
+  const entities = {};
+  Object.keys(stream).forEach((resourceType) => {
+    const entity = stream[resourceType];
+    if (entity.healingPredicates) {
+      entities[resourceType] = {
+        healingPredicates: entity.healingPredicates,
+        instanceFilter: entity.filter,
       };
     }
   });
 
-  return {
-    public: {
-      entities,
-    },
-  };
+  streams[publicStream].entities = entities;
+
+  return streams;
 };
