@@ -6,7 +6,6 @@ import {
   getFilter,
   getGraphFilter,
   initialization,
-  PUBLIC_GRAPH,
   PUBLIC_GRAPH_FILTER,
 } from './initialization';
 
@@ -16,7 +15,7 @@ export default async function dispatch(changesets: Changeset[]) {
   // TODO: support for multiple streams will be added later on.
   const publicStream = 'public';
 
-  const insertedSubjects = filterInsertedSubjects(changesets);
+  const insertedSubjects = extractInsertedSubjects(changesets);
   const interestingSubjects = await filterInterestingSubjects(
     insertedSubjects,
     publicStream,
@@ -32,19 +31,20 @@ export default async function dispatch(changesets: Changeset[]) {
 }
 
 /**
- * Filter the possibly interesting subject from the inserts in the given
- * changesets.  Interesting subjects are those inserted in the `PUBLIC_GRAPH`.
- * Furthermore, duplicate subjects are removed.
+ * Extract the inserted subjects from the inserts in the given changesets.  This
+ * only filters out duplicate subjects.
+ * duplicate subjects are removed.
  * @param {Changeset[]} changesets - The changesets received in the delta
  *   message.
  * @return {string[]} An array of URIs of the subject resources.
  */
-function filterInsertedSubjects(changesets: Changeset[]): string[] {
+function extractInsertedSubjects(changesets: Changeset[]): string[] {
+  // NOTE (28/05/2026): Avoid additional filtering of inserts here.  The healing
+  // functionality also uses this by sending somewhat fake changesets to the
+  // `dispatch` function.  See https://github.com/redpencilio/ldes-delta-pusher-service/blob/f0b272e4cda9bbcef69547d7073ff6b8710e4701/self-healing/heal-ldes-data.ts#L19-L55
   let insertedSubjects = changesets
-    .flatMap((changeset) =>
-      changeset.inserts.filter((insert) => insert.graph.value === PUBLIC_GRAPH),
-    )
-    .map((quad) => quad.subject.value);
+    .flatMap((changeset) => changeset.inserts)
+    .flatMap((quad) => quad.subject.value);
 
   return [...new Set(insertedSubjects)];
 }
