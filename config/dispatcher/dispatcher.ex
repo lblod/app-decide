@@ -73,6 +73,10 @@ defmodule Dispatcher do
     Proxy.forward conn, [], "http://database:8890/sparql"
   end
 
+  match "/api/private/sparql", %{ accept: [:any], layer: :sparql } do
+    Proxy.forward conn, [], "http://dsp-auth-wrapper/sparql"
+  end
+
   match "/annotation-review/*path", %{ accept: [:any], layer: :static } do
     Proxy.forward conn, path, "http://annotation-review/"
   end
@@ -329,7 +333,7 @@ defmodule Dispatcher do
     forward(conn, path, "http://cache/bestuurseenheids/")
   end
 
-  match "/sessions/*path", %{reverse_host: ["dashboard" | _rest]} do
+  match "/sessions/*path", %{layer: :api_services, accept: %{any: true}} do
     Proxy.forward(conn, path, "http://login/sessions/")
   end
 
@@ -345,7 +349,7 @@ defmodule Dispatcher do
     Proxy.forward(conn, path, "http://mocklogin/sessions/")
   end
 
-  match "/sessions/*path", %{layer: :api_services, accept: %{any: true}} do
+  match "/sessions/*path", %{reverse_host: ["ds" | _rest], layer: :api_services, accept: %{any: true}} do
     Proxy.forward(conn, path, "http://acmidm-login/sessions/")
   end
 

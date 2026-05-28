@@ -68,3 +68,11 @@ services:
       - 'logging=true'
     restart: always
     logging: *default-logging
+  dsp-auth-wrapper:
+    image: lblod/decide-dsp-authorization-wrapper:0.0.1
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging
+    environment:
+      DEFAULT_MU_AUTH_SCOPE: http://services.semantic.works/sessions
