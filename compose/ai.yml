@@ -165,7 +165,7 @@ services:
       - ollama serve & pid=$$! && sleep 5 && ollama pull embeddinggemma && wait $$pid
 
   codelist-labeling:
-    image: semanticai/codelist-labeling-service:0.0.1
+    image: semanticai/codelist-labeling-service:0.0.2
     environment:
       TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
       JOB_GRAPH: http://mu.semte.ch/graphs/harvesting
