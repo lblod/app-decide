@@ -31,6 +31,7 @@ python extract_ttl_to_file.py --list
 
 # Run a specific job
 python extract_ttl_to_file.py --job codelists
+python extract_ttl_to_file.py --job rmz
 python extract_ttl_to_file.py --job expressions
 python extract_ttl_to_file.py --job human-validations
 ```
@@ -42,11 +43,12 @@ Output `.ttl` files are written to `./output/`.
 
 ## Available jobs
 
-| Job                 | Description                                      | Output                         |
-| ------------------- | ------------------------------------------------ | ------------------------------ |
-| `codelists`         | Codelist annotations (by default: SDGs and restricted mobility zones)          | `output/codelists.ttl`              |
-| `expressions`       | ELI metadata (expression + work + manifestation) | `output/expressions.ttl`       |
-| `human-validations` | Human review annotations                         | `output/human-validations.ttl` |
+| Job                 | Description                                                                     | Output                         |
+| ------------------- | ------------------------------------------------------------------------------- | ------------------------------ |
+| `codelists`         | Codelist annotations (by default: SDGs and impact)                              | `output/codelists.ttl`         |
+| `rmz`               | Restricted Mobility Zone (RMZ) Concept annotations + locations for municipality | `output/rmz.ttl`               |
+| `expressions`       | ELI metadata (expression + work + manifestation)                                | `output/expressions.ttl`       |
+| `human-validations` | Human review annotations                                                        | `output/human-validations.ttl` |
 
 ## Configuring municipalities
 
@@ -82,11 +84,11 @@ The `codelists` query in `queries/codelists` uses by default the SDG (Use case 0
 
 The query has a `VALUES ?codelist { ... }` block to scope extraction to one or more codelists. Two codelists are currently supported:
 
-| Codelist | URI                                                                                                             |
-| ------------ | --------------------------------------------------------------------------------------------------------------- |
-| SDG      | `<http://data.lblod.info/id/conceptschemes/sdg-simple>`              |
-| (Simple) Restrictive Mobility Zone     | `<http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-simple>`                                                                       |
-
+| Codelist                           | URI                                                                         |
+| ---------------------------------- | --------------------------------------------------------------------------- |
+| SDG                                | `<http://data.lblod.info/id/conceptschemes/sdg-simple>`                     |
+| Impact                             | `<http://mu.semte.ch/vocabularies/ext/impact>`                              |
+| (Simple) Restrictive Mobility Zone | `<http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-simple>` |
 
 ### Running all three municipalities, one job at a time
 
@@ -95,6 +97,7 @@ The query has a `VALUES ?codelist { ... }` block to scope extraction to one or m
 
 # 2. Run each job sequentially — never in parallel
 python extract_ttl_to_file.py --job codelists
+python extract_ttl_to_file.py --job rmz
 python extract_ttl_to_file.py --job expressions
 python extract_ttl_to_file.py --job human-validations
 ```
