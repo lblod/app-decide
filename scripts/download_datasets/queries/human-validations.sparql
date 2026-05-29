@@ -21,36 +21,36 @@
       <http://data.lblod.info/id/bestuurseenheden/353234a365664e581db5c2f7cc07add2534b47b8e1ab87c821fc6e6365e6bef5> # Gent
     }
 
-    ?hvAnnotation a ext:ReviewAnnotation ;
-                  oa:hasTarget ?originalAnnotation .
+    ?hvAnnotation a ext:ReviewAnnotation .
+    ?hvAnnotation  oa:hasTarget ?originalAnnotation .
     
-    ?originalAnnotation oa:hasBody ?originalBody ; # body is a statement for NER and NEL, a concept URI for codelist annotations
-                        oa:hasTarget ?originalTarget .
+    ?originalAnnotation oa:hasBody ?originalBody . # body is a statement for NER and NEL, a concept URI for codelist annotations
+    ?originalAnnotation  oa:hasTarget ?originalTarget .
     
     # codelist annotations have the whole expression as target
     {
       ?originalTarget a eli:Expression .
-      BIND(?originalTarget AS ?expression) .
+      bind(?originalTarget as ?expression) .
     }
-    UNION {
+    union {
       # NER annotations have specific part of expression as target
-      ?originalTarget oa:hasSource ?expression ;
-          oa:hasSelector ?selector .
-      BIND(?originalTarget AS ?specificResource) .
+      ?originalTarget oa:hasSource ?expression .
+      ?originalTarget oa:hasSelector ?selector .
+      bind(?originalTarget as ?specificResource) .
     }
-    UNION {
+    union {
       # Quotations only have an expression as source, no selector
       ?originalTarget a schema:Quotation .
-      BIND(?originalTarget AS ?quotation) .
+      bind(?originalTarget as ?quotation) .
       
       ?quotation oa:hasSource ?expression .
       ?answer schema:citation ?quotation .
       ?question schema:suggestedAnswer ?answer .
     }
-    UNION {
+    union {
       # Answers have a link with expression(s) through its quotations
       ?originalTarget a schema:Answer .
-      BIND(?originalTarget AS ?answer)
+      bind(?originalTarget as ?answer)
 
       ?quotation oa:hasSource ?expression .
       ?answer schema:citation ?quotation .
@@ -62,7 +62,7 @@
       ?work eli:passed_by ?org .
       ?participant org:hasSubOrganization* ?org .
     }
-    UNION {
+    union {
       ?expression ext:owningBody ?participant .
     }
   }
