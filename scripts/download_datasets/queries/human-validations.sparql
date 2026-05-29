@@ -1,9 +1,19 @@
   prefix ext: <http://mu.semte.ch/vocabularies/ext/>
   prefix oa: <http://www.w3.org/ns/oa#>
-  
+  prefix eli: <http://data.europa.eu/eli/ontology#>
+  prefix org: <http://www.w3.org/ns/org#>
+  prefix schema: <http://schema.org/>
+
   insert {
     graph <http://mu.semte.ch/graphs/tmp-export> {
-     ?hvAnnotation a ext:downloadResource .
+      ?hvAnnotation a ext:downloadResource .
+      ?originalAnnotation a ext:downloadResource .
+      ?originalBody a ext:downloadResource .
+      ?specificResource a ext:downloadResource .
+      ?quotation a ext:downloadResource .
+      ?answer a ext:downloadResource .
+      ?question a ext:downloadResource .
+      ?selector a ext:downloadResource .
     }
   }
   where {
@@ -12,8 +22,47 @@
     }
 
     ?hvAnnotation a ext:ReviewAnnotation .
-    ?hvAnnotation oa:hasTarget ?annotation .
+    ?hvAnnotation  oa:hasTarget ?originalAnnotation .
+    
+    ?originalAnnotation oa:hasBody ?originalBody . # body is a statement for NER and NEL, a concept URI for codelist annotations
+    ?originalAnnotation  oa:hasTarget ?originalTarget .
+    
+    # codelist annotations have the whole expression as target
+    {
+      ?originalTarget a eli:Expression .
+      bind(?originalTarget as ?expression) .
+    }
+    union {
+      # NER annotations have specific part of expression as target
+      ?originalTarget oa:hasSource ?expression .
+      ?originalTarget oa:hasSelector ?selector .
+      bind(?originalTarget as ?specificResource) .
+    }
+    union {
+      # Quotations only have an expression as source, no selector
+      ?originalTarget a schema:Quotation .
+      bind(?originalTarget as ?quotation) .
+      
+      ?quotation oa:hasSource ?expression .
+      ?answer schema:citation ?quotation .
+      ?question schema:suggestedAnswer ?answer .
+    }
+    union {
+      # Answers have a link with expression(s) through its quotations
+      ?originalTarget a schema:Answer .
+      bind(?originalTarget as ?answer)
 
-    ?annotation oa:hasTarget / oa:source? ?expression.
-    ?expression ext:owningBody ?participant
+      ?quotation oa:hasSource ?expression .
+      ?answer schema:citation ?quotation .
+      ?question schema:suggestedAnswer ?answer .
+    }
+
+    {
+      ?work eli:is_realized_by ?expression .
+      ?work eli:passed_by ?org .
+      ?participant org:hasSubOrganization* ?org .
+    }
+    union {
+      ?expression ext:owningBody ?participant .
+    }
   }
