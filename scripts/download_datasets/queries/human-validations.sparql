@@ -60,7 +60,7 @@
     {
       ?work eli:is_realized_by ?expression .
       ?work eli:passed_by ?org .
-      ?participant org:hasSubOrganization* ?org .
+      ?participant org:hasSubOrganization ?org .
     }
     union {
       ?expression ext:owningBody ?participant .
