@@ -58,7 +58,7 @@ services:
     restart: always
     logging: *default-logging
   annotation-job-splitter:
-    image: lblod/annotation-job-splitter-service:0.0.1
+    image: lblod/annotation-job-splitter-service:0.0.2
     restart: always
     logging: *default-logging
     volumes:
