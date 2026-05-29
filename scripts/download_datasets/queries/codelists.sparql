@@ -1,4 +1,3 @@
-prefix task: <http://redpencil.data.gift/vocabularies/tasks/>
 prefix ext: <http://mu.semte.ch/vocabularies/ext/>
 prefix skos: <http://www.w3.org/2004/02/skos/core#>
 prefix oa: <http://www.w3.org/ns/oa#>
@@ -27,10 +26,10 @@ where {
 
   ?concept skos:inScheme ?codelist .
 
-  OPTIONAL {
+  optional {
     ?activity prov:generated ?annotation .
 
-    OPTIONAL {
+    optional {
       ?activity prov:wasAssociatedWith ?agent .
     }
   }
@@ -40,7 +39,7 @@ where {
     ?work eli:passed_by ?org .
     ?participant org:hasSubOrganization* ?org .
   }
-  UNION {
+  union {
     ?expression ext:owningBody ?participant .
   }
 }

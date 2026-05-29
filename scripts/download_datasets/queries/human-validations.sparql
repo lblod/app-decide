@@ -1,5 +1,6 @@
   prefix ext: <http://mu.semte.ch/vocabularies/ext/>
   prefix oa: <http://www.w3.org/ns/oa#>
+  
   insert {
     graph <http://mu.semte.ch/graphs/tmp-export> {
      ?hvAnnotation a ext:downloadResource .

@@ -40,7 +40,7 @@ where {
     ?work eli:passed_by ?org .
     ?participant org:hasSubOrganization* ?org .
   }
-  UNION {
+  union {
     ?expression ext:owningBody ?participant .
   }
 }
