@@ -1,0 +1,45 @@
+prefix ext: <http://mu.semte.ch/vocabularies/ext/>
+prefix skos: <http://www.w3.org/2004/02/skos/core#>
+prefix oa: <http://www.w3.org/ns/oa#>
+prefix org: <http://www.w3.org/ns/org#>
+prefix eli: <http://data.europa.eu/eli/ontology#>
+prefix prov: <http://www.w3.org/ns/prov#>
+
+insert {
+  graph <http://mu.semte.ch/graphs/tmp-export> {
+    ?annotation a ext:downloadResource .
+    ?activity a ext:downloadResource .
+    ?agent a ext:downloadResource .
+  }
+}
+where {
+  values ?participant {
+    <http://data.lblod.info/id/bestuurseenheden/353234a365664e581db5c2f7cc07add2534b47b8e1ab87c821fc6e6365e6bef5> # Gent
+  }
+  values ?codelist {
+    <http://data.lblod.info/id/conceptschemes/sdg-simple>
+    <http://mu.semte.ch/vocabularies/ext/impact>
+  }
+
+  ?annotation oa:hasBody ?concept .
+  ?annotation oa:hasTarget ?expression .
+
+  ?concept skos:inScheme ?codelist .
+
+  optional {
+    ?activity prov:generated ?annotation .
+
+    optional {
+      ?activity prov:wasAssociatedWith ?agent .
+    }
+  }
+
+  {
+    ?work eli:is_realized_by ?expression .
+    ?work eli:passed_by ?org .
+    ?participant org:hasSubOrganization* ?org .
+  }
+  union {
+    ?expression ext:owningBody ?participant .
+  }
+}
