@@ -1,14 +1,14 @@
-import { initialization, PUBLIC_GRAPH_FILTER } from './initialization';
+import { streams, PUBLIC_GRAPH_FILTER } from './config';
 
 export type HealingConfig = Awaited<ReturnType<typeof getHealingConfig>>;
 export const getHealingConfig = async () => {
   // TODO: support for multiple streams will be added later on.
   const publicStream = 'public';
-  const streams = {
+  const resultStreams = {
     public: { graphFilter: PUBLIC_GRAPH_FILTER, entities: {} },
   };
 
-  const stream = initialization[publicStream];
+  const stream = streams[publicStream];
   const entities = {};
   Object.keys(stream).forEach((resourceType) => {
     const entity = stream[resourceType];
@@ -20,7 +20,7 @@ export const getHealingConfig = async () => {
     }
   });
 
-  streams[publicStream].entities = entities;
+  resultStreams[publicStream].entities = entities;
 
-  return streams;
+  return resultStreams;
 };

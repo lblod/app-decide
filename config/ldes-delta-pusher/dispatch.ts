@@ -5,9 +5,9 @@ import { querySudo as query } from '@lblod/mu-auth-sudo';
 import {
   getFilter,
   getGraphFilter,
-  initialization,
+  streams,
   PUBLIC_GRAPH_FILTER,
-} from './initialization';
+} from './config';
 
 type interestingSubject = { subject: string; type: string };
 
@@ -100,7 +100,7 @@ async function hasInterestingType(
     WHERE {
       GRAPH ?g {
         VALUES ?type {
-          ${Object.keys(initialization[stream])
+          ${Object.keys(streams[stream])
             .map((type) => sparqlEscapeUri(type))
             .join('\n')}
         }
