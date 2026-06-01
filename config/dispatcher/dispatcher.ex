@@ -478,6 +478,13 @@ defmodule Dispatcher do
     forward(conn, path, "http://dcat/")
   end
 
+  ###############################################################
+  # LDES
+  ###############################################################
+  match "/ldes/*path", %{ accept: %{any: true}, layer: :api_services} do
+    Proxy.forward conn, path, "http://ldes-serve-feed/"
+  end
+
   ##################
   # SEARCH
   ##################

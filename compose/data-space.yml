@@ -76,3 +76,32 @@ services:
     logging: *default-logging
     environment:
       DEFAULT_MU_AUTH_SCOPE: http://services.semantic.works/sessions
+  ##############################################################################
+  # LDES
+  ##############################################################################
+  ldes-delta-pusher:
+    image: redpencil/ldes-delta-pusher:1.2.14
+    environment:
+      LDES_BASE: "https://ds.decide.lblod.info/ldes/"
+      LDES_FOLDER: "public"
+      WRITE_INITIAL_STATE: "false"
+      AUTO_HEALING: "true"
+      CRON_HEALING: "0 16 3 * * *" # Every day at 03:16
+    volumes:
+      - ../config/ldes-delta-pusher/:/config/
+      - ../data/ldes-feed/:/data/
+    restart: always
+    logging: *default-logging
+    labels:
+      - "logging=true"
+    links:
+      - virtuoso:database
+  ldes-serve-feed:
+    image: lblod/ldes-serve-feed-service:0.4.0
+    environment:
+      BASE_URL: "https://ds.decide.lblod.info/ldes/"
+    volumes:
+      - ../data/ldes-feed/:/data/
+    logging: *default-logging
+    labels:
+      - "logging=true"
