@@ -52,9 +52,9 @@ function extractInsertedSubjects(changesets: Changeset[]): string[] {
 /**
  * Filter a set of subjects to those that possibly relevant for the stream.  A
  * subject is considered interesting if it has an RDF resource type that is
- * configured in `initialization`.
+ * configured in `streams`.
  * @param {string[]} subjects - The subject URIs to filter.
- * @param {string} stream - The name of a stream as defined in `initialization`.
+ * @param {string} stream - The name of a stream as defined in `streams`.
  * @return {Promise<interestingSubject[]>} An array that contains a subset of
  *   interesting subjects enriched with the RDF resource type of the subject.
  */
@@ -76,14 +76,13 @@ async function filterInterestingSubjects(
 
 /**
  * Returns an RDF type URI if subject is interesting for the LDES feed.  A
- * subject is interesting if it has an RDF type that is listed in
- * `initialization` and is found in the graph determined by
- * `PUBLIC_GRAPH_FILTER`.  Note, to keep the query simple, any `filter`s for a
- * type are NOT taken into account.  So this function may return types for a
- * subject that will be filtered out later.  It is up to subsequent functions to
- * handle this situation.
+ * subject is interesting if it has an RDF type that is listed in `streams` and
+ * is found in the graph determined by `PUBLIC_GRAPH_FILTER`.  Note, to keep the
+ * query simple, any `filter`s for a type are NOT taken into account.  So this
+ * function may return types for a subject that will be filtered out later.  It
+ * is up to subsequent functions to handle this situation.
  * @param {string} subject - The URI of the resource to check.
- * @param {string} stream - The name of a stream as defined in `initialization`.
+ * @param {string} stream - The name of a stream as defined in `streams`.
  * @return {Promise<string|undefined} The URI of the subject's type if it is
  *   interesting, undefined otherwise.
  */
@@ -127,7 +126,7 @@ async function hasInterestingType(
 /**
  * Convert the subjects to their corresponding quads.  The quads are retrieved
  * from the triplestore taking the filters configured for that subject in
- * `initialization`.
+ * `streams`.
  * @param {interestingSubject[]} subjects - The URIs of the resources and their
  *   RDF types to convert.
  * @return {Promise<Quad[]>} An array containing the quads retrieved for the
@@ -151,10 +150,10 @@ async function subjectsToQuads(
 /**
  * Retrieve the relevant quads for the provided subject.  This retrieves all
  * quads for the given subject taken into account the appropriate filters as
- * configured in `initialization`.
+ * configured in `streams`.
  * @param {interestingSubject} subject - The URIs of the resources and their RDF
  *   types for which to retrieve the quads.
- * @param {string} stream - The name of a stream as defined in `initialization`.
+ * @param {string} stream - The name of a stream as defined in `streams`.
  * @return {Promise<Quad[]>} An array containing all quads for the subject.
  */
 async function getQuadsForSubject(
