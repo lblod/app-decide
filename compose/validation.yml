@@ -5,7 +5,7 @@ x-logging: &default-logging
     max-file: '3'
 services:
   annotation-review:
-    image: lblod/annotation-review-service:0.0.1
+    image: lblod/annotation-review-service:0.0.2
     restart: always
     labels:
       - logging=true
@@ -16,7 +16,7 @@ services:
     volumes:
       - ../config/annotation-review:/config
   frontend-human-validator:
-    image: lblod/frontend-decide-human-validator:0.0.6
+    image: lblod/frontend-decide-human-validator:0.0.7
     labels:
       - 'logging=true'
     restart: always
