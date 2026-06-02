@@ -33,7 +33,6 @@ export default async function dispatch(changesets: Changeset[]) {
 /**
  * Extract the inserted subjects from the inserts in the given changesets.  This
  * only filters out duplicate subjects.
- * duplicate subjects are removed.
  * @param {Changeset[]} changesets - The changesets received in the delta
  *   message.
  * @return {string[]} An array of URIs of the subject resources.
