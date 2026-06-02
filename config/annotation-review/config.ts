@@ -38,15 +38,19 @@ export default {
       filters: {
         municipality: {
           query: `
-            {
-              ?work eli:passed_by ?org .
-              ?municipality org:hasSubOrganization ?org .
-            } UNION {
-              ?target ext:owningBody ?municipality .
-            }
+            ?target ext:owningBody ?municipality .
           `,
           variable: 'municipality',
           type: 'uri',
+        },
+        otherMunicipality: {
+          // weirdly NOT IN gives an error in virtuoso's cost model
+          query: `
+            ?target ext:owningBody ?municipality .
+            FILTER(?municipality != <https://ris.freiburg.de/oparl/body/FR> && ?municipality != <https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> && ?municipality != <http://data.lblod.info/id/bestuurseenheden/353234a365664e581db5c2f7cc07add2534b47b8e1ab87c821fc6e6365e6bef5>)
+          `,
+          variable: 'fakePlaceholder',
+          type: 'string',
         },
         title: {
           query: `
@@ -87,6 +91,8 @@ export default {
         PREFIX eli: <http://data.europa.eu/eli/ontology#>
         PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
         PREFIX mu: <http://mu.semte.ch/vocabularies/core/>
+        PREFIX org: <http://www.w3.org/ns/org#>
+        PREFIX ext: <http://mu.semte.ch/vocabularies/ext/>
       `,
       // can also use to filter ?annotation in case we want to filter the kind of annotations to show
       // note that we have to filter by expressions having a work because other expressions are created
@@ -105,7 +111,7 @@ export default {
         FILTER NOT EXISTS {
           ?object skos:inScheme <http://mu.semte.ch/vocabularies/ext/impact> .
         }
-
+        
         VALUES ?agent {
           <http://lblod.data.gift/id/components/codelist-annotation/v1.0.0>
         }
@@ -120,8 +126,13 @@ export default {
         conceptScheme: {
           query: `
             ?annotation oa:hasBody ?concept .
-            ?concept skos:inScheme ?scheme .
-            ?scheme mu:uuid ?schemeId.
+            { 
+              ?concept skos:inScheme ?scheme .
+              ?scheme mu:uuid ?schemeId.
+            } UNION {
+              ?concept a <http://mu.semte.ch/vocabularies/ext/NoMatchFound>.              
+              ?scheme mu:uuid ?schemeId.
+            }
           `,
           variable: 'schemeId',
           type: 'string',
@@ -134,18 +145,21 @@ export default {
           type: 'string',
           variable: 'conceptId',
         },
-        owner: {
+        municipality: {
           query: `
-            {
-               ?work eli:is_realized_by ?target .
-               ?work eli:passed_by ?org .
-               ?owner <http://www.w3.org/ns/org#hasSubOrganization> ?org .
-             } UNION {
-               ?target <http://mu.semte.ch/vocabularies/ext/owningBody> ?owner .
-            }
+            ?target <http://mu.semte.ch/vocabularies/ext/owningBody> ?municipality .
           `,
-          variable: 'owner',
+          variable: 'municipality',
           type: 'uri',
+        },
+        otherMunicipality: {
+          // weirdly NOT IN gives an error in virtuoso's cost model
+          query: `
+            ?target <http://mu.semte.ch/vocabularies/ext/owningBody> ?municipality .
+            FILTER(?municipality != <https://ris.freiburg.de/oparl/body/FR> && ?municipality != <https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> && ?municipality != <http://data.lblod.info/id/bestuurseenheden/353234a365664e581db5c2f7cc07add2534b47b8e1ab87c821fc6e6365e6bef5>)
+          `,
+          variable: 'fakePlaceholder',
+          type: 'string',
         },
         impact: {
           query: `
@@ -218,6 +232,21 @@ export default {
         ?object <http://www.w3.org/2004/02/skos/core#exactMatch> ?objectLink .
       `,
     },
+    'http://www.w3.org/2006/time#ProperInterval': {
+      name: 'Interval',
+      textPath: `
+        OPTIONAL {
+          ?object <http://www.w3.org/2006/time#hasBeginning> ?begin .
+        }
+        OPTIONAL {
+          ?object <http://www.w3.org/2006/time#hasEnd> ?end .
+        }
+        BIND(CONCAT(IF(BOUND(?begin), ?begin, "*") , " - ", IF(BOUND(?end), ?end, "*")) AS ?objectText)
+      `,
+      linkPath: `
+        ?object <http://www.w3.org/2004/02/skos/core#exactMatch> ?objectLink .
+      `,
+    },
     'http://www.w3.org/ns/org#Organization': {
       name: 'Organization',
     },
@@ -232,16 +261,9 @@ export default {
         ?object <http://www.w3.org/2004/02/skos/core#prefLabel> ?prefLabel .
         FILTER(LANG(?prefLabel) = "en")
         OPTIONAL {
-          ?annotation oa:hasBody ?impact .
-        }
-        OPTIONAL {
           ?object skos:notation ?notation .
         }
-        BIND(
-          IF(BOUND(?impact) && ?impact IN (<http://mu.semte.ch/vocabularies/ext/impact/negative>, <http://mu.semte.ch/vocabularies/ext/impact/positive>),
-             IF(BOUND(?notation), CONCAT(?notation, ": ", ?prefLabel, " (",SUBSTR(STR(?impact), 44),")"), CONCAT(?prefLabel, " (",SUBSTR(STR(?impact), 44),")")),
-             IF(BOUND(?notation), CONCAT(?notation, ": ", ?prefLabel), ?prefLabel)
-          ) AS ?objectText)
+        BIND(IF(BOUND(?notation), CONCAT(?notation, ": ", ?prefLabel), ?prefLabel) AS ?objectText)
       `,
       linkPath: 'BIND(?object AS ?objectLink)',
     },
