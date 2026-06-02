@@ -30,7 +30,7 @@ import { sparqlEscapeUri, uuid } from "mu";
 import { querySudo } from '@lblod/mu-auth-sudo';
 
 import { Store, DataFactory } from "n3";
-const { namedNode, literal } = DataFactory;
+const { quad, namedNode, literal } = DataFactory;
 
 const CRON_PATTERN = "0 3 * * *";
 const REPORT_NAME = "ELI validation of Decide";
@@ -63,13 +63,15 @@ const cronFunction = async (namedGraph = null) => {
         // Key is to pass a reportURI to the validation function, so all results are linked to the same report
         const reportUUID = uuid();
         const reportURI = `http://data.lblod.info/id/reports/${reportUUID}`;
+        const created = new Date().toISOString();
         for (const targetClass of allTargetClasses) {
             const count = await countResources(targetClass, namedGraphs);
             console.log(`Adding ${count} resources for graphs ${safeNamedGraphs} and resource type ${targetClass}...`);
             for (let offset = 0; offset < count; offset += BATCH_SIZE) {
                 const dataDataset = new Store();
                 await fillDataDataset(targetClass, offset, dataDataset, shapesDataset, sparqlShapeDataset);
-                const batchReportDataset = await validateShapesAndSparql(dataDataset, shapesDataset, sparqlValidationObjects, reportURI);
+                const batchReportDataset = await validateShapesAndSparql(dataDataset, shapesDataset, sparqlValidationObjects, reportURI, reportUUID);
+                addTimestamps(batchReportDataset, reportURI, created);
                 await saveDatasetToNamedGraphs(batchReportDataset, namedGraphs);
             }
             console.log(`SHACL validation done for target class ${targetClass}.`);
@@ -146,13 +148,13 @@ async function fillDataDataset(targetClass, offset, dataDataset) {
     })
 }
 
-async function validateShapesAndSparql(dataDataset, shapesDataset, sparqlValidationObjects, reportURI) {
+async function validateShapesAndSparql(dataDataset, shapesDataset, sparqlValidationObjects, reportURI, reportUUID) {
     console.log(
             `Running SHACL validation on store of size ${dataDataset.size}...`
     );
     const startTime = Date.now();
     console.log(`Running non-SPARQL-based constraints...`);
-    const reportDataset = await validateDataset(dataDataset, shapesDataset, reportURI);
+    const reportDataset = await validateDataset(dataDataset, shapesDataset, reportURI, reportUUID);
     console.log(`Running SPARQL-based constraints...`);
     await addSparqlValidationsToReport(
         dataDataset,
@@ -177,4 +179,30 @@ function retrieveTargetClasses(datasets) {
         .map(q => allTargetClasses.add(q.object.value));
     });
     return allTargetClasses;
+}
+
+function addTimestamps(reportDataset, reportURI, createdTime) {
+    // Add creation time stamp
+    // This is used to delete previous reports when ONLY_KEEP_LATEST_REPORT is true
+    reportDataset.add(
+        quad(
+            namedNode(reportURI),
+            namedNode('http://purl.org/dc/terms/created'),
+            literal(
+                createdTime,
+                namedNode('http://www.w3.org/2001/XMLSchema#dateTime'),
+            ),
+        ),
+    );
+    // Add modified time stamp
+    reportDataset.add(
+        quad(
+            namedNode(reportURI),
+            namedNode('http://purl.org/dc/terms/modified'),
+            literal(
+                createdTime,
+                namedNode('http://www.w3.org/2001/XMLSchema#dateTime'),
+            ),
+        ),
+    );
 }
