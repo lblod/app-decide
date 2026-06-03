@@ -1,0 +1,23 @@
+PREFIX eli: <http://data.europa.eu/eli/ontology#>
+DELETE {
+  GRAPH ?g {
+    ?s <http://mu.semte.ch/vocabularies/ext/embeddingVectorMotivering> ?vect .
+  }
+}WHERE {
+  ?s a eli:Expression .
+  ?original <http://purl.org/linguistics/gold/translation> ?s .
+  GRAPH ?g {
+    ?s <http://mu.semte.ch/vocabularies/ext/embeddingVectorMotivering> ?vect .
+  }
+};
+DELETE {
+  GRAPH ?g {
+    ?s <http://mu.semte.ch/vocabularies/ext/embeddingVector> ?vect .
+  }
+}WHERE {
+  ?s a eli:Expression .
+  ?original <http://purl.org/linguistics/gold/translation> ?s .
+  GRAPH ?g {
+    ?s <http://mu.semte.ch/vocabularies/ext/embeddingVector> ?vect .
+  }
+}
