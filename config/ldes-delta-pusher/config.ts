@@ -9,7 +9,7 @@ export const PUBLIC_GRAPH_FILTER = `
 
 // NOTE (28/05/2026): Not all interesting resources have a triple for this
 // predicate already.  It is up to us to add it when updating an existing
-// resource, otherwise the changes will not be picked up.
+// resource, otherwise the changes will not be picked up when healing.
 const HEALING_PREDICATE = 'http://purl.org/dc/terms/modified';
 
 export const streams = {
