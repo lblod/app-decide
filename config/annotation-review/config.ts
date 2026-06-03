@@ -108,7 +108,7 @@ export default {
       // can use to filter annotations for a given target, need to fix the set of agents once we have final uris for them
       annotationFilter: `
         ?object a skos:Concept .
-        FILTER(?typeClass != <http://mu.semte.ch/vocabularies/ext/NoMatchFound> )
+        FILTER(!BOUND(?typeClass) || ?typeClass != <http://mu.semte.ch/vocabularies/ext/NoMatchFound> )
         FILTER NOT EXISTS {
           ?object skos:inScheme <http://mu.semte.ch/vocabularies/ext/impact> .
         }
