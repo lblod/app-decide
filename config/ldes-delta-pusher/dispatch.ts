@@ -12,22 +12,28 @@ import {
 type interestingSubject = { subject: string; type: string };
 
 export default async function dispatch(changesets: Changeset[]) {
-  // TODO: support for multiple streams will be added later on.
-  const publicStream = 'public';
-
   const insertedSubjects = extractInsertedSubjects(changesets);
-  const interestingSubjects = await filterInterestingSubjects(
-    insertedSubjects,
-    publicStream,
-  );
-  const inserts = await subjectsToQuads(interestingSubjects, publicStream);
 
-  await moveTriples([
-    {
-      inserts: inserts,
-      deletes: [],
-    },
-  ]);
+  // TODO: Each of our streams will contain the same types of resources so this
+  // should be implemented more efficiently.  No point in querying for each
+  // stream separately.
+  for (const stream of Object.keys(streams)) {
+    const interestingSubjects = await filterInterestingSubjects(
+      insertedSubjects,
+      stream,
+    );
+    const inserts = await subjectsToQuads(interestingSubjects, stream);
+
+    await moveTriples(
+      [
+        {
+          inserts: inserts,
+          deletes: [],
+        },
+      ],
+      stream,
+    );
+  }
 }
 
 /**
