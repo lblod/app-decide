@@ -3,7 +3,6 @@
     "provider": "mistralai",
     "model_name": "mistral-small-latest",
     "temperature": 0.1,
-    "api_key": "SECRET_KEY",
     "base_url": "https://api.mistral.ai/v1",
     "timeout": 120
   },
