@@ -1,0 +1,25 @@
+PREFIX task: <http://redpencil.data.gift/vocabularies/tasks/>
+PREFIX adms: <http://www.w3.org/ns/adms#>
+PREFIX ext: <http://mu.semte.ch/vocabularies/ext/>
+
+INSERT {
+  GRAPH ?g {
+    ?current ext:checkedForScheduling ?now
+  }
+}WHERE {
+  VALUES ?status {
+    <http://redpencil.data.gift/id/concept/JobStatus/success>
+    <http://redpencil.data.gift/id/concept/JobStatus/failed>
+  }
+  GRAPH ?g {
+    ?current a task:Task .
+  }
+  ?current adms:status ?status .
+  FILTER NOT EXISTS {
+    ?next <http://vocab.deri.ie/cogs#dependsOn> ?current.
+  }
+  FILTER NOT EXISTS {
+    ?current ext:checkedForScheduling ?date
+  }
+  BIND(NOW() AS ?now)
+}
