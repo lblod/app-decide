@@ -6,6 +6,7 @@ import search from './search';
 import resource from './resource';
 import codelist from './codelist';
 import annotationJobSplitter from './annotation-job-splitter';
+import ldes from './ldes';
 
 export default [
   ...resource,
@@ -16,4 +17,5 @@ export default [
   ...search,
   ...codelist,
   ...annotationJobSplitter,
+  ...ldes,
 ];

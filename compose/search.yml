@@ -1,3 +1,8 @@
+x-logging: &default-logging
+  driver: 'json-file'
+  options:
+    max-size: '10m'
+    max-file: '3'
 services:
   ##################################
   ### elastic and embeddings
@@ -6,18 +11,28 @@ services:
     image: semtech/mu-search:feature-large-dense-vector
     environment:
       INCLUDE_SCORE: true
+    labels:
+      - logging=true
+    restart: always
+    logging: *default-logging
     volumes:
       - ../config/search:/config
   elasticsearch:
     image: semtech/mu-search-elastic-backend:feature-bump-es-9.2.0
+    labels:
+      - logging=true
+    restart: always
+    logging: *default-logging
     volumes:
-      - ../data/elasticsearch/:/usr/share/elasticsearch/data
+      - elasticsearch-data:/usr/share/elasticsearch/data
     environment:
       - discovery.type=single-node
   embedding:
     image: semanticai/embedding-service:0.0.3
     labels:
       - logging=true
+    restart: always
+    logging: *default-logging
     environment:
       TZ: Europe/Brussels
       OLLAMA_HOST: 'http://ollama:11434'
@@ -26,3 +41,28 @@ services:
       - ../config/embedding/config.py:/app/config.py
     depends_on:
       - ollama
+  municipality-linker:
+    image: lblod/decide-municipality-linker-service:0.0.1
+    labels:
+      - logging=true
+    restart: always
+    logging: *default-logging
+    volumes:
+      - ../config/municipality-linker:/config
+  ##################################
+  ### Smart search
+  ##################################
+  frontend-smart-search:
+    image: lblod/frontend-decide-question-answering:0.0.3
+    labels:
+      - 'logging=true'
+    restart: always
+   # The backend question-answering service is configured in compose/ai.yml
+
+volumes:
+  elasticsearch-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${PWD}/data/elasticsearch

@@ -1,0 +1,144 @@
+services:
+  # Example configuration when using app-letsencrypt as reverse proxy to forward
+  # traffic to the app's identifier.
+  # identifier:
+  #   environment:
+  #     # Note, <BASE-URL> should be replaced by the base URL used for your
+  #     # app. For example, for ABB's instance of the app this is
+  #     # `decide.lblod.info`.
+  #     VIRTUAL_HOST: "ds.<BASE-URL>,dashboard.<BASE-URL>,yasgui.<BASE-URL>,human-validator.<BASE-URL>"
+  #     LETSENCRYPT_HOST: "ds.<BASE-URL>,dashboard.<BASE-URL>,yasgui.<BASE-URL>,human-validator.<BASE-URL>"
+  #     LETSENCRYPT_EMAIL: "<SUPPORT-EMAIL>"
+  #   # Make sure the identifier service is both part of the app's default network
+  #   # as well as the `proxy` network configured at the end of this file.
+  #   networks:
+  #     - default
+  #     - proxy
+
+  # Disable unneeded services for UC0.0 Dataspace
+  # This disables services that are used to collect decisions from other sources
+  # than PDFs
+  frontend-harvesting:
+    environment:
+      # Disable functionality to create jobs to harvest data from OParl
+      # endpoints
+      EMBER_OPARL_HARVESTING_ENABLED: false
+      # Disable functionality to create jobs to harvest data from OSLO endpoints
+      EMBER_OSLO_HARVESTING_ENABLED: false
+  ## Additional service to providing the persisted decision PDFs to the
+  ## `pdf-scraper` service.
+  internal-files:
+    image: nginx:1.30.0-alpine
+    volumes:
+      - ./data/internal-files:/usr/share/nginx/html:ro
+  pdf-content:
+    # This service is mostly configured in `../config/pdf-content/config.json`,
+    # only secrets are configured via an environment variable.
+    environment:
+      SEGMENTATION__API_KEY: "<REPLACE-WITH-API-KEY-IN-OVERRIDE-FILE>"
+  ## Disable services to harvest data from OParl endpoints
+  ## Alternatively, comment the oparl.yml line in `pipeline.yml`
+  oparl-to-eli:
+    entrypoint: ["echo", "Service oparl-to-eli is disabled"]
+  harvest_sameas:
+    entrypoint: ["echo", "Service harvest_sameas is disabled"]
+  harvest_diff:
+    entrypoint: ["echo", "Service harvest_diff is disabled"]
+  ## Disable services to harvest data from OSLO endpoints (used by local
+  ## governments in Flanders)
+  ## Alternatively, comment the oslo.yml line in `pipeline.yml`
+  lokaal-beslist-consumer:
+    entrypoint: ["echo", "Service lokaal-beslist-consumer is disabled"]
+  decisions-ghent-filter:
+    entrypoint: ["echo", "Service decisions-ghent-filter is disabled"]
+  oslo-eli-transformer:
+    entrypoint: ["echo", "Service oslo-eli-transformer is disabled"]
+
+
+  # Configure AI services for UC0.1 and UC2
+  # NOTE (28/05/2026): Currently configuring the API keys for these services as
+  # environment variables is still under development.  The following is a
+  # placeholder that can be used when this functionality is finalised.  Please
+  # consult the README for each individual service for information on how to
+  # configure API keys in the meantime.
+  # NOTE: It is advised to set API keys (and other secrets) in a non-versioned
+  # `docker-compose.override.yml` to avoid accidentally leaking such secrets.
+  # named-entity-recognition:
+  #   # This service is mostly configured in `../config/ner/config.json`, only
+  #   # secrets are configured as environment variables.
+  #  environment:
+  #    # etranslation
+  #    TRANSLATION__ETRANSLATION__BEARER_TOKEN: "<REPLACE-WITH-TOKEN-IN-OVERRIDE-FILE>"
+  #    TRANSLATION__ETRANSLATION__PASSWORD: "<REPLACE-WITH-PASSWORD-IN-OVERRIDE-FILE>"
+  #    # llm
+  #    LLM__API_KEY: "<REPLACE-WITH-API-KEY-IN-OVERRIDE-FILE>"
+  #    # segmentation
+  #    SEGMENTATION__LLM__API_KEY: "<REPLACE-WITH-API-KEY-IN-OVERRIDE-FILE>"
+  # entity-linking:
+  #   environment:
+  #     LLM_PROVIDER: "<REPLACE-WITH-PROVIDER>"
+  #     # Replace <PROVIDER> with the appropriate name based on the provider set
+  #     # in the previous line. For example, `OPENAI` or `MISTRAL`.
+  #     <PROVIDER>_MODEL: "<REPLACE-WITH-MODEL>"
+  #     <PROVIDER>_API_KEY: "<REPLACE-WITH-API-KEY-IN-OVERRIDE-FILE>"
+  # codelist-labeling:
+  #   # This service is mostly configured via the file
+  #   # `../config/codelist/config.json`, only secrets are configured as
+  #   # environment variables.
+  #   environment:
+  #     LLM__API_KEY: "SECRET"
+  # question-answering:
+  #   # This service requires you to add appropriate the `langchain-*` packages to
+  #   # its requirements.txt and build the service locally.
+  #   # image: question-answering-local
+  #   environment:
+  #     GENERATION_PROVIDER: "<REPLACE-WITH-PROVIDER>"
+  #     GENERATION_MODEL: "<REPLACE-WITH-MODEL>"
+  #     GENERATION_API_KEY: "<REPLACE-WITH-API-KEY-IN-OVERRIDE-FILE>"
+
+
+  # Uncomment to disable the services related to the Human validation interface
+  # Alternatively, comment the validation.yml line in `docker-compose.yml`
+  # annotation-review:
+  #   entrypoint: ["echo", "Service annotation-review is disabled"]
+  # frontend-human-validator:
+  #   entrypoint: ["echo", "Service frontend-human-validator is disabled"]
+
+
+  # Uncomment to disable general data space services
+  # frontend-dcat:
+  #   entrypoint: ["echo", "Service frontend-dcat is disabled"]
+  # dcat:
+  #   entrypoint: ["echo", "Service dcat is disabled"]
+  # frontend-yasgui:
+  #   entrypoint: ["echo", "Service frontend-yasgui is disabled"]
+  # vc-issuer:
+  #   entrypoint: ["echo", "Service vc-issuer is disabled"]
+
+
+  # Comment to enable general services
+  report-generation:
+    # This service allows to generate reports about data quality, meant for
+    # internal monitoring
+    entrypoint: ["echo", "Service report-generation is disabled"]
+  acmidm-login:
+    # This service is used to integrate with ACMIDM, a Belgian single sign-on
+    # solution based on Oauth2 and OpenID
+    entrypoint: ["echo", "Service acmidm-login is disabled"]
+  nominatim:
+    # This service is used to
+    entrypoint: ["echo", "Service nominatim is disabled"]
+
+
+  # Uncomment to use script to create new user accounts
+  # registration:
+  #   image: semtech/mu-registration-service:2.8.0
+  #   links:
+  #     - database:database
+
+
+# Uncomment to configure network exposed by app-letsencrypt
+# networks:
+#   proxy:
+#     name: letsencrypt_default
+#     external: true

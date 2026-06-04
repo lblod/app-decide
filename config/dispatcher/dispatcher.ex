@@ -8,7 +8,7 @@ defmodule Dispatcher do
     any: ["*/*"]
   ]
 
-  define_layers([:static, :sparql, :api_services, :frontend, :resources, :not_found])
+  define_layers([:static, :sparql, :api_services, :frontend, :resources, :frontend_fallback, :not_found])
 
   options "/*_path", _ do
     conn
@@ -61,12 +61,20 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://vc-issuer/issuer/"
   end
 
-  match "/question-answering/*path", %{ accept: [:any], layer: :api_services } do
-    Proxy.forward conn, path, "http://question-answering/uc2/"
+  get "/question-answering/openapi.json", %{ accept: [:any], layer: :api_services } do
+    Proxy.forward conn, [], "http://question-answering/openapi.json"
   end
 
-  match "/api/sparql", %{ reverse_host: ["yasgui" | _rest], accept: [:any], layer: :sparql } do
+  match "/question-answering/*path", %{ accept: [:any], layer: :api_services } do
+    Proxy.forward conn, path, "http://question-answering/question-answering/"
+  end
+
+  match "/api/sparql", %{ accept: [:any], layer: :sparql } do
     Proxy.forward conn, [], "http://database:8890/sparql"
+  end
+
+  match "/api/private/sparql", %{ accept: [:any], layer: :sparql } do
+    Proxy.forward conn, [], "http://dsp-auth-wrapper/sparql"
   end
 
   match "/annotation-review/*path", %{ accept: [:any], layer: :static } do
@@ -325,7 +333,7 @@ defmodule Dispatcher do
     forward(conn, path, "http://cache/bestuurseenheids/")
   end
 
-  match "/sessions/*path", %{reverse_host: ["dashboard" | _rest]} do
+  match "/sessions/*path", %{layer: :api_services, accept: %{any: true}} do
     Proxy.forward(conn, path, "http://login/sessions/")
   end
 
@@ -341,7 +349,7 @@ defmodule Dispatcher do
     Proxy.forward(conn, path, "http://mocklogin/sessions/")
   end
 
-  match "/sessions/*path", %{layer: :api_services, accept: %{any: true}} do
+  match "/sessions/*path", %{reverse_host: ["ds" | _rest], layer: :api_services, accept: %{any: true}} do
     Proxy.forward(conn, path, "http://acmidm-login/sessions/")
   end
 
@@ -439,27 +447,27 @@ defmodule Dispatcher do
   # we don't forward the path, because the app should take care of this in the browser.
 
   # self-service
-  match "/*_path", %{reverse_host: ["dashboard" | _rest], accept: %{html: true}, layer: :frontend } do
+  match "/*_path", %{reverse_host: ["dashboard" | _rest], accept: %{html: true}, layer: :frontend_fallback } do
     forward(conn, [], "http://frontend-harvesting/index.html")
   end
 
-  match "/*_path", %{reverse_host: ["ds" | _rest], accept: %{html: true}, layer: :frontend} do
+  match "/*_path", %{reverse_host: ["ds" | _rest], accept: %{html: true}, layer: :frontend_fallback} do
     forward(conn, [], "http://frontend-dcat/index.html")
   end
 
-  match "/*_path", %{reverse_host: ["human-validator" | _rest], accept: %{html: true}, layer: :frontend} do
+  match "/*_path", %{reverse_host: ["human-validator" | _rest], accept: %{html: true}, layer: :frontend_fallback} do
     forward(conn, [], "http://frontend-human-validator/index.html")
   end
 
-  match "/*_path", %{reverse_host: ["yasgui" | _rest], accept: %{html: true}, layer: :frontend } do
+  match "/*_path", %{reverse_host: ["yasgui" | _rest], accept: %{html: true}, layer: :frontend_fallback } do
     forward(conn, [], "http://frontend-yasgui/index.html")
   end
 
-  match "/*_path", %{reverse_host: ["smart-search" | _rest], accept: %{html: true}, layer: :frontend} do
+  match "/*_path", %{reverse_host: ["smart-search" | _rest], accept: %{html: true}, layer: :frontend_fallback} do
     forward(conn, [], "http://frontend-smart-search/index.html")
   end
 
-  match "/*_path", %{reverse_host: ["policy-impact-report" | _rest], accept: %{html: true}, layer: :frontend} do
+  match "/*_path", %{reverse_host: ["policy-impact-report" | _rest], accept: %{html: true}, layer: :frontend_fallback} do
     forward(conn, [], "http://frontend-policy-impact-report/index.html")
   end
   #################
@@ -468,6 +476,13 @@ defmodule Dispatcher do
 
   match "/dcat/*path" do
     forward(conn, path, "http://dcat/")
+  end
+
+  ###############################################################
+  # LDES
+  ###############################################################
+  match "/ldes/*path", %{ accept: %{any: true}, layer: :api_services} do
+    Proxy.forward conn, path, "http://ldes-serve-feed/"
   end
 
   ##################

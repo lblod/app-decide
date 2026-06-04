@@ -5,16 +5,18 @@ x-logging: &default-logging
     max-file: '3'
 services:
   annotation-review:
-    image: lblod/annotation-review-service:latest
+    image: lblod/annotation-review-service:0.0.2
     restart: always
     labels:
       - logging=true
     logging: *default-logging
     environment:
-      DEFAULT_MU_AUTH_SCOPE: "http://services.semantic.works/annotation-review-service"
+      DEFAULT_MU_AUTH_SCOPE: 'http://services.semantic.works/annotation-review-service'
       TZ: Europe/Brussels
+    volumes:
+      - ../config/annotation-review:/config
   frontend-human-validator:
-    image: lblod/frontend-decide-human-validator:0.0.4
+    image: lblod/frontend-decide-human-validator:0.0.8
     labels:
       - 'logging=true'
     restart: always

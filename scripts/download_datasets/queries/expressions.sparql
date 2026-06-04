@@ -1,0 +1,40 @@
+prefix eli: <http://data.europa.eu/eli/ontology#>
+prefix oa: <http://www.w3.org/ns/oa#>
+prefix ext: <http://mu.semte.ch/vocabularies/ext/>
+prefix org: <http://www.w3.org/ns/org#>
+
+insert {
+  graph <http://mu.semte.ch/graphs/tmp-export> {
+    ?expression a ext:downloadResource .
+    ?work a ext:downloadResource .
+    ?manifests a ext:downloadResource .
+    ?annotation a ext:downloadResource .
+  }
+}
+where {
+  values ?participant {
+      <http://data.lblod.info/id/bestuurseenheden/353234a365664e581db5c2f7cc07add2534b47b8e1ab87c821fc6e6365e6bef5> # Gent
+  }
+
+  ?expression a eli:Expression . 
+  ?work eli:is_realized_by ?expression .
+
+  {
+    ?work eli:passed_by ?org .
+    ?participant org:hasSubOrganization* ?org .
+  }
+  union {
+    ?expression ext:owningBody ?participant .
+  }
+
+  filter not exists {
+    ?original <http://purl.org/linguistics/gold/translation> ?expression . 
+  }
+  
+  optional {
+    ?expression eli:is_embodied_by ?manifests .
+  }
+  optional {
+    ?annotation oa:hasTarget ?expression .
+  }
+}

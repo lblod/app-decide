@@ -78,6 +78,10 @@ services:
     restart: no
     profiles:
       - search
+  municipality-linker:
+    restart: no
+    profiles:
+      - search
   embedding:
     restart: no
     profiles:
@@ -91,8 +95,6 @@ services:
   pdf-scraper:
     restart: "no"
   nominatim:
-    restart: "no"
-  qdrant:
     restart: "no"
   named-entity-recognition:
     restart: "no"
@@ -115,4 +117,8 @@ services:
   policy-impact-report:
     restart: no
   frontend-policy-impact-report:
+    restart: no
+  ldes-delta-pusher:
+    restart: no
+  ldes-serve-feed:
     restart: no

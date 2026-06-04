@@ -119,11 +119,7 @@
         },
         "owning-body": {
           "type": "simple",
-          "via": [
-            "^http://data.europa.eu/eli/ontology#is_realized_by",
-            "http://data.europa.eu/eli/ontology#passed_by",
-            "^http://www.w3.org/ns/org#hasSubOrganization"
-          ]
+          "via": "http://mu.semte.ch/vocabularies/ext/owningBody"
         }
       },
       "mappings": {

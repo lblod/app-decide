@@ -33,7 +33,7 @@
 @prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
 @prefix wikidata: <http://www.wikidata.org/entity/> .
 @prefix wot: <https://www.w3.org/2019/wot/security#> .
-@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix session: <http://mu.semte.ch/vocabularies/session/> .
 
 ext:muAuthProfile a odrl:Profile ;
   dct:description "ODRL profile describing access to mu-auth resources." .
@@ -50,13 +50,19 @@ ext:decideAuthorizationPolicy a odrl:Set ;
     ext:allowReadForOrganization ,
     ext:allowReadForOsloOrganizations ,
     ext:allowReadForAiSlice ,
+    ext:allowReadOsloOrgsForHumanValidation ,
     ext:allowReadForHumanValidation ,
     ext:allowWriteForHumanValidation ,
     ext:allowReadAnnotationForPublic ,
     ext:allowReadAnnotationForGhent ,
     ext:allowReadAnnotationForFreiburg ,
     ext:allowReadAnnotationForPdf ,
-    ext:allowAnnotationReadForAiSlice .
+    ext:allowAnnotationReadForAiSlice ,
+    ext:allowReadForSession ,
+    ext:allowWriteForSession ,
+    ext:allowReadPublicForSession ,
+    ext:allowReadOrgsForSession ,
+    ext:allowPublicReadForAuthz .
 
 # Parties for groups
 ext:decideSystem a odrl:Party ;
@@ -66,6 +72,10 @@ ext:decideSystem a odrl:Party ;
 ext:publicParty a odrl:PartyCollection ;
   vcard:fn "public" ;
   dct:description "This party represent all (possibly not logged in) users of the system." .
+
+ext:sessionService a odrl:PartyCollection ;
+  vcard:fn "session service" ;
+  dct:description "This party represent all session services running in the system." .
 
 ext:authenticatedParty a odrl:PartyCollection ;
   vcard:fn "logged-in" ;
@@ -128,6 +138,10 @@ ext:decidePublicSlice a odrl:AssetCollection ;
 ext:decideHumanValidationSlice a odrl:AssetCollection ;
   vcard:fn "human-validation" ;
   ext:graphPrefix <http://mu.semte.ch/graphs/public/human-validation> .
+
+ext:decideSessionSlice a odrl:AssetCollection ;
+  vcard:fn "session information" ;
+  ext:graphPrefix <http://mu.semte.ch/graphs/sessions> .
 
 ext:decideAiSlice a odrl:AssetCollection ;
   vcard:fn "ai" ;
@@ -194,6 +208,32 @@ ext:allowReadForAiSlice a odrl:Permission ;
   odrl:assigner ext:decideSystem ;
   odrl:assignee ext:publicParty .
 
+ext:allowReadForSession a odrl:Permission ;
+  odrl:action odrl:read ;
+  odrl:target ext:decideSessionSlice ;
+  odrl:assigner ext:decideSystem ;
+  odrl:assignee ext:publicParty  ;
+  ext:scope "http://services.semantic.works/sessions" .
+
+ext:allowWriteForSession a odrl:Permission ;
+  odrl:action odrl:write ;
+  odrl:target ext:decideSessionSlice ;
+  odrl:assigner ext:decideSystem ;
+  odrl:assignee ext:publicParty  ;
+  ext:scope "http://services.semantic.works/sessions" .
+
+ext:allowReadPublicForSession a odrl:Permission ;
+  odrl:action odrl:read ;
+  odrl:target ext:decidePublicSlice ;
+  odrl:assignee ext:publicParty ;
+  ext:scope "http://services.semantic.works/sessions" .
+
+ext:allowReadOrgsForSession a odrl:Permission ;
+  odrl:action odrl:read ;
+  odrl:target ext:decideOsloOrganizationsSlice ;
+  odrl:assignee ext:publicParty ;
+  ext:scope "http://services.semantic.works/sessions" .
+
 ext:allowReadForHumanValidation a odrl:Permission ;
   odrl:action odrl:read ;
   odrl:target ext:decideHumanValidationSlice ;
@@ -206,6 +246,13 @@ ext:allowWriteForHumanValidation a odrl:Permission ;
   odrl:target ext:decideHumanValidationSlice ;
   odrl:assigner ext:decideSystem ;
   odrl:assignee ext:publicParty ;
+  ext:scope "http://services.semantic.works/annotation-review-service" .
+
+ext:allowReadOsloOrgsForHumanValidation a odrl:Permission ;
+  odrl:action odrl:read ;
+  odrl:target ext:decideOsloOrganizationsSlice ;
+  odrl:assigner ext:decideSystem ;
+  odrl:assignee ext:publicParty  ;
   ext:scope "http://services.semantic.works/annotation-review-service" .
 
 ext:allowReadAnnotationForPublic a odrl:Permission ;
@@ -428,6 +475,10 @@ ext:OaTextPositionSelectorAsset a odrl:Asset, sh:NodeShape ;
     ext:decideAiSlice ;
   sh:targetClass oa:TextPositionSelector .
 
+ext:SessionAsset a odrl:Asset, sh:NodeSchape ;
+  odrl:partOf ext:decideSessionSlice ;
+  sh:targetClass session:Session .
+
 ext:TasksTaskAsset a odrl:Asset, sh:NodeShape ;
   odrl:partOf ext:decideHarvestingSlice ,
     ext:decidePublicSlice ;
@@ -457,7 +508,8 @@ ext:ExtReviewAnnotationAsset a odrl:Asset, sh:NodeShape ;
   sh:targetClass ext:ReviewAnnotation .
 
 ext:NodeShapeAsset a odrl:Asset, sh:NodeShape ;
-  odrl:partOf ext:decideHarvestingSlice ;
+  odrl:partOf ext:decideHarvestingSlice ,
+    ext:decideAuthzSlice ;
   sh:targetClass sh:NodeShape .
 
 ext:CogsScheduledJobAsset a odrl:Asset, sh:NodeShape ;
@@ -530,3 +582,39 @@ ext:WotBasicSecuritySchemeAsset a odrl:Asset, sh:NodeShape ;
 ext:WotOAuth2SecuritySchemeAsset a odrl:Asset, sh:NodeShape ;
   odrl:partOf ext:decideHarvestingSlice ;
   sh:targetClass wot:OAuth2SecurityScheme .
+
+
+# Access rights to the stored copy of this policy itself
+ext:decideAuthzSlice a odrl:AssetCollection ;
+  vcard:fn "odrl-authorization-policy" ;
+  ext:graphPrefix <http://mu.semte.ch/graphs/odrl-authorization-policy> .
+
+ext:OdrlProfileAsset a odrl:Asset, sh:NodeShape ;
+  odrl:partOf ext:decideAuthzSlice ;
+  sh:targetClass odrl:Profile .
+
+ext:OdrlPartyAsset a odrl:Asset, sh:NodeShape ;
+  odrl:partOf ext:decideAuthzSlice ;
+  sh:targetClass odrl:Party .
+
+ext:OdrlPartyCollectionAsset a odrl:Asset, sh:NodeShape ;
+  odrl:partOf ext:decideAuthzSlice ;
+  sh:targetClass odrl:PartyCollection .
+
+ext:OdrlAssetCollectionAsset a odrl:Asset, sh:NodeShape ;
+  odrl:partOf ext:decideAuthzSlice ;
+  sh:targetClass odrl:AssetCollection .
+
+ext:OdrlAssetAsset a odrl:Asset, sh:NodeShape ;
+  odrl:partOf ext:decideAuthzSlice ;
+  sh:targetClass odrl:Asset .
+
+ext:OdrlPermissionAsset a odrl:Asset, sh:NodeShape ;
+  odrl:partOf ext:decideAuthzSlice ;
+  sh:targetClass odrl:Permission .
+
+ext:allowPublicReadForAuthz a odrl:Permission ;
+  odrl:action odrl:read ;
+  odrl:target ext:decideAuthzSlice ;
+  odrl:assigner ext:decideSystem ;
+  odrl:assignee ext:publicParty .

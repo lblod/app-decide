@@ -37,17 +37,14 @@ services:
       - 'logging=true'
     restart: always
     logging: *default-logging
-  harvest_singleton-job:
-    image: lblod/harvesting-singleton-job-service:1.0.0
-    labels:
-      - 'logging=true'
-    restart: always
-    logging: *default-logging
   oparl-to-eli:
     image: lblod/oparl-to-eli-service:0.0.3
     volumes:
-      - ../config/oparl-to-eli/:/config/
       - ../data/files:/share
     environment:
       OPARL_ENDPOINT: 'https://ris.freiburg.de/oparl'
       TARGET_GRAPH: 'http://mu.semte.ch/graphs/public/freiburg'
+    restart: always
+    labels:
+      - logging=true
+    logging: *default-logging

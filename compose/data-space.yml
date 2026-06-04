@@ -1,6 +1,15 @@
+x-logging: &default-logging
+  driver: 'json-file'
+  options:
+    max-size: '10m'
+    max-file: '3'
 services:
   dcat:
     image: lblod/dcat-service:0.0.1
+    logging: *default-logging
+    labels:
+      - logging=true
+    restart: always
   vc-issuer:
     image: lblod/oid4vc-login-service:0.0.1
     environment:
@@ -17,5 +26,82 @@ services:
       NO_DID_PREFIX: true
       SINGLE_CREDENTIAL_RESPONSE: true
     restart: always
+    logging: *default-logging
     labels:
       - 'logging=true'
+  acmidm-login:
+    image: lblod/acmidm-login-service:0.12.0
+    environment:
+      LOG_SINK_URL: 'http://sink'
+      MU_APPLICATION_AUTH_JWK_PRIVATE_KEY: /config/jwk_private_key.json
+      MU_APPLICATION_AUTH_USERID_CLAIM: vo_id
+      MU_APPLICATION_AUTH_ROLE_CLAIM: 'abb_decide_rol_3d'
+      MU_APPLICATION_GRAPH: 'http://mu.semte.ch/graphs/bestuurseenheden-bestuursorganen'
+      # The following are environment-specific and should be set in the
+      # environment's appropriate override file.
+      MU_APPLICATION_AUTH_CLIENT_ID: '<AUTH_CLIENT_ID>'
+      MU_APPLICATION_AUTH_DISCOVERY_URL: '<AUTH_DISCOVERY_URL>'
+      MU_APPLICATION_AUTH_REDIRECT_URI: '<AUTH_REDIRECT_URI>'
+    volumes:
+      - ../config/login:/config
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging
+  frontend-yasgui:
+    image: lblod/frontend-decide-yasgui:0.0.4
+    environment:
+      # The following are environment-specific and should be set in the
+      # environment's appropriate override file.
+      EMBER_OAUTH_API_KEY: '<OAUTH_API_KEY>'
+      EMBER_OAUTH_API_REDIRECT_URL: '<OAUTH_API_REDIRECT_URL>'
+      EMBER_OAUTH_API_BASE_URL: '<OAUTH_API_BASE_URL>'
+      EMBER_OAUTH_API_LOGOUT_URL: '<OAUTH_API_LOGOUT_URL'
+      EMBER_OAUTH_API_SCOPE: '<OAUTH_API_SCOPE>'
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging
+  frontend-dcat:
+    image: lblod/frontend-decide-dcat:0.0.4
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging
+  dsp-auth-wrapper:
+    image: lblod/decide-dsp-authorization-wrapper:0.0.1
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging
+    environment:
+      DEFAULT_MU_AUTH_SCOPE: http://services.semantic.works/sessions
+  ##############################################################################
+  # LDES
+  ##############################################################################
+  ldes-delta-pusher:
+    image: redpencil/ldes-delta-pusher:1.2.14
+    environment:
+      LDES_BASE: "https://ds.decide.lblod.info/ldes/"
+      LDES_FOLDER: "public"
+      WRITE_INITIAL_STATE: "false"
+      AUTO_HEALING: "true"
+      CRON_HEALING: "0 16 3 * * *" # Every day at 03:16
+    volumes:
+      - ../config/ldes-delta-pusher/:/config/
+      - ../data/ldes-feed/:/data/
+    restart: always
+    logging: *default-logging
+    labels:
+      - "logging=true"
+    links:
+      - virtuoso:database
+  ldes-serve-feed:
+    image: lblod/ldes-serve-feed-service:0.4.0
+    environment:
+      BASE_URL: "https://ds.decide.lblod.info/ldes/"
+    volumes:
+      - ../data/ldes-feed/:/data/
+    logging: *default-logging
+    labels:
+      - "logging=true"

@@ -20,6 +20,7 @@ services:
       EMBER_PDF_HARVESTING_ENABLED: true
       EMBER_NER_AND_NEL_ANNOTATIONS_ENABLED: true
       EMBER_CODELIST_MAPPING_ENABLED: true
+      EMBER_OSLO_HARVESTING_ENABLED: true
     labels:
       - 'logging=true'
     restart: always
@@ -36,7 +37,7 @@ services:
     labels:
       - 'logging=true'
   job-controller:
-    image: lblod/job-controller-service:1.3.0-beta-parallel-tasks
+    image: lblod/job-controller-service:1.3.1
     volumes:
       - ../config/job-controller:/config
     environment:
@@ -57,8 +58,16 @@ services:
     restart: always
     logging: *default-logging
   annotation-job-splitter:
-    image: lblod/annotation-job-splitter-service:0.0.1
+    image: lblod/annotation-job-splitter-service:0.0.2
     restart: always
     logging: *default-logging
+    volumes:
+      - ../config/annotation-job-splitter:/config
     labels:
       - 'logging=true'
+  harvest_singleton-job:
+    image: lblod/harvesting-singleton-job-service:1.0.0
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging
