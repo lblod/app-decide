@@ -51,6 +51,7 @@
   :class (s-prefix "schema:Question")
   :properties `((:created         :datetime ,(s-prefix "dct:created")) ;; timestamp of the question
                 (:text            :string   ,(s-prefix "schema:text")) ;; the original question asked by the user
+                (:owningBody      :string   ,(s-prefix "ext:owningBody")) ;; the municipality/localAuthority associated with the question
                 (:description     :string   ,(s-prefix "dct:description"))) ;; complete prompt given to the LLM
   :has-one `((answer              :via ,(s-prefix "schema:suggestedAnswer")
                                   :as "answer"))
