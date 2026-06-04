@@ -5,13 +5,13 @@ x-logging: &default-logging
     max-file: '3'
 services:
   policy-impact-report:
-    image: lblod/policy-impact-report-service:latest
+    image: lblod/policy-impact-report-service:0.0.1
     labels:
       - 'logging=true'
     restart: always
     logging: *default-logging
   frontend-policy-impact-report:
-    image: lblod/frontend-decide-policy-impact-report:latest
+    image: lblod/frontend-decide-policy-impact-report:0.0.2
     labels:
       - 'logging=true'
     restart: always
