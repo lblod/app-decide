@@ -48,39 +48,32 @@ services:
     entrypoint: ["echo", "Service frontend-policy-impact-report is disabled"]
 
   # Configure services for UC1 Restrictive Mobility Zones
-  # NOTE (28/05/2026): Currently configuring the API keys for these services as
-  # environment variables is still under development.  The following is a
-  # placeholder that can be used when this functionality is finalised.  Please
-  # consult the README for each individual service for information on how to
-  # configure API keys in the meantime.
   # NOTE: It is advised to set API keys (and other secrets) in a non-versioned
   # `docker-compose.override.yml` to avoid accidentally leaking such secrets.
-  # codelist-labeling:
-  #   # This service is mostly configured via the file
-  #   # `../config/codelist/config.json`, only secrets are configured as
-  #   # environment variables.
-  #   environment:
-  #     LLM__API_KEY: "SECRET"
-  # named-entity-recognition:
-  #   # This service is mostly configured in `../config/ner/config.json`, only
-  #   # secrets are configured as environment variables.
-  #  environment:
-  #    # etranslation
-  #    TRANSLATION__ETRANSLATION__BEARER_TOKEN: "<REPLACE-WITH-TOKEN-IN-OVERRIDE-FILE>"
-  #    TRANSLATION__ETRANSLATION__PASSWORD: "<REPLACE-WITH-PASSWORD-IN-OVERRIDE-FILE>"
-  #    # llm
-  #    LLM__API_KEY: "<REPLACE-WITH-API-KEY-IN-OVERRIDE-FILE>"
-  #    # segmentation
-  #    SEGMENTATION__LLM__API_KEY: "<REPLACE-WITH-API-KEY-IN-OVERRIDE-FILE>"
-  # nominatim:
-  #   environment:
-  #     # Retrieve OSM data extracts for Germany instead of Belgium, as configured
-  #     # by default.
-  #     PBF_URL: https://download.geofabrik.de/europe/germany-latest.osm.pbf
-  #     # How many threads should be used to import (default: number of processing
-  #     # units available to the current process via nproc)
-  #     # Source: https://github.com/mediagis/nominatim-docker/blob/master/howto.md#configuration
-  #     # THREADS: 20
+  named-entity-recognition:
+    # This service is mostly configured in `../config/ner/config.json`, only
+    # secrets are configured as environment variables.
+   environment:
+     # etranslation
+     TRANSLATION__ETRANSLATION__BEARER_TOKEN: "<REPLACE-WITH-TOKEN-IN-OVERRIDE-FILE>"
+     TRANSLATION__ETRANSLATION__PASSWORD: "<REPLACE-WITH-PASSWORD-IN-OVERRIDE-FILE>"
+     # segmentation
+     SEGMENTATION__LLM__API_KEY: "<REPLACE-WITH-API-KEY-IN-OVERRIDE-FILE>"
+  codelist-labeling:
+    # This service is mostly configured via the file
+    # `../config/codelist/config.json`, only secrets are configured as
+    # environment variables.
+    environment:
+      LLM__API_KEY: "<REPLACE-WITH-API-KEY-IN-OVERRIDE-FILE>"
+  nominatim:
+    environment:
+      # Retrieve OSM data extracts for Germany instead of Belgium, as configured
+      # by default.
+      PBF_URL: https://download.geofabrik.de/europe/germany-latest.osm.pbf
+      # How many threads should be used to import (default: number of processing
+      # units available to the current process via nproc)
+      # Source: https://github.com/mediagis/nominatim-docker/blob/master/howto.md#configuration
+      # THREADS: 20
 
   # Disable services for UC2 smart search
   search:

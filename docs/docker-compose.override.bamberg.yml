@@ -56,45 +56,38 @@ services:
 
 
   # Configure AI services for UC0.1 and UC2
-  # NOTE (28/05/2026): Currently configuring the API keys for these services as
-  # environment variables is still under development.  The following is a
-  # placeholder that can be used when this functionality is finalised.  Please
-  # consult the README for each individual service for information on how to
-  # configure API keys in the meantime.
   # NOTE: It is advised to set API keys (and other secrets) in a non-versioned
   # `docker-compose.override.yml` to avoid accidentally leaking such secrets.
-  # named-entity-recognition:
-  #   # This service is mostly configured in `../config/ner/config.json`, only
-  #   # secrets are configured as environment variables.
-  #  environment:
-  #    # etranslation
-  #    TRANSLATION__ETRANSLATION__BEARER_TOKEN: "<REPLACE-WITH-TOKEN-IN-OVERRIDE-FILE>"
-  #    TRANSLATION__ETRANSLATION__PASSWORD: "<REPLACE-WITH-PASSWORD-IN-OVERRIDE-FILE>"
-  #    # llm
-  #    LLM__API_KEY: "<REPLACE-WITH-API-KEY-IN-OVERRIDE-FILE>"
-  #    # segmentation
-  #    SEGMENTATION__LLM__API_KEY: "<REPLACE-WITH-API-KEY-IN-OVERRIDE-FILE>"
-  # entity-linking:
-  #   environment:
-  #     LLM_PROVIDER: "<REPLACE-WITH-PROVIDER>"
-  #     # Replace <PROVIDER> with the appropriate name based on the provider set
-  #     # in the previous line. For example, `OPENAI` or `MISTRAL`.
-  #     <PROVIDER>_MODEL: "<REPLACE-WITH-MODEL>"
-  #     <PROVIDER>_API_KEY: "<REPLACE-WITH-API-KEY-IN-OVERRIDE-FILE>"
-  # codelist-labeling:
-  #   # This service is mostly configured via the file
-  #   # `../config/codelist/config.json`, only secrets are configured as
-  #   # environment variables.
-  #   environment:
-  #     LLM__API_KEY: "SECRET"
-  # question-answering:
-  #   # This service requires you to add appropriate the `langchain-*` packages to
-  #   # its requirements.txt and build the service locally.
-  #   # image: question-answering-local
-  #   environment:
-  #     GENERATION_PROVIDER: "<REPLACE-WITH-PROVIDER>"
-  #     GENERATION_MODEL: "<REPLACE-WITH-MODEL>"
-  #     GENERATION_API_KEY: "<REPLACE-WITH-API-KEY-IN-OVERRIDE-FILE>"
+  named-entity-recognition:
+    # This service is mostly configured in `../config/ner/config.json`, only
+    # secrets are configured as environment variables.
+   environment:
+     # etranslation
+     TRANSLATION__ETRANSLATION__BEARER_TOKEN: "<REPLACE-WITH-TOKEN-IN-OVERRIDE-FILE>"
+     TRANSLATION__ETRANSLATION__PASSWORD: "<REPLACE-WITH-PASSWORD-IN-OVERRIDE-FILE>"
+     # segmentation
+     SEGMENTATION__LLM__API_KEY: "<REPLACE-WITH-API-KEY-IN-OVERRIDE-FILE>"
+  entity-linking:
+    environment:
+      LLM_PROVIDER: "<REPLACE-WITH-PROVIDER>"
+      # Replace <PROVIDER> with the appropriate name based on the provider set
+      # in the previous line. For example, `OPENAI` or `MISTRAL`.
+      <PROVIDER>_MODEL: "<REPLACE-WITH-MODEL>"
+      <PROVIDER>_API_KEY: "<REPLACE-WITH-API-KEY-IN-OVERRIDE-FILE>"
+  codelist-labeling:
+    # This service is mostly configured via the file
+    # `../config/codelist/config.json`, only secrets are configured as
+    # environment variables.
+    environment:
+      LLM__API_KEY: "<REPLACE-WITH-API-KEY-IN-OVERRIDE-FILE>"
+  question-answering:
+    # This service requires you to add appropriate the `langchain-*` packages to
+    # its requirements.txt and build the service locally.
+    # image: question-answering-local
+    environment:
+      GENERATION_PROVIDER: "<REPLACE-WITH-PROVIDER>"
+      GENERATION_MODEL: "<REPLACE-WITH-MODEL>"
+      GENERATION_API_KEY: "<REPLACE-WITH-API-KEY-IN-OVERRIDE-FILE>"
 
 
   # Uncomment to disable the services related to the Human validation interface
