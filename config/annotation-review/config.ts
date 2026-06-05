@@ -252,6 +252,11 @@ export default {
     },
     'http://www.w3.org/ns/org#Organization': {
       name: 'Organization',
+      linkPath: `
+        ?linkerA rdf:subject ?object .
+        ?linkerA rdf:predicate <http://www.w3.org/2004/02/skos/core#exactMatch> .
+        ?linkerA rdf:object ?objectLink .
+      `,
     },
     'http://purl.org/dc/terms/Location': {
       name: 'Location',

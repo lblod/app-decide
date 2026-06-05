@@ -62,7 +62,7 @@
       },
       {
         "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/entity-extracting",
-        "nextOperation": "http://lblod.data.gift/id/jobs/concept/JobType/entity-linking",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/named-entity-linking",
         "nextIndex": "6"
       }
     ]
@@ -97,7 +97,7 @@
       },
       {
         "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/entity-extracting",
-        "nextOperation": "http://lblod.data.gift/id/jobs/concept/JobType/entity-linking",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/named-entity-linking",
         "nextIndex": "5"
       }
     ]
@@ -111,7 +111,7 @@
       },
       {
         "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/singleton-job",
-        "nextOperation": "http://lblod.data.gift/id/jobs/concept/JobType/entity-linking",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/named-entity-linking",
         "nextIndex": "1"
       }
     ]
