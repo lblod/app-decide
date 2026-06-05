@@ -9,7 +9,7 @@ services:
   # AI PIPELINES
   ##############################################################################
   entity-linking:
-    image: semanticai/entity-linking-backend:0.0.2
+    image: semanticai/entity-linking-backend:0.0.3
     environment:
       TARGET_GRAPH: 'http://mu.semte.ch/graphs/public'
       DEFAULT_GRAPH: 'http://mu.semte.ch/graphs/harvesting'
@@ -107,11 +107,14 @@ services:
       - logging=true
   nominatim:
     image: mediagis/nominatim:5.1
-    environment:
-      - PBF_URL=https://download.geofabrik.de/europe/belgium-latest.osm.pbf
     restart: always
+    environment:
+      PBF_PATH: /data/merged.osm.pbf
+      PBF_URL: ''
     volumes:
-      - ./../data/nominatim:/var/lib/postgresql/16/main
+      - ./../data/nominatim/db:/var/lib/postgresql/16/main
+      - ./../data/nominatim/src:/data
+
     logging: *default-logging
     labels:
       - logging=true
