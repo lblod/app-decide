@@ -9,7 +9,7 @@ services:
   # AI PIPELINES
   ##############################################################################
   entity-linking:
-    image: semanticai/entity-linking-backend:0.0.2
+    image: semanticai/entity-linking-backend:0.0.3
     environment:
       TARGET_GRAPH: 'http://mu.semte.ch/graphs/public'
       DEFAULT_GRAPH: 'http://mu.semte.ch/graphs/harvesting'
