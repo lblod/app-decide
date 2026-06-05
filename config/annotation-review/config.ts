@@ -30,6 +30,8 @@ export default {
           <http://lblod.data.gift/id/components/named-entity-linking/v1.0.0>
         }
         FILTER(?type NOT IN (<http://www.w3.org/ns/locn#Address>, <https://data.vlaanderen.be/ns/adres#Straatnaam>, <http://www.wikidata.org/entity/Q2785216>, <http://www.wikidata.org/entity/Q123705> ))
+        FILTER(!BOUND(?typeClass) || ?typeClass NOT IN ( <http://mu.semte.ch/vocabularies/ext/AnnotationBody> ))
+        
       `,
       annotationPath: `
         ?annotation oa:hasTarget ?resource .
@@ -108,7 +110,7 @@ export default {
       // can use to filter annotations for a given target, need to fix the set of agents once we have final uris for them
       annotationFilter: `
         ?object a skos:Concept .
-        FILTER(!BOUND(?typeClass) || ?typeClass != <http://mu.semte.ch/vocabularies/ext/NoMatchFound> )
+        FILTER(!BOUND(?typeClass) || ?typeClass NOT IN ( <http://mu.semte.ch/vocabularies/ext/AnnotationBody>, <http://mu.semte.ch/vocabularies/ext/NoMatchFound> ) )
         FILTER NOT EXISTS {
           ?object skos:inScheme <http://mu.semte.ch/vocabularies/ext/impact> .
         }
