@@ -140,20 +140,6 @@
       }
     ]
   },
-  "http://lblod.data.gift/id/jobs/concept/JobOperation/eli-entity-linking-test": {
-    "tasksConfiguration": [
-      {
-        "currentOperation": null,
-        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/singleton-job",
-        "nextIndex": "0"
-      },
-      {
-        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/singleton-job",
-        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/entity-linking",
-        "nextIndex": "1"
-      }
-    ]
-  },
   "http://lblod.data.gift/id/jobs/concept/JobOperation/codelist-matching/training": {
     "tasksConfiguration": [
       {
