@@ -86,6 +86,11 @@ To include (smart) search features, the stack needs to be started with the `sear
 
 However, to avoid issues of started services waiting for the database and/or elasticsearch, it is advisable to start the stack in a 'staggered' manner:
 
+To reset the elasticsearch index, first throw away the current `elasticsearch` directory:
+```
+rm -rf data/elasticsearch
+```
+
 ```bash
 docker compose --profile=search up -d virtuoso migrations
 docker compose --profile=search up -d database identifier dispatcher resource
@@ -111,7 +116,7 @@ docker compose logs -f embedding
 Finally, you can start the remaining services of the stack:
 
 ```bash
-docker compose --profile-search up -d
+docker compose --profile=search up -d
 ```
 
 The frontend for the Smart Search should now be available at http://smart-search.localhost .
