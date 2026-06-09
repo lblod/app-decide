@@ -45,6 +45,7 @@ ext:decideAuthorizationPolicy a odrl:Set ;
     ext:allowReadForHarvestedFreiburg ,
     ext:allowReadForHarvestedGent ,
     ext:allowReadForHarvestedPdf ,
+    ext:allowReadForHarvestingPublic ,
     ext:allowReadForHarvesting ,
     ext:allowWriteForHarvesting ,
     ext:allowReadForOrganization ,
@@ -183,6 +184,12 @@ ext:allowReadForHarvesting a odrl:Permission ;
   odrl:target ext:decideHarvestingSlice ;
   odrl:assigner ext:decideSystem ;
   odrl:assignee ext:authenticatedParty .
+
+ext:allowReadForHarvestingPublic a odrl:Permission ;
+  odrl:action odrl:read ;
+  odrl:target ext:decideHarvestingSlice ;
+  odrl:assigner ext:decideSystem ;
+  odrl:assignee ext:publicParty .
 
 ext:allowWriteForHarvesting a odrl:Permission ;
   odrl:action odrl:modify ;
@@ -554,35 +561,6 @@ ext:NfoDataContainerAsset a odrl:Asset, sh:NodeShape ;
 ext:NdoDownloadEventAsset a odrl:Asset, sh:NodeShape ;
   odrl:partOf ext:decideHarvestingSlice ;
   sh:targetClass ndo:DownloadEvent .
-
-ext:SecurityAuthenticationConfigurationAsset a odrl:Asset, sh:NodeShape ;
-  odrl:partOf ext:decideHarvestingSlice ;
-  sh:targetClass security:AuthenticationConfiguration .
-
-ext:SecurityCredentialsAsset a odrl:Asset, sh:NodeShape ;
-  odrl:partOf ext:decideHarvestingSlice ;
-  sh:targetClass security:Credentials .
-
-ext:SecurityBasicAuthenticationCredentialsAsset a odrl:Asset, sh:NodeShape ;
-  odrl:partOf ext:decideHarvestingSlice ;
-  sh:targetClass security:BasicAuthenticationCredentials .
-
-ext:SecurityOAuth2CredentialsAsset a odrl:Asset, sh:NodeShape ;
-  odrl:partOf ext:decideHarvestingSlice ;
-  sh:targetClass security:OAuth2Credentials .
-
-ext:WotSecuritySchemeAsset a odrl:Asset, sh:NodeShape ;
-  odrl:partOf ext:decideHarvestingSlice ;
-  sh:targetClass wot:SecurityScheme .
-
-ext:WotBasicSecuritySchemeAsset a odrl:Asset, sh:NodeShape ;
-  odrl:partOf ext:decideHarvestingSlice ;
-  sh:targetClass wot:BasicSecurityScheme .
-
-ext:WotOAuth2SecuritySchemeAsset a odrl:Asset, sh:NodeShape ;
-  odrl:partOf ext:decideHarvestingSlice ;
-  sh:targetClass wot:OAuth2SecurityScheme .
-
 
 # Access rights to the stored copy of this policy itself
 ext:decideAuthzSlice a odrl:AssetCollection ;
