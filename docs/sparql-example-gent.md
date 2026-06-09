@@ -1,7 +1,8 @@
-# Example SPARQL queries (themes & geo)
+# Example SPARQL queries (themes & geo) — Gent
 
 This document collects ready-to-run SPARQL examples against the DECIDe triple
-store.
+store. The geo queries below are scoped to **Gent**: the reference point and the
+neighbourhood polygon use Gent coordinates.
 
 ## Endpoint
 
@@ -51,6 +52,14 @@ SELECT ?work ?theme WHERE {
 ```
 
 ## Geo queries
+
+> [!IMPORTANT]
+> **Coordinate order: latitude first, then longitude.** The geocoded data is
+> stored in `POINT(lat lon)` axis order (e.g. `POINT(51.0536 3.7228)`), so write
+> your reference point and polygon vertices the same way. Use
+> `51.03288860208872 3.720601092700513` — **not** the reversed
+> `3.720601092700513 51.03288860208872`. Passing them in the opposite order to
+> the data silently returns wrong or empty results.
 
 ### Distance to a point - decisions nearest a location
 
