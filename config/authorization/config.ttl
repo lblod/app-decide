@@ -45,6 +45,7 @@ ext:decideAuthorizationPolicy a odrl:Set ;
     ext:allowReadForHarvestedFreiburg ,
     ext:allowReadForHarvestedGent ,
     ext:allowReadForHarvestedPdf ,
+    ext:allowReadForHarvestingPublic ,
     ext:allowReadForHarvesting ,
     ext:allowWriteForHarvesting ,
     ext:allowReadForOrganization ,
@@ -183,6 +184,12 @@ ext:allowReadForHarvesting a odrl:Permission ;
   odrl:target ext:decideHarvestingSlice ;
   odrl:assigner ext:decideSystem ;
   odrl:assignee ext:authenticatedParty .
+
+ext:allowReadForHarvestingPublic a odrl:Permission ;
+  odrl:action odrl:read ;
+  odrl:target ext:decideHarvestingSlice ;
+  odrl:assigner ext:decideSystem ;
+  odrl:assignee ext:publicParty .
 
 ext:allowWriteForHarvesting a odrl:Permission ;
   odrl:action odrl:modify ;
