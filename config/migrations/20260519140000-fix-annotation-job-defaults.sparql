@@ -1,0 +1,35 @@
+PREFIX ext: <http://mu.semte.ch/vocabularies/ext/>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX eli: <http://data.europa.eu/eli/ontology#>
+PREFIX cogs: <http://vocab.deri.ie/cogs#>
+
+# Fix 1: Add default graphForTargets to annotation jobs that are missing it
+INSERT {
+  GRAPH <http://mu.semte.ch/graphs/harvesting> {
+    ?job ext:graphForTargets <http://mu.semte.ch/graphs/public/pdf> .
+  }
+}
+WHERE {
+  GRAPH <http://mu.semte.ch/graphs/harvesting> {
+    ?job a <http://mu.semte.ch/vocabularies/ext/AnnotationJob> .
+    FILTER NOT EXISTS { ?job ext:graphForTargets ?g }
+  }
+};
+
+# Fix 2: Change targetClass from eli:LegalExpression to eli:Expression
+DELETE {
+  GRAPH <http://mu.semte.ch/graphs/harvesting> {
+    ?shape sh:targetClass eli:LegalExpression .
+  }
+}
+INSERT {
+  GRAPH <http://mu.semte.ch/graphs/harvesting> {
+    ?shape sh:targetClass eli:Expression .
+  }
+}
+WHERE {
+  GRAPH <http://mu.semte.ch/graphs/harvesting> {
+    ?shape a sh:NodeShape ;
+           sh:targetClass eli:LegalExpression .
+  }
+}

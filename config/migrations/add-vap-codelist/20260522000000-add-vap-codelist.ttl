@@ -1,0 +1,146 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix skos: <http://www.w3.org/2004/02/skos/core#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix dc: <http://purl.org/dc/terms/>.
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix dbpedia: <http://dbpedia.org/resource/>.
+@prefix dbpedia-owl: <http://dbpedia.org/ontology/>.
+@prefix dbpprop: <http://dbpedia.org/property/>.
+@prefix wdprop: <http://www.wikidata.org/prop/direct/>.
+@prefix ruben: <https://ruben.verborgh.org/profile/#>.
+@prefix rubent: <https://www.rubensworks.net/#>.
+@prefix schema: <http://schema.org/>.
+@prefix bow: <https://betweenourworlds.org/ontology/>.
+@prefix lc: <http://semweb.mmlab.be/ns/linkedconnections#>.
+<http://data.lblod.gift/id/conceptscheme/vap-klimaatadaptatie> a skos:ConceptScheme;
+    <http://mu.semte.ch/vocabularies/core/uuid> "6673ad10-0f68-5e7d-81b1-c74828de3879";
+    skos:prefLabel "Vlaams Actieplan Klimaatadaptatie 2030"@en;
+    skos:definition "Acties uit het Vlaams Actieplan Klimaatadaptatie 2030, met de actie als label en de beschrijving als definitie."@en.
+<http://data.lblod.gift/id/concept/747e0c8bb5fe5e6eaa7fb1279799cbc9> a skos:Concept;
+    <http://mu.semte.ch/vocabularies/core/uuid> "747e0c8bb5fe5e6eaa7fb1279799cbc9";
+    skos:prefLabel "A1.1: Ontharding & Vergroening \n(Focus: Focus: Vergroening en ontharding, Sponsfunctie & Groenblauwe aders door de kernen)"@en;
+    skos:notation "A1.1";
+    skos:definition "Dit actiepunt draait om ontharding en vergroening in de bebouwde kernen. \nHierbij krijgen steden en dorpen een betere sponsfunctie. \nTegelijk zorgt meer groen en gezonde bodem voor verkoeling tijdens hittestress. Groenblauwe dooradering wordt in de stadswijken doorgetrokken."@en;
+    skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/vap-klimaatadaptatie>;
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/vap-klimaatadaptatie>.
+<http://data.lblod.gift/id/concept/2e8d0c2a2ea74569771ac2b6b100e354> a skos:Concept;
+    <http://mu.semte.ch/vocabularies/core/uuid> "2e8d0c2a2ea74569771ac2b6b100e354";
+    skos:prefLabel "A1.2: Hemelwaterbeheer bij de bron \n(Focus: Infiltratie, Buffering & aanleg van wadi's)."@en;
+    skos:notation "A1.2";
+    skos:definition "A1.2 betreft het lokaal opvangen, vasthouden en hergebruiken van hemelwater op de plek waar het valt met wadi’s. \nDe GSV-H legt strengere normen op voor buffering en infiltratie bij bouwprojecten. Door regenwater ‘bij de bron’ te beheren met wadi’s en infiltratiekommen vermindert de kans op wateroverlast en draagt het bij aan een hoger grondwaterpeil tijdens droge periodes.  Deze doelstelling zorgt voor robuuster waterbeheer op perceelsniveau."@en;
+    skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/vap-klimaatadaptatie>;
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/vap-klimaatadaptatie>.
+<http://data.lblod.gift/id/concept/c3cd6252881bd3d21aafbb01e03838ef> a skos:Concept;
+    <http://mu.semte.ch/vocabularies/core/uuid> "c3cd6252881bd3d21aafbb01e03838ef";
+    skos:prefLabel "A1.3: Aanpak groenblauwe netwerken op terrein \n(Focus: Gebiedscoalities en groenblauwe dooradering buiten de strikte kern)."@en;
+    skos:notation "A1.3";
+    skos:definition "A1.3 zet in op het realistisch uitbouwen van groenblauwe netwerken door samenwerking in gebiedscoalities. \nLokale belanghebbenden en overheden bundelen de krachten om natuurverbindingen en watercorridors effectief aan te leggen over de bestuurlijke grens, op schaal van een vallei of landschapszone. Denk aan voorbeelden uit het VAP zoals gezamenlijke inspanningen in de Denderstreek, Getevallei of Demervallei, waar men Via Integrale Projecten of Strategische projecten werkt aan aaneengesloten groenbuffers en wateropvanggebieden."@en;
+    skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/vap-klimaatadaptatie>;
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/vap-klimaatadaptatie>.
+<http://data.lblod.gift/id/concept/eb64d98f23a4ff818eb3339907a53143> a skos:Concept;
+    <http://mu.semte.ch/vocabularies/core/uuid> "eb64d98f23a4ff818eb3339907a53143";
+    skos:prefLabel "A1.5: Green Deal klimaatbestendige inrichting \n(Focus: Specifieke trajecten voor lokale besturen rond publieke ruimte)."@en;
+    skos:notation "A1.5";
+    skos:definition "Met A1.5 lanceert Vlaanderen een Green Deal ‘Klimaatbestendige Ruimte’ specifiek gericht op steden, gemeenten en betrokken sectoren. \nIn een Green Deal engageren diverse partijen zich vrijwillig om bepaalde doelstellingen te halen. Hier ligt de klemtoon op het klimaatbestendig inrichten van de bebouwde omgeving. Lokale besturen, samen met architecten, projectontwikkelaars, stedenbouwkundigen, planners, studiebureaus en de bouwsector, onderschrijven afspraken om klimaatadaptatie daadwerkelijk te integreren bij ontwerp en (her)aanleg van buurten en openbare ruimte"@en;
+    skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/vap-klimaatadaptatie>;
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/vap-klimaatadaptatie>.
+<http://data.lblod.gift/id/concept/593e3c23001b5908f7897a0444042e5a> a skos:Concept;
+    <http://mu.semte.ch/vocabularies/core/uuid> "593e3c23001b5908f7897a0444042e5a";
+    skos:prefLabel "A1.7: Burgemeestersconvenant / LEKP \n(Focus: Klimaatmitigatie, energiebesparing en de koppeling met lokale klimaatpacten)."@en;
+    skos:notation "A1.7";
+    skos:definition "A1.7 bevordert de koppeling van klimaatadaptatie met bestaande klimaat- en energie-initiatieven op lokaal niveau, in het bijzonder het Europese Burgemeestersconvenant en het Vlaamse Energie- en Klimaatpact. \nIn Vlaanderen verbindt het Lokaal Energie- en Klimaatpact die mitigatie-inspanningen met adaptatie-acties in vier “werven”: vergroening, energie, mobiliteit en hemelwater. Aangezien adaptatiemaatregelen in bovenstaande actiepunten reeds opgenomen werden, ligt hier de focus op de mitigatie gerelateerde werven"@en;
+    skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/vap-klimaatadaptatie>;
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/vap-klimaatadaptatie>.
+<http://data.lblod.gift/id/concept/dd634a693a64c0679fa5e44822dfd2f8> a skos:Concept;
+    <http://mu.semte.ch/vocabularies/core/uuid> "dd634a693a64c0679fa5e44822dfd2f8";
+    skos:prefLabel "A2 Vlaamse infrastructuur groen & blauw \n(Focus: Wegenwerken en rioleringsprojecten, en (kunnen) fungeren als drager voor groenblauwe inrichting.)"@en;
+    skos:notation "A2";
+    skos:definition "Actiepunt A2 richt zich op het klimaatrobuust maken van alle publieke infrastructuur in Vlaanderen en het benutten van infrastructuurwerken om groenblauwe oplossingen te integreren. \nTen eerste worden bestaande infrastructuren – gebouwen, wegen, bruggen, rioleringen, enz. – doorgelicht op klimaatrisico’s en indien nodig versneld aangepast. Ten tweede geldt voor nieuwe infrastructuurprojecten dat klimaatadaptatie een harde eis is in het ontwerp en uitvoering. Ook de waterbeheercomponent is belangrijk: rioleringsprojecten worden katalysatoren van vergroening door bij aanleg te ontharden en ruimte voor water te creëren in de straten"@en;
+    skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/vap-klimaatadaptatie>;
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/vap-klimaatadaptatie>.
+<http://data.lblod.gift/id/concept/e62d891eec5321936f462c05b3faf006> a skos:Concept;
+    <http://mu.semte.ch/vocabularies/core/uuid> "e62d891eec5321936f462c05b3faf006";
+    skos:prefLabel "A3 Faciliteren klimaatbestendig ontwerpen \n(Focus: De 'softe' kant: visies, richtlijnen en instrumenten.)"@en;
+    skos:notation "A3";
+    skos:definition "Dit actiepunt A3 heeft tot doel beleidsprocessen en voorschriften aan te passen zodat klimaatinvesteringen sneller en eenvoudiger gerealiseerd kunnen worden. \nEen eerste luik is het vereenvoudigen of versnellen van procedures voor adaptatiemaatregelen. Het tweede luik is visie- en instrumentontwikkeling."@en;
+    skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/vap-klimaatadaptatie>;
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/vap-klimaatadaptatie>.
+<http://data.lblod.gift/id/concept/b4c680238b1582ccbaad7e956889806f> a skos:Concept;
+    <http://mu.semte.ch/vocabularies/core/uuid> "b4c680238b1582ccbaad7e956889806f";
+    skos:prefLabel "A4 Waterverbruik verminderen \n(Focus: Circulair watergebruik, grondwaterbeheer en droogteplannen."@en;
+    skos:notation "A4";
+    skos:definition "A4 heeft als kern om Vlaanderen zuiniger en circulairder met water te laten omspringen, zodat we beter bestand zijn tegen droogte. \nWaterschaarste is een urgent probleem, hieromtrend stelde Vlaanderen waterschaarste- en droogterisicoplannen op. Veel van die acties draaien rond waterbesparing en hergebruik: stimuleren dat huishoudens, landbouw en industrie minder water verbruiken en bijvoorbeeld gezuiverd afvalwater of regenwater inzetten in plaats van kostbaar drinkwater."@en;
+    skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/vap-klimaatadaptatie>;
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/vap-klimaatadaptatie>.
+<http://data.lblod.gift/id/concept/564b61aba2ee945088cf5d4d69df694a> a skos:Concept;
+    <http://mu.semte.ch/vocabularies/core/uuid> "564b61aba2ee945088cf5d4d69df694a";
+    skos:prefLabel "A5 Terugdringen van het ruimtebeslag en vrijwaren openruimte \n(Focus: De \"Bouwshift\" en verdichting.)"@en;
+    skos:notation "A5";
+    skos:definition "A5 adresseert de Vlaamse ruimtelijke uitdaging: hoe stoppen we de verdere uitbreiding van bebouwd gebied en behouden we zoveel mogelijk open ruimte. \nDe oplossing is de zogenaamde “Bouwshift”: alle nodige ontwikkeling (wonen, werken, infrastructuur) moet zoveel mogelijk binnen het bestaand stedelijk gebied plaatsvinden, zodat open ruimte buiten schot blijft. Concreet betekent dit enerzijds verdichten op geschikte plaatsen (bv. woonprojecten in kerngebieden, herbestemming van brownfields) en anderzijds actief remmen op nieuwe verkavelingen of lintbebouwing in open landschap."@en;
+    skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/vap-klimaatadaptatie>;
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/vap-klimaatadaptatie>.
+<http://data.lblod.gift/id/concept/55b2e592309d21a65df9e0ae8a26d037> a skos:Concept;
+    <http://mu.semte.ch/vocabularies/core/uuid> "55b2e592309d21a65df9e0ae8a26d037";
+    skos:prefLabel "A6 Vrijwaren van risicovolle gebieden en openruimte \n(Focus: De open ruimte beschermen tegen bebouwing om wateropvang te garanderen, realisatie van valleigebieden en overstromingsgevoelige gebieden"@en;
+    skos:notation "A6";
+    skos:definition "Waar A5 gaat over de algemene bouwshift, zoomt A6 in op het beschermen van gebieden die extra kwetsbaar zijn voor klimaatrisico’s, vooral overstromingsgevoelige zones, én op het actief terugdringen van verharding daar. \nA6 legt daarom een moratorium op nieuwe verharding in overstromingsgebieden: de Vlaamse overheid bouwt zelf niet langer in overstromingsgevoelig gebied en zal ook geen bijkomende verharding toelaten, tenzij het echt niet anders kan voor een kerntaak. Tegelijk wordt gekeken naar ontsnippering en ontharding van dergelijke risicogebieden"@en;
+    skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/vap-klimaatadaptatie>;
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/vap-klimaatadaptatie>.
+<http://data.lblod.gift/id/concept/9f079d124220e3a28810a9c9ca7ec241> a skos:Concept;
+    <http://mu.semte.ch/vocabularies/core/uuid> "9f079d124220e3a28810a9c9ca7ec241";
+    skos:prefLabel "A7 Waterveiligheid \n(Focus: Grootschalige bescherming en bodembehoud, integrale projecten voor waterbeheersing, erosiebestrijding."@en;
+    skos:notation "A7";
+    skos:definition "A7 omvat grootschalige maatregelen om Vlaanderen te beschermen tegen overstromingen en wateroverlast, zowel vanuit rivieren als van de zee. \nEen belangrijk deel is de uitvoering van de bestaande overstromingsrisicobeheerplannen per stroomgebied. Voor rivieren en binnenwateren: het Sigmaplan is het vlaggenschip – dit programma bouwt gecontroleerde overstromingsgebieden (GOG’s) langs Schelde en zijrivieren en herstelt wetlands, zodat hoogwater opgevangen wordt en tegelijk natuurontwikkeling plaatsvindt. Verder worden ook langs niet-getijgebonden waterlopen projecten opgestart om valleigebieden (zoals die van Demer, Gete, Maas, …) te herstellen als natuurlijke waterbuffers"@en;
+    skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/vap-klimaatadaptatie>;
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/vap-klimaatadaptatie>.
+<http://data.lblod.gift/id/concept/1fb13122e9183b6e12f5c166a8c27204> a skos:Concept;
+    <http://mu.semte.ch/vocabularies/core/uuid> "1fb13122e9183b6e12f5c166a8c27204";
+    skos:prefLabel "A8 Natuur en bos \n(Focus: Wetlands, bosuitbreiding, landschapsparken en robuuste natuurkernen."@en;
+    skos:notation "A8";
+    skos:definition "Actiepunt A8 focust op het herstellen en uitbreiden van ecosystemen, wetlands, bossen, heide, landschapsparken. \nEen eerste pijler is het grootschalig herstel van wetlands (natte natuur), met extra aandacht voor veengebieden. Een tweede pijler is bosuitbreiding en klimaatgericht bosbeheer. Vlaanderen plant 10.000 hectare extra bos tegen 2030. Nieuwe bossen komen bij voorkeur op strategische plekken: aansluitend op bestaande bosgebieden, als deel van groenblauwe dooradering, of dicht bij woonkernen (stadsbossen) om hittestress te milderen en burgers recreatieruimte te gevenEen derde luik van A8 is robuuste natuurkernen en natuurverbindingen. Versnipperde reservaten en parken worden waar mogelijk vergroot en met elkaar verbonden via corridors"@en;
+    skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/vap-klimaatadaptatie>;
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/vap-klimaatadaptatie>.
+<http://data.lblod.gift/id/concept/b66c95c2ed5ad070143c5ef5080b0d8d> a skos:Concept;
+    <http://mu.semte.ch/vocabularies/core/uuid> "b66c95c2ed5ad070143c5ef5080b0d8d";
+    skos:prefLabel "A9 Klimaatslimme landbouw \n(Focus: Adaptatie in de agrarische sector.)"@en;
+    skos:notation "A9";
+    skos:definition "Landbouw ondervindt al harde klappen door klimaatverandering (extreme droogte, nieuwe plagen, etc.), en actiepunt A9 zet in op een proactieve transformatie van de landbouw om deze weerbaarder te maken. \nEr is een “Actieprogramma Klimaatadaptatie Landbouw 2030” uitgewerkt dat verschillende werven bevat. Een luik is waterbeheer op en rond landbouwbedrijven: minder afhankelijk worden van blauw leidingwater door regenwater op te vangen, samen te werken met waterbeheerders (bv. slim peilbeheer in bevloeiingssystemen), en drainering om te keren waar mogelijk zodat water langer in de grond blijft. . Een tweede luik is bodembeheer: zorgen voor gezonde, sponsachtige bodems met genoeg organische stof en structuur"@en;
+    skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/vap-klimaatadaptatie>;
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/vap-klimaatadaptatie>.
+<http://data.lblod.gift/id/concept/fbca95dfd2130563da0fd8fbf1014b7d> a skos:Concept;
+    <http://mu.semte.ch/vocabularies/core/uuid> "fbca95dfd2130563da0fd8fbf1014b7d";
+    skos:prefLabel "A10 Gezondheids- en rampenbeleid \n(Focus:  Kwetsbare groepen, hitteplannen en calamiteitenbeheer.)"@en;
+    skos:notation "A10";
+    skos:definition "A10 richt zich op het beschermen van de gezondheid van de bevolking en het verbeteren van onze rampenplanning in het licht van klimaatextremen. \nVia dit actiepunt werkt Vlaanderen aan een klimaatbestendige gezondheidszorg: ziekenhuizen, zorginstellingen en hulpdiensten worden voorbereid op meer hitte- en weersextremen zodat ze operationeel blijven en de toevloed van patiënten aankunnen. Denk aan hitteactieplannen in welzijns- en woonzorgcentra en aan het opschalen van medische voorzieningen bij rampen. Belangrijk is ook het monitoren van gezondheidsindicatoren gekoppeld aan klimaat"@en;
+    skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/vap-klimaatadaptatie>;
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/vap-klimaatadaptatie>.
+<http://data.lblod.gift/id/concept/2e0711c64e35d8f0948d2ad9cdb0a2e6> a skos:Concept;
+    <http://mu.semte.ch/vocabularies/core/uuid> "2e0711c64e35d8f0948d2ad9cdb0a2e6";
+    skos:prefLabel "A11 Sectorbrede kennisdeling \n(Focus:Intergemeentelijke samenwerking, sectoroverschrijdend werken)"@en;
+    skos:notation "A11";
+    skos:definition "A11 erkent dat kennis over klimaatadaptatie versnipperd zit over verschillende sectoren en organisaties, en wil die kennis bij elkaar brengen en toegankelijk maken voor iedereen die eraan werkt. \nIn Vlaanderen hebben waterbeheerders, stedenbouwkundigen, landbouwkundigen, wetenschappers enz. elk hun expertise rond klimaatmaatregelen. Dit actiepunt zet in op het uitbouwen van een lerend netwerk “Klimaatbestendig Vlaanderen” waarin al die partijen informatie kunnen uitwisselen."@en;
+    skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/vap-klimaatadaptatie>;
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/vap-klimaatadaptatie>.
+<http://data.lblod.gift/id/concept/91f4697b6d1ff1782ca9a274cc2de2f9> a skos:Concept;
+    <http://mu.semte.ch/vocabularies/core/uuid> "91f4697b6d1ff1782ca9a274cc2de2f9";
+    skos:prefLabel "A12 Coördinatie bij calamiteiten \n(Focus: Rampencoördinatie.)"@en;
+    skos:notation "A12";
+    skos:definition "A12 bouwt verder op rampenplanning (zie A10) maar dan breder: het gaat om een gecoördineerde aanpak van extreme weergebeurtenissen en rampen op Vlaams niveau, over sectoren en grenzen van gemeenten heen. \nDit wordt hier geïnterpreteerd  op het gemeentelijk niveau als intergemeentelijke samenwerking, sectoroverschrijdend werken"@en;
+    skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/vap-klimaatadaptatie>;
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/vap-klimaatadaptatie>.
+<http://data.lblod.gift/id/concept/0818b02dc68cf89a261b38540f4adece> a skos:Concept;
+    <http://mu.semte.ch/vocabularies/core/uuid> "0818b02dc68cf89a261b38540f4adece";
+    skos:prefLabel "A13 EU-strategie klimaatadaptatie (Focus: Focus: Wetenschappelijke onderbouwing en Europese projecten.)"@en;
+    skos:notation "A13";
+    skos:definition "Met A13 kijkt Vlaanderen over de grenzen heen: dit punt gaat over het aansluiten bij en ondersteunen van de Europese strategie voor klimaatadaptatie, en het benutten van internationale kennis. \nVia A13 haalt Vlaanderen wetenschappelijke onderbouwing en goede praktijken uit Europa binnen om het eigen beleid te versterken. Hier wordt  dit geïnterpreteerd als wetenschappelijke onderbouwing en beleid."@en;
+    skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/vap-klimaatadaptatie>;
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/vap-klimaatadaptatie>.
+<http://data.lblod.gift/id/concept/63768b2391e27e4df01ecb3339b197b0> a skos:Concept;
+    <http://mu.semte.ch/vocabularies/core/uuid> "63768b2391e27e4df01ecb3339b197b0";
+    skos:prefLabel "A14 Monitoring klimaatbestendigheid (Focus: Focus: Meten is weten.)"@en;
+    skos:notation "A14";
+    skos:definition "“Meten is weten” – A14 houdt in dat Vlaanderen een robuust monitoringsysteem ontwikkelt om de vooruitgang van klimaatadaptatie te volgen. \nHet meet de impact van alle inspanningen en verzekert een continu leer- en verbeterproces, zodat Vlaanderen echt klimaatbestendig wordt en blijft"@en;
+    skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/vap-klimaatadaptatie>;
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/vap-klimaatadaptatie>.

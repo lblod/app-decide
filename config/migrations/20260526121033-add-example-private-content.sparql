@@ -1,8 +1,0 @@
-PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-PREFIX ext: <http://mu.semte.ch/vocabularies/ext/>
-INSERT DATA {
-  GRAPH <http://mu.semte.ch/graphs/organizations/353234a365664e581db5c2f7cc07add2534b47b8e1ab87c821fc6e6365e6bef5/Decide-gebruiker> {
-    <http://data.lblod.info/id/personen/a2d0f0a0-d0c7-4b4d-afce-680184481553> a foaf:Person ;
-      ext:highScore 9001 .
-  }
-}

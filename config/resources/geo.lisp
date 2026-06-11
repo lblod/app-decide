@@ -7,7 +7,7 @@
                        :as "geometry"))
   :resource-base (s-url "http://data.lblod.info/id/adresses/"))
 
-(define-resource location (annotation-body)
+(define-resource location ()
   :class (s-prefix "dct:Location")
   :properties `((:label :string ,(s-prefix "rdfs:label"))
                 (:exact-match :url ,(s-prefix "skos:exactMatch")))

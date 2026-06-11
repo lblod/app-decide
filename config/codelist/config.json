@@ -11,12 +11,21 @@
     "learning_rate": 0.00002,
     "epochs": 2,
     "weight_decay": 0.01,
-    "huggingface_token": "",
-    "huggingface_output_model_id": ""
+    "huggingface_token": null,
+    "huggingface_output_model_id": null
   },
-  "ml_inference": {
-    "huggingface_model_id": "",
-    "huggingface_token": "",
-    "confidence_threshold": 0.5
+  "codelist_prompts": {
+    "default": {
+      "system_message": "You are a juridical and administrative assistant that must determine the best matching codes from a list with a given text.",
+      "user_message": "Determine the best matching codes from the following list for the given public decision.\n\n\"\"\"CODE LIST:\n{code_list}\n\"\"\"\n\n\"\"\"DECISION TEXT:\n{decision_text}\n\"\"\"Provide your answer as a list of strings representing the matching codes. Provide all matching codes (can be a single one), but only those that are truly matching and only from the given list! If none of the codes match, return an empty list."
+    },
+    "http://data.lblod.gift/id/conceptscheme/sdg-simple": {
+      "system_message": "You classify administrative decisions against SDGs (1–17). Return only valid JSON.",
+      "user_message": "Determine which SDG codes apply to the decision text.\n\nRules:\n- Assign codes only for concrete decisions, actions, commitments, or implementations\n- Multiple codes may apply\n- Ignore questions, discussions, or unapproved proposals\n- For SDG 16: exclude purely internal administrative actions unless explicitly about transparency, justice, participation, safety, or anti-corruption\n\nREFERENCE LIST:\n{code_list}\n\nDECISION TEXT:\n\"\"\"\n{decision_text}\n\"\"\"\n\nReturn matching code numbers as a list of strings, or an empty list."
+    },
+    "http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-simple": {
+      "system_message": "You classify whether a decision defines a Restricted Mobility Zone. Return only valid JSON.",
+      "user_message": "Determine if the decision describes a Restricted Mobility Zone (RMZ).\n\nAn RMZ is a concrete measure affecting traffic or parking with:\n- A specific location\n- A defined time period (or permanent)\n- Direct impact on traffic or parking\n\nInclude cases like reserved parking, school streets, bicycle zones, pedestrian zones, LEZ/ZEZ, works, or events.\nExclude items without location, time, real impact, or only plans/proposals.\n\nREFERENCE LIST:\n{code_list}\n\nDECISION TEXT:\n\"\"\"\n{decision_text}\n\"\"\"\n\nReturn matching code identifiers as a list of strings, or an empty list."
+    }
   }
 }

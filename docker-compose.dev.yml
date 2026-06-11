@@ -1,7 +1,3 @@
-networks:
-  debug:
-    driver: bridge
-    name: debug
 services:
   identifier:
     ports:
@@ -9,116 +5,35 @@ services:
     restart: "no"
   dispatcher:
     restart: "no"
-    networks:
-      - default
-      - debug
   database:
     restart: "no"
-    networks:
-      - default
-      - debug
-  dcat:
-    restart: "no"
   virtuoso:
+    ports:
+      - "8890:8890"
     restart: "no"
-    networks:
-      - default
-      - debug
   resource:
     restart: "no"
   cache:
     restart: "no"
-  file:
-    restart: "no"
-  vc-issuer:
-    restart: "no"
-  mocklogin:
-    image: lblod/mock-login-service:0.7.0
-  migrations:
-    restart: "no"
   deltanotifier:
     restart: "no"
-  frontend-yasgui:
+  migrations:
     restart: "no"
-  frontend-dcat:
-    restart: "no"
-  frontend-human-validator:
+  login:
     restart: "no"
   frontend-harvesting:
     restart: "no"
-  oparl-to-eli:
-    restart: "no"
-  lokaal-beslist-consumer:
-    restart: no
-  decisions-ghent-filter:
-    restart: no
-  oslo-eli-transformer:
-    restart: no
   job-controller:
-    restart: no
-  harvest_diff:
-    restart: no
-  harvest_sameas:
-    restart: no
-  login:
-    restart: no
-  entity-linking:
     restart: "no"
-  pdf-content:
+  scheduled-job-controller:
     restart: "no"
-  apache-tika:
+  annotation-job-splitter:
     restart: "no"
-  question-answering:
-    restart: "no"
-  search:
-    restart: no
-    profiles:
-      - search
-  elasticsearch:
-    restart: no
-    profiles:
-      - search
-  municipality-linker:
-    restart: no
-    profiles:
-      - search
-  embedding:
-    restart: no
-    profiles:
-      - search
-  ollama:
-    restart: no
-    profiles:
-      - search
-  annotation-review:
-    restart: no
-  pdf-scraper:
-    restart: "no"
-  nominatim:
-    restart: "no"
-  named-entity-recognition:
+  harvest_singleton-job:
     restart: "no"
   codelist-labeling:
     restart: "no"
-  frontend-smart-search:
+  annotation-review:
     restart: "no"
-  kibana:
-    restart: no
-    profiles:
-      - search
-    image: docker.elastic.co/kibana/kibana:9.2.0
-    environment:
-      ELASTICSEARCH_HOSTS: "http://elasticsearch:9200"
-    ports:
-      - 127.0.0.1:5601:5601
-    user: root
-    command: |
-      sh -c "/usr/local/bin/kibana-docker --allow-root;"
-  policy-impact-report:
-    restart: no
-  frontend-policy-impact-report:
-    restart: no
-  ldes-delta-pusher:
-    restart: no
-  ldes-serve-feed:
-    restart: no
+  frontend-human-validator:
+    restart: "no"

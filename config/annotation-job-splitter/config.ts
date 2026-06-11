@@ -22,16 +22,5 @@ export default {
           },
         ],
       },
-    'http://lblod.data.gift/id/jobs/concept/JobOperation/ner-and-nel-annotations':
-      {
-        taskConfiguration: [
-          {
-            currentOperation:
-              'http://lblod.data.gift/id/jobs/concept/TaskOperation/annotation-split-tasks',
-            nextOperation:
-              'http://lblod.data.gift/id/jobs/concept/TaskOperation/translating',
-          },
-        ],
-      },
   },
 };

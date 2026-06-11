@@ -1,9 +1,0 @@
-PREFIX ext: <http://mu.semte.ch/vocabularies/ext/>
-
-
-INSERT DATA {
-  GRAPH <http://mu.semte.ch/graphs/public> {
-    <https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> ext:showInHVT "true"^^xsd:boolean .
-    
-  }
-}
