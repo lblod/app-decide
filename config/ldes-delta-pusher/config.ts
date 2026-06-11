@@ -12,7 +12,22 @@ export const PUBLIC_GRAPH_FILTER = `
 // resource, otherwise the changes will not be picked up.
 const HEALING_PREDICATE = 'http://purl.org/dc/terms/modified';
 
-export const streams = {
+// NOTE (11/06/2026): These type definitions allow the language-server to
+// determine explicit types for functions operating on the `streams` object
+// below.  This simplifies writing such functionality and spotting bugs in it.
+type ResourceConfig = {
+  graphFilter: string;
+  healingPredicates: string[];
+  filter?: string;
+};
+type StreamConfig = {
+  [resourceType: string]: ResourceConfig;
+};
+type LdesConfig = {
+  [streamName: string]: StreamConfig;
+};
+
+export const streams: LdesConfig = {
   public: {
     'http://www.w3.org/ns/dcat#Catalog': {
       graphFilter: PUBLIC_GRAPH_FILTER,
@@ -115,14 +130,14 @@ export const streams = {
   },
 };
 
-function getElement(stream, type) {
+function getElement(stream: string, type: string) {
   return streams[stream]?.[type];
 }
 
-export function getGraphFilter(stream, type) {
+export function getGraphFilter(stream: string, type: string) {
   return getElement(stream, type)?.graphFilter;
 }
 
-export function getFilter(stream, type) {
+export function getFilter(stream: string, type: string) {
   return getElement(stream, type)?.filter;
 }
