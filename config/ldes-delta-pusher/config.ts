@@ -116,7 +116,7 @@ export const streams = {
 };
 
 function getElement(stream, type) {
-  return stream[stream]?.[type];
+  return streams[stream]?.[type];
 }
 
 export function getGraphFilter(stream, type) {
