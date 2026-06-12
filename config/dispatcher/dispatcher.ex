@@ -273,6 +273,15 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://cache/works/"
   end
 
+  # NOTE (12/06/2026): This rule ensures requests for the `/expressions` route that
+  # have `text/html` as accept-header are forwarded to the hvt frontend instead of
+  # to resources.  Otherwise, requests meant for the frontend are matched by the
+  # rule below and incorrectly forwarded to resources.  The prioritisation is
+  # done by the layers.
+  match "/expressions/*_path",  %{reverse_host: ["human-validator" | _rest], accept: [:html], layer: :frontend} do
+    forward(conn, [], "http://frontend-human-validator/index.html")
+  end
+
   match "/expressions/*path", %{ accept: [:json], layer: :resources } do
     Proxy.forward conn, path, "http://cache/expressions/"
   end
