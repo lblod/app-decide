@@ -18,9 +18,9 @@ INSERT DATA {
 
     <http://www.w3.org/2006/time#ProperInterval> rdfs:comment "A temporal entity with non-zero extent or duration, i.e. for which the value of the beginning and end are different"@en .
     <https://data.vlaanderen.be/ns/omgevingsvergunning#NormatieveBepaling> rdfs:comment "A provision that creates, amends, terminates, or confirms a legal norm."@en .
-    <http://xmlns.com/foaf/0.1/Person> rdfs:comment " The Person class represents people. Something is a Person if it is a person. We don't nitpic about whether they're alive, dead, real, or imaginary. The Person class is a sub-class of the Agent class, since all people are considered 'agents' in FOAF."@en .
+    <http://xmlns.com/foaf/0.1/Person> rdfs:comment " The Person class represents people. Something is a Person if it is a person. We don't nitpick about whether they're alive, dead, real, or imaginary. The Person class is a sub-class of the Agent class, since all people are considered 'agents' in FOAF."@en .
     <http://purl.org/dc/terms/Location> rdfs:comment "A spatial region or named place."@en .
-    <http://mu.semte.ch/vocabularies/ext/AnnotationBody> rdfs:comment "The body of an annotation, a superclass interoduced because of purely technical reasons in the semantic.works stack."@en .
+    <http://mu.semte.ch/vocabularies/ext/AnnotationBody> rdfs:comment "The body of an annotation, a superclass introduced because of purely technical reasons in the semantic.works stack."@en .
     <http://www.w3.org/ns/org#Organization> rdfs:comment "Represents a collection of people organized together into a community or other social, commercial or political structure. The group has some common purpose or reason for existence which goes beyond the set of people belonging to it and can act as an Agent. Organizations are often decomposable into hierarchical structures."@en .
     <http://www.w3.org/ns/locn#Address> rdfs:comment "An \"address representation\" as conceptually defined by the INSPIRE Address Representation data type. The locn:addressId property may be used to link this locn:Address to other representations."@en .
     <https://data.vlaanderen.be/ns/adres#Straatnaam> rdfs:comment "A streetname of an address."@en .

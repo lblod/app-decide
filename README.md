@@ -21,6 +21,7 @@ This repository contains multiple docker-compose files
   - Publishes the entrypoint to the services on port 80, so all endpoints can be reached easily.
 
 ## Running
+
 The following sections describe how the setup the app as a whole in a development environment. If your are also interested in setting the app up on a server you can find more information in the additional [documentation](./docs/README.md)
 
 ### Getting started
@@ -61,6 +62,7 @@ There are two main pain points:
 2. At the moment this project was setup the service mu-identifier weren't working for mac (at least on my device), so you have to build these yourself, and gave them the appropriate image name and tag.
 
 ### Running the stack with smart search/question-answering
+
 To get the stack to work properly, including its AI question-answering service, there are a few extra steps that need to be done.
 
 First, add your LLM of choice (e.g., `gemma3:1b`) to your `docker-compose.override.yml`:
@@ -69,17 +71,17 @@ First, add your LLM of choice (e.g., `gemma3:1b`) to your `docker-compose.overri
 question-answering:
   image: semanticai/decide-question-answering:latest
   environment:
-    SEARCH_API_URL: "http://search:80/expressions/large-search"
-    EMBEDDING_API_URL: "http://embedding:80/embed"
-    MU_SPARQL_ENDPOINT: "http://database:8890/sparql"
-    MU_SPARQL_TIMEOUT: "30"
-    GENERATION_PROVIDER: "ollama"
-    GENERATION_ENDPOINT: "http://ollama:11434"
-    GENERATION_MODEL: "gemma3:1b"
-    GENERATION_TIMEOUT: "300.0"
-    MAX_CONTENT_CHARS: "1000"
-    REQUEST_TIMEOUT: "60.0"
-    ALLOW_MU_AUTH_SUDO: "true"
+    SEARCH_API_URL: 'http://search:80/expressions/large-search'
+    EMBEDDING_API_URL: 'http://embedding:80/embed'
+    MU_SPARQL_ENDPOINT: 'http://database:8890/sparql'
+    MU_SPARQL_TIMEOUT: '30'
+    GENERATION_PROVIDER: 'ollama'
+    GENERATION_ENDPOINT: 'http://ollama:11434'
+    GENERATION_MODEL: 'gemma3:1b'
+    GENERATION_TIMEOUT: '300.0'
+    MAX_CONTENT_CHARS: '1000'
+    REQUEST_TIMEOUT: '60.0'
+    ALLOW_MU_AUTH_SUDO: 'true'
 ```
 
 To include (smart) search features, the stack needs to be started with the `search` profile: `docker compose --profile=search up -d`.
@@ -125,7 +127,7 @@ First, specify your LLM of choice (e.g., `gemma3:1b`) to your `docker-compose.ov
 ```yaml
 question-answering:
   environment:
-    GENERATION_MODEL: "gemma3:1b"
+    GENERATION_MODEL: 'gemma3:1b'
 ```
 
 Second, tell the `ollama` service to pull the configured model:
@@ -161,12 +163,11 @@ This use case retrieves decisions from a data source, and maps the decisions to 
 
 #### Background
 
-The data retrieval and processing is organised as several pipelines each one doing a specific job. Each job in turn consists of one or tasks where each task is performed by a single service. The  [job-controler-service](https://github.com/lblod/job-controller-service) is the central service responsible for creating appropriate tasks at the right time based on its configuration.
+The data retrieval and processing is organised as several pipelines each one doing a specific job. Each job in turn consists of one or tasks where each task is performed by a single service. The [job-controler-service](https://github.com/lblod/job-controller-service) is the central service responsible for creating appropriate tasks at the right time based on its configuration.
 
 In summary, the `job-controller` service monitors for the creation of jobs as well as status changes for the tasks it creates. For example when a user creates a new data retrieval job via the pipeline dashboard, the `job-controller` will see this new job and create the first task configured for that kind of job as well as mark the job as "busy" to indicate it is in progress. Another service is then responsible for picking up the created task and marking it as completed, either successful or with a failure, when it has performed the appropriate actions. The `job-controller` monitors for such task status changes and will react to it by creating a subsequent task whenever one is successfully completed. When all tasks within a job are marked as successful the `job-controller` will mark the job as a whole as "success" to indicate it is done. If a service marks a task as "failed", the `job-controller` will not created subsequent tasks and mark the job as a whole also "failed".
 
 For more extensive background information see the [write up](https://app.gitbook.com/o/-MP9Yduzf5xu7wIebqPG/s/PzeOtGh2pfnNKyqa7G5w/decide-project/write-up-uc0.0-dataspace/write-up-uc0.0-pipelines) concerning pipelines or the README files for involved services such as the `job-controller`.
-
 
 #### OSLO (Ghent)
 
@@ -190,14 +191,12 @@ The PDF to ELI pipeline allows to gather PDFs containing decisions from the web 
 
 1. The [harvest_singleton-job](https://github.com/lblod/harvesting-singleton-job-service) service ensures that no duplicate jobs are created for the same data sources. When a new job is created, it checks whether one is already scheduled or busy for the same data sources. If so, the new job is automatically failed.
 2. The [pdf-scraper](https://github.com/semantic-ai/decide-pdf-scraper) service gathers the download URLs for new PDF files and stores these URLs in the triple store.
-3.  The [pdf-content](https://github.com/semantic-ai/decide-pdf-content-extraction) service reads a remote or local PDF file, extracts the content of the PDF, and creates corresponding ELI entities (Work/Expression/Manifestation) in the triple store. This `pdf-content` services depends on the [apache-tika](https://github.com/lblod/apache-tika-service) service to extract text from a PDF.
+3. The [pdf-content](https://github.com/semantic-ai/decide-pdf-content-extraction) service reads a remote or local PDF file, extracts the content of the PDF, and creates corresponding ELI entities (Work/Expression/Manifestation) in the triple store. This `pdf-content` services depends on the [apache-tika](https://github.com/lblod/apache-tika-service) service to extract text from a PDF.
 
 In the pipeline dashboard, the "_Harvest PDFs from Website URL & Publish as ELI_" job is used to harvest PDFs from some locations and convert them to linked data following ELI.
 
 > [!WARNING]
 > Currently, this PDF to ELI pipeline also automatically performs tasks to translate, segment and link entities to the created ELI data. This will be split into two separate pipelines in a future version.
-
-
 
 ### Use Case 0.1: Linking to higher legislation or overarching goals such as the SDGs
 
@@ -208,7 +207,8 @@ The [policy impact report frontend](https://github.com/lblod/frontend-decide-pol
 TODO: add example screenshot(s)
 
 ### Use Case 1: Mapping Local Decisions on restricted mobility zones to geo-locations for city portals (mobility and green deal)
-This use case enriches decisions with annotations identifying *Restricted Mobility Zones (RMZ)*. In summary, it wil determine whether a decision concerns an RMZ and, if so, which geographical locations are impacted and when. For a more detailed description of this use case and how it was developed within the DECIDe project see the dedicated [gitbook page](https://app.gitbook.com/o/-MP9Yduzf5xu7wIebqPG/s/PzeOtGh2pfnNKyqa7G5w/decide-project/write-up-uc1-restrictive-mobility-zones#datasources-datasets-and-datastandards).
+
+This use case enriches decisions with annotations identifying _Restricted Mobility Zones (RMZ)_. In summary, it wil determine whether a decision concerns an RMZ and, if so, which geographical locations are impacted and when. For a more detailed description of this use case and how it was developed within the DECIDe project see the dedicated [gitbook page](https://app.gitbook.com/o/-MP9Yduzf5xu7wIebqPG/s/PzeOtGh2pfnNKyqa7G5w/decide-project/write-up-uc1-restrictive-mobility-zones#datasources-datasets-and-datastandards).
 
 The primary services for this use case are the [codelist-labeling](https://github.com/semantic-ai/codelist-labeling-service) and [Named-entity-recognition](https://github.com/semantic-ai/decide-geocoding-service) services. The former classifies decisions on whether they concern an RMZ. The latter detects and parses the relevant locations and dates mentioned in RMZ-related decisions. Note, the `nominatam` service is use to improve location, make sure this is configured to load the correct data for your country.
 
@@ -217,12 +217,12 @@ To classify decisions with respect to RMZ, use the pipeline dashboard to create 
 The [human validation frontend](https://github.com/lblod/frontend-decide-human-validator) illustrates how the enriched could be visualised. The "Validate codelist mapping" route allows to inspect decisions related to RMZ when you select the appropriate codelist as concept scheme. The "Validate text annotations" route allows to inspect decisions that were annotated with, amongst other entities, locations and dates.
 
 ### Use Case 2: Smart Search
+
 This use case provides smart, LLM-powered search functionality for the decisions in the app. The [smart-search](https://github.com/lblod/frontend-decide-question-answering) frontend allows users to enter their questions. The [question-answering](https://github.com/semantic-ai/decide-question-answering) service orchestrates the subsequent request flow between the involved backend services. The [embedding](https://github.com/semantic-ai/embedding-service) service creates an embedding of the user's question. The [mu-search](https://github.com/mu-semtech/mu-search) and [elasticsearch](https://github.com/mu-semtech/mu-search-elastic-backend) services are used to find the most relevant decisions based on a vector similarity search. Finally, the `question-answering` service asks the configured LLM to formulate an answer to the user's question based on the contents of the found decisions.
 
 For a more detailed description of this use case and how it was developed within the DECIDe project see the dedicated [gitbook page](https://app.gitbook.com/o/-MP9Yduzf5xu7wIebqPG/s/PzeOtGh2pfnNKyqa7G5w/decide-project/write-up-uc2-smart-search).
 
 For more information on configuring an app instance to support smart search see the [above configuration section](#running-the-stack-with-smart-searchquestion-answering).
-
 
 ## Pipeline dashboard
 
@@ -247,3 +247,7 @@ We use dispatcher v2, which dispatches different frontends based on hostname. If
 127.0.0.1 yasgui.localhost
 127.0.0.1 policy-impact-report.localhost
 ```
+
+# Sources for rdfs:comments
+
+The rdfs:comments for eli and eli-dl were sourced from http://data.europa.eu/eli/eli-draft-legislation-ontology# and http://data.europa.eu/eli/ontology#. rdfs:comments from migration `config/migrations/20260612060322-add-other-rdfs-comments.sparql` were added based on the content retrieved from the uris themselves, if they weren't dereferenceable, we created our own rdfs:comment.
