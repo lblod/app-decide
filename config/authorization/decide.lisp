@@ -158,7 +158,7 @@
 (define-graph ai ("http://mu.semte.ch/graphs/ai")
   ("oa:Annotation" -> _)
   ("oa:SpecificResource" -> _)
-  ("oa:TextPositionSelector" -> _)
+  ("oa:TextPositionSelector" -> _))
 
 (supply-allowed-group "public")
 
