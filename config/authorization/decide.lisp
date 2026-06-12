@@ -150,6 +150,11 @@
 (define-graph human-validation ("http://mu.semte.ch/graphs/public/human-validation")
   ("ext:ReviewAnnotation" -> _))
 
+(define-graph question-answering ("http://mu.semte.ch/graphs/public/question-answering")
+  ("schema:Question" -> _)
+  ("schema:Answer" -> _)
+  ("schema:Quotation" -> _))
+
 (define-graph ai ("http://mu.semte.ch/graphs/ai")
   ("oa:Annotation" -> _)
   ("oa:SpecificResource" -> _)
@@ -211,6 +216,21 @@
     :for-allowed-group "public"))
 
 (with-scope "http://services.semantic.works/annotation-review-service"
+  (grant (read)
+    :to-graph ai
+    :for-allowed-group "public"))
+
+(with-scope "http://services.semantic.works/decide-question-answering-service"
+  (grant (read write)
+    :to-graph question-answering
+    :for-allowed-group "public"))
+
+(with-scope "http://services.semantic.works/decide-question-answering-service"
+  (grant (read)
+    :to-graph public
+    :for-allowed-group "public"))
+
+(with-scope "http://services.semantic.works/decide-question-answering-service"
   (grant (read)
     :to-graph ai
     :for-allowed-group "public"))

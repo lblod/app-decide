@@ -54,6 +54,8 @@ ext:decideAuthorizationPolicy a odrl:Set ;
     ext:allowReadOsloOrgsForHumanValidation ,
     ext:allowReadForHumanValidation ,
     ext:allowWriteForHumanValidation ,
+    ext:allowReadForQuestionAnswering ,
+    ext:allowWriteForQuestionAnswering ,
     ext:allowReadAnnotationForPublic ,
     ext:allowReadAnnotationForGhent ,
     ext:allowReadAnnotationForFreiburg ,
@@ -139,6 +141,10 @@ ext:decidePublicSlice a odrl:AssetCollection ;
 ext:decideHumanValidationSlice a odrl:AssetCollection ;
   vcard:fn "human-validation" ;
   ext:graphPrefix <http://mu.semte.ch/graphs/public/human-validation> .
+
+ext:decideQuestionAnsweringSlice a odrl:AssetCollection ;
+  vcard:fn "question-answering" ;
+  ext:graphPrefix <http://mu.semte.ch/graphs/public/question-answering> .
 
 ext:decideSessionSlice a odrl:AssetCollection ;
   vcard:fn "session information" ;
@@ -254,6 +260,20 @@ ext:allowWriteForHumanValidation a odrl:Permission ;
   odrl:assigner ext:decideSystem ;
   odrl:assignee ext:publicParty ;
   ext:scope "http://services.semantic.works/annotation-review-service" .
+
+ext:allowReadForQuestionAnswering a odrl:Permission ;
+  odrl:action odrl:read ;
+  odrl:target ext:decideQuestionAnsweringSlice ;
+  odrl:assigner ext:decideSystem ;
+  odrl:assignee ext:publicParty  ;
+  ext:scope "http://services.semantic.works/decide-question-answering-service" .
+
+ext:allowWriteForQuestionAnswering a odrl:Permission ;
+  odrl:action odrl:modify ;
+  odrl:target ext:decideQuestionAnsweringSlice ;
+  odrl:assigner ext:decideSystem ;
+  odrl:assignee ext:publicParty ;
+  ext:scope "http://services.semantic.works/decide-question-answering-service" .
 
 ext:allowReadOsloOrgsForHumanValidation a odrl:Permission ;
   odrl:action odrl:read ;
@@ -513,6 +533,21 @@ ext:ExtAnnotionJobAsset a odrl:Asset, sh:NodeShape ;
 ext:ExtReviewAnnotationAsset a odrl:Asset, sh:NodeShape ;
   odrl:partOf ext:decideHumanValidationSlice ;
   sh:targetClass ext:ReviewAnnotation .
+
+ext:SchemaQuestionAsset a odrl:Asset, sh:NodeShape ;
+  odrl:partOf ext:decideQuestionAnsweringSlice ,
+    ext:decideAiSlice ;
+  sh:targetClass schema:Question .
+
+ext:SchemaAnswerAsset a odrl:Asset, sh:NodeShape ;
+  odrl:partOf ext:decideQuestionAnsweringSlice ,
+    ext:decideAiSlice ;
+  sh:targetClass schema:Answer .
+
+ext:SchemaQuotationAsset a odrl:Asset, sh:NodeShape ;
+  odrl:partOf ext:decideQuestionAnsweringSlice ,
+    ext:decideAiSlice ;
+  sh:targetClass schema:Quotation .
 
 ext:NodeShapeAsset a odrl:Asset, sh:NodeShape ;
   odrl:partOf ext:decideHarvestingSlice ,

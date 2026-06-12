@@ -102,6 +102,7 @@ services:
       MAX_CONTENT_CHARS: '1000'
       REQUEST_TIMEOUT: '10.0'
       ALLOW_MU_AUTH_SUDO: 'true'
+      DEFAULT_MU_AUTH_SCOPE: 'http://services.semantic.works/decide-question-answering-service'
     restart: always
     logging: *default-logging
     labels:
@@ -193,4 +194,3 @@ services:
     logging: *default-logging
     volumes:
       - ./../config/codelist/config.json:/usr/src/app/config.json:ro # Mount config as read-only
-
