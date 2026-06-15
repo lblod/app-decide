@@ -89,6 +89,14 @@ The READMEs for each individual service describes the necessary configuration in
 - The [Embedding](https://github.com/semantic-ai/embedding-service/blob/master/README.md) service currently does not **not** support using an external provider. Embeddings can generated locally without a GPU, but this will take considerable longer.
 
 
+### LDES services (DCAT Federation)
+The LDES services that produce (the data) for an app's LDES feed have to be configured with the proper base URL. The intended value is the base dataspace URL of your application instance with `/ldes/` as affix. For example, for ABB's application instance has `https://ds.decide.lblod.info/` as URL, the base URL for the two LDES services than becomes `https://ds.decide.lblod.info/ldes/`.
+
+Note that the `/ldes/` affix is important as the dispatcher relies on this to forward requests to the `ldes-serve-feed` service. If you use a base URL that does not end in `/ldes/`, you should also update the corresponding dispatcher rule accordingly.
+
+See the configuration for the `ldes-delta-pusher` and `ldes-serve-feed` services in you override file.
+
+
 ### Login for pipeline dashboard
 Using the pipeline dashboard requires you create the appropriate user accounts. The overall [README](../README.md) in this repository describes how to do this in its "Account management for the pipeline dashboard" section.
 

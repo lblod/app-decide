@@ -104,6 +104,19 @@ services:
     # solution based on Oauth2 and OpenID
     entrypoint: ["echo", "Service acmidm-login is disabled"]
 
+
+  # LDES services for DCAT federation
+  # Replace the values below to set the base URL used for your app's LDES feed.
+  # Make sure this URL ends with `/ldes/`.
+  ldes-delta-pusher:
+    environment:
+      LDES_BASE: "<REPLACE-WITH-BASE-URL>"
+      # WRITE_INITIAL_STATE: "true"
+  ldes-serve-feed:
+    environment:
+      BASE_URL: "<REPLACE-WITH-BASE-URL>"
+
+
 # Uncomment to configure network exposed by app-letsencrypt
 # networks:
 #   proxy:
