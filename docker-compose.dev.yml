@@ -122,3 +122,8 @@ services:
     restart: no
   ldes-serve-feed:
     restart: no
+  registration:
+    image: semtech/mu-registration-service:2.8.0
+    links:
+      - database:database
+    restart: no

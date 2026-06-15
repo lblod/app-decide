@@ -53,6 +53,54 @@ This should be your go-to way of starting the stack.
 docker compose up -d # run without -d flag when you don't want to run it in the background
 ```
 
+### Account management for the pipeline dashboard
+Accounts for the pipeline dashboard can be added (and removed) using migrations that insert (or delete) the necessary data in the triplestore. The following sections assume [mu-cli](https://github.com/mu-semtech/mu-cli) is installed on your system and is available in your system's `PATH` as `mu`.
+
+It is possible that the app instance you use to generate the migrations is not the same app instance for an account should be added (or removed). Therefore, the following sections marks steps that should be performed on the app instance for which an account changed with **Target:**. Other steps can be executed on a local development system.
+
+#### Registering an account
+
+0. Make sure the [registration](https://github.com/mu-semtech/registration-service) service is running as part of your app. This service is configured in `docker-compose.dev.yml` and should automatically run in a development setup of the app. (In a non-development app, copy the `registration` service entry to the `docker-compose.override.yml` of that app instance and start the service.)
+1. Execute the `generate-account` script provided by the `registration` service: `mu script registration generate-account --name NAME --account USERNAME --password PASSWORD`. This creates a migration in `config/migrations/TIMESTAMP-create-user-USERNAME.sparql`
+2. Move the generated migration to the `config/migrations/local/` folder of the app instance(s) on which this account should be available.
+3. **Target**: On each target app instance, restart the `migrations` service to execute the generated migrations add inserting the account data: `docker compose restart migrations`
+4. **Target**:  Login into pipeline dashboard of the target app instance using the `USERNAME` and `PASSWORD` specified in step 1 to ensure it works.
+
+#### Disabling an account
+To disable an account its status can be changed to inactive via a migration.
+
+1. Generate a new migration file using the `new` script provided by the `migrations` service: `mu script migrations new sparql NAME`. This will create a blank file `config/migrations/TIMESTAMP-NAME.sparql`, where `TIMESTAMP` is the time you executed the script.
+2. Insert the example query below into the created file and replace `ACCOUNT_UUID` with the UUID for the account to be disabled.
+
+```sparql
+PREFIX account: <http://mu.semte.ch/vocabularies/account/>
+PREFIX mu: <http://mu.semte.ch/vocabularies/core/>
+
+DELETE {
+  GRAPH <http://mu.semte.ch/graphs/users> {
+    ?account account:status ?currentStatus .
+  }
+} INSERT {
+  GRAPH <http://mu.semte.ch/graphs/users> {
+    ?account account:status <http://mu.semte.ch/vocabularies/account/status/inactive> .
+  }
+} WHERE {
+  GRAPH <http://mu.semte.ch/graphs/users> {
+    VALUES ?accountUuid {
+      "ACCOUNT_UUID"
+    }
+    ?account a foaf:OnlineAccount ;
+             mu:uuid ?accountUuid ;
+             account:status ?currentStatus .
+  }
+}
+```
+
+3. Move the migration file to the `config/migrations/local/` folder of the target app instance.
+4. **Target**: On the target app instance, restart the `migrations` service to execute the migration and disable the account: `docker compose restart migrations` (Check the service logs to make sure the migration executed correctly.)
+5. **Target**: Optionally, verify that the disable user can no longer login into the pipeline dashboard of the app instance.
+
+
 ### Running on mac silicon
 
 Running the application on mac silicon can cause some troubles. For this reason an extra docker-compose file has been included, this is the file docker-compose.mac.yml, this file should be included when starting the stack. The command `docker-compose up -f docker-compose.yml -f docker-compose.dev.yml up -d` now becomes `docker compose -f docker-compose.yml -f docker-compose.dev.yml -f docker-compose.mac.yml up -d`
