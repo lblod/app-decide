@@ -1,0 +1,18 @@
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX people: <http://ext.data.gift/people/>
+PREFIX accounts: <http://ext.data.gift/accounts/>
+
+DELETE {
+  GRAPH <http://mu.semte.ch/graphs/users> {
+    people:fa46c58c-f94a-4aef-868d-335ec2049a60 ?personP ?personO .
+    accounts:d011deb8-64b8-4497-81df-e32ff19cbdc5 ?accountP ?accountO .
+  }
+} WHERE {
+  GRAPH <http://mu.semte.ch/graphs/users> {
+  people:fa46c58c-f94a-4aef-868d-335ec2049a60 a foaf:Person ;
+                                                foaf:account accounts:d011deb8-64b8-4497-81df-e32ff19cbdc5 ;
+                                                ?personP ?personO .
+    accounts:d011deb8-64b8-4497-81df-e32ff19cbdc5 a foaf:OnlineAccount ;
+                                                  ?accountP ?accountO .
+  }
+}
