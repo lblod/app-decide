@@ -21,6 +21,7 @@ This application is a [semantic.works](https://semantic.works/) app and thereby 
 - `git` to obtain the application source code
 - `docker` and `docker compose` to configure and run the application's microservices
 - A reverse proxy that forwards HTTP requests to the app's identifier service. We typically use [app-letsencrypt](https://github.com/redpencilio/app-letsencrypt) for this purpose.
+- The [mu-cli](https://github.com/mu-semtech/mu-cli) tool can be used to simplify some tasks, e.g. generating migration files.
 
 ### Updating the app
 Generally updating (parts of) the app consists of pulling the latest version from the remote repository via a  `git pull` and, recreating and/or restarting the appropriate services.
@@ -89,54 +90,7 @@ The READMEs for each individual service describes the necessary configuration in
 
 
 ### Login for pipeline dashboard
-The app is configured with a [default account](../config/migrations/add-test-user/20251211000000-add-test-user.sparql) with username `test` for the pipeline dashboard. Accounts are managed by inserting and/or updating triples in the triplestore, typically using [migrations](https://github.com/mu-semtech/mu-migrations-service). The creation of migrations can be simplified using [mu-cli](https://github.com/mu-semtech/mu-cli).
-
-#### Adding a new account
-Creating a new requires adding a migration similar to the already existing [account](../config/migrations/add-test-user/20251211000000-add-test-user.sparql). The [registration](https://github.com/mu-semtech/registration-service) service provides a mu-cli script to easily generate such a migration.
-
-- Ensure [mu-cli](https://github.com/mu-semtech/mu-cli) is installed
-- Uncomment the entry for the `registration` service in the appropriate override file and start the service: `docker compose up registration`
-- Execute the script to generate a migration using mu-cli: `mu script registration generate-account --name NAME --account USERNAME --password PASSWORD`. This creates a migration in `config/migrations/TIMESTAMP-create-user-USERNAME.sparql`
-- Restart `migrations` service to execute generated migration: `docker compose restart migrations`
-- Stop the `registration` service and re-comment entry
-
-#### Disabling existing accounts
-To disable an account its status can be changed to inactive via another migration. First, generate a new migration file using the script provided by the `migrations` service, the following command will create file `config/migrations/TIMESTAMP-NAME.sparql`:
-
-```bash
-mu script migrations new sparql NAME
-```
-
-Second, the query below deactivates a given account. Copy this query into the generated migration file and replace `ACCOUNT_UUID` by the UUID of the `OnlineAccount` resource. This UUID can be found in the migration that initially added the account. For example, to disable the [default account](../config/migrations/add-test-user/20251211000000-add-test-user.sparql) the replacement for `ACCOUNT_UUID` would be `d011deb8-64b8-4497-81df-e32ff19cbdc5`.
-
-```sparql
-PREFIX account: <http://mu.semte.ch/vocabularies/account/>
-PREFIX accounts: <http://ext.data.gift/accounts/>
-
-DELETE {
-  GRAPH <http://mu.semte.ch/graphs/users> {
-    ?account account:status ?currentStatus .
-  }
-} INSERT {
-  GRAPH <http://mu.semte.ch/graphs/users> {
-    ?account account:status <http://mu.semte.ch/vocabularies/account/status/inactive> .
-  }
-} WHERE {
-  GRAPH <http://mu.semte.ch/graphs/users> {
-    VALUES ?account {
-      accounts:ACCOUNT_UUID
-    }
-    ?account a foaf:OnlineAccount ;
-             account:status ?currentStatus .
-  }
-}
-```
-
-Finally, restart the `migrations` service to execute the created migration.
-
-```bash
-docker compose restart migrations; docker compose logs -f migrations
-```
+Using the pipeline dashboard requires you create the appropriate user accounts. The overall [README](/README.md) in this repository describes how to do this in its "Account management for the pipeline dashboard" section.
 
 
 ## Partner configurations
