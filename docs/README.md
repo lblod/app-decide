@@ -92,6 +92,19 @@ The READMEs for each individual service describes the necessary configuration in
 ### Login for pipeline dashboard
 Using the pipeline dashboard requires you create the appropriate user accounts. The overall [README](../README.md) in this repository describes how to do this in its "Account management for the pipeline dashboard" section.
 
+As an, optional, additional layer of security it is possible to configure an application-wide salt for all passwords in an app instance, also called a [pepper](https://datatracker.ietf.org/doc/html/draft-ietf-kitten-password-storage-10#name-storage-2). Enabling this does require some additional configuration:
+- You have to set the `MU_APPLICATION_SALT` environment variable for the `login` service to an appropriate value:
+```yaml
+# In docker-compose.override.yml
+services:
+  login:
+    environment:
+      MU_APPLICATION_SALT: "REPLACE-WITH-A-LONG-SECURE-RANDOM-NUMBER"
+```
+- When generating an account migration using the `generate-account` script you also have to provide the correct application salt via the `--salt` argument.
+
+Note, this application salt should not be confused with the regular salts generated and appended to each password before hashing it. The latter is already taken care of by the `generate-account` script.
+
 
 ## Partner configurations
 This folder also contains some pre-configured docker compose configurations disabling services that are unnecessary for the use cases specific partners are interested in. The easiest way to include this configurations is to add them as last entry in your `.env` file:
