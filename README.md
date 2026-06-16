@@ -101,6 +101,21 @@ DELETE {
 5. **Target**: Optionally, verify that the disable user can no longer login into the pipeline dashboard of the app instance.
 
 
+Note, the UUIDs for accounts can be found in the migration file used to initially insert them to an app instance. If this file is no longer available, you can query the triplestore to find the appropriate UUID. For example, the following should provide a list of all known account names along with their UUID:
+
+```bash
+# In the root directory of the app instance
+$ docker compose exec -it virtuoso isql-v "EXEC=SPARQL PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX mu: <http://mu.semte.ch/vocabularies/core/>
+SELECT DISTINCT ?accountName ?accountUuid
+WHERE {
+  ?s a foaf:OnlineAccount ;
+     foaf:accountName ?accountName ;
+     mu:uuid ?accountUuid .
+};"
+```
+
+
 ### Running on mac silicon
 
 Running the application on mac silicon can cause some troubles. For this reason an extra docker-compose file has been included, this is the file docker-compose.mac.yml, this file should be included when starting the stack. The command `docker-compose up -f docker-compose.yml -f docker-compose.dev.yml up -d` now becomes `docker compose -f docker-compose.yml -f docker-compose.dev.yml -f docker-compose.mac.yml up -d`
