@@ -90,7 +90,7 @@ The READMEs for each individual service describes the necessary configuration in
 
 
 ### Login for pipeline dashboard
-Using the pipeline dashboard requires you create the appropriate user accounts. The overall [README](/README.md) in this repository describes how to do this in its "Account management for the pipeline dashboard" section.
+Using the pipeline dashboard requires you create the appropriate user accounts. The overall [README](../README.md) in this repository describes how to do this in its "Account management for the pipeline dashboard" section.
 
 
 ## Partner configurations
