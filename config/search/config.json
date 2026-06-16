@@ -1,4 +1,5 @@
 {
+  "enable_raw_dsl_endpoint": true,
   "persist_indexes": true,
   "eager_indexing_groups": [[{ "variables": [], "name": "public" }]],
   "automatic_index_updates": true,
