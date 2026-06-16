@@ -1,0 +1,17 @@
+PREFIX eli: <http://data.europa.eu/eli/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+DELETE {
+  GRAPH ?g {
+    ?statement rdf:predicate eli:publication_date . 
+  }
+}
+INSERT {
+  GRAPH ?g {
+    ?statement rdf:predicate eli:date_publication . 
+  }
+}
+WHERE {
+  GRAPH ?g {
+    ?statement rdf:predicate eli:publication_date . 
+  } 
+}
