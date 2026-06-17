@@ -55,7 +55,7 @@ services:
     restart: always
     logging: *default-logging
   pdf-content:
-    image: semanticai/decide-pdf-content-extraction:0.0.12
+    image: semanticai/decide-pdf-content-extraction:0.0.13
     environment:
       APACHE_TIKA_URL: 'http://apache-tika:9998/tika'
       TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
@@ -121,7 +121,7 @@ services:
     labels:
       - logging=true
   named-entity-recognition:
-    image: semanticai/decide-geocoding-service:0.0.8
+    image: semanticai/decide-geocoding-service:0.0.9
     environment:
       TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
       JOB_GRAPH: http://mu.semte.ch/graphs/harvesting
