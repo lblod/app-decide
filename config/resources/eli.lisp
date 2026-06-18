@@ -6,9 +6,12 @@
                 (:title :language-string ,(s-prefix "dct:title"))
                 (:date-document :date ,(s-prefix "eli:date_document"))
                 (:work-type :url ,(s-prefix "eli:work_type")))
-  :has-many `((expression :via ,(s-prefix "eli:is_realized_by")
-                          :as "is-realized-by")
-              (document :via ,(s-prefix "eli:related_to")
+  :has-one `(;; NOTE (18/06/2026): DECIDe' use cases each assume a 1-to-1 relation between works and
+             ;; expressions.  Therefore, we deviate from the ELI specification in which this
+             ;; relation has a 0..* cardinality.
+             (expression :via ,(s-prefix "eli:is_realized_by")
+                         :as "is-realized-by"))
+  :has-many `((document :via ,(s-prefix "eli:related_to")
                         :as "related-to")
               (organization :via ,(s-prefix "dct:creator")
                            :as "creator")
