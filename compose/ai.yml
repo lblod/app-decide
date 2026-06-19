@@ -9,7 +9,7 @@ services:
   # AI PIPELINES
   ##############################################################################
   entity-linking:
-    image: semanticai/entity-linking-backend:0.0.4
+    image: semanticai/entity-linking-backend:0.1.0
     environment:
       TARGET_GRAPH: 'http://mu.semte.ch/graphs/public'
       DEFAULT_GRAPH: 'http://mu.semte.ch/graphs/harvesting'
@@ -58,7 +58,7 @@ services:
     restart: always
     logging: *default-logging
   pdf-content:
-    image: semanticai/decide-pdf-content-extraction:0.0.13
+    image: semanticai/decide-pdf-content-extraction:0.1.0
     environment:
       APACHE_TIKA_URL: 'http://apache-tika:9998/tika'
       TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
@@ -127,7 +127,7 @@ services:
     labels:
       - logging=true
   named-entity-recognition:
-    image: semanticai/decide-geocoding-service:0.0.9
+    image: semanticai/decide-geocoding-service:0.1.0
     environment:
       TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
       JOB_GRAPH: http://mu.semte.ch/graphs/harvesting
@@ -179,7 +179,7 @@ services:
       - ollama serve & pid=$$! && sleep 5 && ollama pull embeddinggemma && wait $$pid
 
   codelist-labeling:
-    image: semanticai/codelist-labeling-service:0.0.4
+    image: semanticai/codelist-labeling-service:0.1.0
     environment:
       TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
       JOB_GRAPH: http://mu.semte.ch/graphs/harvesting
