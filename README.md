@@ -50,10 +50,13 @@ COMPOSE_FILE=docker-compose.yml:docker-compose.dev.yml:docker-compose.override.y
 This should be your go-to way of starting the stack.
 
 ```bash
-docker compose up -d # run without -d flag when you don't want to run it in the background
+./scripts/start.sh
 ```
 
+This script runs `docker compose up -d`, but first sets the APP_VERSION environment variable to the currently checked out tag or commit of this git repository. This is then passed into the AI services so that they track the provenance of the annotations that they create with an agent URI representing the versioned service with the configuration that corresponds to this tag or commit.
+
 ### Account management for the pipeline dashboard
+
 Accounts for the pipeline dashboard can be added (and removed) using migrations that insert (or delete) the necessary data in the triplestore. The following sections assume [mu-cli](https://github.com/mu-semtech/mu-cli) is installed on your system and is available in your system's `PATH` as `mu`.
 
 It is possible that the app instance you use to generate the migrations is not the same app instance for an account should be added (or removed). Therefore, the following sections marks steps that should be performed on the app instance for which an account changed with **Target:**. Other steps can be executed on a local development system.
@@ -64,9 +67,10 @@ It is possible that the app instance you use to generate the migrations is not t
 1. Execute the `generate-account` script provided by the `registration` service: `mu script registration generate-account --name NAME --account USERNAME --password PASSWORD`. This creates a migration in `config/migrations/TIMESTAMP-create-user-USERNAME.sparql`
 2. Move the generated migration to the `config/migrations/local/` folder of the app instance(s) on which this account should be available.
 3. **Target**: On each target app instance, restart the `migrations` service to execute the generated migrations add inserting the account data: `docker compose restart migrations`
-4. **Target**:  Login into pipeline dashboard of the target app instance using the `USERNAME` and `PASSWORD` specified in step 1 to ensure it works.
+4. **Target**: Login into pipeline dashboard of the target app instance using the `USERNAME` and `PASSWORD` specified in step 1 to ensure it works.
 
 #### Disabling an account
+
 To disable an account its status can be changed to inactive via a migration.
 
 1. Generate a new migration file using the `new` script provided by the `migrations` service: `mu script migrations new sparql NAME`. This will create a blank file `config/migrations/TIMESTAMP-NAME.sparql`, where `TIMESTAMP` is the time you executed the script.
@@ -100,7 +104,6 @@ DELETE {
 4. **Target**: On the target app instance, restart the `migrations` service to execute the migration and disable the account: `docker compose restart migrations` (Check the service logs to make sure the migration executed correctly.)
 5. **Target**: Optionally, verify that the disable user can no longer login into the pipeline dashboard of the app instance.
 
-
 Note, the UUIDs for accounts can be found in the migration file used to initially insert them to an app instance. If this file is no longer available, you can query the triplestore to find the appropriate UUID. For example, the following should provide a list of all known account names along with their UUID:
 
 ```bash
@@ -114,7 +117,6 @@ WHERE {
      mu:uuid ?accountUuid .
 };"
 ```
-
 
 ### Running on mac silicon
 
@@ -152,6 +154,7 @@ To include (smart) search features, the stack needs to be started with the `sear
 However, to avoid issues of started services waiting for the database and/or elasticsearch, it is advisable to start the stack in a 'staggered' manner:
 
 To reset the elasticsearch index, first throw away the current `elasticsearch` directory:
+
 ```
 rm -rf data/elasticsearch
 ```
