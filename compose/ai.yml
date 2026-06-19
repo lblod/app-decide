@@ -88,18 +88,18 @@ services:
     labels:
       - logging=true
   question-answering:
-    image: docker.io/semanticai/decide-question-answering:0.0.1
+    image: docker.io/semanticai/decide-question-answering:0.0.2
     environment:
-      SEARCH_API_URL: 'http://search/expressions/large-search'
+      SEARCH_API_URL: 'http://search/expressions/search'
       LOG_SPARQL_ALL: 'false'
       EMBEDDING_API_URL: 'http://embedding/embed'
       MU_SPARQL_ENDPOINT: 'http://database:8890/sparql'
       MU_SPARQL_TIMEOUT: '30'
       GENERATION_PROVIDER: 'ollama'
       GENERATION_ENDPOINT: 'http://ollama:11434'
-      GENERATION_MODEL: 'gemma3:1b'
+      GENERATION_MODEL: 'mistral-nemo'
       GENERATION_TIMEOUT: '300.0'
-      MAX_CONTENT_CHARS: '1000'
+      MAX_CONTENT_CHARS: '50000'
       REQUEST_TIMEOUT: '10.0'
       ALLOW_MU_AUTH_SUDO: 'true'
       DEFAULT_MU_AUTH_SCOPE: 'http://services.semantic.works/decide-question-answering-service'
