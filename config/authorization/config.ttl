@@ -86,12 +86,29 @@ ext:sessionService a odrl:PartyCollection ;
   vcard:fn "session service" ;
   dct:description "This party represent all session services running in the system." .
 
+# NOTE (19/06/2026): The filter excludes sessions associated with a mock-login
+# account.  This avoids that users using the yasgui/VC frontend can write to the
+# harvesting graph as their sessions are always linked to the mock-login
+# account.  This exclusion has two important drawbacks:
+# - If sessions for users authenticated via VC are in the future linked to
+#   non-mock-login accounts this filter will no longer work.
+# - If other types of authenticated users are added to the app, they will still
+#   be automatically members of this party and be granted the corresponding
+#   rights.
+#
+# If either of these two scenarios occur a better solution must be applied.
+# Since we do not expect them to occur within the scope of the DECIDe project
+# this solution is satisfactory.
 ext:authenticatedParty a odrl:PartyCollection ;
   vcard:fn "logged-in" ;
   ext:definedBy """PREFIX session: <http://mu.semte.ch/vocabularies/session/>
+  PREFIX foaf: <http://xmlns.com/foaf/0.1/>
   SELECT DISTINCT ?account
   WHERE {
     <SESSION_ID> session:account ?account .
+    FILTER NOT EXISTS {
+      ?account foaf:accountServiceHomepage <https://github.com/lblod/mock-login-service> .
+    }
   }""" ;
   dct:description "This represents all logged in users of the system." .
 

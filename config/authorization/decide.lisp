@@ -235,10 +235,25 @@
     :to-graph ai
     :for-allowed-group "public"))
 
+;; NOTE (19/06/2026): The filter excludes sessions associated with a mock-login account.  This
+;; avoids that users using the yasgui/VC frontend can write to the harvesting graph as their
+;; sessions are always linked to the mock-login account.  This exclusion has two important
+;; drawbacks:
+;; - If sessions for users authenticated via VC are in the future linked to non-mock-login accounts
+;;   this filter will no longer work.
+;; - If other types of authenticated users are added to the app, they will still be automatically
+;;   members of this group and be granted the corresponding rights.
+;;
+;; If either of these two scenarios occur a better solution must be applied.  Since we do not expect
+;; them to occur within the scope of the DECIDe project this solution is satisfactory.
 (supply-allowed-group "logged-in"
                       :query "PREFIX session: <http://mu.semte.ch/vocabularies/session/>
+      PREFIX foaf: <http://xmlns.com/foaf/0.1/>
       SELECT DISTINCT ?account WHERE {
-      <SESSION_ID> session:account ?account.
+        <SESSION_ID> session:account ?account.
+        FILTER NOT EXISTS {
+          ?account foaf:accountServiceHomepage <https://github.com/lblod/mock-login-service> .
+        }
       }")
 
 (supply-allowed-group "organization-member"
