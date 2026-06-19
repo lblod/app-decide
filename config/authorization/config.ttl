@@ -56,6 +56,12 @@ ext:decideAuthorizationPolicy a odrl:Set ;
     ext:allowWriteForHumanValidation ,
     ext:allowReadForQuestionAnswering ,
     ext:allowWriteForQuestionAnswering ,
+    ext:allowReadOsloOrgsForQuestionAnswering,
+    ext:allowReadPublicForQuestionAnswering,
+    ext:allowReadGhentForQuestionAnswering,
+    ext:allowReadFreiburgForQuestionAnswering,
+    ext:allowReadPdfForQuestionAnswering,
+    ext:allowReadAiSliceForQuestionAnswering,
     ext:allowReadAnnotationForPublic ,
     ext:allowReadAnnotationForGhent ,
     ext:allowReadAnnotationForFreiburg ,
@@ -312,6 +318,45 @@ ext:allowAnnotationReadForAiSlice a odrl:Permission ;
   odrl:assigner ext:decideSystem ;
   odrl:assignee ext:publicParty ;
   ext:scope "http://services.semantic.works/annotation-review-service" .
+
+ext:allowReadOsloOrgsForQuestionAnswering a odrl:Permission ;
+  odrl:action odrl:read ;
+  odrl:target ext:decideOsloOrganizationsSlice ;
+  odrl:assigner ext:decideSystem ;
+  odrl:assignee ext:publicParty  ;
+  ext:scope "http://services.semantic.works/decide-question-answering-service" .
+
+ext:allowReadPublicForQuestionAnswering a odrl:Permission ;
+  odrl:action odrl:read ;
+  odrl:target ext:decidePublicSlice ;
+  odrl:assignee ext:publicParty ;
+  ext:scope "http://services.semantic.works/decide-question-answering-service" .
+
+ext:allowReadGhentForQuestionAnswering a odrl:Permission ;
+  odrl:action odrl:read ;
+  odrl:target ext:decideHarvestedGentSlice ;
+  odrl:assignee ext:publicParty ;
+  ext:scope "http://services.semantic.works/decide-question-answering-service" .
+
+ext:allowReadFreiburgForQuestionAnswering a odrl:Permission ;
+  odrl:action odrl:read ;
+  odrl:target ext:decideHarvestedFreiburgSlice ;
+  odrl:assignee ext:publicParty ;
+  ext:scope "http://services.semantic.works/decide-question-answering-service" .
+
+ext:allowReadPdfForQuestionAnswering a odrl:Permission ;
+  odrl:action odrl:read ;
+  odrl:target ext:decideHarvestedPdfSlice ;
+  odrl:assignee ext:publicParty ;
+  ext:scope "http://services.semantic.works/decide-question-answering-service" .
+
+ext:allowReadAiSliceForQuestionAnswering a odrl:Permission ;
+  odrl:action odrl:read ;
+  odrl:target ext:decideAiSlice ;
+  odrl:assigner ext:decideSystem ;
+  odrl:assignee ext:publicParty ;
+  ext:scope "http://services.semantic.works/decide-question-answering-service" .
+
 
 # Assets (SHACL shapes) for type specifications
 ext:BesluitAdministrativeUnitAsset a odrl:Asset, sh:NodeShape ;
