@@ -34,6 +34,10 @@
                 "operation": {
                     "type": "url",
                     "predicate": "task:operation"
+                },
+                "split-decisions": {
+                    "type": "boolean",
+                    "predicate": "ext:splitDecisions"
                 }
             },
             "relationships": {
