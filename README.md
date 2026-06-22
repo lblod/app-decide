@@ -53,7 +53,13 @@ This should be your go-to way of starting the stack.
 ./scripts/start.sh
 ```
 
-This script runs `docker compose up -d`, but first sets the APP_VERSION environment variable to the currently checked out tag or commit of this git repository. This is then passed into the AI services so that they track the provenance of the annotations that they create with an agent URI representing the versioned service with the configuration that corresponds to this tag or commit.
+This script runs `docker compose up -d`, but first sets the `APP_VERSION` environment variable to the currently checked out tag or commit of this git repository. This is then passed into the AI services so that they track the provenance of the annotations that they create with an agent URI representing the versioned service with the configuration that corresponds to this tag or commit.
+
+This environment variable is used in the AI services (see `./compose/ai.yml`). They have the following set of environment variables:
+
+- `FORCE_VERSIONED_AGENT_URI`: when set to true, the service will crash unless a valid value containing `/commit/` or `/tree/` is set for the following two environment variables. This is a safety in case you forget to start the app using `./scripts/start.sh` and use `docker-compose up` instead.
+- `CONFIGURED_AGENT_URI`: the URI to use for the service as an agent regarding the provenance of the annotations it makes. The annotations created by the AI services are linked automatically to this URI. For instance, for linking it is set to `http://lblod.data.gift/id/components/named-entity-linking/decide${APP_VERSION}` so that it remembers it's the linking service, but ALSO which configuration the linking service uses as it points to the current tag/commit hash of this repository.
+- `CONFIG_REPO_URL`: the url of this repository to use, set to `https://github.com/lblod/app-decide${APP_VERSION}` so it takes the current commit hash or tag into account. That way, the AI services can register their agent in the database pointing to the correct repository for its configuration.
 
 ### Account management for the pipeline dashboard
 
