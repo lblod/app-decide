@@ -47,7 +47,7 @@ services:
     restart: always
     logging: *default-logging
   scheduled-job-controller:
-    image: lblod/scheduled-job-controller-service:1.2.1
+    image: lblod/scheduled-job-controller-service:feature-allow-copying-job-predicates-from-scheduled-job
     environment:
       LOG_SPARQL_ALL: 'false'
       DEBUG_AUTH_HEADERS: 'false'
@@ -55,6 +55,8 @@ services:
       MU_APPLICATION_GRAPH: 'http://mu.semte.ch/graphs/harvesting'
     labels:
       - 'logging=true'
+    volumes:
+      - ../config/scheduled-job-controller:/config
     restart: always
     logging: *default-logging
   annotation-job-splitter:
