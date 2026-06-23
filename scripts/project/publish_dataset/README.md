@@ -63,20 +63,21 @@ Output DCAT is directly written to the triple store in the `PUBLIC_GRAPH` named 
 
 | Datasets                 | Description                                                                     | Output                                  |
 | ------------------- | ------------------------------------------------------------------------------- | ---------------------------------------- |
-| `codelists`         | Codelist annotations (by default: SDGs and impact)                              | `$OUTPUT_DIR/codelists.ttl`         |
+| `codelists`         | Codelist annotations (by default: SDGs and impact)                              | `$OUTPUT_DIR/yyyymmddHHMMSS-codelists.ttl`         |
 | `rmz`               | Restricted Mobility Zone (RMZ) Concept annotations + locations for municipality | `$OUTPUT_DIR/rmz.ttl`               |
-| `expressions`       | ELI metadata (expression + work + manifestation)                                | `$OUTPUT_DIR/expressions.ttl`       |
-| `human-validations` | Human review annotations                                                        | `$OUTPUT_DIR/human-validations.ttl` |
+| `expressions`       | ELI metadata (expression + work + manifestation)                                | `$OUTPUT_DIR/yyyymmddHHMMSS-expressions.ttl`       |
+| `human-validations` | Human review annotations                                                        | `$OUTPUT_DIR/yyyymmddHHMMSS-human-validations.ttl` |
 
 ## Available organizations
 
 `config.json` has a key `catalogs` where a DCAT catalog for each organization (gent, bamberg, freiburg, and abb) is listed. Inside `catalog_publisher`, the name and email of the organization can be defined. Inside `organizationFilter`, a filter can be defined for scoping the data extraction to one (or more) organizations. Three municipalities are currently supported: three municipalities are currently supported:
 
-| Municipality | URI                                                                                                             |
+| Organization | URI                                                                                                             |
 | ------------ | --------------------------------------------------------------------------------------------------------------- |
 | Bamberg      | `<https://opendata.smartcitybamberg.de/decide/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7>`              |
 | Freiburg     | `<https://ris.freiburg.de/oparl/body/FR>`                                                                       |
 | Gent         | `<http://data.lblod.info/id/bestuurseenheden/353234a365664e581db5c2f7cc07add2534b47b8e1ab87c821fc6e6365e6bef5>` |
+| Agency for Local Affairs (ABB)         | `<http://data.lblod.info/id/bestuurseenheden/141d9d6b-54af-4d17-b313-8d1c30bc3f5b>` |
 
 To extract data for all three municipalities at once, update the `VALUES` block in the relevant `.sparql` file:
 
@@ -95,6 +96,42 @@ values ?participant {
   <https://ris.freiburg.de/oparl/body/FR> # Freiburg only
 }
 ```
+
+## DCAT
+
+For each `--dataset --org` run, `generate_dcat()` writes/refreshes DCAT metadata for that organization + dataset directly into `PUBLIC_GRAPH`, rendered from the Jinja templates in `templates/`:
+
+| Template                        | Produces                                                                                        |
+| -------------------------------- | ------------------------------------------------------------------------------------------------ |
+| `templates/dcat-catalog.ttl.j2`  | One `dcat:Catalog` (+ its `foaf:Agent` publisher) per organization                               |
+| `templates/dcat-dataset.ttl.j2`  | One `dcat:Dataset`, optionally a `dcat:Distribution` (data dump) and a `dcat:DataService` (SPARQL endpoint) |
+
+```
+Catalog (per org)
+ └─ dcat:dataset → Dataset (per org + dataset)
+      ├─ dcat:distribution → Distribution    (only if `datadump_base_url` is configured)
+      └─ (catalog) dcat:service → DataService (only if `sparql_endpoint` is configured)
+```
+
+### Stable URIs
+
+- `catalog_uri` / `catalog_uuid` are fixed values set per organization in `config.json`.
+- The `dataset`, `service`, and `datadump-distribution` URIs/UUIDs are derived deterministically (`uuid.uuid5(NAMESPACE_URL, "<org>/<dataset>/<kind>")`) from the organization and the dataset's config key, so re-running the same `--dataset`/`--org` always resolves to the same URIs instead of minting duplicates.
+
+### Re-running a dataset
+
+If the catalog or dataset subject already exists in `PUBLIC_GRAPH`, the script deletes all of its existing triples and re-renders them from scratch — but it reads back the original `dct:issued` value first and keeps it, while `dct:modified` is set to the current run's timestamp.
+
+### Required `config.json` fields per organization
+
+| Field                 | Required | Effect if missing                                                               |
+| --------------------- | -------- | --------------------------------------------------------------------------------- |
+| `catalog_uri`         | yes      | —                                                                                   |
+| `catalog_uuid`        | yes      | —                                                                                   |
+| `catalog_publisher`   | yes      | `{ uri, name, email }`, used as `dct:publisher`/`dcat:contactPoint` and rendered as a `foaf:Agent` |
+| `organizationFilter`  | yes      | SPARQL `VALUES` block injected into the dataset's query (empty string = no filter) |
+| `sparql_endpoint`     | no       | Skips emitting the `dcat:DataService` for that organization                        |
+| `datadump_base_url`   | no       | Skips emitting the `dcat:Distribution` for the data dump                           |
 
 ## Configuring codelist
 
