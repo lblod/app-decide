@@ -73,7 +73,7 @@ services:
   project-scripts:
     image: semtech/simple-script-store:1.0.0
     volumes:
-      - ../scripts/:/app/scripts/
+      - ../scripts/project:/app/scripts/
     restart: 'no'
   migrations:
     image: semtech/mu-migrations-service:0.9.0
