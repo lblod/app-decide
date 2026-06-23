@@ -1,0 +1,95 @@
+{
+    "datasets": {
+        "codelists": {
+            "description": "Codelist annotations (SDG)",
+            "output_file_name": "codelists",
+            "sparql_file": "./queries/codelists.sparql",
+            "interesting_variables": [
+            "annotation",
+            "activity",
+            "agent"
+            ]
+        },
+        "rmz": {
+            "description": "Restricted Mobility Zone (RMZ) Concept annotations + locations",
+            "output_file_name": "rmz",
+            "sparql_file": "./queries/rmz.sparql",
+            "interesting_variables": [
+            "locationAnnotation",
+            "rmzAnnotation",
+            "location",
+            "geometry",
+            "selector"
+            ]
+        },
+        "expressions": {
+            "description": "ELI metadata (expression + work + manifestation)",
+            "output_file_name": "expressions",
+            "sparql_file": "./queries/expressions.sparql",
+            "interesting_variables": [
+            "expression",
+            "work",
+            "manifests",
+            "annotation"
+            ]
+        },
+        "human-validations": {
+            "description": "Human validation annotations",
+            "output_file_name": "human-validations",
+            "sparql_file": "./queries/human-validations.sparql",
+            "interesting_variables": [
+            "hvAnnotation"
+            ]
+        }
+    },
+    "catalogs": {
+        "bamberg": {
+            "catalog_uri": "http://data.lblod.info/id/catalogs/7a6b5c4d-3e2f-1a0b-9c8d-7e6f5a4b3c2d",
+            "catalog_uuid": "7a6b5c4d-3e2f-1a0b-9c8d-7e6f5a4b3c2d",
+            "catalog_publisher": {
+                "uri": "https://opendata.smartcitybamberg.de/decide/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7",
+                "name": "City of Bamberg",
+                "email": "test@stad.bamberg.de"
+            },
+            "organizationFilter": "values ?participant { <https://opendata.smartcitybamberg.de/decide/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> }",
+            "sparql_endpoint": "https://decide.partner.eu/api/sparql",
+            "datadump_base_url": "https://decide.partner.eu/datadumps/"
+        },
+        "gent": {
+            "catalog_uri": "http://data.lblod.info/id/catalogs/80fb699a-0d95-4089-843d-79c89138cdb7",
+            "catalog_uuid": "80fb699a-0d95-4089-843d-79c89138cdb7",
+            "catalog_publisher": {
+                "uri": "http://data.lblod.info/id/bestuurseenheden/353234a365664e581db5c2f7cc07add2534b47b8e1ab87c821fc6e6365e6bef5",
+                "name": "City of Gent",
+                "email": "test@stad.gent"
+            },
+            "organizationFilter": "values ?participant { <http://data.lblod.info/id/bestuurseenheden/353234a365664e581db5c2f7cc07add2534b47b8e1ab87c821fc6e6365e6bef5> }",
+            "sparql_endpoint": "https://decide.partner.eu/api/sparql",
+            "datadump_base_url": "https://decide.partner.eu/datadumps/"
+        },
+        "freiburg": {
+            "catalog_uri": "http://data.lblod.info/id/catalogs/9c8b1e5a-9c3d-4f0b-8c7e-2a1b2c3d4e5f",
+            "catalog_uuid": "9c8b1e5a-9c3d-4f0b-8c7e-2a1b2c3d4e5f",
+            "catalog_publisher": {
+                "uri": "https://ris.freiburg.de/oparl/body/FR",
+                "name": "City of Freiburg",
+                "email": "test@stad.freiburg.de"
+            },
+            "organizationFilter": "values ?participant { <https://ris.freiburg.de/oparl/body/FR> }",
+            "sparql_endpoint": "https://decide.partner.eu/api/sparql",
+            "datadump_base_url": "http://localhost/datadumps/"
+        },
+        "abb": {
+            "catalog_uri": "http://data.lblod.info/id/catalogs/3bea809d-bfdb-485e-a7b2-10c6dea96af9",
+            "catalog_uuid": "3bea809d-bfdb-485e-a7b2-10c6dea96af9",
+            "catalog_publisher": {
+                "uri": "http://data.lblod.info/id/bestuurseenheden/141d9d6b-54af-4d17-b313-8d1c30bc3f5b",
+                "name": "Agentschap Binnenlands Bestuur (DECIDe)",
+                "email": "binnenland@vlaanderen.be"
+            },
+            "organizationFilter": "",
+            "sparql_endpoint": "http://ds.decide.lblod.info/api/sparql",
+            "datadump_base_url": "http://ds.decide.lblod.info/datadumps/"
+        }
+    }
+}
