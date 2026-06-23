@@ -1,4 +1,19 @@
 {
   "version": "0.1",
-  "scripts": []
+  "scripts": [{
+      "documentation": {
+        "command": "publish-dataset",
+        "description": "Publishes a dataset with a datadump and adds DCAT to triple store. Run 'mu script project-scripts publish-dataset --help' to see the options.",
+        "arguments": []
+      },
+      "environment": {
+        "image": "python:3.12-slim",
+        "interactive": false,
+        "join_networks": true,
+        "script": "publish_dataset/build.sh"
+      },
+      "mounts": {
+        "app": "/data/app/"
+      }
+    }]
 }
