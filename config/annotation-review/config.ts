@@ -28,6 +28,7 @@ export default {
           <http://data.gift/id/components/entity-extraction/v1.0.0>
           <http://data.gift/id/components/segmentation/v1.0.0>
           <http://lblod.data.gift/id/components/named-entity-linking/v1.0.0>
+          <http://lblod.data.gift/id/components/pdf-to-eli/v1.0.0>
         }
         FILTER(?type NOT IN (<http://www.w3.org/ns/locn#Address>, <https://data.vlaanderen.be/ns/adres#Straatnaam>, <http://www.wikidata.org/entity/Q2785216>, <http://www.wikidata.org/entity/Q123705> ))
         FILTER(!BOUND(?typeClass) || ?typeClass NOT IN ( <http://mu.semte.ch/vocabularies/ext/AnnotationBody> ))

@@ -8,7 +8,7 @@ defmodule Dispatcher do
     any: ["*/*"]
   ]
 
-  define_layers([:static, :sparql, :api_services, :frontend, :resources, :frontend_fallback, :not_found])
+  define_layers([:static, :sparql, :frontend, :api_services, :resources, :frontend_fallback, :not_found])
 
   options "/*_path", _ do
     conn
@@ -277,6 +277,15 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://cache/works/"
   end
 
+  # NOTE (12/06/2026): This rule ensures requests for the `/expressions` route that
+  # have `text/html` as accept-header are forwarded to the hvt frontend instead of
+  # to resources.  Otherwise, requests meant for the frontend are matched by the
+  # rule below and incorrectly forwarded to resources.  The prioritisation is
+  # done by the layers.
+  match "/expressions/*_path",  %{reverse_host: ["human-validator" | _rest], accept: [:html], layer: :frontend} do
+    forward(conn, [], "http://frontend-human-validator/index.html")
+  end
+
   match "/expressions/*path", %{ accept: [:json], layer: :resources } do
     Proxy.forward conn, path, "http://cache/expressions/"
   end
@@ -455,7 +464,7 @@ defmodule Dispatcher do
     forward(conn, [], "http://frontend-harvesting/index.html")
   end
 
-  match "/*_path", %{reverse_host: ["ds" | _rest], accept: %{html: true}, layer: :frontend_fallback} do
+  match "/*_path", %{ reverse_host: ["ds" | _rest], accept: %{html: true}, layer: :frontend_fallback } do
     forward(conn, [], "http://frontend-dcat/index.html")
   end
 
@@ -474,11 +483,20 @@ defmodule Dispatcher do
   match "/*_path", %{reverse_host: ["policy-impact-report" | _rest], accept: %{html: true}, layer: :frontend_fallback} do
     forward(conn, [], "http://frontend-policy-impact-report/index.html")
   end
+
   #################
   # DCAT
   #################
+  # NOTE (12/06/2026): This rule ensures requests for the `/dcat` route that
+  # have `text/html` as accept-header are forwarded to the frontend instead of
+  # the service.  Otherwise, requests meant for the frontend are matched by the
+  # rule below and incorrectly forwarded to the service.  The prioritisation is
+  # done by the layers.
+  match "/dcat/*_path", %{ reverse_host: ["ds" | _rest], accept: %{html: true}, layer: :frontend } do
+    forward(conn, [], "http://frontend-dcat/index.html")
+  end
 
-  match "/dcat/*path" do
+  get "/dcat/*path", %{ accept: [:any], layer: :api_services } do
     forward(conn, path, "http://dcat/")
   end
 

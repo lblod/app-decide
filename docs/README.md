@@ -21,6 +21,7 @@ This application is a [semantic.works](https://semantic.works/) app and thereby 
 - `git` to obtain the application source code
 - `docker` and `docker compose` to configure and run the application's microservices
 - A reverse proxy that forwards HTTP requests to the app's identifier service. We typically use [app-letsencrypt](https://github.com/redpencilio/app-letsencrypt) for this purpose.
+- The [mu-cli](https://github.com/mu-semtech/mu-cli) tool can be used to simplify some tasks, e.g. generating migration files.
 
 ### Updating the app
 Generally updating (parts of) the app consists of pulling the latest version from the remote repository via a  `git pull` and, recreating and/or restarting the appropriate services.
@@ -88,55 +89,29 @@ The READMEs for each individual service describes the necessary configuration in
 - The [Embedding](https://github.com/semantic-ai/embedding-service/blob/master/README.md) service currently does not **not** support using an external provider. Embeddings can generated locally without a GPU, but this will take considerable longer.
 
 
+### LDES services (DCAT Federation)
+The LDES services that produce (the data) for an app's LDES feed have to be configured with the proper base URL. The intended value is the base dataspace URL of your application instance with `/ldes/` as affix. For example, for ABB's application instance has `https://ds.decide.lblod.info/` as URL, the base URL for the two LDES services than becomes `https://ds.decide.lblod.info/ldes/`.
+
+Note that the `/ldes/` affix is important as the dispatcher relies on this to forward requests to the `ldes-serve-feed` service. If you use a base URL that does not end in `/ldes/`, you should also update the corresponding dispatcher rule accordingly.
+
+See the configuration for the `ldes-delta-pusher` and `ldes-serve-feed` services in you override file.
+
+
 ### Login for pipeline dashboard
-The app is configured with a [default account](../config/migrations/add-test-user/20251211000000-add-test-user.sparql) with username `test` for the pipeline dashboard. Accounts are managed by inserting and/or updating triples in the triplestore, typically using [migrations](https://github.com/mu-semtech/mu-migrations-service). The creation of migrations can be simplified using [mu-cli](https://github.com/mu-semtech/mu-cli).
+Using the pipeline dashboard requires you create the appropriate user accounts. The overall [README](../README.md) in this repository describes how to do this in its "Account management for the pipeline dashboard" section.
 
-#### Adding a new account
-Creating a new requires adding a migration similar to the already existing [account](../config/migrations/add-test-user/20251211000000-add-test-user.sparql). The [registration](https://github.com/mu-semtech/registration-service) service provides a mu-cli script to easily generate such a migration.
-
-- Ensure [mu-cli](https://github.com/mu-semtech/mu-cli) is installed
-- Uncomment the entry for the `registration` service in the appropriate override file and start the service: `docker compose up registration`
-- Execute the script to generate a migration using mu-cli: `mu script registration generate-account --name NAME --account USERNAME --password PASSWORD`. This creates a migration in `config/migrations/TIMESTAMP-create-user-USERNAME.sparql`
-- Restart `migrations` service to execute generated migration: `docker compose restart migrations`
-- Stop the `registration` service and re-comment entry
-
-#### Disabling existing accounts
-To disable an account its status can be changed to inactive via another migration. First, generate a new migration file using the script provided by the `migrations` service, the following command will create file `config/migrations/TIMESTAMP-NAME.sparql`:
-
-```bash
-mu script migrations new sparql NAME
+As an, optional, additional layer of security it is possible to configure an application-wide salt for all passwords in an app instance, also called a [pepper](https://datatracker.ietf.org/doc/html/draft-ietf-kitten-password-storage-10#name-storage-2). Enabling this does require some additional configuration:
+- You have to set the `MU_APPLICATION_SALT` environment variable for the `login` service to an appropriate value:
+```yaml
+# In docker-compose.override.yml
+services:
+  login:
+    environment:
+      MU_APPLICATION_SALT: "REPLACE-WITH-A-LONG-SECURE-RANDOM-NUMBER"
 ```
+- When generating an account migration using the `generate-account` script you also have to provide the correct application salt via the `--salt` argument.
 
-Second, the query below deactivates a given account. Copy this query into the generated migration file and replace `ACCOUNT_UUID` by the UUID of the `OnlineAccount` resource. This UUID can be found in the migration that initially added the account. For example, to disable the [default account](../config/migrations/add-test-user/20251211000000-add-test-user.sparql) the replacement for `ACCOUNT_UUID` would be `d011deb8-64b8-4497-81df-e32ff19cbdc5`.
-
-```sparql
-PREFIX account: <http://mu.semte.ch/vocabularies/account/>
-PREFIX accounts: <http://ext.data.gift/accounts/>
-
-DELETE {
-  GRAPH <http://mu.semte.ch/graphs/users> {
-    ?account account:status ?currentStatus .
-  }
-} INSERT {
-  GRAPH <http://mu.semte.ch/graphs/users> {
-    ?account account:status <http://mu.semte.ch/vocabularies/account/status/inactive> .
-  }
-} WHERE {
-  GRAPH <http://mu.semte.ch/graphs/users> {
-    VALUES ?account {
-      accounts:ACCOUNT_UUID
-    }
-    ?account a foaf:OnlineAccount ;
-             account:status ?currentStatus .
-  }
-}
-```
-
-Finally, restart the `migrations` service to execute the created migration.
-
-```bash
-docker compose restart migrations; docker compose logs -f migrations
-```
+Note, this application salt should not be confused with the regular salts generated and appended to each password before hashing it. The latter is already taken care of by the `generate-account` script.
 
 
 ## Partner configurations

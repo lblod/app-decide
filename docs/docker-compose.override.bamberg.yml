@@ -123,11 +123,16 @@ services:
     entrypoint: ["echo", "Service nominatim is disabled"]
 
 
-  # Uncomment to use script to create new user accounts
-  # registration:
-  #   image: semtech/mu-registration-service:2.8.0
-  #   links:
-  #     - database:database
+  # LDES services for DCAT federation
+  # Replace the values below to set the base URL used for your app's LDES feed.
+  # Make sure this URL ends with `/ldes/`.
+  ldes-delta-pusher:
+    environment:
+      LDES_BASE: '<REPLACE-WITH-BASE-URL>'
+      # WRITE_INITIAL_STATE: "true"
+  ldes-serve-feed:
+    environment:
+      BASE_URL: '<REPLACE-WITH-BASE-URL>'
 
 
 # Uncomment to configure network exposed by app-letsencrypt

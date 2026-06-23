@@ -26,6 +26,11 @@ export const BATCH_SIZE = env
   .default('100')
   .asIntPositive();
 
+export const RUN_SPARQL_VALIDATIONS = env
+  .get('RUN_SPARQL_VALIDATIONS')
+  .default('false')
+  .asBool();
+  
 import { sparqlEscapeUri, uuid } from "mu";
 import { querySudo } from '@lblod/mu-auth-sudo';
 
@@ -155,12 +160,14 @@ async function validateShapesAndSparql(dataDataset, shapesDataset, sparqlValidat
     const startTime = Date.now();
     console.log(`Running non-SPARQL-based constraints...`);
     const reportDataset = await validateDataset(dataDataset, shapesDataset, reportURI, reportUUID);
-    console.log(`Running SPARQL-based constraints...`);
-    await addSparqlValidationsToReport(
-        dataDataset,
-        reportDataset,
-        sparqlValidationObjects
-    );
+    if (RUN_SPARQL_VALIDATIONS) {
+        console.log(`Running SPARQL-based constraints...`);
+        await addSparqlValidationsToReport(
+            dataDataset,
+            reportDataset,
+            sparqlValidationObjects
+        );
+    }
     const endTime = Date.now();
     console.log(
         `SHACL validation took ${(endTime - startTime) / 1000} seconds.`
