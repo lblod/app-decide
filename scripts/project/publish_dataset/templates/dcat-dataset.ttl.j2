@@ -38,8 +38,8 @@
     dcat:distribution {{ distribution_refs }}{% endif %} .
 
 {% if datadump_url %}
-<{{ datadump_distribution_uri }}> a dcat:Distribution;
-    mu:uuid "{{ datadump_distribution_uuid }}";
+<{{ distribution_uri }}> a dcat:Distribution;
+    mu:uuid "{{ distribution_uuid }}";
     dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE>;
     dct:title "{{ dataset.description }} for {{ catalog_publisher.name }} - Data dump"@en;
     dcat:downloadURL <{{ datadump_url }}>;

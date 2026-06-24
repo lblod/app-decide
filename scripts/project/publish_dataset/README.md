@@ -7,6 +7,21 @@ This mu script generates a datadump (in Turtle format) for each dataset (corresp
 - Python 3.9+
 - Access to the `sparql-parser` (`database`) service that fronts Virtuoso and enforces the ODRL authorization policy (read + write)
 
+## What does a DECIDe partner need to do
+
+Here is a list of things each partner must do:
+* Update the `email` field in the `config.json`. For example, "email": "test@stad.bamberg.de"
+* Update the `sparql_endpoint` field in the `config.json` with the public URL that will be used. Field can be removed if SPARQL endpoint will not be made public.
+* Update the `datadump_base_url` field in the `config.json` with the public URL that will be used. Replace NAME with `gent`, `freiburg` or `bamberg`.
+* Run the script for each dataset:
+```
+mu script project-scripts publish-dataset --dataset codelists --org NAME
+mu script project-scripts publish-dataset --dataset rmz --org NAME
+mu script project-scripts publish-dataset --dataset expressions --org NAME
+mu script project-scripts publish-dataset --dataset human-validations --org NAME
+mu script project-scripts publish-dataset --dataset codelists --org NAME
+```
+
 ## Configuration
 
 SPARQL connectivity, logging, and the `mu-auth-sudo` header are handled by `helpers.py` (modeled after `mu-python-template`'s `helpers` module) and configured via environment variables:
@@ -116,7 +131,7 @@ Catalog (per org)
 ### Stable URIs
 
 - `catalog_uri` / `catalog_uuid` are fixed values set per organization in `config.json`.
-- The `dataset`, `service`, and `datadump-distribution` URIs/UUIDs are derived deterministically (`uuid.uuid5(NAMESPACE_URL, "<org>/<dataset>/<kind>")`) from the organization and the dataset's config key, so re-running the same `--dataset`/`--org` always resolves to the same URIs instead of minting duplicates.
+- The `dataset`, `service`, and `distribution` URIs/UUIDs are derived deterministically (`uuid.uuid5(NAMESPACE_URL, "<org>/<dataset>/<kind>")`) from the organization and the dataset's config key, so re-running the same `--dataset`/`--org` always resolves to the same URIs instead of minting duplicates.
 
 ### Re-running a dataset
 

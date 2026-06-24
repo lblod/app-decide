@@ -43,13 +43,19 @@ def load_datasets() -> dict:
 
     return datasets
 
-def get_organization_config(organization: str) -> dict:
+def load_organizations() -> dict:
+    if not CONFIG_FILE.exists():
+        sys.exit(f"[Error] config file not found: {CONFIG_FILE}")
+
     with open(CONFIG_FILE, encoding="utf-8") as fh:
-        config = json.load(fh)
-    organization_config = config["catalogs"].get(organization)
-    if organization_config is None:
-        sys.exit(f"[Error] No configuration found for organization '{organization}' in {CONFIG_FILE}")
-    return organization_config
+        organizations = json.load(fh)["catalogs"]
+
+    for name, org in organizations.items():
+        for field in ("catalog_uri", "catalog_uuid", "catalog_publisher", "organizationFilter"):
+            if field not in org:
+                sys.exit(f"[Error] Organization '{name}' is missing required field '{field}' in {CONFIG_FILE}")
+
+    return organizations
 
 def select_rows(q: str) -> list[dict]:
     bindings = query(q)["results"]["bindings"]
@@ -214,14 +220,14 @@ def datadump_file_name(output_file_name: str, timestamp: str) -> str:
     return f"{timestamp}-{output_file_name}.ttl"
 
 
-def run_datadump_pipeline(timestamp: str, dataset: dict, organization_config: dict) -> None:
-    log("=== Dataset: %s ===", dataset['description'])
-    output_file_name = dataset.get("output_file_name", "output.ttl")
+def run_datadump_pipeline(timestamp: str, dataset_config: dict, organization_config: dict) -> None:
+    log("=== Dataset: %s ===", dataset_config['description'])
+    output_file_name = dataset_config.get("output_file_name", "output.ttl")
 
-    insert_query = env.from_string(dataset["insert_query"]).render(
+    insert_query = env.from_string(dataset_config["insert_query"]).render(
         organizationFilter=organization_config.get("organizationFilter", ""))
 
-    step1_populate_tmp_graph(insert_query, dataset["interesting_variables"])
+    step1_populate_tmp_graph(insert_query, dataset_config["interesting_variables"])
 
     total = 0
     output_file = OUTPUT_DIR / datadump_file_name(output_file_name, timestamp)
@@ -264,30 +270,30 @@ def step1_write_catalog(organization: str, organization_config: dict, now_iso: s
         MODIFIED=now_iso,
         **organization_config)
     update(turtle_to_insert_data(catalog_output, PUBLIC_GRAPH))
-    log("  Catalog '%s' written to <%s>.", organization, PUBLIC_GRAPH)
+    log("DCAT Catalog '%s' written to <%s>.", organization, PUBLIC_GRAPH)
 
 
-def step2_write_dataset(organization: str, organization_config: dict, dataset_name: str, dataset: dict, timestamp: str, now_iso: str) -> None:
-    log("[Step 2] Generate DCAT Dataset for %s", dataset['description'])
+def step2_write_dataset(organization: str, organization_config: dict, dataset: str, dataset_config: dict, timestamp: str, timestamp_iso: str) -> None:
+    log("[Step 2] Generate DCAT Dataset for %s", dataset_config['description'])
     # Stable per org+dataset IDs, derived only from the organization and the
     # dataset's config key, so re-running the script always resolves to the
     # same dataset/distribution/service URIs instead of minting new ones.
-    dataset_uuid = str(uuid.uuid5(uuid.NAMESPACE_URL, f"{organization}/{dataset_name}/dataset"))
-    service_uuid = str(uuid.uuid5(uuid.NAMESPACE_URL, f"{organization}/{dataset_name}/service"))
-    datadump_distribution_uuid = str(uuid.uuid5(uuid.NAMESPACE_URL, f"{organization}/{dataset_name}/datadump-distribution"))
+    dataset_uuid = str(uuid.uuid5(uuid.NAMESPACE_URL, f"{organization}/{dataset}/dataset"))
+    service_uuid = str(uuid.uuid5(uuid.NAMESPACE_URL, f"{organization}/{dataset}/service"))
+    distribution_uuid = str(uuid.uuid5(uuid.NAMESPACE_URL, f"{organization}/{dataset}/distribution"))
     dataset_uri = f"http://data.lblod.info/id/datasets/{dataset_uuid}"
     service_uri = f"http://data.lblod.info/id/services/{service_uuid}"
-    datadump_distribution_uri = f"http://data.lblod.info/id/distributions/{datadump_distribution_uuid}"
+    distribution_uri = f"http://data.lblod.info/id/distributions/{distribution_uuid}"
 
     if graph_has_subject(dataset_uri, PUBLIC_GRAPH):
-        log("  Dataset '%s' already exists in <%s>, overriding all its triples.", dataset_name, PUBLIC_GRAPH)
-        issued = get_issued(dataset_uri, PUBLIC_GRAPH) or now_iso
-        delete_subjects([dataset_uri, datadump_distribution_uri, service_uri], PUBLIC_GRAPH)
+        log("DCAT Dataset '%s' already exists in <%s>, overriding all its triples.", dataset, PUBLIC_GRAPH)
+        issued = get_issued(dataset_uri, PUBLIC_GRAPH) or timestamp_iso
+        delete_subjects([dataset_uri, distribution_uri, service_uri], PUBLIC_GRAPH)
     else:
-        issued = now_iso
+        issued = timestamp_iso
 
     datadump_base_url = organization_config.get("datadump_base_url")
-    output_file_name = dataset.get("output_file_name", dataset_name)
+    output_file_name = dataset_config.get("output_file_name", dataset)
     datadump_url = (
         f"{datadump_base_url.rstrip('/')}/{datadump_file_name(output_file_name, timestamp)}"
         if datadump_base_url else None
@@ -295,47 +301,50 @@ def step2_write_dataset(organization: str, organization_config: dict, dataset_na
 
     # Only the data dump is a dcat:Distribution of the dataset; the SPARQL
     # endpoint is modeled as a dcat:DataService that serves it
-    distribution_refs = f"<{datadump_distribution_uri}>" if datadump_url else ""
+    distribution_refs = f"<{distribution_uri}>" if datadump_url else ""
 
     dataset_template = env.get_template("templates/dcat-dataset.ttl.j2")
     dataset_output = dataset_template.render(
         ISSUED=issued,
-        MODIFIED=now_iso,
-        dataset=dataset,
+        MODIFIED=timestamp_iso,
+        dataset=dataset_config,
         dataset_uri=dataset_uri,
         dataset_uuid=dataset_uuid,
         service_uri=service_uri,
         service_uuid=service_uuid,
-        datadump_distribution_uri=datadump_distribution_uri,
-        datadump_distribution_uuid=datadump_distribution_uuid,
+        distribution_uri=distribution_uri,
+        distribution_uuid=distribution_uuid,
         datadump_url=datadump_url,
         distribution_refs=distribution_refs,
         **organization_config)
     update(turtle_to_insert_data(dataset_output, PUBLIC_GRAPH))
-    log("  Dataset '%s' written to <%s>.", dataset_name, PUBLIC_GRAPH)
+    log("DCAT Dataset '%s' written to <%s>.", dataset, PUBLIC_GRAPH)
 
 
-def generate_dcat(timestamp: str, dataset_name: str, dataset: dict, organization: str, organization_config: dict) -> None:
+def generate_dcat(timestamp: str, dataset: str, dataset_config: dict, organization: str, organization_config: dict) -> None:
     if not organization_config.get("sparql_endpoint"):
         log("  No 'sparql_endpoint' configured for organization '%s', skipping its SPARQL DCAT service.", organization)
     if not organization_config.get("datadump_base_url"):
         log("  No 'datadump_base_url' configured for organization '%s', skipping its data dump distribution.", organization)
 
-    now_iso = datetime.strptime(timestamp, "%Y%m%d%H%M%S").isoformat()
+    timestamp_iso = datetime.strptime(timestamp, "%Y%m%d%H%M%S").isoformat()
 
     log("=== Generating DCAT ===")
     log("Processing for '%s' …", organization)
 
-    step1_write_catalog(organization, organization_config, now_iso)
-    step2_write_dataset(organization, organization_config, dataset_name, dataset, timestamp, now_iso)
+    step1_write_catalog(organization, organization_config, timestamp_iso)
+    step2_write_dataset(organization, organization_config, dataset, dataset_config, timestamp, timestamp_iso)
 
-    log("[Pipeline] Finished. DCAT catalog + dataset written for '%s' / '%s' to <%s>.", organization, dataset_name, PUBLIC_GRAPH)
+    log("[Pipeline] Finished. DCAT catalog + dataset written for dataset '%s' (organization: '%s') to <%s>.", dataset, organization, PUBLIC_GRAPH)
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Queue Graph extraction pipeline")
+    parser = argparse.ArgumentParser(
+        description="Generate a datadump (.ttl) for a configured dataset of an organization and write DCAT metadata to the triple store for discovery.",
+        epilog="Example: mu script project-scripts publish-dataset --dataset codelists --org gent",
+    )
     parser.add_argument("--dataset",  help="Dataset to process")
     parser.add_argument("--org", help="Organization to download datasets for")
-    parser.add_argument("--list", action="store_true", help="List available datasets")
+    parser.add_argument("--list", action="store_true", help="List available datasets and organizations")
     args = parser.parse_args()
 
     if args.list and (args.dataset or args.org):
@@ -344,18 +353,25 @@ if __name__ == "__main__":
         parser.error("--dataset and --org must be used together")
 
     datasets = load_datasets()
+    organizations = load_organizations()
 
     if args.list:
         print("Available datasets:")
         for name, dataset in datasets.items():
             print(f"  {name:30s}  {dataset['description']}")
+        print("\nAvailable organizations:")
+        for name, org in organizations.items():
+            print(f"  {name:30s}  {org['catalog_publisher']['name']}")
         sys.exit(0)
 
     if args.dataset not in datasets:
         sys.exit(f"[Error] Unknown dataset '{args.dataset}'. Run with --list to see available datasets.")
+    if args.org not in organizations:
+        sys.exit(f"[Error] Unknown organization '{args.org}'. Run with --list to see available organizations.")
 
-    organization_config = get_organization_config(args.org)
+    dataset_config = datasets[args.dataset]
+    organization_config = organizations[args.org]
 
     now = time.strftime("%Y%m%d%H%M%S")
-    run_datadump_pipeline(now, datasets[args.dataset], organization_config)
-    generate_dcat(now, args.dataset, datasets[args.dataset], args.org, organization_config)
+    run_datadump_pipeline(now, dataset_config, organization_config)
+    generate_dcat(now, args.dataset, dataset_config, args.org, organization_config)
