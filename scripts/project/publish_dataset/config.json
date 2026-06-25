@@ -48,24 +48,18 @@
             "catalog_uuid": "7a6b5c4d-3e2f-1a0b-9c8d-7e6f5a4b3c2d",
             "catalog_publisher": {
                 "uri": "https://opendata.smartcitybamberg.de/decide/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7",
-                "name": "City of Bamberg",
-                "email": "test@stad.bamberg.de"
+                "name": "City of Bamberg"
             },
-            "organizationFilter": "values ?participant { <https://opendata.smartcitybamberg.de/decide/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> }",
-            "sparql_endpoint": "https://decide.partner.eu/api/sparql",
-            "datadump_base_url": "https://decide.partner.eu/datadumps/"
+            "organizationFilter": "values ?participant { <https://opendata.smartcitybamberg.de/decide/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> }"
         },
         "gent": {
             "catalog_uri": "http://data.lblod.info/id/catalogs/80fb699a-0d95-4089-843d-79c89138cdb7",
             "catalog_uuid": "80fb699a-0d95-4089-843d-79c89138cdb7",
             "catalog_publisher": {
                 "uri": "http://data.lblod.info/id/bestuurseenheden/353234a365664e581db5c2f7cc07add2534b47b8e1ab87c821fc6e6365e6bef5",
-                "name": "City of Gent",
-                "email": "test@stad.gent"
+                "name": "City of Gent"
             },
             "organizationFilter": "values ?participant { <http://data.lblod.info/id/bestuurseenheden/353234a365664e581db5c2f7cc07add2534b47b8e1ab87c821fc6e6365e6bef5> }",
-            "sparql_endpoint": "https://decide.partner.eu/api/sparql",
-            "datadump_base_url": "https://decide.partner.eu/datadumps/"
         },
         "freiburg": {
             "catalog_uri": "http://data.lblod.info/id/catalogs/9c8b1e5a-9c3d-4f0b-8c7e-2a1b2c3d4e5f",
@@ -73,11 +67,8 @@
             "catalog_publisher": {
                 "uri": "https://ris.freiburg.de/oparl/body/FR",
                 "name": "City of Freiburg",
-                "email": "test@stad.freiburg.de"
             },
-            "organizationFilter": "values ?participant { <https://ris.freiburg.de/oparl/body/FR> }",
-            "sparql_endpoint": "https://decide.partner.eu/api/sparql",
-            "datadump_base_url": "http://localhost/datadumps/"
+            "organizationFilter": "values ?participant { <https://ris.freiburg.de/oparl/body/FR> }"
         },
         "abb": {
             "catalog_uri": "http://data.lblod.info/id/catalogs/3bea809d-bfdb-485e-a7b2-10c6dea96af9",

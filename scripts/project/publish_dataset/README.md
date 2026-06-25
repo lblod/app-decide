@@ -10,10 +10,24 @@ This mu script generates a datadump (in Turtle format) for each dataset (corresp
 ## What does a DECIDe partner need to do
 
 Here is a list of things each partner must do:
-* Update the `email` field in the `config.json`. For example, "email": "test@stad.bamberg.de"
-* Update the `sparql_endpoint` field in the `config.json` with the public URL that will be used. Field can be removed if SPARQL endpoint will not be made public.
-* Update the `datadump_base_url` field in the `config.json` with the public URL that will be used. Replace NAME with `gent`, `freiburg` or `bamberg`.
-* Run the script for each dataset:
+* Update your city configuration in `config.json` with a `email` field who to contact, (optional) `sparql_endpoint` field if you choose to expose the SPARQL endpoint, and `datadump_base_url` field with the public URL of the datadumps. An example configuration looks as follows:
+
+```application/json
+"bamberg": {
+    "catalog_uri": "http://data.lblod.info/id/catalogs/7a6b5c4d-3e2f-1a0b-9c8d-7e6f5a4b3c2d",
+    "catalog_uuid": "7a6b5c4d-3e2f-1a0b-9c8d-7e6f5a4b3c2d",
+    "catalog_publisher": {
+        "uri": "https://opendata.smartcitybamberg.de/decide/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7",
+        "name": "City of Bamberg",
+        "email": "test@stad.bamberg.de"
+    },
+    "organizationFilter": "values ?participant { <https://opendata.smartcitybamberg.de/decide/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> }",
+    "sparql_endpoint": "https://decide.partner.eu/api/sparql",
+    "datadump_base_url": "https://decide.partner.eu/datadumps/"
+}
+```
+
+* Run the script for each dataset. Replace NAME with `gent`, `freiburg` or `bamberg`:
 ```
 mu script project-scripts publish-dataset --dataset codelists --org NAME
 mu script project-scripts publish-dataset --dataset rmz --org NAME
