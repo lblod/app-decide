@@ -220,9 +220,9 @@ def datadump_file_name(output_file_name: str, timestamp: str) -> str:
     return f"{timestamp}-{output_file_name}.ttl"
 
 
-def run_datadump_pipeline(timestamp: str, dataset_config: dict, organization_config: dict) -> None:
+def run_datadump_pipeline(timestamp: str, dataset: str, dataset_config: dict, organization_config: dict) -> None:
     log("=== Dataset: %s ===", dataset_config['description'])
-    output_file_name = dataset_config.get("output_file_name", "output.ttl")
+    output_file_name = dataset_config.get("output_file_name", dataset)
 
     insert_query = env.from_string(dataset_config["insert_query"]).render(
         organizationFilter=organization_config.get("organizationFilter", ""))
@@ -373,5 +373,5 @@ if __name__ == "__main__":
     organization_config = organizations[args.org]
 
     now = time.strftime("%Y%m%d%H%M%S")
-    run_datadump_pipeline(now, dataset_config, organization_config)
+    run_datadump_pipeline(now, args.dataset, dataset_config, organization_config)
     generate_dcat(now, args.dataset, dataset_config, args.org, organization_config)

@@ -59,14 +59,14 @@
                 "uri": "http://data.lblod.info/id/bestuurseenheden/353234a365664e581db5c2f7cc07add2534b47b8e1ab87c821fc6e6365e6bef5",
                 "name": "City of Gent"
             },
-            "organizationFilter": "values ?participant { <http://data.lblod.info/id/bestuurseenheden/353234a365664e581db5c2f7cc07add2534b47b8e1ab87c821fc6e6365e6bef5> }",
+            "organizationFilter": "values ?participant { <http://data.lblod.info/id/bestuurseenheden/353234a365664e581db5c2f7cc07add2534b47b8e1ab87c821fc6e6365e6bef5> }"
         },
         "freiburg": {
             "catalog_uri": "http://data.lblod.info/id/catalogs/9c8b1e5a-9c3d-4f0b-8c7e-2a1b2c3d4e5f",
             "catalog_uuid": "9c8b1e5a-9c3d-4f0b-8c7e-2a1b2c3d4e5f",
             "catalog_publisher": {
                 "uri": "https://ris.freiburg.de/oparl/body/FR",
-                "name": "City of Freiburg",
+                "name": "City of Freiburg"
             },
             "organizationFilter": "values ?participant { <https://ris.freiburg.de/oparl/body/FR> }"
         },
