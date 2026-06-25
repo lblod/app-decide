@@ -132,14 +132,14 @@ If the catalog or dataset subject already exists in `PUBLIC_GRAPH`, the script d
 
 ### Required `config.json` fields per organization
 
-| Field                 | Required | Effect if missing                                                               |
+| Field                 | Required | Description                             |
 | --------------------- | -------- | --------------------------------------------------------------------------------- |
-| `catalog_uri`         | yes      | —                                                                                   |
-| `catalog_uuid`        | yes      | —                                                                                   |
-| `catalog_publisher`   | yes      | `{ uri, name, email }`, used as `dct:publisher`/`dcat:contactPoint` and rendered as a `foaf:Agent` |
+| `catalog_uri`         | yes      | URI of the DCAT catalog —                                                                                   |
+| `catalog_uuid`        | yes      | UUID of the DCAT catalog —                                                                                   |
+| `catalog_publisher`   | yes      | Contains fields `uri`, `name`, `email`, used as `dct:publisher`/`dcat:contactPoint` and rendered as a `foaf:Agent` |
 | `organizationFilter`  | yes      | SPARQL `VALUES` block injected into the dataset's query (empty string = no filter) |
-| `sparql_endpoint`     | no       | Skips emitting the `dcat:DataService` for that organization                        |
-| `datadump_base_url`   | no       | Skips emitting the `dcat:Distribution` for the data dump                           |
+| `sparql_endpoint`     | no       | If not set, skips emitting the `dcat:DataService` for the SPARQL endpoint                        |
+| `datadump_base_url`   | no       | If not set, skips emitting the `dcat:Distribution` for the data dump                           |
 
 ## Adding a new dataset
 
