@@ -148,9 +148,13 @@ If the catalog or dataset subject already exists in `PUBLIC_GRAPH`, the script d
 
 ## Configuring codelist
 
-The `codelists` query in `queries/codelists` uses by default the SDG (Use case 0.1) and Restricted Mobility Zone (Use case 1) codelists.
+The `codelists` query in `queries/codelists.sparql` uses by default the Sustainable Development Goals (SDG) and Impact codelists, which results in the dataset for Use case 0.1.
 
-The query has a `VALUES ?codelist { ... }` block to scope extraction to one or more codelists. Three codelists are currently configured:
+The `rmz`query in `queries/rmz.sparql`uses by default the Restricted Mobility Zones (RMZ) codelist, which results in the dataset for Use case 1.
+
+A custom codelist can be configured using the `VALUES ?codelist { ... }` block. 
+
+The three codelists of DECIDe are listed below:
 
 | Codelist                           | URI                                                                         |
 | ---------------------------------- | --------------------------------------------------------------------------- |
