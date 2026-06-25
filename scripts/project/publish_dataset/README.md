@@ -2,11 +2,6 @@
 
 This mu script generates a datadump (in Turtle format) for each dataset (corresponding to a use case) of DECIDe. This datadump is published by the `datadumps` service. Also, DCAT information is added to the triple store, which is then published by the `ldes-serve-feed` service.
 
-## Requirements
-
-- Python 3.9+
-- Access to the `sparql-parser` (`database`) service that fronts Virtuoso and enforces the ODRL authorization policy (read + write)
-
 ## What does a DECIDe partner need to do
 
 Here is a list of things each partner must do:
