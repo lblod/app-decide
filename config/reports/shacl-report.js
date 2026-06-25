@@ -62,6 +62,7 @@ const safeNamedGraphs = namedGraphs
   .join('\n');
 
 const cronFunction = async (namedGraph = null) => {
+    await waitForDatabase();
     console.log("report starts");
     try {
         // Read all SHACL files in the shacl folder
@@ -223,4 +224,25 @@ function addTimestamps(reportDataset, reportURI, createdTime) {
             ),
         ),
     );
+}
+
+async function waitForDatabase() {
+  const maxRetries = 30;
+  const delayMs = 2000;
+
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      await querySudo('ASK { ?s ?p ?o }');
+      console.log('Database connection established');
+      return;
+    } catch {
+      console.log(`Waiting for database... (attempt ${attempt}/${maxRetries})`);
+      if (attempt === maxRetries) {
+        throw new Error(
+          `Failed to connect to database after ${maxRetries} attempts`,
+        );
+      }
+      await new Promise((resolve) => setTimeout(resolve, delayMs));
+    }
+  }
 }
