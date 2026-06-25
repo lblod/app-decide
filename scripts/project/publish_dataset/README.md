@@ -52,7 +52,7 @@ The remaining constants live at the top of `generate_datadump_and_dcat.py`:
 
 | Variable            | Default                                | Purpose                             |
 | ------------------- | -------------------------------------- | ----------------------------------- |
-| `TMP_GRAPH`         | `http://mu.semte.ch/graphs/tmp-export` | Named graph used as the job queue   |
+| `TMP_GRAPH`         | `http://mu.semte.ch/graphs/tmp-export` | Named graph used as processing queue   |
 | `PUBLIC_GRAPH`      | `http://mu.semte.ch/graphs/public`     | Graph DCAT catalog/dataset data is written to |
 | `OUTPUT_DIR`        | `/data/app/data/datadumps`             | Directory `.ttl` dataset dumps are written to |
 | `BATCH_SIZE`        | `500`                                  | Subjects per CONSTRUCT/DELETE cycle |
@@ -68,7 +68,8 @@ export MU_SPARQL_ENDPOINT=http://database:8890/sparql
 ## Usage
 
 Make sure mu CLI is installed: https://github.com/mu-semtech/mu-cli
-Otherwise, the script can be directly ran using `python generate_datadump_and_dcat.py`.
+You could also manually run the script using the following docker command: `docker run --network app-decide_default -v ./:/data/app -v ./scripts/project/publish_dataset:/script  -it -w /script --rm --entrypoint ./build.sh python:3.12-slim --dataset codelists --org gent`.
+`python generate_datadump_and_dcat.py`.
 
 ```bash
 # List all available datasets
@@ -85,8 +86,8 @@ Output `.ttl` files are written to `OUTPUT_DIR` (`/data/app/data/datadumps` by d
 
 Output DCAT is directly written to the triple store in the `PUBLIC_GRAPH` named graph.
 
-> **Warning: pipelines must not run concurrently.**
-> All datasets share the same temporary named graph (`TMP_GRAPH`). Running two pipelines at the same time will cause them to read and delete each other's queue entries, resulting in incomplete or corrupted output. Always wait for one dataset to finish before starting the next.
+> **Warning: scripts must not run concurrently.**
+> All datasets share the same temporary named graph (`TMP_GRAPH`). Concurrent runs will cause scripts to read and delete each other's queue entries, producing incomplete or corrupted output. Always wait for one dataset to finish before starting the next.
 
 ## Available datasets
 
@@ -99,7 +100,7 @@ Output DCAT is directly written to the triple store in the `PUBLIC_GRAPH` named 
 
 ## Available organizations
 
-`config.json` has a key `catalogs` where a DCAT catalog for each organization (gent, bamberg, freiburg, and abb) is listed. Inside `catalog_publisher`, the name and email of the organization can be defined. Inside `organizationFilter`, a filter can be defined for scoping the data extraction to one (or more) organizations. Three municipalities are currently supported: three municipalities are currently supported:
+`config.json` has a key `catalogs` where a DCAT catalog for each organization (gent, bamberg, freiburg, and abb) is listed. Inside `catalog_publisher`, the name and email of the organization can be defined. Inside `organizationFilter`, a filter can be defined for scoping the data extraction to one (or more) organizations. Four organizations are currently supported:
 
 | Organization | URI                                                                                                             |
 | ------------ | --------------------------------------------------------------------------------------------------------------- |
@@ -108,27 +109,10 @@ Output DCAT is directly written to the triple store in the `PUBLIC_GRAPH` named 
 | Gent         | `<http://data.lblod.info/id/bestuurseenheden/353234a365664e581db5c2f7cc07add2534b47b8e1ab87c821fc6e6365e6bef5>` |
 | Agency for Local Affairs (ABB)         | `<http://data.lblod.info/id/bestuurseenheden/141d9d6b-54af-4d17-b313-8d1c30bc3f5b>` |
 
-To extract data for all three municipalities at once, update the `VALUES` block in the relevant `.sparql` file:
-
-```sparql
-values ?participant {
-  <https://opendata.smartcitybamberg.de/decide/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> # Bamberg
-  <https://ris.freiburg.de/oparl/body/FR>                                                          # Freiburg
-  <http://data.lblod.info/id/bestuurseenheden/353234a365664e581db5c2f7cc07add2534b47b8e1ab87c821fc6e6365e6bef5> # Gent
-}
-```
-
-To extract a single municipality, keep only that URI in the block:
-
-```sparql
-values ?participant {
-  <https://ris.freiburg.de/oparl/body/FR> # Freiburg only
-}
-```
 
 ## DCAT
 
-For each `--dataset --org` run, `generate_dcat()` writes/refreshes DCAT metadata for that organization + dataset directly into `PUBLIC_GRAPH`, rendered from the Jinja templates in `templates/`:
+For each `--dataset --org` run, DCAT metadata is written directly into `PUBLIC_GRAPH`, rendered from the Jinja templates in `templates/`:
 
 | Template                        | Produces                                                                                        |
 | -------------------------------- | ------------------------------------------------------------------------------------------------ |
@@ -166,7 +150,7 @@ If the catalog or dataset subject already exists in `PUBLIC_GRAPH`, the script d
 
 The `codelists` query in `queries/codelists` uses by default the SDG (Use case 0.1) and Restricted Mobility Zone (Use case 1) codelists.
 
-The query has a `VALUES ?codelist { ... }` block to scope extraction to one or more codelists. Two codelists are currently supported:
+The query has a `VALUES ?codelist { ... }` block to scope extraction to one or more codelists. Three codelists are currently configured:
 
 | Codelist                           | URI                                                                         |
 | ---------------------------------- | --------------------------------------------------------------------------- |
@@ -174,22 +158,7 @@ The query has a `VALUES ?codelist { ... }` block to scope extraction to one or m
 | Impact                             | `<http://mu.semte.ch/vocabularies/ext/impact>`                              |
 | (Simple) Restrictive Mobility Zone | `<http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-simple>` |
 
-### Running all municipalities, one job at a time
-
-```bash
-# 1. Configure the VALUES block in the catalogs.json file to retrieve from specific municipalities (see above). Using the abb organization does not filter on a specific municipality.
-
-# 2. Run each dataset sequentially — never in parallel
-python generate_datadump_and_dcat.py --dataset codelists --org abb
-python generate_datadump_and_dcat.py --dataset rmz --org abb
-python generate_datadump_and_dcat.py --dataset expressions --org abb
-python generate_datadump_and_dcat.py --dataset human-validations --org abb
-```
-
-Results will be merged in a single output file per dataset.
-
-
-## Adding a new job
+## Adding a new dataset
 
 1. Create `queries/<name>.sparql` with an INSERT query that populates the tmp graph. Every subject URI you want to extract must be inserted with `a ext:downloadResource` as a marker:
 
@@ -206,13 +175,13 @@ Results will be merged in a single output file per dataset.
    }
    ```
 
-2. Add an entry to `datasets.json`:
+2. Add an entry to `config.json`:
 
    ```json
    "my-dataset": {
      "description": "Human-readable label shown in --list",
-     "output_file": "./output/my-dataset.ttl",
-     "sparql_file": "./queries/my-dataset.sparql",
+     "output_file": "my-dataset",
+     "sparql_file": "./queries/<name>.sparql",
      "interesting_variables": ["subject"]
    }
    ```
