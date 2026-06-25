@@ -146,22 +146,6 @@ If the catalog or dataset subject already exists in `PUBLIC_GRAPH`, the script d
 | `sparql_endpoint`     | no       | Skips emitting the `dcat:DataService` for that organization                        |
 | `datadump_base_url`   | no       | Skips emitting the `dcat:Distribution` for the data dump                           |
 
-## Configuring codelist
-
-The `codelists` query in `queries/codelists.sparql` uses by default the Sustainable Development Goals (SDG) and Impact codelists, which results in the dataset for Use case 0.1.
-
-The `rmz`query in `queries/rmz.sparql`uses by default the Restricted Mobility Zones (RMZ) codelist, which results in the dataset for Use case 1.
-
-A custom codelist can be configured using the `VALUES ?codelist { ... }` block. 
-
-The three codelists of DECIDe are listed below:
-
-| Codelist                           | URI                                                                         |
-| ---------------------------------- | --------------------------------------------------------------------------- |
-| SDG                                | `<http://data.lblod.info/id/conceptschemes/sdg-simple>`                     |
-| Impact                             | `<http://mu.semte.ch/vocabularies/ext/impact>`                              |
-| (Simple) Restrictive Mobility Zone | `<http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-simple>` |
-
 ## Adding a new dataset
 
 1. Create `queries/<name>.sparql` with an INSERT query that populates the tmp graph. Every subject URI you want to extract must be inserted with `a ext:downloadResource` as a marker:
@@ -178,6 +162,8 @@ The three codelists of DECIDe are listed below:
      ?subject a ex:SomeClass .
    }
    ```
+
+If you want to filter on a certain codelist, you can find inspiration in the `queries/codelists.sparql` and `queries/rmz.sparql` queries.
 
 2. Add an entry to `config.json`:
 
