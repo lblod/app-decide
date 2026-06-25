@@ -12,7 +12,7 @@ from pathlib import Path
 from jinja2 import Environment, FileSystemLoader
 from rdflib import BNode, Literal, URIRef
 from rdflib import Graph as RDFGraph
-from helpers import query, update, log, logger
+from helpers import query, update, log
 env = Environment(loader=FileSystemLoader("."))
 
 TMP_GRAPH         = "http://mu.semte.ch/graphs/tmp-export"
