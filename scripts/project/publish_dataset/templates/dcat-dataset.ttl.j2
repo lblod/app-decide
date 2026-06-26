@@ -23,6 +23,7 @@
 
 ##############################################################################
 # Dataset
+{% if insert_dataset %}
 <{{ catalog_uri }}> dcat:dataset <{{ dataset_uri }}> .
 
 <{{ dataset_uri }}> a dcat:Dataset;
@@ -34,10 +35,12 @@
     dcat:theme <http://vocab.belgif.be/auth/datatheme/GOVE>;
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
     dct:issued "{{ ISSUED }}"^^xsd:dateTime;
-    dct:modified "{{ MODIFIED }}"^^xsd:dateTime{% if distribution_refs %};
-    dcat:distribution {{ distribution_refs }}{% endif %} .
+    dct:modified "{{ MODIFIED }}"^^xsd:dateTime .
+{% endif %}
 
-{% if datadump_url %}
+{% if datadump_url and insert_distribution %}
+<{{ dataset_uri }}> dcat:distribution <{{ distribution_uri }}> .
+
 <{{ distribution_uri }}> a dcat:Distribution;
     mu:uuid "{{ distribution_uuid }}";
     dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE>;
@@ -47,7 +50,7 @@
     dct:license <http://opendatacommons.org/licenses/pddl/1.0/> .
 {% endif %}
 
-{% if sparql_endpoint %}
+{% if sparql_endpoint and insert_dataservice %}
 <{{ catalog_uri }}> dcat:service <{{ service_uri }}> .
 
 <{{ service_uri }}> a dcat:DataService;

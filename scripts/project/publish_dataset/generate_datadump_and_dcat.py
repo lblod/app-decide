@@ -258,39 +258,39 @@ def step1_write_catalog(organization: str, organization_config: dict, now_iso: s
     catalog_subjects = [catalog_uri] + ([catalog_publisher_uri] if catalog_publisher_uri else [])
 
     if graph_has_subject(catalog_uri, PUBLIC_GRAPH):
-        log("  Catalog '%s' already exists in <%s>, overriding all its triples.", organization, PUBLIC_GRAPH)
-        issued = get_issued(catalog_uri, PUBLIC_GRAPH) or now_iso
-        delete_subjects(catalog_subjects, PUBLIC_GRAPH)
+        log("Catalog '%s' already exists in <%s>, doing nothing.", organization, PUBLIC_GRAPH)
     else:
-        issued = now_iso
-
-    catalog_template = env.get_template("templates/dcat-catalog.ttl.j2")
-    catalog_output = catalog_template.render(
-        ISSUED=issued,
-        MODIFIED=now_iso,
-        **organization_config)
-    update(turtle_to_insert_data(catalog_output, PUBLIC_GRAPH))
-    log("DCAT Catalog '%s' written to <%s>.", organization, PUBLIC_GRAPH)
+        catalog_template = env.get_template("templates/dcat-catalog.ttl.j2")
+        catalog_output = catalog_template.render(
+            ISSUED=now_iso,
+            MODIFIED=now_iso,
+            **organization_config)
+        update(turtle_to_insert_data(catalog_output, PUBLIC_GRAPH))
+        log("DCAT Catalog '%s' written to <%s>.", organization, PUBLIC_GRAPH)
 
 
 def step2_write_dataset(organization: str, organization_config: dict, dataset: str, dataset_config: dict, timestamp: str, timestamp_iso: str) -> None:
     log("[Step 2] Generate DCAT Dataset for %s", dataset_config['description'])
-    # Stable per org+dataset IDs, derived only from the organization and the
-    # dataset's config key, so re-running the script always resolves to the
-    # same dataset/distribution/service URIs instead of minting new ones.
-    dataset_uuid = str(uuid.uuid5(uuid.NAMESPACE_URL, f"{organization}/{dataset}/dataset"))
-    service_uuid = str(uuid.uuid5(uuid.NAMESPACE_URL, f"{organization}/{dataset}/service"))
-    distribution_uuid = str(uuid.uuid5(uuid.NAMESPACE_URL, f"{organization}/{dataset}/distribution"))
+    # Dataset UUID changes when its configuration changes or organizationFilter
+    dataset_uuid = str(uuid.uuid5(uuid.NAMESPACE_URL, f"{organization}/{dataset}/dataset/{json.dumps(dataset_config, sort_keys=True)}/{organization_config.get('organizationFilter', '')}"))
+    # Data service UUID changes when the sparql endpoint changes
+    service_uuid = str(uuid.uuid5(uuid.NAMESPACE_URL, f"{organization}/{dataset}/service/{dataset_config.get('sparql_endpoint', '')}"))
+    # Distribution UUID changes with each run, as a timestamp is added to the datadump
+    distribution_uuid = str(uuid.uuid5(uuid.NAMESPACE_URL, f"{organization}/{dataset}/distribution/{timestamp}"))
     dataset_uri = f"http://data.lblod.info/id/datasets/{dataset_uuid}"
     service_uri = f"http://data.lblod.info/id/services/{service_uuid}"
     distribution_uri = f"http://data.lblod.info/id/distributions/{distribution_uuid}"
 
+    insert_dataset = True
+    insert_dataservice = True
+    insert_distribution = True
     if graph_has_subject(dataset_uri, PUBLIC_GRAPH):
-        log("DCAT Dataset '%s' already exists in <%s>, overriding all its triples.", dataset, PUBLIC_GRAPH)
-        issued = get_issued(dataset_uri, PUBLIC_GRAPH) or timestamp_iso
-        delete_subjects([dataset_uri, distribution_uri, service_uri], PUBLIC_GRAPH)
-    else:
-        issued = timestamp_iso
+        log("DCAT Dataset '%s' already exists in <%s>, only appending link to the service and distribution if they don't exist yet.", dataset, PUBLIC_GRAPH)
+        insert_dataset = False
+        if graph_has_subject(service_uri, PUBLIC_GRAPH):
+            insert_dataservice = False
+        if graph_has_subject(distribution_uri, PUBLIC_GRAPH):
+            insert_distribution = False
 
     datadump_base_url = organization_config.get("datadump_base_url")
     output_file_name = dataset_config.get("output_file_name", dataset)
@@ -298,14 +298,12 @@ def step2_write_dataset(organization: str, organization_config: dict, dataset: s
         f"{datadump_base_url.rstrip('/')}/{datadump_file_name(output_file_name, timestamp)}"
         if datadump_base_url else None
     )
-
-    # Only the data dump is a dcat:Distribution of the dataset; the SPARQL
-    # endpoint is modeled as a dcat:DataService that serves it
-    distribution_refs = f"<{distribution_uri}>" if datadump_url else ""
-
     dataset_template = env.get_template("templates/dcat-dataset.ttl.j2")
     dataset_output = dataset_template.render(
-        ISSUED=issued,
+        insert_dataset=insert_dataset,
+        insert_dataservice=insert_dataservice,
+        insert_distribution=insert_distribution,
+        ISSUED=timestamp_iso,
         MODIFIED=timestamp_iso,
         dataset=dataset_config,
         dataset_uri=dataset_uri,
@@ -315,11 +313,9 @@ def step2_write_dataset(organization: str, organization_config: dict, dataset: s
         distribution_uri=distribution_uri,
         distribution_uuid=distribution_uuid,
         datadump_url=datadump_url,
-        distribution_refs=distribution_refs,
         **organization_config)
     update(turtle_to_insert_data(dataset_output, PUBLIC_GRAPH))
     log("DCAT Dataset '%s' written to <%s>.", dataset, PUBLIC_GRAPH)
-
 
 def generate_dcat(timestamp: str, dataset: str, dataset_config: dict, organization: str, organization_config: dict) -> None:
     if not organization_config.get("sparql_endpoint"):
