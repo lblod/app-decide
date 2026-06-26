@@ -142,6 +142,10 @@
                     "type": "datetime",
                     "predicate": "dct:modified"
                 },
+                "checked-for-scheduling": {
+                    "type": "datetime",
+                    "predicate": "ext:checkedForScheduling"
+                },
                 "status": {
                     "type": "url",
                     "predicate": "adms:status"
