@@ -7,7 +7,7 @@
         "arguments": []
       },
       "environment": {
-        "image": "lblod/python-semantic-works-cli",
+        "image": "lblod/python-semantic-works-cli:1.0.0",
         "interactive": false,
         "join_networks": true,
         "script": "publish_dataset/build.sh"
