@@ -7,7 +7,7 @@
         "arguments": []
       },
       "environment": {
-        "image": "python:3.12-slim",
+        "image": "lblod/python-semantic-works-cli",
         "interactive": false,
         "join_networks": true,
         "script": "publish_dataset/build.sh"
