@@ -375,4 +375,5 @@ if __name__ == "__main__":
 
     now = time.strftime("%Y%m%d%H%M%S")
     run_datadump_pipeline(now, args.dataset, dataset_config, organization_config)
-    generate_dcat(now, args.dataset, dataset_config, args.org, organization_config)
+    if not args.skip_dcat:
+        generate_dcat(now, args.dataset, dataset_config, args.org, organization_config)
