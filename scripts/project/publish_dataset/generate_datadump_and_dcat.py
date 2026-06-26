@@ -345,6 +345,7 @@ if __name__ == "__main__":
     parser.add_argument("--dataset",  help="Dataset to process")
     parser.add_argument("--org", help="Organization to download datasets for")
     parser.add_argument("--list", action="store_true", help="List available datasets and organizations")
+    parser.add_argument("--skip-dcat", action="store_true", help="Only generate the datadump; skip writing DCAT metadata to the triple store")
     args = parser.parse_args()
 
     if args.list and (args.dataset or args.org):

@@ -74,6 +74,9 @@ mu script project-scripts publish-dataset --dataset codelists --org freiburg
 mu script project-scripts publish-dataset --dataset rmz --org bamberg
 mu script project-scripts publish-dataset --dataset expressions --org gent
 mu script project-scripts publish-dataset --dataset human-validations --org abb
+
+# Run a specific dataset WITHOUT generating DCAT using the --skip-dcat flag
+mu script project-scripts publish-dataset --dataset codelists --org freiburg --skip-dcat
 ```
 
 Output `.ttl` files are written to `OUTPUT_DIR` (`/data/app/data/datadumps` by default). `scripts/project/config.json` mounts the repo root (`$PWD` where `mu` is invoked) at `/data/app/` for this script, so this lands in `./data/datadumps` on the host, served publicly by the `datadumps` nginx container mounted on that same path.
