@@ -30,6 +30,16 @@ export const RUN_SPARQL_VALIDATIONS = env
   .get('RUN_SPARQL_VALIDATIONS')
   .default('false')
   .asBool();
+
+export const SAMPLING_ENABLED = env
+  .get('SAMPLING_ENABLED')
+  .default('true')
+  .asBool();
+
+export const SAMPLING_SIZE = env
+  .get('SAMPLING_SIZE')
+  .default('100')
+  .asIntPositive();
   
 import { sparqlEscapeUri, uuid } from "mu";
 import { querySudo } from '@lblod/mu-auth-sudo';
@@ -52,6 +62,7 @@ const safeNamedGraphs = namedGraphs
   .join('\n');
 
 const cronFunction = async (namedGraph = null) => {
+    await waitForDatabase();
     console.log("report starts");
     try {
         // Read all SHACL files in the shacl folder
@@ -70,11 +81,12 @@ const cronFunction = async (namedGraph = null) => {
         const reportURI = `http://data.lblod.info/id/reports/${reportUUID}`;
         const created = new Date().toISOString();
         for (const targetClass of allTargetClasses) {
-            const count = await countResources(targetClass, namedGraphs);
-            console.log(`Adding ${count} resources for graphs ${safeNamedGraphs} and resource type ${targetClass}...`);
+            const totalCount = await countResources(targetClass, namedGraphs);
+            const count = SAMPLING_ENABLED ? Math.min(totalCount, SAMPLING_SIZE) : totalCount;
+            console.log(`Adding ${count} resources for graphs ${safeNamedGraphs} and resource type ${targetClass}${SAMPLING_ENABLED ? ` (sampling enabled, total: ${totalCount})` : ''}...`);
             for (let offset = 0; offset < count; offset += BATCH_SIZE) {
                 const dataDataset = new Store();
-                await fillDataDataset(targetClass, offset, dataDataset, shapesDataset, sparqlShapeDataset);
+                await fillDataDataset(targetClass, offset, count, dataDataset);
                 const batchReportDataset = await validateShapesAndSparql(dataDataset, shapesDataset, sparqlValidationObjects, reportURI, reportUUID);
                 addTimestamps(batchReportDataset, reportURI, created);
                 await saveDatasetToNamedGraphs(batchReportDataset, namedGraphs);
@@ -101,7 +113,7 @@ export default {
 };
 
 // Fill dataDataset, one level deep (?resource ?p ?o), with resources of type target class
-async function fillDataDataset(targetClass, offset, dataDataset) {
+async function fillDataDataset(targetClass, offset, count, dataDataset) {
     const resources = [];
     const resourcesResult = await querySudo(`
     SELECT DISTINCT ?resource
@@ -114,7 +126,7 @@ async function fillDataDataset(targetClass, offset, dataDataset) {
                 ?resource a ${sparqlEscapeUri(targetClass)} .
             }
         }
-    LIMIT ${BATCH_SIZE}
+    LIMIT ${Math.min(BATCH_SIZE, count - offset)}
     OFFSET ${offset}
     `);
     resourcesResult.results.bindings.forEach((binding) => {
@@ -212,4 +224,25 @@ function addTimestamps(reportDataset, reportURI, createdTime) {
             ),
         ),
     );
+}
+
+async function waitForDatabase() {
+  const maxRetries = 30;
+  const delayMs = 2000;
+
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      await querySudo('ASK { ?s ?p ?o }');
+      console.log('Database connection established');
+      return;
+    } catch {
+      console.log(`Waiting for database... (attempt ${attempt}/${maxRetries})`);
+      if (attempt === maxRetries) {
+        throw new Error(
+          `Failed to connect to database after ${maxRetries} attempts`,
+        );
+      }
+      await new Promise((resolve) => setTimeout(resolve, delayMs));
+    }
+  }
 }
