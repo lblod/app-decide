@@ -77,6 +77,7 @@ services:
       AI_GRAPH: http://mu.semte.ch/graphs/public/pdf
       ALLOW_MU_AUTH_SUDO: true
       MOUNTED_SHARE_FOLDER: '/mnt/share'
+      CONFIG_PATH: /app/config.json
       FORCE_VERSIONED_AGENT_URI: true
       CONFIGURED_AGENT_URI: http://lblod.data.gift/id/components/pdf-to-eli/decide${APP_VERSION}
       CONFIG_REPO_URL: https://github.com/lblod/app-decide${APP_VERSION}
