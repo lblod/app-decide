@@ -132,7 +132,7 @@ Catalog (per org)
 
 If the catalog or dataset subject already exists in `PUBLIC_GRAPH`, the script deletes all of its existing triples and re-renders them from scratch — but it reads back the original `dct:issued` value first and keeps it, while `dct:modified` is set to the current run's timestamp.
 
-### Required `config.json` fields per organization
+### Configurable fields of `config.json` per organization
 
 | Field                 | Required | Description                             |
 | --------------------- | -------- | --------------------------------------------------------------------------------- |
