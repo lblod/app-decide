@@ -10,7 +10,7 @@
         "image": "lblod/python-semantic-works-cli:0.0.1",
         "interactive": false,
         "join_networks": true,
-        "script": "publish_dataset/build.sh"
+        "script": "publish_dataset/generate_datadump_and_dcat.py"
       },
       "mounts": {
         "app": "/data/app/"

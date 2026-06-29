@@ -63,7 +63,7 @@ export MU_SPARQL_ENDPOINT=http://database:8890/sparql
 ## Usage
 
 Make sure mu CLI is installed: https://github.com/mu-semtech/mu-cli
-You could also manually run the script using the following docker command: `docker run --network app-decide_default -v ./:/data/app -v ./scripts/project/publish_dataset:/script  -it -w /script --rm --entrypoint ./build.sh python:3.12-slim --dataset codelists --org gent`.
+You could also manually run the script using the following docker command: `docker run --network app-decide_default -v ./:/data/app -v ./scripts/project/publish_dataset:/script  -it -w /script --rm lblod/python-semantic-works-cli:0.0.1 python3 generate_datadump_and_dcat.py --dataset codelists --org gent`.
 
 ```bash
 # List all available datasets
