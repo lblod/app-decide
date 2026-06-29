@@ -41,7 +41,7 @@ SPARQL connectivity, logging, and the `mu-auth-sudo` header are handled by `help
 | `MU_SPARQL_UPDATEPOINT`  | same as `MU_SPARQL_ENDPOINT`      | `sparql-parser` update endpoint         |
 | `LOG_LEVEL`               | `INFO`                            | Python `logging` level                  |
 
-Every `query`/`update` call sends a `mu-auth-sudo: true` header so it bypasses the ODRL policy enforced by `sparql-parser` — the script has no session of its own to be granted read/write access under and scopes are not yet supported using ODRL.
+Every `query`/`update` call sends a `mu-auth-sudo: true` header so it bypasses the ODRL policy enforced by `sparql-parser` — the script has no session of its own to be granted read/write access under.
 
 The remaining constants live at the top of `generate_datadump_and_dcat.py`:
 
