@@ -94,7 +94,7 @@ services:
     labels:
       - logging=true
   question-answering:
-    image: docker.io/semanticai/decide-question-answering:0.0.2
+    image: docker.io/semanticai/decide-question-answering:0.0.3
     environment:
       SEARCH_API_URL: 'http://search/expressions/search'
       LOG_SPARQL_ALL: 'false'
