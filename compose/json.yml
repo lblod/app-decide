@@ -1,0 +1,15 @@
+x-logging: &default-logging
+  driver: 'json-file'
+  options:
+    max-size: '10m'
+    max-file: '3'
+services:
+  json-to-eli:
+    # TODO: Uncomment when image is available
+    #image: lblod/decide-json-to-eli-service:0.0.1
+    environment:
+      DEFAULT_MU_AUTH_SCOPE: http://services.semantic.works/decide-json-to-eli-service
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging

@@ -5,49 +5,49 @@ networks:
 services:
   identifier:
     ports:
-      - "80:80"
-    restart: "no"
+      - '80:80'
+    restart: 'no'
   dispatcher:
-    restart: "no"
+    restart: 'no'
     networks:
       - default
       - debug
   database:
-    restart: "no"
+    restart: 'no'
     networks:
       - default
       - debug
   dcat:
-    restart: "no"
+    restart: 'no'
   virtuoso:
-    restart: "no"
+    restart: 'no'
     networks:
       - default
       - debug
   resource:
-    restart: "no"
+    restart: 'no'
   cache:
-    restart: "no"
+    restart: 'no'
   file:
-    restart: "no"
+    restart: 'no'
   vc-issuer:
-    restart: "no"
+    restart: 'no'
   mocklogin:
     image: lblod/mock-login-service:0.7.0
   migrations:
-    restart: "no"
+    restart: 'no'
   deltanotifier:
-    restart: "no"
+    restart: 'no'
   frontend-yasgui:
-    restart: "no"
+    restart: 'no'
   frontend-dcat:
-    restart: "no"
+    restart: 'no'
   frontend-human-validator:
-    restart: "no"
+    restart: 'no'
   frontend-harvesting:
-    restart: "no"
+    restart: 'no'
   oparl-to-eli:
-    restart: "no"
+    restart: 'no'
   lokaal-beslist-consumer:
     restart: no
   decisions-ghent-filter:
@@ -63,13 +63,13 @@ services:
   login:
     restart: no
   entity-linking:
-    restart: "no"
+    restart: 'no'
   pdf-content:
-    restart: "no"
+    restart: 'no'
   apache-tika:
-    restart: "no"
+    restart: 'no'
   question-answering:
-    restart: "no"
+    restart: 'no'
   search:
     restart: no
     profiles:
@@ -93,22 +93,22 @@ services:
   annotation-review:
     restart: no
   pdf-scraper:
-    restart: "no"
+    restart: 'no'
   nominatim:
-    restart: "no"
+    restart: 'no'
   named-entity-recognition:
-    restart: "no"
+    restart: 'no'
   codelist-labeling:
-    restart: "no"
+    restart: 'no'
   frontend-smart-search:
-    restart: "no"
+    restart: 'no'
   kibana:
     restart: no
     profiles:
       - search
     image: docker.elastic.co/kibana/kibana:9.2.0
     environment:
-      ELASTICSEARCH_HOSTS: "http://elasticsearch:9200"
+      ELASTICSEARCH_HOSTS: 'http://elasticsearch:9200'
     ports:
       - 127.0.0.1:5601:5601
     user: root
@@ -126,4 +126,6 @@ services:
     image: semtech/mu-registration-service:2.8.0
     links:
       - database:database
+    restart: no
+  json-to-eli:
     restart: no
