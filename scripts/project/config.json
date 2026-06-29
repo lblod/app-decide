@@ -1,0 +1,19 @@
+{
+  "version": "0.1",
+  "scripts": [{
+      "documentation": {
+        "command": "publish-dataset",
+        "description": "Publishes a dataset with a datadump and adds DCAT to triple store. Run 'mu script project-scripts publish-dataset --help' to see the options.",
+        "arguments": []
+      },
+      "environment": {
+        "image": "lblod/python-semantic-works-cli:0.0.1",
+        "interactive": false,
+        "join_networks": true,
+        "script": "publish_dataset/generate_datadump_and_dcat.py"
+      },
+      "mounts": {
+        "app": "/data/app/"
+      }
+    }]
+}

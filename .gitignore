@@ -5,4 +5,5 @@ config/login/*
 .DS_Store
 node_modules
 config/search/update-handler.store
+__pycache__
 /config/migrations/local/*

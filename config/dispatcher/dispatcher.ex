@@ -65,6 +65,10 @@ defmodule Dispatcher do
     Proxy.forward conn, [], "http://question-answering/openapi.json"
   end
 
+  match "/datadumps/*path", %{ accept: [:any], layer: :api_services } do
+    Proxy.forward conn, path, "http://datadumps/"
+  end
+
   match "/question-answering/*path", %{ accept: [:any], layer: :api_services } do
     Proxy.forward conn, path, "http://question-answering/question-answering/"
   end

@@ -17,9 +17,7 @@
     }
   }
   where {
-    values ?participant {
-      <http://data.lblod.info/id/bestuurseenheden/353234a365664e581db5c2f7cc07add2534b47b8e1ab87c821fc6e6365e6bef5> # Gent
-    }
+    {{ organizationFilter }}
 
     ?hvAnnotation a ext:ReviewAnnotation .
     ?hvAnnotation  oa:hasTarget ?originalAnnotation .
@@ -60,9 +58,9 @@
     {
       ?work eli:is_realized_by ?expression .
       ?work eli:passed_by ?org .
-      ?participant org:hasSubOrganization ?org .
+      ?organization org:hasSubOrganization ?org .
     }
     union {
-      ?expression ext:owningBody ?participant .
+      ?expression ext:owningBody ?organization .
     }
   }
