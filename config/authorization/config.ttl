@@ -71,7 +71,8 @@ ext:decideAuthorizationPolicy a odrl:Set ;
     ext:allowWriteForSession ,
     ext:allowReadPublicForSession ,
     ext:allowReadOrgsForSession ,
-    ext:allowPublicReadForAuthz .
+    ext:allowPublicReadForAuthz ,
+    ext:allowWritePdfForJsonToEli .
 
 # Parties for groups
 ext:decideSystem a odrl:Party ;
@@ -373,6 +374,12 @@ ext:allowReadAiSliceForQuestionAnswering a odrl:Permission ;
   odrl:assigner ext:decideSystem ;
   odrl:assignee ext:publicParty ;
   ext:scope "http://services.semantic.works/decide-question-answering-service" .
+
+ext:allowWritePdfForJsonToEli a odrl:Permission ;
+  odrl:action odrl:modify ;
+  odrl:target ext:decideHarvestedPdfSlice ;
+  odrl:assignee ext:publicParty ;
+  ext:scope "http://services.semantic.works/decide-json-to-eli-service" .
 
 
 # Assets (SHACL shapes) for type specifications
