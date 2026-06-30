@@ -182,6 +182,13 @@ defmodule Dispatcher do
   end
 
   #################
+  # JSON-TO-ELI
+  #################
+  match "/json-to-eli/*path", %{ accept: [:any], layer: :api_services } do
+    Proxy.forward conn, path, "http://json-to-eli/"
+  end
+
+  #################
   # RESOURCES
   #################
 
