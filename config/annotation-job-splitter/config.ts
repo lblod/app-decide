@@ -43,5 +43,16 @@ export default {
           },
         ],
       },
+    'http://lblod.data.gift/id/jobs/concept/JobOperation/harvesting/json-to-eli':
+      {
+        taskConfiguration: [
+          {
+            currentOperation:
+              'http://lblod.data.gift/id/jobs/concept/TaskOperation/split-task-json-to-eli',
+            nextOperation:
+              'http://lblod.data.gift/id/jobs/concept/TaskOperation/translating',
+          },
+        ],
+      },
   },
 };
