@@ -72,7 +72,9 @@ ext:decideAuthorizationPolicy a odrl:Set ;
     ext:allowReadPublicForSession ,
     ext:allowReadOrgsForSession ,
     ext:allowPublicReadForAuthz ,
-    ext:allowWritePdfForJsonToEli .
+    ext:allowWritePdfForJsonToEli ,
+    ext:allowReadForHarvestingJsonToEli ,
+    ext:allowWriteForHarvestingJsonToEli .
 
 # Parties for groups
 ext:decideSystem a odrl:Party ;
@@ -381,6 +383,19 @@ ext:allowWritePdfForJsonToEli a odrl:Permission ;
   odrl:assignee ext:publicParty ;
   ext:scope "http://services.semantic.works/decide-json-to-eli-service" .
 
+ext:allowReadForHarvestingJsonToEli a odrl:Permission ;
+  odrl:action odrl:read ;
+  odrl:target ext:decideHarvestingSlice ;
+  odrl:assigner ext:decideSystem ;
+  odrl:assignee ext:publicParty ;
+  ext:scope "http://services.semantic.works/decide-json-to-eli-service" .
+
+ext:allowWriteForHarvestingJsonToEli a odrl:Permission ;
+  odrl:action odrl:modify ;
+  odrl:target ext:decideHarvestingSlice ;
+  odrl:assigner ext:decideSystem ;
+  odrl:assignee ext:publicParty ;
+  ext:scope "http://services.semantic.works/decide-json-to-eli-service" .
 
 # Assets (SHACL shapes) for type specifications
 ext:BesluitAdministrativeUnitAsset a odrl:Asset, sh:NodeShape ;
