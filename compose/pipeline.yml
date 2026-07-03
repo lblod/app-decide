@@ -6,6 +6,7 @@ x-logging: &default-logging
 include:
   - oparl.yml
   - oslo.yml
+  - json.yml
   - ai.yml
 services:
   ##############################################################################
