@@ -53,7 +53,7 @@ This should be your go-to way of starting the stack.
 ./scripts/start.sh
 ```
 
-This script runs `docker compose up -d`, but first sets the `APP_VERSION` environment variable to the currently checked out tag or commit of this git repository. This is then passed into the AI services so that they track the provenance of the annotations that they create with an agent URI representing the versioned service with the configuration that corresponds to this tag or commit.
+This script runs `docker compose up -d`, but first sets the `APP_VERSION` environment variable to the currently checked out tag or commit of this git repository. This is then passed into the AI services so that they track the provenance of the annotations that they create with an agent URI representing the versioned service with the configuration that corresponds to this tag or commit. You can pass arguments to the script that will be appended to the `docker compose up -d` call that it performs internally, for instance `./script/start.sh virtuoso migrations` would run `docker compose up -d virtuoso migrations`.
 
 This environment variable is used in the AI services (see `./compose/ai.yml`). They have the following set of environment variables:
 
