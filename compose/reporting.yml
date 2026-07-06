@@ -5,7 +5,7 @@ x-logging: &default-logging
     max-file: '3'
 services:
   report-generation:
-    image: lblod/loket-report-generation-service:0.8.9
+    image: lblod/loket-report-generation-service:0.8.10
     environment:
       DEFAULT_GRAPH: 'http://mu.semte.ch/graphs/reports'
       RUN_SPARQL_VALIDATIONS: false
