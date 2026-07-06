@@ -108,12 +108,13 @@ services:
   # vc-issuer:
   #   entrypoint: ["echo", "Service vc-issuer is disabled"]
 
+  # Uncomment to disable data quality manager service
+  # This service allows to generate reports about data quality, meant for
+  # internal monitoring
+  # report-generation:
+  #   entrypoint: ["echo", "Service report-generation is disabled"]
 
-  # Comment to enable general services
-  report-generation:
-    # This service allows to generate reports about data quality, meant for
-    # internal monitoring
-    entrypoint: ["echo", "Service report-generation is disabled"]
+  # Comment to enable general services    
   acmidm-login:
     # This service is used to integrate with ACMIDM, a Belgian single sign-on
     # solution based on Oauth2 and OpenID
