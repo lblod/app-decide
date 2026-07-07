@@ -115,9 +115,13 @@ export default {
         FILTER NOT EXISTS {
           ?object skos:inScheme <http://mu.semte.ch/vocabularies/ext/impact> .
         }
-        
-        VALUES ?agent {
-          <http://lblod.data.gift/id/components/codelist-annotation/v1.0.0>
+        {
+          ?action prov:wasAssociatedWith ?agent .
+          FILTER (?agent IN (<http://lblod.data.gift/id/components/codelist-annotation/v1.0.0>))
+        }
+        UNION {
+          ?annotation a ext:CorrectionAnnotation .
+          ?action prov:wasAssociatedWith ?agent .
         }
       `,
 
