@@ -42,6 +42,7 @@ services:
       BYPASS_MU_SPARQL_ENDPOINT: true
       BATCH_SIZE: 1000
       SLEEP_BETWEEN_BATCHES: 5
+      DROP_INPUT_GRAPH: true
       OPERATION_URI: http://lblod.data.gift/id/jobs/concept/TaskOperation/oslo-eli/transform
     labels:
       - logging=true
