@@ -21,6 +21,7 @@ services:
       EMBER_NER_AND_NEL_ANNOTATIONS_ENABLED: true
       EMBER_CODELIST_MAPPING_ENABLED: true
       EMBER_OSLO_HARVESTING_ENABLED: true
+      EMBER_RESOURCE_TYPES_ENABLED: true
     labels:
       - 'logging=true'
     restart: always
@@ -69,6 +70,17 @@ services:
       - 'logging=true'
   harvest_singleton-job:
     image: lblod/harvesting-singleton-job-service:1.0.0
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging
+  # Lists the rdf:type(s) of the resources a data container points to via
+  # task:hasResource. Backs the task dashboard's "resource types" view, which
+  # mu-cl-resources cannot serve (see resource-type-service/README.md).
+  resource-type-service:
+    image: lblod/resource-type-service:latest
+    environment:
+      DEFAULT_MU_AUTH_SCOPE: 'http://services.semantic.works/resource-type-service'
     labels:
       - 'logging=true'
     restart: always

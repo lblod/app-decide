@@ -93,6 +93,10 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://report-generation/"
   end
 
+  match "/resource-type-service/*path", %{ accept: [:json], layer: :api_services } do
+    Proxy.forward conn, path, "http://resource-type-service/"
+  end
+
   #################
   # Jobs & tasks
   #################
