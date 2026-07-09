@@ -43,7 +43,7 @@ export default {
           },
         ],
       },
-    'http://lblod.data.gift/id/jobs/concept/JobOperation/harvesting/json-to-eli':
+    'http://lblod.data.gift/id/jobs/concept/JobOperation/harvesting/json-to-enriched':
       {
         taskConfiguration: [
           {
