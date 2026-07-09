@@ -74,9 +74,7 @@ services:
       - 'logging=true'
     restart: always
     logging: *default-logging
-  # Lists the rdf:type(s) of the resources a data container points to via
-  # task:hasResource. Backs the task dashboard's "resource types" view, which
-  # mu-cl-resources cannot serve (see resource-type-service/README.md).
+
   resource-type-service:
     image: lblod/resource-type-service:latest
     environment:
