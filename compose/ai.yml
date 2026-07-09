@@ -128,7 +128,7 @@ services:
     labels:
       - logging=true
   named-entity-recognition:
-    image: semanticai/decide-geocoding-service:0.1.2
+    image: semanticai/decide-geocoding-service:0.1.3
     environment:
       TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
       JOB_GRAPH: http://mu.semte.ch/graphs/harvesting
