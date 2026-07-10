@@ -76,7 +76,7 @@ services:
     logging: *default-logging
 
   resource-type-service:
-    image: lblod/resource-type-service:latest
+    image: lblod/resource-type-service:0.0.1
     environment:
       DEFAULT_MU_AUTH_SCOPE: 'http://services.semantic.works/resource-type-service'
     labels:
