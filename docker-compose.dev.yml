@@ -127,3 +127,5 @@ services:
     links:
       - database:database
     restart: no
+  json-to-eli:
+    restart: no

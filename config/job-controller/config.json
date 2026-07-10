@@ -44,11 +44,84 @@
         "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/pdf-scraping",
         "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/pdf-to-eli",
         "nextIndex": "2"
+      }
+    ]
+  },
+  "http://lblod.data.gift/id/jobs/concept/JobOperation/harvesting/pdf-to-enriched": {
+    "tasksConfiguration": [
+      {
+        "currentOperation": null,
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/singleton-job",
+        "nextIndex": "0"
+      },
+      {
+        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/singleton-job",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/pdf-scraping",
+        "nextIndex": "1"
+      },
+      {
+        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/pdf-scraping",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/pdf-to-eli",
+        "nextIndex": "2"
       },
       {
         "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/pdf-to-eli",
         "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/translating",
         "nextIndex": "3"
+      },
+      {
+        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/translating",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/segmenting",
+        "nextIndex": "4"
+      },
+      {
+        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/segmenting",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/entity-extracting",
+        "nextIndex": "5"
+      },
+      {
+        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/entity-extracting",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/named-entity-linking",
+        "nextIndex": "6"
+      }
+    ]
+  },
+  "http://lblod.data.gift/id/jobs/concept/JobOperation/harvesting/json-to-eli": {
+    "tasksConfiguration": [
+      {
+        "currentOperation": null,
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/singleton-job",
+        "nextIndex": "0"
+      },
+      {
+        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/singleton-job",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/json-to-eli",
+        "nextIndex": "1"
+      }
+    ]
+  },
+  "http://lblod.data.gift/id/jobs/concept/JobOperation/harvesting/json-to-enriched": {
+    "tasksConfiguration": [
+      {
+        "currentOperation": null,
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/singleton-job",
+        "nextIndex": "0"
+      },
+      {
+        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/singleton-job",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/json-to-eli",
+        "nextIndex": "1"
+      },
+      {
+        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/json-to-eli",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/split-task-json-to-eli",
+        "nextIndex": "2"
+      },
+      {
+        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/split-task-json-to-eli",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/translating",
+        "nextIndex": "3",
+        "external": true
       },
       {
         "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/translating",
