@@ -5,8 +5,7 @@ x-logging: &default-logging
     max-file: '3'
 services:
   json-to-eli:
-    # TODO: Uncomment when image is available
-    #image: lblod/decide-json-to-eli-service:0.0.1
+    image: lblod/decide-json-to-eli-service:0.0.1
     environment:
       DEFAULT_MU_AUTH_SCOPE: http://services.semantic.works/decide-json-to-eli-service
     labels:
