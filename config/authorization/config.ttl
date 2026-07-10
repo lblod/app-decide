@@ -34,6 +34,8 @@
 @prefix wikidata: <http://www.wikidata.org/entity/> .
 @prefix wot: <https://www.w3.org/2019/wot/security#> .
 @prefix session: <http://mu.semte.ch/vocabularies/session/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
 
 ext:muAuthProfile a odrl:Profile ;
   dct:description "ODRL profile describing access to mu-auth resources." .
@@ -617,6 +619,18 @@ ext:ExtAnnotionJobAsset a odrl:Asset, sh:NodeShape ;
 ext:ExtReviewAnnotationAsset a odrl:Asset, sh:NodeShape ;
   odrl:partOf ext:decideHumanValidationSlice ;
   sh:targetClass ext:ReviewAnnotation .
+
+ext:ExtCorrectionAnnotationAsset a odrl:Asset, sh:NodeShape ;
+  odrl:partOf ext:decideHumanValidationSlice ;
+  sh:targetClass ext:CorrectionAnnotation .
+
+ext:ActivityAsset a odrl:Asset, sh:NodeShape ;
+  odrl:partOf ext:decideHumanValidationSlice ;
+  sh:targetClass prov:Activity .
+
+ext:StatementAsset a odrl:Asset, sh:NodeShape ;
+  odrl:partOf ext:decideHumanValidationSlice ;
+  sh:targetClass rdf:Statement .
 
 ext:SchemaQuestionAsset a odrl:Asset, sh:NodeShape ;
   odrl:partOf ext:decideQuestionAnsweringSlice ,
