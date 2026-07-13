@@ -7,6 +7,8 @@
     "language": "nl",
     "method": "composite",
     "post_process": true,
+    "validate_persons": true,
+    "min_confidence": null,
     "labels": ["CITY", "DOMAIN", "HOUSENUMBERS", "INTERSECTION", "POSTCODE", "PROVINCE", "ROAD", "STREET"],
     "enable_refinement": true
   },
