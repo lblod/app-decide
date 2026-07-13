@@ -25,6 +25,16 @@ services:
     entrypoint: ["echo", "Service file is disabled"]
 
   # Disable general data space services
+  frontend-yasgui:
+    restart: no
+    entrypoint: ["echo", "Service frontend-yasgui is disabled"]
+  registration:
+    restart: no
+    entrypoint: ["echo", "Service registration is disabled"]
+  dsp-auth-wrapper:
+    restart: no
+    entrypoint: ["echo", "Service dsp-auth-wrapper is disabled"]
+
   vc-issuer:
     restart: no
     entrypoint: ["echo", "Service vc-issuer is disabled"]
