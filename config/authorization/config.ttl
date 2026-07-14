@@ -596,6 +596,10 @@ ext:ExtReviewAnnotationAsset a odrl:Asset, sh:NodeShape ;
   odrl:partOf ext:decideHumanValidationSlice ;
   sh:targetClass ext:ReviewAnnotation .
 
+ext:ExtAnnotationTargetAsset a odrl:Asset, sh:NodeShape ;
+  odrl:partOf ext:decideHumanValidationSlice ;
+  sh:targetClass ext:AnnotationTarget .
+
 ext:SchemaQuestionAsset a odrl:Asset, sh:NodeShape ;
   odrl:partOf ext:decideQuestionAnsweringSlice ,
     ext:decideAiSlice ;
