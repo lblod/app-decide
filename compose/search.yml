@@ -28,7 +28,7 @@ services:
     environment:
       - discovery.type=single-node
   embedding:
-    image: semanticai/embedding-service:0.0.3
+    image: semanticai/embedding-service:0.0.4
     labels:
       - logging=true
     restart: always
@@ -57,7 +57,7 @@ services:
     labels:
       - 'logging=true'
     restart: always
-   # The backend question-answering service is configured in compose/ai.yml
+    # The backend question-answering service is configured in compose/ai.yml
 
 volumes:
   elasticsearch-data:
