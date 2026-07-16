@@ -53,6 +53,7 @@ ext:decideAuthorizationPolicy a odrl:Set ;
     ext:allowReadForAiSlice ,
     ext:allowReadOsloOrgsForHumanValidation ,
     ext:allowReadForHumanValidation ,
+    ext:allowQuestionAnsweringReadForHumanValidation,
     ext:allowWriteForHumanValidation ,
     ext:allowReadForQuestionAnswering ,
     ext:allowWriteForQuestionAnswering ,
@@ -273,6 +274,13 @@ ext:allowReadOrgsForSession a odrl:Permission ;
 ext:allowReadForHumanValidation a odrl:Permission ;
   odrl:action odrl:read ;
   odrl:target ext:decideHumanValidationSlice ;
+  odrl:assigner ext:decideSystem ;
+  odrl:assignee ext:publicParty  ;
+  ext:scope "http://services.semantic.works/annotation-review-service" .
+
+ext:allowQuestionAnsweringReadForHumanValidation a odrl:Permission ;
+  odrl:action odrl:read ;
+  odrl:target ext:decideQuestionAnsweringSlice ;
   odrl:assigner ext:decideSystem ;
   odrl:assignee ext:publicParty  ;
   ext:scope "http://services.semantic.works/annotation-review-service" .
