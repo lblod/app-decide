@@ -1,0 +1,97 @@
+PREFIX odrl: <http://www.w3.org/ns/odrl/2/> 
+PREFIX dcat: <http://www.w3.org/ns/dcat#>  
+PREFIX dct: <http://purl.org/dc/terms/>  
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
+PREFIX foaf: <http://xmlns.com/foaf/0.1/> 
+PREFIX schema: <https://schema.org/> 
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX private-ds-ex: <http://decide.data.gift/datasets/example/60e19fdf-b549-41b9-9adf-420379285127/> 
+PREFIX public-ds-ex: <http://decide.data.gift/datasets/example/1ae2da8e-9889-426b-a7e8-9360c15ba2cd/> 
+PREFIX mu: <http://mu.semte.ch/vocabularies/core/> 
+PREFIX ext: <http://mu.semte.ch/vocabularies/ext/>
+
+INSERT {
+  GRAPH <http://mu.semte.ch/graphs/public> {
+    ?s dct:modified ?now.
+  }
+}
+WHERE {
+  VALUES ?s {
+    public-ds-ex:dataset
+    public-ds-ex:distribution
+    public-ds-ex:policy
+    private-ds-ex:dataset
+    private-ds-ex:distribution    
+    private-ds-ex:policy
+    private-ds-ex:licensedUserCollection
+    private-ds-ex:licenseOffering
+    private-ds-ex:howTo
+  }
+  ?s a ?thing .
+  FILTER NOT EXISTS {
+    ?s dct:modified ?modified.
+  }
+  BIND(NOW() AS ?now)
+};
+DELETE {
+  GRAPH <http://mu.semte.ch/graphs/public> {
+    ?s ?ruleType ?rule.
+    ?rule ?p ?o.
+  }
+}
+INSERT {
+  GRAPH <http://mu.semte.ch/graphs/public> {
+    ?newRule dct:modified ?now.
+    ?s ?ruleType ?newRule.
+    ?newRule ?p ?o.
+    ?newRule a ?class .
+  }
+}
+WHERE {
+  VALUES ?s {
+    public-ds-ex:dataset
+    public-ds-ex:distribution
+    public-ds-ex:policy
+    private-ds-ex:dataset
+    private-ds-ex:distribution    
+    private-ds-ex:policy
+    private-ds-ex:licensedUserCollection
+    private-ds-ex:licenseOffering
+    private-ds-ex:howTo
+  }
+  VALUES (?ruleType ?class) {
+    (odrl:permission odrl:Permission)
+    (odrl:prohibition odrl:Prohibition)
+  }
+  ?s ?ruleType ?rule.
+  ?rule ?p ?o.
+
+  BIND(IRI(CONCAT(STR(?s), "/", SUBSTR(STR(?ruleType), 29))) AS ?newRule)
+  BIND(NOW() AS ?now)
+} ;
+
+INSERT {
+  GRAPH <http://mu.semte.ch/graphs/public> {
+    ?newRule mu:uuid ?id.
+  }
+}
+WHERE {
+  VALUES ?s {
+    public-ds-ex:dataset
+    public-ds-ex:distribution
+    public-ds-ex:policy
+    private-ds-ex:dataset
+    private-ds-ex:distribution    
+    private-ds-ex:policy
+    private-ds-ex:licensedUserCollection
+    private-ds-ex:licenseOffering
+    private-ds-ex:howTo
+  }
+  VALUES ?ruleType {
+    odrl:permission
+    odrl:prohibition
+  }
+  ?s ?ruleType ?newRule.
+
+BIND(STRUUID() AS ?id)
+}

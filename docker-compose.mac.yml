@@ -1,6 +1,4 @@
 services:
-  identifier:
-    image: benfidlers/mu-identifier:1.10.3-arm64
   dispatcher:
     platform: linux/amd64
   virtuoso:

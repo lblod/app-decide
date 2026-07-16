@@ -44,6 +44,8 @@ The following enviroment variables can be configured:
 * `INSERT_BATCH_SIZE`: Number of triples that will be insert per batch. Defaults to `100`.
 * `ONLY_KEEP_LATEST_REPORT`: Boolean that allows, when set to `true`, to only keep the most recent version of a report during its creation and to delete oder versions. Defaults to `false`
 * `RUN_REPORT_NOW`: service automatically starts at start up
+* `SAMPLING_ENABLED`: Boolean that limits validation to a sample of resources per target class. Defaults to `true`.
+* `SAMPLING_SIZE`: Maximum number of resources to validate per target class when `SAMPLING_ENABLED` is `true`. Defaults to `100`.
 
 ## SPARQL-based validation
 

@@ -10,6 +10,10 @@ services:
     labels:
       - logging=true
     restart: always
+  datadumps:
+    image: nginx:1.30.0-alpine
+    volumes:
+      - ../data/datadumps:/usr/share/nginx/html:ro
   vc-issuer:
     image: lblod/oid4vc-login-service:0.0.3
     environment:

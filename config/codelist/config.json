@@ -1,7 +1,7 @@
 {
   "llm": {
     "provider": "mistralai",
-    "model_name": "mistral-small-latest",
+    "model_name": "mistral-medium-latest",
     "temperature": 0.1,
     "base_url": "https://api.mistral.ai/v1",
     "timeout": 120
@@ -11,12 +11,26 @@
     "learning_rate": 0.00002,
     "epochs": 2,
     "weight_decay": 0.01,
-    "huggingface_token": "",
-    "huggingface_output_model_id": ""
+    "huggingface_token": null,
+    "huggingface_output_model_id": null
   },
   "ml_inference": {
-    "huggingface_model_id": "",
-    "huggingface_token": "",
+    "huggingface_model_id": null,
+    "huggingface_token": null,
     "confidence_threshold": 0.5
+  },
+  "codelist_prompts": {
+    "default": {
+      "system_message": "You are a juridical and administrative assistant that must determine the best matching codes from a list with a given text.",
+      "user_message": "Determine the best matching codes from the following list for the given public decision.\n\n\"\"\"CODE LIST:\n{code_list}\n\"\"\"\n\n\"\"\"DECISION TEXT:\n{decision_text}\n\"\"\"Provide your answer as a list of strings representing the matching codes. You MUST only return values that appear EXACTLY in the CODE LIST above, NOT from the label descriptions. Provide all matching codes (can be a single one), but only those that are truly matching. If none of the codes match, return an empty list."
+    },
+    "http://data.lblod.gift/id/conceptscheme/sdg-simple": {
+      "system_message": "You are an expert at classifying administrative decision texts against the UN Sustainable Development Goals (SDGs 1–17). You identify ALL applicable SDGs based on concrete decisions, actions, commitments, or implementations mentioned in the text. You respond only with valid JSON. You MUST strictly use only codes from the provided reference list. No other labels or values are allowed.",
+      "user_message": "Analyze the administrative decision text below and determine which codes from the reference list apply.\n\nCRITICAL RULES:\n- Assign a code only when the text describes a DECISION, ACTION, COMMITMENT, or IMPLEMENTATION related to the code's topic\n- A single text can match MULTIPLE codes — return ALL that apply\n- Do NOT assign codes for questions, discussions without decisions, or unapproved proposals\n- If none of the codes apply, return an empty list\n- Return ONLY the code numbers (values in square brackets) as strings\n- YOU MUST NOT invent, paraphrase, or modify any codes\n- The ONLY valid output values are those explicitly present in the reference list\n- Any label not present in {code_list} is strictly forbidden\n\nGuidance for SDG 16 (Peace, Justice and Strong Institutions):\n- Do NOT assign for purely internal administrative actions (financial plans, routine procurement, statutory powers) unless the text explicitly targets transparency, rule of law, access to justice, citizen participation, public safety, or anti-corruption\n\nREFERENCE LIST (ONLY VALID SOURCE OF LABELS):\n{code_list}\n\nDECISION TEXT:\n\"\"\"\n{decision_text}\n\"\"\"\n\nReturn ALL matching code numbers as a list of strings.\nIf no codes apply, return []."
+    },
+    "http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-simple": {
+      "system_message": "You are an expert in municipal decision texts and SKOS-based classification. The input is a single administrative decision. You must determine whether it describes an implemented or enforceable Restricted Mobility Zone as defined in the provided SKOS concept scheme. You respond only with valid JSON. You MUST strictly use only labels defined in the provided concept scheme. No other labels, synonyms, or free-text values are allowed under any circumstances.",
+      "user_message": "Analyze the administrative decision text below and determine whether it concerns ANY kind of Restricted Mobility Zone.\n\nYou MUST base your decision strictly on the following SKOS concept scheme:\nhttp://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-simple\n\nThis concept scheme defines a single valid concept:\n- \"Restrictive mobility zone\" (skos:prefLabel)\n\nA Restricted Mobility Zone is any clearly defined measure that restricts or regulates traffic or parking in a specific public space. Examples include: reserved parking spaces, school streets, bicycle zones, home zones (woonerf), pedestrian zones, car-free zones, zero/low emission zones, works occupying public domain, or events affecting traffic.\n\nTo qualify, the measure MUST:\n- Specify a concrete location (street, zone, or area)\n- Define a period of validity (start/end date, recurring schedule, or explicitly permanent)\n- Have a direct impact on traffic or parking (restriction, prohibition, prioritization, or occupation of public space)\n\nDo NOT qualify:\n- Items without a clear location\n- Items without a defined time period (unless explicitly permanent)\n- Plans, proposals, or discussions without implemented measures\n- Decisions that do not affect traffic or parking in practice\n\nSTRICT OUTPUT RULES (MANDATORY):\n- You MUST return valid JSON only\n- You MUST return a JSON array with either exactly one string or an empty array\n- The ONLY allowed non-empty value is exactly the skos:prefLabel from the concept scheme:\n  \"Restrictive mobility zone\"\n- You MUST NOT output any synonyms, translations, paraphrases, or alternative labels (e.g., \"RMZ\", \"restricted zone\", etc.)\n- You MUST NOT invent labels outside the concept scheme\n- If it does not qualify, return exactly: []\n- Any deviation from these rules is invalid output\n\n---\nADDITIONAL CONTEXT (REFERENCE ONLY — DO NOT USE FOR OUTPUT CONSTRUCTION)\nThe following is the raw code list for informational purposes only. It MUST NOT affect output formatting or introduce new labels:\n{code_list}\n---\n\nDECISION TEXT:\n\"\"\"\n{decision_text}\n\"\"\"\n\nReturn ONLY one of the following valid outputs:\n- [\"Restrictive mobility zone\"]\n- []"
+    }
   }
 }

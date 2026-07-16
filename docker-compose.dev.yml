@@ -92,6 +92,8 @@ services:
       - search
   annotation-review:
     restart: no
+  resource-type-service:
+    restart: no
   pdf-scraper:
     restart: "no"
   nominatim:
@@ -126,4 +128,6 @@ services:
     image: semtech/mu-registration-service:2.8.0
     links:
       - database:database
+    restart: no
+  json-to-eli:
     restart: no

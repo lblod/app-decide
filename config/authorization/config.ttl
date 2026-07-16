@@ -34,6 +34,8 @@
 @prefix wikidata: <http://www.wikidata.org/entity/> .
 @prefix wot: <https://www.w3.org/2019/wot/security#> .
 @prefix session: <http://mu.semte.ch/vocabularies/session/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
 
 ext:muAuthProfile a odrl:Profile ;
   dct:description "ODRL profile describing access to mu-auth resources." .
@@ -72,7 +74,10 @@ ext:decideAuthorizationPolicy a odrl:Set ;
     ext:allowWriteForSession ,
     ext:allowReadPublicForSession ,
     ext:allowReadOrgsForSession ,
-    ext:allowPublicReadForAuthz .
+    ext:allowPublicReadForAuthz ,
+    ext:allowWritePdfForJsonToEli ,
+    ext:allowReadForHarvestingJsonToEli ,
+    ext:allowWriteForHarvestingJsonToEli .
 
 # Parties for groups
 ext:decideSystem a odrl:Party ;
@@ -382,6 +387,25 @@ ext:allowReadAiSliceForQuestionAnswering a odrl:Permission ;
   odrl:assignee ext:publicParty ;
   ext:scope "http://services.semantic.works/decide-question-answering-service" .
 
+ext:allowWritePdfForJsonToEli a odrl:Permission ;
+  odrl:action odrl:modify ;
+  odrl:target ext:decideHarvestedPdfSlice ;
+  odrl:assignee ext:publicParty ;
+  ext:scope "http://services.semantic.works/decide-json-to-eli-service" .
+
+ext:allowReadForHarvestingJsonToEli a odrl:Permission ;
+  odrl:action odrl:read ;
+  odrl:target ext:decideHarvestingSlice ;
+  odrl:assigner ext:decideSystem ;
+  odrl:assignee ext:publicParty ;
+  ext:scope "http://services.semantic.works/decide-json-to-eli-service" .
+
+ext:allowWriteForHarvestingJsonToEli a odrl:Permission ;
+  odrl:action odrl:modify ;
+  odrl:target ext:decideHarvestingSlice ;
+  odrl:assigner ext:decideSystem ;
+  odrl:assignee ext:publicParty ;
+  ext:scope "http://services.semantic.works/decide-json-to-eli-service" .
 
 # Assets (SHACL shapes) for type specifications
 ext:BesluitAdministrativeUnitAsset a odrl:Asset, sh:NodeShape ;
@@ -607,6 +631,18 @@ ext:ExtReviewAnnotationAsset a odrl:Asset, sh:NodeShape ;
 ext:ExtAnnotationTargetAsset a odrl:Asset, sh:NodeShape ;
   odrl:partOf ext:decideHumanValidationSlice ;
   sh:targetClass ext:AnnotationTarget .
+  
+ext:ExtCorrectionAnnotationAsset a odrl:Asset, sh:NodeShape ;
+  odrl:partOf ext:decideHumanValidationSlice ;
+  sh:targetClass ext:CorrectionAnnotation .
+
+ext:ActivityAsset a odrl:Asset, sh:NodeShape ;
+  odrl:partOf ext:decideHumanValidationSlice ;
+  sh:targetClass prov:Activity .
+
+ext:StatementAsset a odrl:Asset, sh:NodeShape ;
+  odrl:partOf ext:decideHumanValidationSlice ;
+  sh:targetClass rdf:Statement .
 
 ext:SchemaQuestionAsset a odrl:Asset, sh:NodeShape ;
   odrl:partOf ext:decideQuestionAnsweringSlice ,

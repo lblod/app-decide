@@ -65,6 +65,10 @@ defmodule Dispatcher do
     Proxy.forward conn, [], "http://question-answering/openapi.json"
   end
 
+  match "/datadumps/*path", %{ accept: [:any], layer: :api_services } do
+    Proxy.forward conn, path, "http://datadumps/"
+  end
+
   match "/question-answering/*path", %{ accept: [:any], layer: :api_services } do
     Proxy.forward conn, path, "http://question-answering/question-answering/"
   end
@@ -87,6 +91,10 @@ defmodule Dispatcher do
 
   match "/shacl-reports/*path", %{ accept: [:any], layer: :static } do
     Proxy.forward conn, path, "http://report-generation/"
+  end
+
+  match "/resource-type-service/*path", %{ accept: [:json], layer: :api_services } do
+    Proxy.forward conn, path, "http://resource-type-service/"
   end
 
   #################
@@ -175,6 +183,13 @@ defmodule Dispatcher do
 
   match "/eli/*path", %{ accept: [:any], layer: :api_services } do
     Proxy.forward conn, path, "http://oparl-to-eli/eli/"
+  end
+
+  #################
+  # JSON-TO-ELI
+  #################
+  match "/json-to-eli/*path", %{ accept: [:any], layer: :api_services } do
+    Proxy.forward conn, path, "http://json-to-eli/"
   end
 
   #################

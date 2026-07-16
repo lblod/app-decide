@@ -19,4 +19,4 @@ fi
 
 # Export the result
 echo "starting Decide stack with APP_VERSION=$APP_VERSION"
-APP_VERSION=$APP_VERSION docker compose up -d
+APP_VERSION=$APP_VERSION docker compose up -d "$@"
