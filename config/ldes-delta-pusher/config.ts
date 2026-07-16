@@ -1,10 +1,13 @@
 import { sparqlEscapeUri } from 'mu';
 
 export const PUBLIC_GRAPH = 'http://mu.semte.ch/graphs/public';
+export const MU_AUTH_CONFIG_GRAPH =
+  'http://mu.semte.ch/graphs/odrl-authorization-policy';
 
 export const PUBLIC_GRAPH_FILTER = `
   VALUES ?g {
     ${sparqlEscapeUri(PUBLIC_GRAPH)}
+    ${sparqlEscapeUri(MU_AUTH_CONFIG_GRAPH)}
 }`;
 
 // NOTE (28/05/2026): Not all interesting resources have a triple for this
@@ -46,6 +49,46 @@ export const streams: LdesConfig = {
       healingPredicates: [HEALING_PREDICATE],
     },
     'http://www.w3.org/ns/dcat#CatalogRecord': {
+      graphFilter: PUBLIC_GRAPH_FILTER,
+      healingPredicates: [HEALING_PREDICATE],
+    },
+    'http://www.w3.org/ns/odrl/2/Offer': {
+      graphFilter: PUBLIC_GRAPH_FILTER,
+      healingPredicates: [HEALING_PREDICATE],
+    },
+    'https://schema.org/Offer': {
+      graphFilter: PUBLIC_GRAPH_FILTER,
+      healingPredicates: [HEALING_PREDICATE],
+    },
+    'https://schema.org/HowTo': {
+      graphFilter: PUBLIC_GRAPH_FILTER,
+      healingPredicates: [HEALING_PREDICATE],
+    },
+    'http://www.w3.org/ns/odrl/2/Set': {
+      graphFilter: PUBLIC_GRAPH_FILTER,
+      healingPredicates: [HEALING_PREDICATE],
+    },
+    'http://www.w3.org/ns/odrl/2/Permission': {
+      graphFilter: PUBLIC_GRAPH_FILTER,
+      healingPredicates: [HEALING_PREDICATE],
+    },
+    'http://www.w3.org/ns/odrl/2/Prohibition': {
+      graphFilter: PUBLIC_GRAPH_FILTER,
+      healingPredicates: [HEALING_PREDICATE],
+    },
+    'http://www.w3.org/ns/odrl/2/Party': {
+      graphFilter: PUBLIC_GRAPH_FILTER,
+      healingPredicates: [HEALING_PREDICATE],
+    },
+    'http://www.w3.org/ns/odrl/2/PartyCollection': {
+      graphFilter: PUBLIC_GRAPH_FILTER,
+      healingPredicates: [HEALING_PREDICATE],
+    },
+    'http://www.w3.org/ns/odrl/2/AssetCollection': {
+      graphFilter: PUBLIC_GRAPH_FILTER,
+      healingPredicates: [HEALING_PREDICATE],
+    },
+    'http://www.w3.org/ns/odrl/2/Asset': {
       graphFilter: PUBLIC_GRAPH_FILTER,
       healingPredicates: [HEALING_PREDICATE],
     },

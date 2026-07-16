@@ -24,15 +24,15 @@ export default {
       `,
       // can use to filter annotations for a given target, need to fix the set of agents once we have final uris for them
       annotationFilter: `
-        VALUES ?agent {          
-          <http://data.gift/id/components/entity-extraction/v1.0.0>
-          <http://data.gift/id/components/segmentation/v1.0.0>
-          <http://lblod.data.gift/id/components/named-entity-linking/v1.0.0>
-          <http://lblod.data.gift/id/components/pdf-to-eli/v1.0.0>
+        FILTER NOT EXISTS {
+          VALUES ?hidden {
+            <http://lblod.data.gift/id/components/named-entity-linking/v1.0.0>
+            <http://lblod.data.gift/id/components/translation/v1.0.0>
+          }
+          ?agent <http://www.w3.org/ns/prov#specializationOf>  ?hidden.
         }
         FILTER(?type NOT IN (<http://www.w3.org/ns/locn#Address>, <https://data.vlaanderen.be/ns/adres#Straatnaam>, <http://www.wikidata.org/entity/Q2785216>, <http://www.wikidata.org/entity/Q123705>, <https://data.vlaanderen.be/ns/omgevingsvergunning#NormatieveBepaling> ))
         FILTER(!BOUND(?typeClass) || ?typeClass NOT IN ( <http://mu.semte.ch/vocabularies/ext/AnnotationBody> ))
-        
       `,
       annotationPath: `
         ?annotation oa:hasTarget ?resource .
@@ -114,14 +114,6 @@ export default {
         FILTER(!BOUND(?typeClass) || ?typeClass NOT IN ( <http://mu.semte.ch/vocabularies/ext/AnnotationBody>, <http://mu.semte.ch/vocabularies/ext/NoMatchFound> ) )
         FILTER NOT EXISTS {
           ?object skos:inScheme <http://mu.semte.ch/vocabularies/ext/impact> .
-        }
-        {
-          ?action prov:wasAssociatedWith ?agent .
-          FILTER (?agent IN (<http://lblod.data.gift/id/components/codelist-annotation/v1.0.0>))
-        }
-        UNION {
-          ?annotation a ext:CorrectionAnnotation .
-          ?action prov:wasAssociatedWith ?agent .
         }
       `,
 
