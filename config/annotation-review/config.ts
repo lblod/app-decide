@@ -31,8 +31,8 @@ export default {
           }
           ?agent <http://www.w3.org/ns/prov#specializationOf>  ?hidden.
         }
-        FILTER(?type NOT IN (<http://www.w3.org/ns/locn#Address>, <https://data.vlaanderen.be/ns/adres#Straatnaam>, <http://www.wikidata.org/entity/Q2785216>, <http://www.wikidata.org/entity/Q123705> ))
-        FILTER(!BOUND(?typeClass) || ?typeClass NOT IN ( <http://mu.semte.ch/vocabularies/ext/AnnotationBody> ))        
+        FILTER(?type NOT IN (<http://www.w3.org/ns/locn#Address>, <https://data.vlaanderen.be/ns/adres#Straatnaam>, <http://www.wikidata.org/entity/Q2785216>, <http://www.wikidata.org/entity/Q123705>, <https://data.vlaanderen.be/ns/omgevingsvergunning#NormatieveBepaling> ))
+        FILTER(!BOUND(?typeClass) || ?typeClass NOT IN ( <http://mu.semte.ch/vocabularies/ext/AnnotationBody> ))
       `,
       annotationPath: `
         ?annotation oa:hasTarget ?resource .
