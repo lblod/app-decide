@@ -39,7 +39,7 @@ services:
     labels:
       - 'logging=true'
   job-controller:
-    image: lblod/job-controller-service:1.4.0
+    image: lblod/job-controller-service:1.4.1
     volumes:
       - ../config/job-controller:/config
     environment:
@@ -62,7 +62,7 @@ services:
     restart: always
     logging: *default-logging
   annotation-job-splitter:
-    image: lblod/annotation-job-splitter-service:0.0.4
+    image: lblod/annotation-job-splitter-service:0.0.5
     restart: always
     logging: *default-logging
     volumes:

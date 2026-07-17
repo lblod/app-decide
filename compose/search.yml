@@ -42,7 +42,7 @@ services:
     depends_on:
       - ollama
   municipality-linker:
-    image: lblod/decide-municipality-linker-service:0.0.1
+    image: lblod/decide-municipality-linker-service:0.0.2
     labels:
       - logging=true
     restart: always
