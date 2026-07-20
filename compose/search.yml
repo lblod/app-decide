@@ -37,6 +37,7 @@ services:
       TZ: Europe/Brussels
       OLLAMA_HOST: 'http://ollama:11434'
       LOG_SPARQL_ALL: 'false'
+      ALLOW_MU_AUTH_SUDO: true
     volumes:
       - ../config/embedding/config.py:/app/config.py
     depends_on:
