@@ -19,6 +19,11 @@ services:
   #     - default
   #     - proxy
 
+  # use minimal virtuoso settings
+  virtuoso:
+    volumes:
+      - ./config/virtuoso/virtuoso.minimal.ini:/data/virtuoso.ini
+      - ./data/db:/data
   # Disable unneeded base services:
   file:
     restart: no
@@ -28,9 +33,6 @@ services:
   frontend-yasgui:
     restart: no
     entrypoint: ["echo", "Service frontend-yasgui is disabled"]
-  registration:
-    restart: no
-    entrypoint: ["echo", "Service registration is disabled"]
   dsp-auth-wrapper:
     restart: no
     entrypoint: ["echo", "Service dsp-auth-wrapper is disabled"]
