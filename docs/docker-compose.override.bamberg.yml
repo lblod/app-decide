@@ -89,6 +89,11 @@ services:
       GENERATION_MODEL: "<REPLACE-WITH-MODEL>"
       GENERATION_API_KEY: "<REPLACE-WITH-API-KEY-IN-OVERRIDE-FILE>"
 
+  frontend-policy-impact-report:
+    environment:
+      # e.g. "http://human-validator.localhost"
+      EMBER_HVT_BASE_URL: "<REPLACE-WITH-HVT-URL-LOCATION>"
+
 
   # Uncomment to disable the services related to the Human validation interface
   # Alternatively, comment the validation.yml line in `docker-compose.yml`
