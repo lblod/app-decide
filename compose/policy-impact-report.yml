@@ -11,7 +11,7 @@ services:
     restart: always
     logging: *default-logging
   frontend-policy-impact-report:
-    image: lblod/frontend-decide-policy-impact-report:0.0.2
+    image: lblod/frontend-decide-policy-impact-report:0.0.3
     labels:
       - 'logging=true'
     restart: always
