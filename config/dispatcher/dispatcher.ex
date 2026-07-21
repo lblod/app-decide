@@ -77,6 +77,10 @@ defmodule Dispatcher do
     Proxy.forward conn, [], "http://database:8890/sparql"
   end
 
+  match "/sparql", %{ accept: [:any], layer: :sparql } do
+    Proxy.forward conn, [], "http://database:8890/sparql"
+  end
+
   match "/api/private/sparql", %{ accept: [:any], layer: :sparql } do
     Proxy.forward conn, [], "http://dsp-auth-wrapper/sparql"
   end
