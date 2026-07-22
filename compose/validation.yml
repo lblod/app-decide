@@ -12,6 +12,7 @@ services:
     logging: *default-logging
     environment:
       DEFAULT_MU_AUTH_SCOPE: 'http://services.semantic.works/annotation-review-service'
+      ANNOTATION_TARGET_TYPES: 'http://www.w3.org/ns/oa#Annotation,http://mu.semte.ch/vocabularies/ext/AnnotationTarget'
       TZ: Europe/Brussels
     volumes:
       - ../config/annotation-review:/config

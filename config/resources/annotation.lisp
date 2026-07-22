@@ -1,6 +1,14 @@
 (in-package :mu-cl-resources)
 
-(define-resource annotation ()
+(define-resource annotation-target () ;; generic resource class to serve as a target for annotations, to be extended with specific classes
+:class (s-prefix "ext:AnnotationTarget")
+:has-many `((annotation :via ,(s-prefix "oa:hasTarget")
+            :as "annotations"
+            :inverse t))
+:resource-base (s-url "http://data.lblod.info/id/annotation-targets/")
+:on-path "annotation-targets")
+
+(define-resource annotation (annotation-target)
   :class (s-prefix "oa:Annotation")
   :properties `((:confidence :number ,(s-prefix "nif:confidence"))
                 (:motivated-by :url ,(s-prefix "oa:motivatedBy")))
@@ -11,14 +19,6 @@
   :features '(include-uri)
   :resource-base (s-url "http://data.lblod.info/id/annotations/")
   :on-path "annotations")
-
-(define-resource annotation-target () ;; generic resource class to serve as a target for annotations, to be extended with specific classes
-  :class (s-prefix "ext:AnnotationTarget")
-  :has-many `((annotation :via ,(s-prefix "oa:hasTarget")
-              :as "annotations"
-              :inverse t))
-  :resource-base (s-url "http://data.lblod.info/id/annotation-targets/")
-  :on-path "annotation-targets")
 
 (define-resource annotation-body () ;; generic resource class to serve as a body for annotations, to be extended with specific classes
   :class (s-prefix "ext:AnnotationBody")
