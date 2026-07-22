@@ -110,6 +110,12 @@ export default {
       `,
       // can use to filter annotations for a given target, need to fix the set of agents once we have final uris for them
       annotationFilter: `
+        FILTER NOT EXISTS {
+          VALUES ?hidden {
+            <http://lblod.data.gift/id/components/codelist-labeling/v1.0.0/impact_annotator>
+          }
+          ?agent <http://www.w3.org/ns/prov#specializationOf>  ?hidden.
+        }
         ?object a skos:Concept .
         FILTER(!BOUND(?typeClass) || ?typeClass NOT IN ( <http://mu.semte.ch/vocabularies/ext/AnnotationBody>, <http://mu.semte.ch/vocabularies/ext/NoMatchFound> ) )
         FILTER NOT EXISTS {
