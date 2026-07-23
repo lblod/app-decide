@@ -20,5 +20,13 @@ export const municipalityLink = `
       FILTER NOT EXISTS {
         ?original <http://purl.org/linguistics/gold/translation> ?decision .
       }
+    } UNION {
+      ?task <http://purl.org/dc/terms/isPartOf> ?job .
+      ?task <http://redpencil.data.gift/vocabularies/tasks/inputContainer> / <http://redpencil.data.gift/vocabularies/tasks/hasResource> ?target .
+      ?job <http://mu.semte.ch/vocabularies/ext/shapeForTargets> / <http://www.w3.org/ns/shacl#targetNode> ?decision .
+      ?decision a eli:Expression.
+      FILTER NOT EXISTS {
+        ?original <http://purl.org/linguistics/gold/translation> ?decision .
+      }
     }
   `;
