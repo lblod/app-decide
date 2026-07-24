@@ -5,7 +5,7 @@ x-logging: &default-logging
     max-file: '3'
 services:
   dcat:
-    image: lblod/dcat-service:0.0.1
+    image: lblod/dcat-service:0.0.2
     logging: *default-logging
     labels:
       - logging=true
