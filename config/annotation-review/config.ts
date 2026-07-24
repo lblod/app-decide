@@ -10,6 +10,7 @@ export default {
         PREFIX eli: <http://data.europa.eu/eli/ontology#>
         PREFIX org: <http://www.w3.org/ns/org#>
         PREFIX ext: <http://mu.semte.ch/vocabularies/ext/>
+        PREFIX prov: <http://www.w3.org/ns/prov#>
       `,
       // can also use to filter ?annotation in case we want to filter the kind of annotations to show
       // note that we have to filter by expressions having a work because other expressions are created
@@ -42,38 +43,91 @@ export default {
         target: {
           municipality: {
             query: `
-            ?target ext:owningBody ?municipality .
-          `,
+              ?target ext:owningBody ?municipality .
+            `,
             variable: 'municipality',
             type: 'uri',
           },
           otherMunicipality: {
             // weirdly NOT IN gives an error in virtuoso's cost model
             query: `
-            ?target ext:owningBody ?municipality .
-            FILTER(?municipality != <https://ris.freiburg.de/oparl/body/FR> && ?municipality != <https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> && ?municipality != <http://data.lblod.info/id/bestuurseenheden/353234a365664e581db5c2f7cc07add2534b47b8e1ab87c821fc6e6365e6bef5>)
-          `,
+              ?target ext:owningBody ?municipality .
+              FILTER(?municipality != <https://ris.freiburg.de/oparl/body/FR> && ?municipality != <https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> && ?municipality != <http://data.lblod.info/id/bestuurseenheden/353234a365664e581db5c2f7cc07add2534b47b8e1ab87c821fc6e6365e6bef5>)
+            `,
             variable: 'fakePlaceholder',
             type: 'string',
           },
           title: {
             query: `
-            {
-              ?target <http://data.europa.eu/eli/ontology#title> ?search.
-                  ?search bif:contains """'$search'"""
-            } UNION {
-              ?annotationT oa:hasTarget / oa:hasSource ?target.
-              ?annotationT oa:hasBody ?bodyT.
-              ?bodyT rdf:predicate eli:title .
-              ?bodyT rdf:object ?search.
-              ?search bif:contains """'$search'"""
-            }
-          `,
+              {
+                ?target <http://data.europa.eu/eli/ontology#title> ?search.
+                    ?search bif:contains """'$search'"""
+              } UNION {
+                ?annotationT oa:hasTarget / oa:hasSource ?target.
+                ?annotationT oa:hasBody ?bodyT.
+                ?bodyT rdf:predicate eli:title .
+                ?bodyT rdf:object ?search.
+                ?search bif:contains """'$search'"""
+              }
+            `,
             variable: 'search',
             type: 'search',
           },
+          predicates: {
+            query: `
+              ?annotationT oa:hasTarget / oa:hasSource ?target.
+              ?annotationT oa:hasBody ?bodyT.
+              ?bodyT rdf:predicate ?predicateUri .
+            `,
+            variable: 'predicateUri',
+            type: 'uri',
+          },
+          aiModels: {
+            query: `
+              ?annotationT oa:hasTarget / oa:hasSource ?target .
+              ?activityT prov:generated ?annotationT .
+              ?activityT prov:wasAssociatedWith ?something .
+              ?something prov:specializationOf ?aiModel .
+            `,
+            variable: 'aiModel',
+            type: 'uri',
+          },
+          valueTypes: {
+            query: `
+              ?annotationT oa:hasTarget / oa:hasSource ?target.
+              ?annotationT oa:hasBody ?bodyT.
+              ?bodyT rdf:object ?object .
+              optional {
+                ?object a ?typeClass .
+              }
+              bind(if(isIRI(?typeClass), ?typeClass, datatype(?object)) as ?type)
+              filter(?type = ?valueType)
+            `,
+            variable: 'valueType',
+            type: 'uri',
+          },
         },
-        annotation: {},
+        annotation: {
+          predicates: {
+            query: `
+              ?annotation oa:hasBody ?body.
+              ?body rdf:predicate ?predicateUri .
+            `,
+            variable: 'predicateUri',
+            type: 'uri',
+          },
+          aiModels: {
+            query: `
+              ?agent prov:specializationOf ?aiModel .
+            `,
+            variable: 'aiModel',
+            type: 'uri',
+          },
+          valueTypes: {
+            variable: 'type',
+            type: 'uri',
+          },
+        },
       },
       titlePath: `
         OPTIONAL {
@@ -113,7 +167,7 @@ export default {
       `,
       // can use to filter annotations for a given target, need to fix the set of agents once we have final uris for them
       annotationFilter: `
-        FILTER NOT EXISTS {
+       FILTER NOT EXISTS {
           VALUES ?hidden {
             <http://lblod.data.gift/id/components/codelist-labeling/v1.0.0/impact_annotator>
           }
@@ -132,94 +186,94 @@ export default {
         ?target a eli:Expression . 
       `,
       filters: {
-        target: {
+        target: {},
+        annotation: {
           conceptScheme: {
             query: `
-            ?annotation oa:hasBody ?concept .
-            { 
-              ?concept skos:inScheme ?scheme .
-              ?scheme mu:uuid ?schemeId.
-            } UNION {
-              ?concept a <http://mu.semte.ch/vocabularies/ext/NoMatchFound>.              
-              ?scheme mu:uuid ?schemeId.
-            }
-          `,
+              ?annotation oa:hasBody ?concept .
+              {
+                ?concept skos:inScheme ?scheme .
+                ?scheme mu:uuid ?schemeId.
+              } UNION {
+                ?concept a <http://mu.semte.ch/vocabularies/ext/NoMatchFound>.
+                ?scheme mu:uuid ?schemeId.
+              }
+            `,
             variable: 'schemeId',
             type: 'string',
           },
           concept: {
             query: `
-            ?annotation oa:hasBody ?concept .
-            ?concept mu:uuid ?conceptId.
-          `,
+              ?annotation oa:hasBody ?concept .
+              ?concept mu:uuid ?conceptId.
+            `,
             type: 'string',
             variable: 'conceptId',
           },
           municipality: {
             query: `
-            ?target <http://mu.semte.ch/vocabularies/ext/owningBody> ?municipality .
-          `,
+              ?target <http://mu.semte.ch/vocabularies/ext/owningBody> ?municipality .
+            `,
             variable: 'municipality',
             type: 'uri',
           },
           otherMunicipality: {
             // weirdly NOT IN gives an error in virtuoso's cost model
             query: `
-            ?target <http://mu.semte.ch/vocabularies/ext/owningBody> ?municipality .
-            FILTER(?municipality != <https://ris.freiburg.de/oparl/body/FR> && ?municipality != <https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> && ?municipality != <http://data.lblod.info/id/bestuurseenheden/353234a365664e581db5c2f7cc07add2534b47b8e1ab87c821fc6e6365e6bef5>)
-          `,
+              ?target <http://mu.semte.ch/vocabularies/ext/owningBody> ?municipality .
+              FILTER(?municipality != <https://ris.freiburg.de/oparl/body/FR> && ?municipality != <https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> && ?municipality != <http://data.lblod.info/id/bestuurseenheden/353234a365664e581db5c2f7cc07add2534b47b8e1ab87c821fc6e6365e6bef5>)
+            `,
             variable: 'fakePlaceholder',
             type: 'string',
           },
           impact: {
             query: `
-            ?annotation oa:hasBody ?impact .
-            ?impact mu:uuid ?impactId .
-          `,
+              ?annotation oa:hasBody ?impact .
+              ?impact mu:uuid ?impactId .
+            `,
             variable: 'impactId',
             type: 'string',
           },
           title: {
             query: `
-            {
-              ?target <http://data.europa.eu/eli/ontology#title> ?title.
-                  ?title bif:contains """'$search'"""
-            } UNION {
-              ?annotationT oa:hasTarget / oa:hasSource ?target.
-              ?annotationT oa:hasBody ?bodyT.
-              ?bodyT rdf:predicate eli:title .
-              ?bodyT rdf:object ?title.
-              ?title bif:contains """'$search'"""
-            }
-          `,
+              {
+                ?target <http://data.europa.eu/eli/ontology#title> ?title.
+                    ?title bif:contains """'$search'"""
+              } UNION {
+                ?annotationT oa:hasTarget / oa:hasSource ?target.
+                ?annotationT oa:hasBody ?bodyT.
+                ?bodyT rdf:predicate eli:title .
+                ?bodyT rdf:object ?title.
+                ?title bif:contains """'$search'"""
+              }
+            `,
             variable: 'search',
             type: 'search',
           },
           year: {
             query: `
-            { 
               {
-                ?work eli:is_realized_by ?target .
-                ?work eli:date_document ?date .
+                {
+                  ?work eli:is_realized_by ?target .
+                  ?work eli:date_document ?date .
+                }
+                UNION
+                {
+                  ?target eli:date_document ?date .
+                }
+                UNION
+                {
+                  ?target ^oa:hasTarget / oa:hasBody ?datebody .
+                  ?datebody rdf:predicate eli:date_document .
+                  ?datebody rdf:object ?date .
+                }
               }
-              UNION
-              {
-                ?target eli:date_document ?date .
-              }
-              UNION 
-              {
-                ?target ^oa:hasTarget / oa:hasBody ?datebody .
-                ?datebody rdf:predicate eli:date_document .
-                ?datebody rdf:object ?date .
-              }
-            }
-            BIND(SUBSTR(STR(?date), 0, 4) AS ?year)
-          `,
+              BIND(SUBSTR(STR(?date), 0, 4) AS ?year)
+            `,
             variable: 'year',
             type: 'string',
           },
         },
-        annotation: {},
       },
       titlePath: `
         OPTIONAL {
