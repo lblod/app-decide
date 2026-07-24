@@ -256,7 +256,7 @@ ext:allowReadForSession a odrl:Permission ;
   ext:scope "http://services.semantic.works/sessions" .
 
 ext:allowWriteForSession a odrl:Permission ;
-  odrl:action odrl:write ;
+  odrl:action odrl:modify ;
   odrl:target ext:decideSessionSlice ;
   odrl:assigner ext:decideSystem ;
   odrl:assignee ext:publicParty  ;
