@@ -39,24 +39,25 @@ export default {
         ?resource oa:hasSource / ^eli:is_realized_by? ?target .
       `,
       filters: {
-        municipality: {
-          query: `
+        target: {
+          municipality: {
+            query: `
             ?target ext:owningBody ?municipality .
           `,
-          variable: 'municipality',
-          type: 'uri',
-        },
-        otherMunicipality: {
-          // weirdly NOT IN gives an error in virtuoso's cost model
-          query: `
+            variable: 'municipality',
+            type: 'uri',
+          },
+          otherMunicipality: {
+            // weirdly NOT IN gives an error in virtuoso's cost model
+            query: `
             ?target ext:owningBody ?municipality .
             FILTER(?municipality != <https://ris.freiburg.de/oparl/body/FR> && ?municipality != <https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> && ?municipality != <http://data.lblod.info/id/bestuurseenheden/353234a365664e581db5c2f7cc07add2534b47b8e1ab87c821fc6e6365e6bef5>)
           `,
-          variable: 'fakePlaceholder',
-          type: 'string',
-        },
-        title: {
-          query: `
+            variable: 'fakePlaceholder',
+            type: 'string',
+          },
+          title: {
+            query: `
             {
               ?target <http://data.europa.eu/eli/ontology#title> ?search.
                   ?search bif:contains """'$search'"""
@@ -68,9 +69,11 @@ export default {
               ?search bif:contains """'$search'"""
             }
           `,
-          variable: 'search',
-          type: 'search',
+            variable: 'search',
+            type: 'search',
+          },
         },
+        annotation: {},
       },
       titlePath: `
         OPTIONAL {
@@ -129,8 +132,9 @@ export default {
         ?target a eli:Expression . 
       `,
       filters: {
-        conceptScheme: {
-          query: `
+        target: {
+          conceptScheme: {
+            query: `
             ?annotation oa:hasBody ?concept .
             { 
               ?concept skos:inScheme ?scheme .
@@ -140,43 +144,43 @@ export default {
               ?scheme mu:uuid ?schemeId.
             }
           `,
-          variable: 'schemeId',
-          type: 'string',
-        },
-        concept: {
-          query: `
+            variable: 'schemeId',
+            type: 'string',
+          },
+          concept: {
+            query: `
             ?annotation oa:hasBody ?concept .
             ?concept mu:uuid ?conceptId.
           `,
-          type: 'string',
-          variable: 'conceptId',
-        },
-        municipality: {
-          query: `
+            type: 'string',
+            variable: 'conceptId',
+          },
+          municipality: {
+            query: `
             ?target <http://mu.semte.ch/vocabularies/ext/owningBody> ?municipality .
           `,
-          variable: 'municipality',
-          type: 'uri',
-        },
-        otherMunicipality: {
-          // weirdly NOT IN gives an error in virtuoso's cost model
-          query: `
+            variable: 'municipality',
+            type: 'uri',
+          },
+          otherMunicipality: {
+            // weirdly NOT IN gives an error in virtuoso's cost model
+            query: `
             ?target <http://mu.semte.ch/vocabularies/ext/owningBody> ?municipality .
             FILTER(?municipality != <https://ris.freiburg.de/oparl/body/FR> && ?municipality != <https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> && ?municipality != <http://data.lblod.info/id/bestuurseenheden/353234a365664e581db5c2f7cc07add2534b47b8e1ab87c821fc6e6365e6bef5>)
           `,
-          variable: 'fakePlaceholder',
-          type: 'string',
-        },
-        impact: {
-          query: `
+            variable: 'fakePlaceholder',
+            type: 'string',
+          },
+          impact: {
+            query: `
             ?annotation oa:hasBody ?impact .
             ?impact mu:uuid ?impactId .
           `,
-          variable: 'impactId',
-          type: 'string',
-        },
-        title: {
-          query: `
+            variable: 'impactId',
+            type: 'string',
+          },
+          title: {
+            query: `
             {
               ?target <http://data.europa.eu/eli/ontology#title> ?title.
                   ?title bif:contains """'$search'"""
@@ -188,11 +192,11 @@ export default {
               ?title bif:contains """'$search'"""
             }
           `,
-          variable: 'search',
-          type: 'search',
-        },
-        year: {
-          query: `
+            variable: 'search',
+            type: 'search',
+          },
+          year: {
+            query: `
             { 
               {
                 ?work eli:is_realized_by ?target .
@@ -211,9 +215,11 @@ export default {
             }
             BIND(SUBSTR(STR(?date), 0, 4) AS ?year)
           `,
-          variable: 'year',
-          type: 'string',
+            variable: 'year',
+            type: 'string',
+          },
         },
+        annotation: {},
       },
       titlePath: `
         OPTIONAL {
