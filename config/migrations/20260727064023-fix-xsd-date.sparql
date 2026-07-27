@@ -1,0 +1,19 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+DELETE {
+  GRAPH ?g {
+    ?body rdf:object ?date.
+  }
+}
+INSERT {
+  GRAPH ?g {
+    ?body rdf:object ?correctDate.
+  }
+}WHERE {
+  ?s a oa:Annotation.
+  ?s oa:hasBody ?body.
+  GRAPH ?g {
+    ?body rdf:object ?date.
+  }
+  FILTER(datatype(?date) = xsd:Date)
+  BIND(xsd:date(STR(?date)) AS ?correctDate)
+} 
