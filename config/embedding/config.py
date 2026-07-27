@@ -61,7 +61,7 @@ class AppConfig(BaseSettings):
     #embedding_model: "ollama:embeddinggemma:300m-bf16" bigger, but slower
     embedding_model: str = "ollama:embeddinggemma:300m-qat-q4_0"
     #qwen3-embedding:0.6b has a larger context size, but is not recommended by AI advisory board
-    embedding_base_url: Optional[str] = "http://embedding-ollama:11434"
+    embedding_base_url: Optional[str] = "http://ollama:11434"
     #embedding_base_url: Optional[str] = None
     embedding_api_key: Optional[SecretStr] = None
 
