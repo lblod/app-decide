@@ -6,6 +6,8 @@ prefix org: <http://www.w3.org/ns/org#>
 prefix eli: <http://data.europa.eu/eli/ontology#>
 prefix oa: <http://www.w3.org/ns/oa#>
 prefix locn: <http://www.w3.org/ns/locn#>
+prefix dct: <http://purl.org/dc/terms/>
+prefix omgeving: <http://data.vlaanderen.be/ns/omgeving#>
 
 insert {
   graph <http://mu.semte.ch/graphs/tmp-export> {
@@ -14,6 +16,13 @@ insert {
     ?location a ext:downloadResource .
     ?geometry a ext:downloadResource .
     ?selector a ext:downloadResource .
+    ?dateApplicabilityAnnotation a ext:downloadResource .
+    ?normativeProvisionAnnotation a ext:downloadResource .
+    ?normativeProvisionStatement a ext:downloadResource .
+    ?normativeProvision a ext:downloadResource .
+    ?impactPeriodAnnotation a ext:downloadResource .
+    ?impactPeriodStatement a ext:downloadResource .
+    ?impactPeriod a ext:downloadResource .
   }
 }
 where {
@@ -21,7 +30,7 @@ where {
 
   ?rmzAnnotation oa:hasBody ?rmzConcept .
   ?rmzAnnotation oa:hasTarget ?expression .
-  ?rmzConcept skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> .
+  ?rmzConcept skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-simple> .
 
   optional {
     ?locationAnnotation a oa:Annotation .  
@@ -31,6 +40,32 @@ where {
     ?locationAnnotation oa:hasTarget ?locationTarget .
     ?locationTarget oa:hasSource ?expression .
     ?locationTarget oa:hasSelector ?selector .
+  }
+
+  optional {
+    ?dateApplicabilityAnnotation a oa:Annotation ;
+        oa:hasBody/rdf:predicate eli:date_applicability ;
+        oa:hasTarget ?expression .
+  }
+
+  optional {
+    ?normativeProvisionAnnotation a oa:Annotation ;
+        oa:hasBody ?normativeProvisionStatement ;
+        oa:hasTarget ?expression .
+
+    ?normativeProvisionStatement rdf:predicate eli:realizes ;
+        rdf:object ?normativeProvision .
+    
+    ?normativeProvision a omgeving:NormativeProvision .
+  }
+
+  optional {
+    ?impactPeriodAnnotation a oa:Annotation ;
+        oa:hasBody ?impactPeriodStatement ;
+        oa:hasTarget ?expression .
+
+    ?impactPeriodStatement rdf:predicate dct:extent ;
+        rdf:object ?impactPeriod .    
   }
 
   {
