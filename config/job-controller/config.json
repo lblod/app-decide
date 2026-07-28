@@ -78,23 +78,29 @@
       },
       {
         "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/pdf-to-eli",
-        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/translating",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/split-task-pdf-to-enriched-translating",
         "nextIndex": "4"
+      },
+      {
+        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/split-task-pdf-to-enriched-translating",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/translating",
+        "nextIndex": "5",
+        "external": true
       },
       {
         "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/translating",
         "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/segmenting",
-        "nextIndex": "5"
+        "nextIndex": "6"
       },
       {
         "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/segmenting",
         "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/entity-extracting",
-        "nextIndex": "6"
+        "nextIndex": "7"
       },
       {
         "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/entity-extracting",
         "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/named-entity-linking",
-        "nextIndex": "7"
+        "nextIndex": "8"
       }
     ]
   },

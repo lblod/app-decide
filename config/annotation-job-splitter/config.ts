@@ -76,6 +76,12 @@ export default {
               'http://lblod.data.gift/id/jobs/concept/TaskOperation/pdf-scraping',
             harvestingCollection: true,
           },
+          {
+            currentOperation:
+              'http://lblod.data.gift/id/jobs/concept/TaskOperation/split-task-pdf-to-enriched-translating',
+            nextOperation:
+              'http://lblod.data.gift/id/jobs/concept/TaskOperation/translating',
+          },
         ],
       },
   },
