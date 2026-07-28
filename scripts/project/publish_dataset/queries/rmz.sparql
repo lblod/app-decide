@@ -22,6 +22,7 @@ insert {
     ?dateApplicabilityStatement a ext:downloadResource .
     ?dateApplicabilityTarget a ext:downloadResource .
     ?dateApplicabilitySelector a ext:downloadResource .
+    ?dateApplicabilityObject a ext:downloadResource .
     ?normativeProvisionAnnotation a ext:downloadResource .
     ?normativeProvisionStatement a ext:downloadResource .
     ?normativeProvision a ext:downloadResource .
@@ -68,7 +69,15 @@ where {
     ?dateApplicabilityTarget oa:hasSelector ?dateApplicabilitySelector ;
       oa:hasSource ?expression .
 
-    ?dateApplicabilityStatement rdf:predicate eli:date_applicability .
+    {
+    ?dateApplicabilityStatement rdf:predicate eli:date_applicability ;
+        rdf:object ?dateApplicability .
+      FILTER(ISLITERAL(?dateApplicability))
+    } UNION {
+      ?dateApplicabilityStatement rdf:predicate eli:date_applicability ;
+        rdf:object ?dateApplicabilityObject .
+      FILTER(!ISLITERAL(?dateApplicabilityObject))
+    }
   }
 
   optional {
