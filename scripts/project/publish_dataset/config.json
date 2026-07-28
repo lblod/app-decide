@@ -15,11 +15,28 @@
             "output_file_name": "rmz",
             "sparql_file": "./queries/rmz.sparql",
             "interesting_variables": [
-            "locationAnnotation",
             "rmzAnnotation",
+            "locationAnnotation",
+            "locationTarget",
+            "locationSelector",
+            "locationStatement",
             "location",
             "geometry",
-            "selector"
+            "dateApplicabilityAnnotation",
+            "dateApplicabilityStatement",
+            "dateApplicabilityTarget",
+            "dateApplicabilitySelector",
+            "dateApplicabilityObject",
+            "normativeProvisionAnnotation",
+            "normativeProvisionStatement",
+            "normativeProvision",
+            "normativeProvisionTarget",
+            "normativeProvisionSelector",
+            "impactPeriodAnnotation",
+            "impactPeriodStatement",
+            "impactPeriod",
+            "impactPeriodTarget",
+            "impactPeriodSelector"
             ]
         },
         "expressions": {
