@@ -7,22 +7,31 @@ prefix eli: <http://data.europa.eu/eli/ontology#>
 prefix oa: <http://www.w3.org/ns/oa#>
 prefix locn: <http://www.w3.org/ns/locn#>
 prefix dct: <http://purl.org/dc/terms/>
-prefix omgeving: <http://data.vlaanderen.be/ns/omgeving#>
+prefix omgeving: <https://data.vlaanderen.be/ns/omgevingsvergunning#>
 
 insert {
   graph <http://mu.semte.ch/graphs/tmp-export> {
-    ?locationAnnotation a ext:downloadResource .
     ?rmzAnnotation a ext:downloadResource .
+    ?locationAnnotation a ext:downloadResource .
+    ?locationTarget a ext:downloadResource .
+    ?locationSelector a ext:downloadResource .
     ?location a ext:downloadResource .
     ?geometry a ext:downloadResource .
-    ?selector a ext:downloadResource .
+    ?locationStatement a ext:downloadResource .
     ?dateApplicabilityAnnotation a ext:downloadResource .
+    ?dateApplicabilityStatement a ext:downloadResource .
+    ?dateApplicabilityTarget a ext:downloadResource .
+    ?dateApplicabilitySelector a ext:downloadResource .
     ?normativeProvisionAnnotation a ext:downloadResource .
     ?normativeProvisionStatement a ext:downloadResource .
     ?normativeProvision a ext:downloadResource .
+    ?normativeProvisionTarget a ext:downloadResource .
+    ?normativeProvisionSelector a ext:downloadResource .
     ?impactPeriodAnnotation a ext:downloadResource .
     ?impactPeriodStatement a ext:downloadResource .
     ?impactPeriod a ext:downloadResource .
+    ?impactPeriodTarget a ext:downloadResource .
+    ?impactPeriodSelector a ext:downloadResource .
   }
 }
 where {
@@ -32,37 +41,58 @@ where {
   ?rmzAnnotation oa:hasTarget ?expression .
   ?rmzConcept skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-simple> .
 
-  optional {
-    ?locationAnnotation a oa:Annotation .  
-    ?locationAnnotation oa:hasBody ?location .
-    ?location locn:geometry ?geometry .
+  ?work eli:is_realized_by ?expression .
 
-    ?locationAnnotation oa:hasTarget ?locationTarget .
-    ?locationTarget oa:hasSource ?expression .
-    ?locationTarget oa:hasSelector ?selector .
+  optional {
+    ?locationAnnotation a oa:Annotation ;  
+      oa:hasBody ?locationStatement ;
+      oa:hasTarget ?locationTarget .
+
+    ?locationTarget oa:hasSource ?expression ;
+      oa:hasSelector ?locationSelector .
+
+    ?locationStatement rdf:subject ?work ;
+        rdf:predicate prov:atLocation ;
+        rdf:object ?location .
+    
+    optional {
+      ?location locn:geometry ?geometry .
+    }
   }
 
   optional {
     ?dateApplicabilityAnnotation a oa:Annotation ;
-        oa:hasBody/rdf:predicate eli:date_applicability ;
-        oa:hasTarget ?expression .
+      oa:hasBody ?dateApplicabilityStatement ;
+      oa:hasTarget ?dateApplicabilityTarget .
+      
+    ?dateApplicabilityTarget oa:hasSelector ?dateApplicabilitySelector ;
+      oa:hasSource ?expression .
+
+    ?dateApplicabilityStatement rdf:predicate eli:date_applicability .
   }
 
   optional {
     ?normativeProvisionAnnotation a oa:Annotation ;
         oa:hasBody ?normativeProvisionStatement ;
-        oa:hasTarget ?expression .
+        oa:hasTarget ?normativeProvisionTarget .
+      
+    ?normativeProvisionTarget oa:hasSource ?expression ;
+        oa:hasSelector ?normativeProvisionSelector .
 
-    ?normativeProvisionStatement rdf:predicate eli:realizes ;
+    ?normativeProvisionStatement rdf:subject ?work ;
+         rdf:predicate eli:realizes ;
         rdf:object ?normativeProvision .
     
-    ?normativeProvision a omgeving:NormativeProvision .
+    ?normativeProvision a omgeving:NormatieveBepaling .
   }
 
   optional {
     ?impactPeriodAnnotation a oa:Annotation ;
         oa:hasBody ?impactPeriodStatement ;
-        oa:hasTarget ?expression .
+        oa:hasTarget ?impactPeriodTarget .
+
+    ?impactPeriodTarget oa:hasSource ?expression ;
+        oa:hasSelector ?impactPeriodSelector .
 
     ?impactPeriodStatement rdf:predicate dct:extent ;
         rdf:object ?impactPeriod .    
