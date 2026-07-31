@@ -5,7 +5,7 @@ x-logging: &default-logging
     max-file: '3'
 services:
   dcat:
-    image: lblod/dcat-service:0.0.2
+    image: lblod/dcat-service:0.0.3
     logging: *default-logging
     labels:
       - logging=true
@@ -67,7 +67,7 @@ services:
     restart: always
     logging: *default-logging
   frontend-dcat:
-    image: lblod/frontend-decide-dcat:0.0.4
+    image: lblod/frontend-decide-dcat:0.0.6
     labels:
       - 'logging=true'
     restart: always
