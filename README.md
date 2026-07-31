@@ -217,6 +217,26 @@ docker compose --profile=search up -d question-answering
 
 See the question-answer service documentation of configuring [LLM providers](https://github.com/semantic-ai/decide-question-answering/blob/master/README.md#L18).
 
+### Registering a new LLM for cost logging
+
+The AI services record their model calls as `ext:AICall` triples, including `ext:cost`. Cost is resolved by looking up the model's `ext:openrouterId` in the triplestore and fetching the rates from OpenRouter. So whenever you point the segmentation or translation service at a different LLM, you must register that model, otherwise `ext:cost` stays `0`.
+
+Add a migration under `config/migrations/` that inserts the model's OpenRouter id:
+
+```sparql
+PREFIX ext: <http://mu.semte.ch/vocabularies/ext/>
+
+INSERT DATA {
+  GRAPH <http://mu.semte.ch/graphs/harvesting> {
+    <http://data.lblod.info/ontology/airo#MODEL_SLUG>
+        ext:openrouterId "PROVIDER/MODEL_ID" .
+  }
+}
+```
+
+* `MODEL_SLUG` must match the model name after sanitisation: every run of non alphanumeric characters becomes a single `-` and the result is lowercased.
+* `PROVIDER/MODEL_ID` is the exact model id from openrouter.ai, for example `mistralai/mistral-medium-3-5`.
+
 ## Use cases
 
 The DECIDe project is designed to address a set of pre-defined use cases. This README outlines each service individually, allowing cities to select and deploy only the specific components required for their unique needs.
