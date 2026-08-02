@@ -62,45 +62,39 @@
       },
       {
         "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/singleton-job",
-        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/split-task-pdf-to-enriched-scraping",
-        "nextIndex": "1"
-      },
-      {
-        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/split-task-pdf-to-enriched-scraping",
         "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/pdf-scraping",
-        "nextIndex": "2",
-        "external": true
+        "nextIndex": "1"
       },
       {
         "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/pdf-scraping",
         "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/pdf-to-eli",
-        "nextIndex": "3"
+        "nextIndex": "2"
       },
       {
         "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/pdf-to-eli",
         "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/split-task-pdf-to-enriched-translating",
-        "nextIndex": "4"
+        "nextIndex": "3"
       },
       {
         "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/split-task-pdf-to-enriched-translating",
         "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/translating",
-        "nextIndex": "5",
+        "nextIndex": "4",
         "external": true
       },
       {
         "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/translating",
         "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/segmenting",
-        "nextIndex": "6"
+        "nextIndex": "5"
       },
       {
         "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/segmenting",
         "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/entity-extracting",
-        "nextIndex": "7"
+        "nextIndex": "6"
       },
       {
         "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/entity-extracting",
         "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/named-entity-linking",
-        "nextIndex": "8"
+        "nextIndex": "7"
       }
     ]
   },
