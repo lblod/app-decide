@@ -10,9 +10,6 @@
       ?originalAnnotation a ext:downloadResource .
       ?originalBody a ext:downloadResource .
       ?specificResource a ext:downloadResource .
-      ?quotation a ext:downloadResource .
-      ?answer a ext:downloadResource .
-      ?question a ext:downloadResource .
       ?selector a ext:downloadResource .
     }
   }
@@ -35,24 +32,6 @@
       ?originalTarget oa:hasSource ?expression .
       ?originalTarget oa:hasSelector ?selector .
       bind(?originalTarget as ?specificResource) .
-    }
-    union {
-      # Quotations only have an expression as source, no selector
-      ?originalTarget a schema:Quotation .
-      bind(?originalTarget as ?quotation) .
-      
-      ?quotation oa:hasSource ?expression .
-      ?answer schema:citation ?quotation .
-      ?question schema:suggestedAnswer ?answer .
-    }
-    union {
-      # Answers have a link with expression(s) through its quotations
-      ?originalTarget a schema:Answer .
-      bind(?originalTarget as ?answer)
-
-      ?quotation oa:hasSource ?expression .
-      ?answer schema:citation ?quotation .
-      ?question schema:suggestedAnswer ?answer .
     }
 
     {
