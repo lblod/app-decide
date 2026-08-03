@@ -54,28 +54,9 @@ export default {
           },
         ],
       },
-    'http://lblod.data.gift/id/jobs/concept/JobOperation/harvesting/pdf-to-eli':
-      {
-        taskConfiguration: [
-          {
-            currentOperation:
-              'http://lblod.data.gift/id/jobs/concept/TaskOperation/split-task-pdf-to-eli-scraping',
-            nextOperation:
-              'http://lblod.data.gift/id/jobs/concept/TaskOperation/pdf-scraping',
-            harvestingCollection: true,
-          },
-        ],
-      },
     'http://lblod.data.gift/id/jobs/concept/JobOperation/harvesting/pdf-to-enriched':
       {
         taskConfiguration: [
-          {
-            currentOperation:
-              'http://lblod.data.gift/id/jobs/concept/TaskOperation/split-task-pdf-to-enriched-scraping',
-            nextOperation:
-              'http://lblod.data.gift/id/jobs/concept/TaskOperation/pdf-scraping',
-            harvestingCollection: true,
-          },
           {
             currentOperation:
               'http://lblod.data.gift/id/jobs/concept/TaskOperation/split-task-pdf-to-enriched-translating',
