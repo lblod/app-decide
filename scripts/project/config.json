@@ -7,10 +7,10 @@
         "arguments": []
       },
       "environment": {
-        "image": "lblod/python-semantic-works-cli:0.0.1",
+        "image": "lblod/python-semantic-works-cli:0.0.2",
         "interactive": false,
         "join_networks": true,
-        "script": "publish_dataset/generate_datadump_and_dcat.py"
+        "script": "publish_dataset/main.py"
       },
       "mounts": {
         "app": "/data/app/"
