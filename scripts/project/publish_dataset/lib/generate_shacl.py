@@ -5,9 +5,9 @@ import uuid
 from rdflib import BNode, URIRef, Graph as RDFGraph
 from rdflib.collection import Collection
 from rdflib.compare import to_canonical_graph
-from rdflib.namespace import DCAT, DCTERMS, RDF, SH
-from helpers import to_wellknown_uri, turtle_to_insert_data, update, log
-from config import datadump_file_name, shacl_file_name, landing_page_file_name, dataset_uri_and_uuid, BASE_URL, OUTPUT_DIR, PUBLIC_GRAPH
+from rdflib.namespace import DCAT, DCTERMS, RDF, SH, OWL
+from helpers import enhance_uris, to_wellknown_uri, turtle_to_insert_data, update, log
+from config import datadump_file_name, shacl_file_name, shacl_adapted_file_name, landing_page_file_name, dataset_uri_and_uuid, BASE_URL, OUTPUT_DIR, PUBLIC_GRAPH, SHAPES_BASE_URL
 
 def _run_shacl_play(args: list[str], description: str) -> None:
     """Run a shacl-play CLI command, failing loudly instead of letting
@@ -20,7 +20,7 @@ def _run_shacl_play(args: list[str], description: str) -> None:
         log("shacl-play failed (%s):\n%s", description, result.stderr)
         raise RuntimeError(f"shacl-play failed: {description}")
 
-def _step1_generate_shapes(dataset: str, output_file_name: str, timestamp: str) -> Path:
+def _step1_generate_shapes(dataset: str, dataset_uuid: str, output_file_name: str, timestamp: str) -> Path:
     datadump_output_file = OUTPUT_DIR / datadump_file_name(output_file_name, timestamp)
     shacl_output_file = OUTPUT_DIR / shacl_file_name(output_file_name, timestamp)
     _run_shacl_play(
@@ -47,42 +47,53 @@ def _step1_generate_shapes(dataset: str, output_file_name: str, timestamp: str) 
         ],
         description=f"generate shapes for dataset '{dataset}'",
     )
-
-    update(turtle_to_insert_data(shacl_output_file, PUBLIC_GRAPH))
-    log("SHACL Shapes for DCAT Dataset '%s' written to <%s>.", dataset, PUBLIC_GRAPH)
+    log("SHACL Shapes for DCAT Dataset '%s' generated", dataset)
     return shacl_output_file
 
-def _step2_write_dataset_conformsto_shape(
-    dataset: str, dataset_config: dict, organization: str, organization_config: dict, timestamp: str, shacl_output_file: Path,
-) -> None:
+def _step2_adapt_shapes_and_link_with_dataset(
+    dataset: str, dataset_config: dict, organization: str, organization_config: dict, timestamp: str, output_file_name: str, shacl_output_file: Path,
+) -> Path:
     dataset_uuid, dataset_uri = dataset_uri_and_uuid(dataset, dataset_config, organization, organization_config)
-    wrapper_shape_uri = URIRef(f"{BASE_URL}/id/shapes/{uuid.uuid5(uuid.NAMESPACE_URL,  f"{organization}/{dataset}/shape/{timestamp}")}")
-
     shapes_graph = RDFGraph()
     shapes_graph.parse(source=shacl_output_file, format="turtle")
 
-    node_shapes = sorted(shapes_graph.subjects(RDF.type, SH.NodeShape), key=str)
+    # Make shape URIs specific to the dataset, otherwise overlap possible with other datasets
+    new_shapes_graph = enhance_uris(shapes_graph, SHAPES_BASE_URL, dataset_uuid)
+
+    # Remove any owl:Ontology triples, as abundant
+    for s, p, o in new_shapes_graph.triples((None, RDF.type, OWL.Ontology)):
+        new_shapes_graph.remove((s, p, o))
+
+    # Retrieve all SHACL NodeShapes from the new shapes graph, to combine them under a single NodeShape wrapper via sh:or
+    node_shapes = sorted(new_shapes_graph.subjects(RDF.type, SH.NodeShape), key=str)
     if not node_shapes:
         log("No SHACL NodeShapes found in %s; skipping conformsTo link for '%s'.", shacl_output_file, dataset)
         return
 
-    conforms_graph = RDFGraph()
-    conforms_graph.add((wrapper_shape_uri, RDF.type, SH.NodeShape))
+    wrapper_shape_uri = URIRef(f"{BASE_URL}/id/shapes/{uuid.uuid5(uuid.NAMESPACE_URL,  f"{organization}/{dataset}/shape/{timestamp}")}")
+    new_shapes_graph.add((wrapper_shape_uri, RDF.type, SH.NodeShape))
     or_list_node = BNode()
-    conforms_graph.add((wrapper_shape_uri, SH["or"], or_list_node))
-    Collection(conforms_graph, or_list_node, node_shapes)
-    conforms_graph.add((dataset_uri, DCTERMS.conformsTo, wrapper_shape_uri))
+    new_shapes_graph.add((wrapper_shape_uri, SH["or"], or_list_node))
+    Collection(new_shapes_graph, or_list_node, node_shapes)
 
-    canon = to_canonical_graph(conforms_graph)
+    # Add a dct:conformsTo triple to the dataset, pointing to the wrapper shape
+    new_shapes_graph.add((dataset_uri, DCTERMS.conformsTo, wrapper_shape_uri))
+
+    # Relabel blank nodes deterministically based on graph structure, otherwise every run with same dataset configuration will produce distinct skolem identifiers
+    canon = to_canonical_graph(new_shapes_graph)
     skolemized = RDFGraph()
     for s, p, o in canon:
         skolemized.add((to_wellknown_uri(s, BASE_URL), p, to_wellknown_uri(o, BASE_URL)))
+
+    shacl_adapted_output_file = OUTPUT_DIR / shacl_adapted_file_name(output_file_name, timestamp)
+    skolemized.serialize(destination=shacl_adapted_output_file, format="turtle")
 
     update(turtle_to_insert_data(skolemized.serialize(format="turtle"), PUBLIC_GRAPH))
     log(
         "ConformsTo link for DCAT Dataset '%s' written to <%s>, combining %d shape(s) via sh:or under <%s>.",
         dataset, PUBLIC_GRAPH, len(node_shapes), wrapper_shape_uri,
     )
+    return shacl_adapted_output_file
 
 def _step3_generate_landing_page(
     dataset: str, output_file_name: str, timestamp: str, shacl_output_file: Path
@@ -117,12 +128,13 @@ def generate_shacl(
     log("Processing for '%s' …", organization)
 
     output_file_name = dataset_config.get("output_file_name", dataset)
+    dataset_uuid, dataset_uri = dataset_uri_and_uuid(dataset, dataset_config, organization, organization_config)
 
-    shacl_output_file = _step1_generate_shapes(dataset, output_file_name, timestamp)
+    shacl_output_file = _step1_generate_shapes(dataset, dataset_uuid, output_file_name, timestamp)
 
-    _step2_write_dataset_conformsto_shape(dataset, dataset_config, organization, organization_config, timestamp, shacl_output_file)
+    shacl_adapted_output_file =_step2_adapt_shapes_and_link_with_dataset(dataset, dataset_config, organization, organization_config, timestamp, output_file_name, shacl_output_file)
 
-    landing_page_output_file = _step3_generate_landing_page(dataset, output_file_name, timestamp, shacl_output_file)
+    landing_page_output_file = _step3_generate_landing_page(dataset, output_file_name, timestamp, shacl_adapted_output_file)
 
     _step4_write_dataset_landing_page(dataset, dataset_config, organization, organization_config, landing_page_output_file)
 

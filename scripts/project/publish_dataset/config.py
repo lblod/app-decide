@@ -22,6 +22,8 @@ CONFIG_FILE       = CONFIG_DIR / "config.json"
 OUTPUT_DIR        = Path(os.environ.get("OUTPUT_DIR", "/data/app/data/datadumps"))
 BASE_URL          = os.environ.get("BASE_URL", "http://data.lblod.info") 
 
+SHAPES_BASE_URL   = "https://shacl-play.sparna.fr/shapes/"
+
 def get_datasets() -> dict:
     if not CONFIG_FILE.exists():
         sys.exit(f"[Error] config file not found: {CONFIG_FILE}")
@@ -53,6 +55,9 @@ def get_organizations() -> dict:
 
 def shacl_file_name(output_file_name: str, timestamp: str) -> str:
     return f"{timestamp}-{output_file_name}-shacl.ttl"
+
+def shacl_adapted_file_name(output_file_name: str, timestamp: str) -> str:
+    return f"{timestamp}-{output_file_name}-shacl-adapted.ttl"
 
 def datadump_file_name(output_file_name: str, timestamp: str) -> str:
     return f"{timestamp}-{output_file_name}.ttl"

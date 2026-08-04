@@ -2,6 +2,7 @@ import logging
 import os
 import sys
 from pathlib import Path
+import uuid
 
 from SPARQLWrapper import JSON, SPARQLWrapper
 from rdflib import BNode, Literal, URIRef, Graph as RDFGraph
@@ -142,3 +143,23 @@ SELECT ?issued WHERE {{ GRAPH <{graph}> {{ <{subject}> dct:issued ?issued . }} }
 """)
     return rows[0]["issued"] if rows else None
 
+
+def enhance_uris(shapesGraph: RDFGraph, prefix: str, add: str) -> RDFGraph:
+    """
+    Read a Turtle file, replace any subject/object URI starting with `prefix` with a new URI of the form `prefix` + `/` + `add`
+    """
+    new_g = RDFGraph()
+    # preserve any bound namespace prefixes
+    for pfx, ns in shapesGraph.namespaces():
+        new_g.bind(pfx, ns)
+
+    for s, p, o in shapesGraph:
+        new_s = s
+        new_o = o
+        if isinstance(s, URIRef) and str(s).startswith(prefix):
+            new_s = URIRef(f"{str(s)}/{add}")
+        if isinstance(o, URIRef) and str(o).startswith(prefix):
+            new_o = URIRef(f"{str(o)}/{add}")
+        new_g.add((new_s, p, new_o))
+
+    return new_g
