@@ -61,20 +61,17 @@ def _step2_adapt_shapes_and_link_with_dataset(
     new_shapes_graph = enhance_uris(shapes_graph, SHAPES_BASE_URL, dataset_uuid)
 
     # Remove any owl:Ontology triples, as abundant
-    for s, p, o in new_shapes_graph.triples((None, RDF.type, OWL.Ontology)):
-        new_shapes_graph.remove((s, p, o))
+    new_shapes_graph.remove((None, RDF.type, OWL.Ontology))
 
     # Retrieve all SHACL NodeShapes from the new shapes graph, to combine them under a single NodeShape wrapper via sh:or
+    wrapper_shape_uri = URIRef(f"{BASE_URL}/id/shapes/{dataset_uuid}")
     node_shapes = sorted(new_shapes_graph.subjects(RDF.type, SH.NodeShape), key=str)
-    if not node_shapes:
-        log("No SHACL NodeShapes found in %s; skipping conformsTo link for '%s'.", shacl_output_file, dataset)
-        return
+    if node_shapes:
+        or_list_node = BNode()
+        Collection(new_shapes_graph, or_list_node, node_shapes)
+        new_shapes_graph.add((wrapper_shape_uri, SH["or"], or_list_node))
 
-    wrapper_shape_uri = URIRef(f"{BASE_URL}/id/shapes/{uuid.uuid5(uuid.NAMESPACE_URL,  f"{organization}/{dataset}/shape/{timestamp}")}")
     new_shapes_graph.add((wrapper_shape_uri, RDF.type, SH.NodeShape))
-    or_list_node = BNode()
-    new_shapes_graph.add((wrapper_shape_uri, SH["or"], or_list_node))
-    Collection(new_shapes_graph, or_list_node, node_shapes)
 
     # Add a dct:conformsTo triple to the dataset, pointing to the wrapper shape
     new_shapes_graph.add((dataset_uri, DCTERMS.conformsTo, wrapper_shape_uri))
