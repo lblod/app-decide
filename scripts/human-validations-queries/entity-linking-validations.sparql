@@ -5,30 +5,33 @@ PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 
 SELECT
   ?expression
+  ?subject
+  ?predicate
   ?entity
   (COUNT(DISTINCT ?approveReview) AS ?positief)
   (COUNT(DISTINCT ?rejectReview) AS ?negatief)
 WHERE {
-  ?originalAnnotation oa:hasBody ?originalBody ;
-                      oa:hasTarget ?originalTarget .
+  ?originalAnnotation a oa:Annotation ;
+                      oa:hasTarget ?target ;
+                      oa:hasBody ?statement .
 
-  ?originalTarget oa:hasSource ?expression .
-  ?originalTarget oa:hasSelector ?selector .
+  ?target oa:hasSource ?expression .
+  ?target oa:hasSelector ?selector .
 
-  ?originalBody rdf:object ?entity .
+  ?statement rdf:subject ?subject ;
+             rdf:predicate ?predicate ;
+             rdf:object ?entity .
 
   OPTIONAL {
     ?approveReview a ext:ReviewAnnotation ;
                    oa:hasTarget ?originalAnnotation ;
-                   oa:hasBody arev:approve ;
-                   oa:motivatedBy oa:assessing .
+                   oa:hasBody arev:approve .
   }
   OPTIONAL {
     ?rejectReview a ext:ReviewAnnotation ;
                   oa:hasTarget ?originalAnnotation ;
-                  oa:hasBody arev:reject ;
-                  oa:motivatedBy oa:assessing .
+                  oa:hasBody arev:reject .
   }
 }
-GROUP BY ?expression ?entity
+GROUP BY ?expression ?subject ?predicate ?entity
 LIMIT 100

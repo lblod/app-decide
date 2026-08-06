@@ -17,14 +17,14 @@ SELECT
   (COUNT(DISTINCT ?approveReview) AS ?positief)
   (COUNT(DISTINCT ?rejectReview) AS ?negatief)
 WHERE {
+  ?originalAnnotation a oa:Annotation ;
+                      oa:hasTarget ?expression ;
+                      oa:hasBody ?concept .
+
   ?expression a eli:Expression .
 
   OPTIONAL { ?expression eli:title ?titel }
   OPTIONAL { ?expression eli:date_publication ?datum }
-
-  ?annotation a oa:Annotation ;
-              oa:hasTarget ?expression ;
-              oa:hasBody ?concept .
 
   {
     ?concept skos:inScheme ?conceptScheme .
@@ -33,30 +33,30 @@ WHERE {
   UNION
   {
     ?concept a ext:NoMatchFound .
-    ?task prov:generated ?annotation ;
+    ?task prov:generated ?originalAnnotation ;
           dct:isPartOf ?job .
     ?job ext:codelist ?conceptScheme .
   }
 
   OPTIONAL {
-    ?annotation oa:hasBody ?impactConcept .
+    ?originalAnnotation oa:hasBody ?impactConcept .
     ?impactConcept skos:inScheme <http://mu.semte.ch/vocabularies/ext/impact> ;
                    skos:prefLabel ?impact .
   }
 
   OPTIONAL {
-    ?activity prov:generated ?annotation ;
+    ?activity prov:generated ?originalAnnotation ;
               prov:wasAssociatedWith ?creator .
   }
 
   OPTIONAL {
     ?approveReview a ext:ReviewAnnotation ;
-                   oa:hasTarget ?annotation ;
+                   oa:hasTarget ?originalAnnotation ;
                    oa:hasBody arev:approve .
   }
   OPTIONAL {
     ?rejectReview a ext:ReviewAnnotation ;
-                  oa:hasTarget ?annotation ;
+                  oa:hasTarget ?originalAnnotation ;
                   oa:hasBody arev:reject .
   }
 }
