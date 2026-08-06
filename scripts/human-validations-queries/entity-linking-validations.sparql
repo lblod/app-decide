@@ -7,7 +7,7 @@ SELECT
   ?expression
   ?subject
   ?predicate
-  ?entity
+  (SUBSTR(STR(?entity), 1, 500) AS ?entityText)
   (COUNT(DISTINCT ?approveReview) AS ?positief)
   (COUNT(DISTINCT ?rejectReview) AS ?negatief)
 WHERE {
