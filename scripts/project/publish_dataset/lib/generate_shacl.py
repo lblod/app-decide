@@ -6,7 +6,7 @@ from rdflib import BNode, URIRef, Graph as RDFGraph
 from rdflib.collection import Collection
 from rdflib.compare import to_canonical_graph
 from rdflib.namespace import DCAT, DCTERMS, RDF, SH, OWL
-from helpers import enhance_uris, to_wellknown_uri, turtle_to_insert_data, update, log
+from helpers import delete_linked_resources, enhance_uris, to_wellknown_uri, turtle_to_insert_data, update, log
 from config import datadump_file_name, shacl_file_name, shacl_adapted_file_name, landing_page_file_name, dataset_uri_and_uuid, BASE_URL, OUTPUT_DIR, PUBLIC_GRAPH, SHAPES_BASE_URL
 
 def _run_shacl_play(args: list[str], description: str) -> None:
@@ -112,6 +112,8 @@ def _step4_write_dataset_landing_page(
 
     landing_page_url = f"{datadump_base_url.rstrip('/')}/{landing_page_output_file.name}"
     dataset_uuid, dataset_uri = dataset_uri_and_uuid(dataset, dataset_config, organization, organization_config)
+
+    delete_linked_resources(dataset_uri, "http://www.w3.org/ns/dcat#landingPage", PUBLIC_GRAPH)
 
     g = RDFGraph()
     g.add((dataset_uri, DCAT.landingPage, URIRef(landing_page_url)))

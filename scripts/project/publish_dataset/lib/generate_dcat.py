@@ -2,7 +2,7 @@ from datetime import datetime
 from jinja2 import Environment, FileSystemLoader
 env = Environment(loader=FileSystemLoader("."))
 
-from helpers import graph_has_subject, turtle_to_insert_data, update, log
+from helpers import graph_has_subject, turtle_to_insert_data, update, log, delete_linked_resources, delete_reverse_linked_resources
 from config import datadump_file_name, dataset_uri_and_uuid, distribution_uri_and_uuid, service_uri_and_uuid, PUBLIC_GRAPH
 
 def step1_write_catalog(organization: str, organization_config: dict, now_iso: str) -> None:
@@ -62,6 +62,12 @@ def step2_write_dataset(organization: str, organization_config: dict, dataset: s
         distribution_uuid=distribution_uuid,
         datadump_url=datadump_url,
         **organization_config)
+
+    if insert_distribution:
+        delete_linked_resources(dataset_uri, "http://www.w3.org/ns/dcat#distribution", PUBLIC_GRAPH)
+    if insert_dataservice:
+        delete_reverse_linked_resources(dataset_uri, "http://www.w3.org/ns/dcat#servesDataset", PUBLIC_GRAPH)
+
     update(turtle_to_insert_data(dataset_output, PUBLIC_GRAPH))
     log("DCAT Dataset '%s' written to <%s>.", dataset, PUBLIC_GRAPH)
 

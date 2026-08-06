@@ -163,3 +163,43 @@ def enhance_uris(shapesGraph: RDFGraph, prefix: str, add: str) -> RDFGraph:
         new_g.add((new_s, p, new_o))
 
     return new_g
+
+def delete_linked_resources(subject: str, predicate: str, graph: str) -> None:
+    """Delete linked resources of a given subject and predicate, e.g. to remove a previous distribution or service from a dataset before inserting a new one."""
+    update(f"""
+        PREFIX dcat: <http://www.w3.org/ns/dcat#>
+        DELETE {{
+        GRAPH <{graph}> {{ 
+            <{subject}> <{predicate}> ?object .
+            ?object ?p ?o .
+        }}
+        }}
+        WHERE {{
+        GRAPH <{graph}> {{ 
+            <{subject}> <{predicate}> ?object .
+            OPTIONAL {{
+                ?object ?p ?o .
+            }}
+        }}
+        }}
+    """)
+
+def delete_reverse_linked_resources(subject: str, predicate: str, graph: str) -> None:
+    """Delete linked resources of a given subject and predicate, e.g. to remove a previous distribution or service from a dataset before inserting a new one."""
+    update(f"""
+        PREFIX dcat: <http://www.w3.org/ns/dcat#>
+        DELETE {{
+        GRAPH <{graph}> {{ 
+            ?object <{predicate}> <{subject}> .
+            ?object ?p ?o .
+        }}
+        }}
+        WHERE {{
+        GRAPH <{graph}> {{ 
+            ?object <{predicate}> <{subject}> .
+            OPTIONAL {{
+                ?object ?p ?o .
+            }}
+        }}
+        }}
+    """)
