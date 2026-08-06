@@ -8,6 +8,7 @@ SELECT
   ?subject
   ?predicate
   (SUBSTR(STR(?entity), 1, 500) AS ?entityText)
+  (SAMPLE(?entityType) AS ?type)
   (COUNT(DISTINCT ?approveReview) AS ?positief)
   (COUNT(DISTINCT ?rejectReview) AS ?negatief)
 WHERE {
@@ -21,6 +22,9 @@ WHERE {
   ?statement rdf:subject ?subject ;
              rdf:predicate ?predicate ;
              rdf:object ?entity .
+
+  OPTIONAL { ?entity a ?typeClass . }
+  BIND(IF(BOUND(?typeClass), ?typeClass, DATATYPE(?entity)) AS ?entityType)
 
   OPTIONAL {
     ?approveReview a ext:ReviewAnnotation ;
