@@ -1,0 +1,34 @@
+PREFIX ext:  <http://mu.semte.ch/vocabularies/ext/>
+PREFIX arev: <http://mu.semte.ch/vocabularies/ext/annotation-review#>
+PREFIX oa:   <http://www.w3.org/ns/oa#>
+PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT
+  ?expression
+  ?entity
+  (COUNT(DISTINCT ?approveReview) AS ?positief)
+  (COUNT(DISTINCT ?rejectReview) AS ?negatief)
+WHERE {
+  ?originalAnnotation oa:hasBody ?originalBody ;
+                      oa:hasTarget ?originalTarget .
+
+  ?originalTarget oa:hasSource ?expression .
+  ?originalTarget oa:hasSelector ?selector .
+
+  ?originalBody rdf:object ?entity .
+
+  OPTIONAL {
+    ?approveReview a ext:ReviewAnnotation ;
+                   oa:hasTarget ?originalAnnotation ;
+                   oa:hasBody arev:approve ;
+                   oa:motivatedBy oa:assessing .
+  }
+  OPTIONAL {
+    ?rejectReview a ext:ReviewAnnotation ;
+                  oa:hasTarget ?originalAnnotation ;
+                  oa:hasBody arev:reject ;
+                  oa:motivatedBy oa:assessing .
+  }
+}
+GROUP BY ?expression ?entity
+LIMIT 100

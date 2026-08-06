@@ -52,15 +52,14 @@ WHERE {
   OPTIONAL {
     ?approveReview a ext:ReviewAnnotation ;
                    oa:hasTarget ?annotation ;
-                   oa:hasBody arev:approve ;
-                   oa:motivatedBy oa:assessing .
+                   oa:hasBody arev:approve .
   }
   OPTIONAL {
     ?rejectReview a ext:ReviewAnnotation ;
                   oa:hasTarget ?annotation ;
-                  oa:hasBody arev:reject ;
-                  oa:motivatedBy oa:assessing .
+                  oa:hasBody arev:reject .
   }
 }
 GROUP BY ?expression ?conceptScheme ?concept ?creator
 ORDER BY ?creator ?expression ?conceptScheme ?concept
+LIMIT 100
