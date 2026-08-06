@@ -8,12 +8,12 @@ PREFIX dct:  <http://purl.org/dc/terms/>
 
 SELECT
   ?expression
-  ?conceptScheme
-  ?concept
-  ?creator
   (SAMPLE(?titel) AS ?titelBesluit)
   (SAMPLE(?datum) AS ?datumBesluit)
+  ?conceptScheme
+  ?concept
   (SAMPLE(?impact) AS ?impact)
+  ?creator
   (COUNT(DISTINCT ?approveReview) AS ?positief)
   (COUNT(DISTINCT ?rejectReview) AS ?negatief)
 WHERE {
@@ -61,5 +61,4 @@ WHERE {
   }
 }
 GROUP BY ?expression ?conceptScheme ?concept ?creator
-ORDER BY ?creator ?expression ?conceptScheme ?concept
 LIMIT 100

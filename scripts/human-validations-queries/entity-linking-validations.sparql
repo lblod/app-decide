@@ -2,13 +2,17 @@ PREFIX ext:  <http://mu.semte.ch/vocabularies/ext/>
 PREFIX arev: <http://mu.semte.ch/vocabularies/ext/annotation-review#>
 PREFIX oa:   <http://www.w3.org/ns/oa#>
 PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX eli:  <http://data.europa.eu/eli/ontology#>
 
 SELECT
   ?expression
+  (SAMPLE(?titel) AS ?titelBesluit)
+  (SAMPLE(?datum) AS ?datumBesluit)
   ?subject
   ?predicate
   (SUBSTR(STR(?entity), 1, 500) AS ?entityText)
   (SAMPLE(?entityType) AS ?type)
+  ?creator
   (COUNT(DISTINCT ?approveReview) AS ?positief)
   (COUNT(DISTINCT ?rejectReview) AS ?negatief)
 WHERE {
@@ -19,12 +23,20 @@ WHERE {
   ?target oa:hasSource ?expression .
   ?target oa:hasSelector ?selector .
 
+  OPTIONAL { ?expression eli:title ?titel }
+  OPTIONAL { ?expression eli:date_publication ?datum }
+
   ?statement rdf:subject ?subject ;
              rdf:predicate ?predicate ;
              rdf:object ?entity .
 
   OPTIONAL { ?entity a ?typeClass . }
   BIND(IF(BOUND(?typeClass), ?typeClass, DATATYPE(?entity)) AS ?entityType)
+
+  OPTIONAL {
+    ?activity prov:generated ?originalAnnotation ;
+              prov:wasAssociatedWith ?creator .
+  }
 
   OPTIONAL {
     ?approveReview a ext:ReviewAnnotation ;
@@ -37,5 +49,5 @@ WHERE {
                   oa:hasBody arev:reject .
   }
 }
-GROUP BY ?expression ?subject ?predicate ?entity
+GROUP BY ?expression ?subject ?predicate ?entity ?creator
 LIMIT 100
