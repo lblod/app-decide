@@ -20,9 +20,9 @@ services:
       ENABLED_TOOLS: 'search_sparql_docs,execute_sparql_query,search_location'
       JOB_GRAPH: 'http://mu.semte.ch/graphs/harvesting'
       AI_GRAPH: 'http://mu.semte.ch/graphs/public/pdf'
-      LLM_PROVIDER: 'mistral'
+      LLM_PROVIDER: 'mistralai'
       LLM_MAX_RETRIES: 3
-      MISTRAL_MODEL: 'ministral-14b-2512'
+      LLM_MODEL: 'ministral-14b-2512'
       CONFIG_PATH: '/config/config.json'
       COMPOSE_FILE: /tmp/docker-compose.yaml
       COMPOSE_SERVICE: entity-linking

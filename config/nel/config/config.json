@@ -1,7 +1,7 @@
 {
   "mcp_url": "http://localhost:80/mcp/sse",
-  "llm_provider": "openai",
-  "openai_model": "gpt-4.1",
+  "llm_provider": "mistralai",
+  "llm_model": "ministral-14b-2512",
   "vector_store_type": "memory_embedding",
   "endpoints": [
     {
@@ -38,6 +38,19 @@
         "search_location"
       ],
       "query_template": "Resolve '{entity_label}' ({classification_class}) in '{location}' using the Nominatim 'search_location' tool.\n\nProcedure:\n1. Extract the most important geographic elements (street, number, city, postal code).\n2. Build a clean address query prioritizing these elements and ignoring business descriptors.\n3. Search Nominatim.\n4. If no result is returned, retry with simplified queries while keeping the key location parts.\n5. Continue until the closest valid geographic match is found.\n6. If multiple results exist, select the most precise match (prefer exact address).\n\nReturn:\n- the best matching Nominatim URI\n- a brief explanation of the selection."
+    }
+  },
+  "location_overrides": {
+    "freiburg": {
+      "uri": "https://www.openstreetmap.org/relation/6824",
+      "lat": 47.9961443,
+      "lon": 7.8491682,
+      "label": "Neues Rathaus, Freiburg im Breisgau"
+    },
+    "bamberg": {
+      "uri": "https://www.openstreetmap.org/way/27009786",
+      "label": "Altes Rathaus, Bamberg",
+      "aliases": ["Rathaus Bamberg", "Stadt Bamberg"]
     }
   }
 }

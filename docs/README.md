@@ -80,13 +80,23 @@ The AI services relying on LLMs by default use local models. But they can also b
 - obtain the appropriate API keys (or other access tokens) from the providers; and
 - configure the necessary services with these via their environment variables.
 
-The READMEs for each individual service describes the necessary configuration in more detail:
+Every LLM-backed AI service pre-installs the same approved provider integrations,
+**Ollama** (local) and **Mistral AI** (cloud), and selects between them purely through
+configuration. Switching between these two never requires editing a service's
+`requirements.txt` or building your own image.
+
+The READMEs for each individual service describe the necessary configuration in more detail:
 
 - The  [named-entity-recognition (NER)](https://github.com/semantic-ai/decide-geocoding-service/blob/master/README.md#L39) service allows to configure providers for several of its features.
 - The [entity-linking-backend](https://github.com/semantic-ai/entity-linking-backend/blob/master/README.md) service README documents how to configure external providers.
-- The [codelist-labeling](https://github.com/semantic-ai/codelist-labeling-service/blob/master/README.md) service can be configured to use a mistral as external provider. Using another external provider requires adding the appropriate `langchain-*` package to the service by editing its `requirements.txt` file and building your own image.
-- The [Question-answering](https://github.com/semantic-ai/decide-question-answering/blob/master/README.md) service can be configured to use different providers. This does require adding the appropriate `langchain-*` package to the service by editing its `requirements.txt` file and building your own image.
-- The [Embedding](https://github.com/semantic-ai/embedding-service/blob/master/README.md) service currently does not **not** support using an external provider. Embeddings can generated locally without a GPU, but this will take considerable longer.
+- The [codelist-labeling](https://github.com/semantic-ai/codelist-labeling-service/blob/master/README.md) service is configured via the `llm` section of its `config.json`.
+- The [pdf-content-extraction](https://github.com/semantic-ai/decide-pdf-content-extraction/blob/master/README.md) service is configured via the `segmentation.llm` section of its `config.json`.
+- The [Question-answering](https://github.com/semantic-ai/decide-question-answering/blob/master/README.md) service is configured via its `GENERATION_*` environment variables.
+- The [Embedding](https://github.com/semantic-ai/embedding-service/blob/master/README.md) service currently does **not** support using an external provider. Embeddings can be generated locally without a GPU, but this will take considerably longer.
+
+Any other provider LangChain supports will work too, but that does require adding its
+`langchain-*` package to the service's `requirements.txt` and building the image
+yourself — which then becomes yours to maintain.
 
 
 ### LDES services (DCAT Federation)
