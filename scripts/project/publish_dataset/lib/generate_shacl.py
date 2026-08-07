@@ -61,7 +61,8 @@ def _step2_adapt_shapes_and_link_with_dataset(
     new_shapes_graph = enhance_uris(shapes_graph, SHAPES_BASE_URL, dataset_uuid)
 
     # Remove any owl:Ontology triples, as abundant
-    new_shapes_graph.remove((None, RDF.type, OWL.Ontology))
+    for ont_subject in list(new_shapes_graph.subjects(RDF.type, OWL.Ontology)):
+        new_shapes_graph.remove((ont_subject, None, None))
 
     # Retrieve all SHACL NodeShapes from the new shapes graph, to combine them under a single NodeShape wrapper via sh:or
     wrapper_shape_uri = URIRef(f"{BASE_URL}/id/shapes/{dataset_uuid}")
