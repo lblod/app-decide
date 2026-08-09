@@ -28,7 +28,7 @@ mu script project-scripts publish-dataset --dataset codelists --org NAME
 mu script project-scripts publish-dataset --dataset rmz --org NAME
 mu script project-scripts publish-dataset --dataset expressions --org NAME
 mu script project-scripts publish-dataset --dataset human-validations --org NAME
-mu script project-scripts publish-dataset --dataset codelists --org NAME
+mu script project-scripts publish-dataset --dataset entities --org NAME
 ```
 
 ## Configuration
@@ -91,6 +91,7 @@ Output DCAT is directly written to the triple store in the `PUBLIC_GRAPH` named 
 | Datasets                 | Description                                                                     | Output                                  |
 | ------------------- | ------------------------------------------------------------------------------- | ---------------------------------------- |
 | `codelists`         | Codelist annotations (by default: SDGs and impact)                              | `$OUTPUT_DIR/yyyymmddHHMMSS-codelists.ttl`         |
+| `entities`          | Entity annotations                                                              | `$OUTPUT_DIR/yyyymmddHHMMSS-entities.ttl`         |
 | `rmz`               | Restricted Mobility Zone (RMZ) Concept annotations + locations for municipality | `$OUTPUT_DIR/rmz.ttl`               |
 | `expressions`       | ELI metadata (expression + work + manifestation)                                | `$OUTPUT_DIR/yyyymmddHHMMSS-expressions.ttl`       |
 | `human-validations` | Human review annotations                                                        | `$OUTPUT_DIR/yyyymmddHHMMSS-human-validations.ttl` |
