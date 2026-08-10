@@ -18,15 +18,15 @@
     },
     {
       "documentation": {
-        "command": "export-human-validations",
-        "description": "Exports human validation review results as CSV. Run 'mu script project-scripts export-human-validations --help' to see the options.",
+        "command": "export-csv",
+        "description": "Exports a configured SPARQL query's results as CSV. Run 'mu script project-scripts export-csv --help' to see the options.",
         "arguments": []
       },
       "environment": {
         "image": "lblod/python-semantic-works-cli:0.0.1",
         "interactive": false,
         "join_networks": true,
-        "script": "export_human_validations/export_human_validations.py"
+        "script": "export_csv/export_csv.py"
       },
       "mounts": {
         "app": "/data/app/"

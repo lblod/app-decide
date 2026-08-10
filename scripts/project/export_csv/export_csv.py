@@ -14,11 +14,8 @@ BATCH_SIZE = int(os.environ.get("BATCH_SIZE", 1000))
 CONFIG_DIR = Path(__file__).parent
 CONFIG_FILE = CONFIG_DIR / "config.json"
 # scripts/project/config.json mounts $PWD (the repo root mu-cli is run from) at
-# /data/app/ — not /app — so this lands in ./data/human-validation-exports on
-# the host.
-OUTPUT_DIR = Path(
-    os.environ.get("OUTPUT_DIR", "/data/app/data/human-validation-exports")
-)
+# /data/app/ — not /app — so this lands in ./data/csv-exports on the host.
+OUTPUT_DIR = Path(os.environ.get("OUTPUT_DIR", "/data/app/data/csv-exports"))
 
 
 def load_datasets() -> dict:
@@ -95,8 +92,8 @@ def run_export(dataset: str, dataset_config: dict, timestamp: str) -> None:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description="Export human validation review results (approve/reject counts) for a configured dataset as CSV.",
-        epilog="Example: mu script project-scripts export-human-validations --dataset codelist-labeling-validations",
+        description="Export a configured SPARQL query's results as CSV.",
+        epilog="Example: mu script project-scripts export-csv --dataset codelist-labeling-validations",
     )
     parser.add_argument("--dataset", help="Dataset to export")
     parser.add_argument("--list", action="store_true", help="List available datasets")

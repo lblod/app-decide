@@ -7,7 +7,7 @@ from SPARQLWrapper import JSON, SPARQLWrapper
 MU_SPARQL_ENDPOINT = os.environ.get("MU_SPARQL_ENDPOINT", "http://database:8890/sparql")
 MU_SPARQL_UPDATEPOINT = os.environ.get("MU_SPARQL_UPDATEPOINT", MU_SPARQL_ENDPOINT)
 
-logger = logging.getLogger("export_human_validations")
+logger = logging.getLogger("export_csv")
 logger.setLevel(os.environ.get("LOG_LEVEL", "INFO").upper())
 logger.addHandler(logging.StreamHandler(stream=sys.stdout))
 
