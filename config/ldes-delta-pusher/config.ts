@@ -170,6 +170,14 @@ export const streams: LdesConfig = {
         }`,
       healingPredicates: [HEALING_PREDICATE],
     },
+    'http://www.w3.org/ns/shacl#NodeShape': {
+      graphFilter: PUBLIC_GRAPH_FILTER,
+      healingPredicates: [HEALING_PREDICATE],
+    },
+    'http://www.w3.org/ns/shacl#PropertyShape': {
+      graphFilter: PUBLIC_GRAPH_FILTER,
+      healingPredicates: [HEALING_PREDICATE],
+    },
   },
 };
 
