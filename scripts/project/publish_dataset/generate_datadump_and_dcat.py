@@ -18,7 +18,7 @@ env = Environment(loader=FileSystemLoader("."))
 TMP_GRAPH         = "http://mu.semte.ch/graphs/tmp-export"
 PUBLIC_GRAPH      = "http://mu.semte.ch/graphs/public"
 BATCH_SIZE        = 500
-INSERT_BATCH_SIZE = 100000
+INSERT_BATCH_SIZE = 1000
 CONCURRENCY       = 4
 
 CONFIG_DIR        = Path(__file__).parent / "./"
