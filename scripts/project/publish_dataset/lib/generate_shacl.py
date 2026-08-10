@@ -28,7 +28,7 @@ def _step1_generate_shapes(dataset: str, dataset_uuid: str, output_file_name: st
             "--prefix", "ext:http://mu.semte.ch/vocabularies/ext/",
             "--prefix", "dcat:http://www.w3.org/ns/dcat#",
             "--prefix", "dct:http://purl.org/dc/terms/",
-            "--prefix", "foaf:http://xmlns.com/foaf/0.1",
+            "--prefix", "foaf:http://xmlns.com/foaf/0.1/",
             "--prefix", "prov:http://www.w3.org/ns/prov#",
             "--prefix", "skos:http://www.w3.org/2004/02/skos/core#",
             "--prefix", "org:http://www.w3.org/ns/org#",
