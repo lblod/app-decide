@@ -15,5 +15,21 @@
       "mounts": {
         "app": "/data/app/"
       }
+    },
+    {
+      "documentation": {
+        "command": "export-human-validations",
+        "description": "Exports human validation review results as CSV. Run 'mu script project-scripts export-human-validations --help' to see the options.",
+        "arguments": []
+      },
+      "environment": {
+        "image": "lblod/python-semantic-works-cli:0.0.1",
+        "interactive": false,
+        "join_networks": true,
+        "script": "export_human_validations/export_human_validations.py"
+      },
+      "mounts": {
+        "app": "/data/app/"
+      }
     }]
 }

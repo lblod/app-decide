@@ -1,0 +1,28 @@
+{
+    "datasets": {
+        "codelist-labeling-validations": {
+            "description": "Codelist labeling human validation results",
+            "sparql_file": "./queries/codelist-labeling-validations.sparql",
+            "output_file_name": "codelist-labeling-validations",
+            "paginated": true
+        },
+        "entity-linking-validations": {
+            "description": "Entity linking human validation results",
+            "sparql_file": "./queries/entity-linking-validations.sparql",
+            "output_file_name": "entity-linking-validations",
+            "paginated": true
+        },
+        "smart-search-question-validations": {
+            "description": "Smart search question human validation summary",
+            "sparql_file": "./queries/smart-search-question-validations.sparql",
+            "output_file_name": "smart-search-question-validations",
+            "paginated": false
+        },
+        "smart-search-quotation-validations": {
+            "description": "Smart search quotation human validation summary",
+            "sparql_file": "./queries/smart-search-quotation-validations.sparql",
+            "output_file_name": "smart-search-quotation-validations",
+            "paginated": false
+        }
+    }
+}
