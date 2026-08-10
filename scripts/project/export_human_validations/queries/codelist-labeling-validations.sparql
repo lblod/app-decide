@@ -61,4 +61,4 @@ WHERE {
   }
 }
 GROUP BY ?expression ?conceptScheme ?concept ?creator
-LIMIT 100
+ORDER BY ?expression ?conceptScheme ?concept ?creator

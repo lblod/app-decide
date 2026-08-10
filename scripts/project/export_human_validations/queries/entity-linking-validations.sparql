@@ -50,4 +50,4 @@ WHERE {
   }
 }
 GROUP BY ?expression ?subject ?predicate ?entity ?creator
-LIMIT 100
+ORDER BY ?expression ?subject ?predicate ?entity ?creator
