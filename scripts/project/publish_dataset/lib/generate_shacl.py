@@ -1,7 +1,6 @@
 import subprocess
 
 from pathlib import Path
-import uuid
 from rdflib import BNode, URIRef, Graph as RDFGraph
 from rdflib.collection import Collection
 from rdflib.compare import to_canonical_graph
