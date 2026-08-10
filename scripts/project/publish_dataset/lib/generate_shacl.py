@@ -64,6 +64,10 @@ def _step2_adapt_shapes_and_link_with_dataset(
     for ont_subject in list(new_shapes_graph.subjects(RDF.type, OWL.Ontology)):
         new_shapes_graph.remove((ont_subject, None, None))
 
+    # Add rdf:type sh:PropertyShape to property shapes, so they can be published on LDES
+    for property_shape in new_shapes_graph.objects(predicate=SH.property):
+        new_shapes_graph.add((property_shape, RDF.type, SH.PropertyShape))
+
     # Retrieve all SHACL NodeShapes from the new shapes graph, to combine them under a single NodeShape wrapper via sh:or
     wrapper_shape_uri = URIRef(f"{BASE_URL}/id/shapes/{dataset_uuid}")
     node_shapes = sorted(new_shapes_graph.subjects(RDF.type, SH.NodeShape), key=str)
