@@ -10,12 +10,13 @@ insert {
     ?annotation a ext:downloadResource .
     ?activity a ext:downloadResource .
     ?agent a ext:downloadResource .
+    ?concept a ext:downloadResource .
   }
 }
 where {
   {{ organizationFilter }}
   values ?codelist {
-    <http://data.lblod.info/id/conceptschemes/sdg-simple>
+    <http://data.lblod.gift/id/conceptscheme/sdg-simple>
     <http://mu.semte.ch/vocabularies/ext/impact>
   }
 
