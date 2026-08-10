@@ -61,4 +61,3 @@ WHERE {
   }
 }
 GROUP BY ?expression ?conceptScheme ?concept ?creator
-ORDER BY ?expression ?conceptScheme ?concept ?creator

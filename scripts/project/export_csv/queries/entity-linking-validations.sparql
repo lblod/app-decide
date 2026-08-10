@@ -50,4 +50,3 @@ WHERE {
   }
 }
 GROUP BY ?expression ?subject ?predicate ?entity ?creator
-ORDER BY ?expression ?subject ?predicate ?entity ?creator
