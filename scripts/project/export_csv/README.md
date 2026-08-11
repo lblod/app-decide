@@ -1,6 +1,6 @@
 # Generic SPARQL-to-CSV export
 
-This mu script runs a configured SPARQL SELECT query and writes its result set to a CSV file. Any dataset can be added by registering a `.sparql` file in `config.json` — nothing about the script itself is tied to a specific dataset. It's currently configured with four datasets that export human validation review results (approve/reject counts) for different annotation types, but new datasets need no code changes, only a new `config.json` entry (see "Adding a new dataset" below).
+This mu script runs a configured SPARQL SELECT query and writes its result set to a CSV file. Any dataset can be added by registering a `.sparql` file in `config.json` — nothing about the script itself is tied to a specific dataset. It's currently configured with datasets exporting human validation review results (approve/reject counts) for different annotation types, and an AI call log, but new datasets need no code changes, only a new `config.json` entry (see "Adding a new dataset" below).
 
 Unlike `publish_dataset`, exports here are not published as open data — no DCAT, no per-organization split.
 
@@ -18,6 +18,7 @@ mu script project-scripts export-csv --dataset codelist-labeling-validations
 mu script project-scripts export-csv --dataset entity-linking-validations
 mu script project-scripts export-csv --dataset smart-search-question-validations
 mu script project-scripts export-csv --dataset smart-search-quotation-validations
+mu script project-scripts export-csv --dataset ai-calls
 ```
 
 Output `.csv` files are written to `OUTPUT_DIR` (`/data/app/data/csv-exports` by default). `scripts/project/config.json` mounts the repo root (`$PWD` where `mu` is invoked) at `/data/app/` for this script, so this lands in `./data/csv-exports` on the host.
@@ -30,8 +31,9 @@ Output `.csv` files are written to `OUTPUT_DIR` (`/data/app/data/csv-exports` by
 | `entity-linking-validations`          | Entity linking human validation results            | yes       |
 | `smart-search-question-validations`   | Smart search question human validation summary     | no        |
 | `smart-search-quotation-validations`  | Smart search quotation human validation summary    | no        |
+| `ai-calls`                            | AI call log (operation, model, tokens, cost, timing) | yes     |
 
-The two row-level datasets can return a large number of rows, so they're fetched in batches (see below). The two summary datasets return a single aggregate row and are run once.
+The row-level datasets can return a large number of rows, so they're fetched in batches (see below). The two summary datasets return a single aggregate row and are run once.
 
 ## Batching
 
