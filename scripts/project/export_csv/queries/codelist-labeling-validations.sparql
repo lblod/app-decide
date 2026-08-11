@@ -5,6 +5,7 @@ PREFIX eli:  <http://data.europa.eu/eli/ontology#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX prov: <http://www.w3.org/ns/prov#>
 PREFIX dct:  <http://purl.org/dc/terms/>
+PREFIX org: <http://www.w3.org/ns/org#>
 
 SELECT
   ?expression
@@ -16,6 +17,9 @@ SELECT
   ?creator
   (COUNT(DISTINCT ?approveReview) AS ?positief)
   (COUNT(DISTINCT ?rejectReview) AS ?negatief)
+  (?municipalityLabel AS ?gemeente)
+  (?knownOrganizationLabel AS ?organisatie)
+  (GROUP_CONCAT(distinct ?derivedOrganizationLabel ; SEPARATOR=", ") as ?organisatieAfgeleid)
 WHERE {
   ?originalAnnotation a oa:Annotation ;
                       oa:hasTarget ?expression ;
@@ -23,6 +27,32 @@ WHERE {
 
   ?expression a eli:Expression .
 
+  ?municipality skos:prefLabel ?municipalityLabel ;
+    org:classification <http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000001> .
+
+  {
+    ?expression ^<http://data.europa.eu/eli/ontology#is_realized_by> / <http://data.europa.eu/eli/ontology#passed_by> / ^<http://www.w3.org/ns/org#hasSubOrganization> ?municipality .
+  } UNION {
+    ?task <http://redpencil.data.gift/vocabularies/tasks/inputContainer> / <http://redpencil.data.gift/vocabularies/tasks/hasResource> ?municipality .
+    ?task <http://redpencil.data.gift/vocabularies/tasks/inputContainer> / <http://redpencil.data.gift/vocabularies/tasks/hasResource> ?expression .
+  }
+  
+  OPTIONAL {
+    ?expression ^<http://data.europa.eu/eli/ontology#is_realized_by> / <http://data.europa.eu/eli/ontology#passed_by> ?knownOrganization .
+    ?knownOrganization skos:prefLabel ?knownOrganizationLabel .
+  }
+  
+  OPTIONAL {
+    ?annotation oa:hasTarget / oa:hasSource? ?expression .
+    ?annotation oa:hasBody ?body .
+    ?body rdf:predicate <http://data.europa.eu/eli/ontology#passed_by> .
+    ?body rdf:object ?detectedOrganization .
+    ?linkAnnotation rdf:subject ?detectedOrganization ;
+      rdf:predicate skos:exactMatch ;
+      rdf:object ?derivedOrganization .
+    ?derivedOrganization skos:prefLabel ?derivedOrganizationLabel .
+  }
+  
   OPTIONAL { ?expression eli:title ?titel }
   OPTIONAL { ?expression eli:date_publication ?datum }
 
@@ -60,4 +90,4 @@ WHERE {
                   oa:hasBody arev:reject .
   }
 }
-GROUP BY ?expression ?conceptScheme ?concept ?creator
+GROUP BY ?expression ?conceptScheme ?concept ?creator ?municipalityLabel ?knownOrganizationLabel ?derivedOrganizationLabels
