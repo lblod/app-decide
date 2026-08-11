@@ -65,10 +65,10 @@
       "catalog_uri": "http://data.lblod.info/id/catalogs/7a6b5c4d-3e2f-1a0b-9c8d-7e6f5a4b3c2d",
       "catalog_uuid": "7a6b5c4d-3e2f-1a0b-9c8d-7e6f5a4b3c2d",
       "catalog_publisher": {
-        "uri": "https://opendata.smartcitybamberg.de/decide/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7",
+        "uri": "https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7",
         "name": "City of Bamberg"
       },
-      "organizationFilter": "values ?organization { <https://opendata.smartcitybamberg.de/decide/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> }"
+      "organizationFilter": "values ?organization { <https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> }"
     },
     "gent": {
       "catalog_uri": "http://data.lblod.info/id/catalogs/80fb699a-0d95-4089-843d-79c89138cdb7",
