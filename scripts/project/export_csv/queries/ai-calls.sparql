@@ -1,0 +1,19 @@
+PREFIX task: <http://redpencil.data.gift/vocabularies/tasks/>
+PREFIX ext:  <http://mu.semte.ch/vocabularies/ext/>
+PREFIX mu:   <http://mu.semte.ch/vocabularies/core/>
+
+SELECT ?call ?operation ?endpoint ?model ?duration ?cost ?tokenIn ?tokenOut ?started ?ended
+WHERE {
+  ?task task:operation ?operation ;
+        ext:performedAICall ?call .
+
+  ?call ext:aiModel ?model ;
+        ext:endpoint ?endpoint ;
+        ext:tokenIn ?tokenIn ;
+        ext:tokenOut ?tokenOut .
+
+  OPTIONAL { ?call ext:duration ?duration . }
+  OPTIONAL { ?call ext:cost ?cost . }
+  OPTIONAL { ?task ext:startedAt ?started . }
+  OPTIONAL { ?task ext:endedAt ?ended . }
+}
