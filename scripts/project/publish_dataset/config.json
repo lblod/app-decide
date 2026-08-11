@@ -68,7 +68,9 @@
         "uri": "https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7",
         "name": "City of Bamberg"
       },
-      "organizationFilter": "values ?organization { <https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> }"
+      "organizationFilter": "values ?organization { <https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> }",
+      "datadump_base_url": "https://ds.decide.smartcitybamberg.de/datadumps/",
+      "sparql_endpoint": "http://ds.decide.smartcitybamberg.de/api/sparql"
     },
     "gent": {
       "catalog_uri": "http://data.lblod.info/id/catalogs/80fb699a-0d95-4089-843d-79c89138cdb7",
