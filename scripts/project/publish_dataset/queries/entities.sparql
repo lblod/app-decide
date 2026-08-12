@@ -4,26 +4,24 @@ prefix oa: <http://www.w3.org/ns/oa#>
 prefix org: <http://www.w3.org/ns/org#>
 prefix eli: <http://data.europa.eu/eli/ontology#>
 prefix prov: <http://www.w3.org/ns/prov#>
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
 
 insert {
   graph <http://mu.semte.ch/graphs/tmp-export> {
     ?annotation a ext:downloadResource .
+    ?target a ext:downloadResource .
+    ?statement a ext:downloadResource .
     ?activity a ext:downloadResource .
     ?agent a ext:downloadResource .
-    ?concept a ext:downloadResource .
   }
 }
 where {
   {{ organizationFilter }}
-  values ?codelist {
-    <http://data.lblod.gift/id/conceptscheme/sdg-simple>
-    <http://mu.semte.ch/vocabularies/ext/impact>
-  }
-
-  ?annotation oa:hasBody ?concept .
-  ?annotation oa:hasTarget ?expression .
-
-  ?concept skos:inScheme ?codelist .
+  
+  ?annotation oa:hasBody ?statement .
+  ?annotation oa:hasTarget ?target .
+  ?target oa:hasSource ?expression .
+  ?statement a rdf:Statement .
 
   optional {
     ?activity prov:generated ?annotation .

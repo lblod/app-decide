@@ -7,10 +7,26 @@
         "arguments": []
       },
       "environment": {
+        "image": "lblod/python-semantic-works-cli:0.0.2",
+        "interactive": false,
+        "join_networks": true,
+        "script": "publish_dataset/main.py"
+      },
+      "mounts": {
+        "app": "/data/app/"
+      }
+    },
+    {
+      "documentation": {
+        "command": "export-csv",
+        "description": "Exports a configured SPARQL query's results as CSV. Run 'mu script project-scripts export-csv --help' to see the options.",
+        "arguments": []
+      },
+      "environment": {
         "image": "lblod/python-semantic-works-cli:0.0.1",
         "interactive": false,
         "join_networks": true,
-        "script": "publish_dataset/generate_datadump_and_dcat.py"
+        "script": "export_csv/export_csv.py"
       },
       "mounts": {
         "app": "/data/app/"

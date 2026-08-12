@@ -12,11 +12,11 @@ Here is a list of things each partner must do:
     "catalog_uri": "http://data.lblod.info/id/catalogs/7a6b5c4d-3e2f-1a0b-9c8d-7e6f5a4b3c2d",
     "catalog_uuid": "7a6b5c4d-3e2f-1a0b-9c8d-7e6f5a4b3c2d",
     "catalog_publisher": {
-        "uri": "https://opendata.smartcitybamberg.de/decide/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7",
+        "uri": "https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7",
         "name": "City of Bamberg",
         "email": "test@stad.bamberg.de"
     },
-    "organizationFilter": "values ?participant { <https://opendata.smartcitybamberg.de/decide/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> }",
+    "organizationFilter": "values ?participant { <https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> }",
     "sparql_endpoint": "https://decide.partner.eu/api/sparql",
     "datadump_base_url": "https://decide.partner.eu/datadumps/"
 }
@@ -28,7 +28,7 @@ mu script project-scripts publish-dataset --dataset codelists --org NAME
 mu script project-scripts publish-dataset --dataset rmz --org NAME
 mu script project-scripts publish-dataset --dataset expressions --org NAME
 mu script project-scripts publish-dataset --dataset human-validations --org NAME
-mu script project-scripts publish-dataset --dataset codelists --org NAME
+mu script project-scripts publish-dataset --dataset entities --org NAME
 ```
 
 ## Configuration
@@ -91,6 +91,7 @@ Output DCAT is directly written to the triple store in the `PUBLIC_GRAPH` named 
 | Datasets                 | Description                                                                     | Output                                  |
 | ------------------- | ------------------------------------------------------------------------------- | ---------------------------------------- |
 | `codelists`         | Codelist annotations (by default: SDGs and impact)                              | `$OUTPUT_DIR/yyyymmddHHMMSS-codelists.ttl`         |
+| `entities`          | Entity annotations                                                              | `$OUTPUT_DIR/yyyymmddHHMMSS-entities.ttl`         |
 | `rmz`               | Restricted Mobility Zone (RMZ) Concept annotations + locations for municipality | `$OUTPUT_DIR/rmz.ttl`               |
 | `expressions`       | ELI metadata (expression + work + manifestation)                                | `$OUTPUT_DIR/yyyymmddHHMMSS-expressions.ttl`       |
 | `human-validations` | Human review annotations                                                        | `$OUTPUT_DIR/yyyymmddHHMMSS-human-validations.ttl` |
@@ -101,7 +102,7 @@ Output DCAT is directly written to the triple store in the `PUBLIC_GRAPH` named 
 
 | Organization | URI                                                                                                             |
 | ------------ | --------------------------------------------------------------------------------------------------------------- |
-| Bamberg      | `<https://opendata.smartcitybamberg.de/decide/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7>`              |
+| Bamberg      | `<https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7>`              |
 | Freiburg     | `<https://ris.freiburg.de/oparl/body/FR>`                                                                       |
 | Gent         | `<http://data.lblod.info/id/bestuurseenheden/353234a365664e581db5c2f7cc07add2534b47b8e1ab87c821fc6e6365e6bef5>` |
 | Agency for Local Affairs (ABB)         | `<http://data.lblod.info/id/bestuurseenheden/141d9d6b-54af-4d17-b313-8d1c30bc3f5b>` |

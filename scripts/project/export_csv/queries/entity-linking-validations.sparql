@@ -3,6 +3,8 @@ PREFIX arev: <http://mu.semte.ch/vocabularies/ext/annotation-review#>
 PREFIX oa:   <http://www.w3.org/ns/oa#>
 PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX eli:  <http://data.europa.eu/eli/ontology#>
+PREFIX epvoc: <https://data.europarl.europa.eu/def/epvoc#>
+PREFIX org: <http://www.w3.org/ns/org#>
 
 SELECT
   ?expression
@@ -10,11 +12,12 @@ SELECT
   (SAMPLE(?datum) AS ?datumBesluit)
   ?subject
   ?predicate
-  (SUBSTR(STR(?entity), 1, 500) AS ?entityText)
-  (SAMPLE(?entityType) AS ?type)
+  (SUBSTR(STR(?completeEntityText), 1, 500) AS ?entityText)
+  (GROUP_CONCAT(distinct ?entityType ; SEPARATOR=", ") AS ?type)
   ?creator
   (COUNT(DISTINCT ?approveReview) AS ?positief)
   (COUNT(DISTINCT ?rejectReview) AS ?negatief)
+  (?municipalityLabel AS ?gemeente)
 WHERE {
   ?originalAnnotation a oa:Annotation ;
                       oa:hasTarget ?target ;
@@ -22,6 +25,21 @@ WHERE {
 
   ?target oa:hasSource ?expression .
   ?target oa:hasSelector ?selector .
+
+  ?selector oa:start ?start ;
+      oa:end ?end .
+  
+  ?expression a eli:Expression ;
+    epvoc:expressionContent ?content ;
+    ext:owningBody ?municipality .
+
+  ?municipality a org:Organization ;
+    skos:prefLabel ?municipalityLabel ;
+    org:classification <http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000001> .  
+
+  BIND(xsd:integer(?start) AS ?s)
+  BIND(xsd:integer(?end) AS ?e)
+  BIND(SUBSTR(?content, ?s + 1, ?e - ?s) AS ?completeEntityText)
 
   OPTIONAL { ?expression eli:title ?titel }
   OPTIONAL { ?expression eli:date_publication ?datum }
@@ -49,4 +67,4 @@ WHERE {
                   oa:hasBody arev:reject .
   }
 }
-GROUP BY ?expression ?subject ?predicate ?entity ?creator
+GROUP BY ?expression ?subject ?predicate ?completeEntityText ?creator ?municipalityLabel
