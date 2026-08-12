@@ -1,8 +1,9 @@
 PREFIX task: <http://redpencil.data.gift/vocabularies/tasks/>
 PREFIX ext:  <http://mu.semte.ch/vocabularies/ext/>
 PREFIX mu:   <http://mu.semte.ch/vocabularies/core/>
+PREFIX dct:  <http://purl.org/dc/terms/>
 
-SELECT ?call ?operation ?endpoint ?model ?durationSeconds ?costDollar ?tokenIn ?tokenOut ?started ?ended
+SELECT ?call ?operation ?endpoint ?model ?durationSeconds ?costDollar ?tokenIn ?tokenOut ?started ?ended ?codelist
 WHERE {
   ?task task:operation ?operation ;
         ext:performedAICall ?call .
@@ -16,4 +17,9 @@ WHERE {
   OPTIONAL { ?call ext:cost ?costDollar . }
   OPTIONAL { ?task ext:startedAt ?started . }
   OPTIONAL { ?task ext:endedAt ?ended . }
+
+  OPTIONAL {
+    ?task dct:isPartOf ?job .
+    ?job ext:codelist ?codelist .
+  }
 }
