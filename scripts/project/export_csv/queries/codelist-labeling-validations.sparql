@@ -25,32 +25,27 @@ WHERE {
                       oa:hasTarget ?expression ;
                       oa:hasBody ?concept .
 
-  ?expression a eli:Expression .
+  ?expression a eli:Expression ;
+    ext:owningBody ?municipality .
 
-  ?municipality skos:prefLabel ?municipalityLabel ;
+  ?municipality a org:Organization ;
+    skos:prefLabel ?municipalityLabel ;
     org:classification <http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000001> .
-
-  {
-    ?expression ^<http://data.europa.eu/eli/ontology#is_realized_by> / <http://data.europa.eu/eli/ontology#passed_by> / ^<http://www.w3.org/ns/org#hasSubOrganization> ?municipality .
-  } UNION {
-    ?task <http://redpencil.data.gift/vocabularies/tasks/inputContainer> / <http://redpencil.data.gift/vocabularies/tasks/hasResource> ?municipality .
-    ?task <http://redpencil.data.gift/vocabularies/tasks/inputContainer> / <http://redpencil.data.gift/vocabularies/tasks/hasResource> ?expression .
-  }
   
   OPTIONAL {
     ?expression ^<http://data.europa.eu/eli/ontology#is_realized_by> / <http://data.europa.eu/eli/ontology#passed_by> ?knownOrganization .
     ?knownOrganization skos:prefLabel ?knownOrganizationLabel .
   }
-  
+
   OPTIONAL {
-    ?annotation oa:hasTarget / oa:hasSource? ?expression .
-    ?annotation oa:hasBody ?body .
-    ?body rdf:predicate <http://data.europa.eu/eli/ontology#passed_by> .
-    ?body rdf:object ?detectedOrganization .
-    ?linkAnnotation rdf:subject ?detectedOrganization ;
+    ?expression ext:owningBody ?entity .
+    FILTER NOT EXISTS {
+      ?entity org:classification <http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000001> .
+    }
+    
+    ?linkAnnotation rdf:subject ?entity ;
       rdf:predicate skos:exactMatch ;
-      rdf:object ?derivedOrganization .
-    ?derivedOrganization skos:prefLabel ?derivedOrganizationLabel .
+      rdf:object/skos:prefLabel ?derivedOrganizationLabel .
   }
   
   OPTIONAL { ?expression eli:title ?titel }
