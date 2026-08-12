@@ -1,0 +1,88 @@
+PREFIX ext:  <http://mu.semte.ch/vocabularies/ext/>
+PREFIX arev: <http://mu.semte.ch/vocabularies/ext/annotation-review#>
+PREFIX oa:   <http://www.w3.org/ns/oa#>
+PREFIX eli:  <http://data.europa.eu/eli/ontology#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX dct:  <http://purl.org/dc/terms/>
+PREFIX org: <http://www.w3.org/ns/org#>
+
+SELECT
+  ?expression
+  (SAMPLE(?titel) AS ?titelBesluit)
+  (SAMPLE(?datum) AS ?datumBesluit)
+  ?conceptScheme
+  ?concept
+  ?impact
+  ?creator
+  (COUNT(DISTINCT ?approveReview) AS ?positief)
+  (COUNT(DISTINCT ?rejectReview) AS ?negatief)
+  (?municipalityLabel AS ?gemeente)
+  (?knownOrganizationLabel AS ?organisatie)
+  (GROUP_CONCAT(distinct ?derivedOrganizationLabel ; SEPARATOR=", ") as ?organisatieAfgeleid)
+WHERE {
+  ?originalAnnotation a oa:Annotation ;
+                      oa:hasTarget ?expression ;
+                      oa:hasBody ?concept .
+
+  ?expression a eli:Expression ;
+    ext:owningBody ?municipality .
+
+  ?municipality a org:Organization ;
+    skos:prefLabel ?municipalityLabel ;
+    org:classification <http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000001> .
+  
+  OPTIONAL {
+    ?expression ^<http://data.europa.eu/eli/ontology#is_realized_by> / <http://data.europa.eu/eli/ontology#passed_by> ?knownOrganization .
+    ?knownOrganization skos:prefLabel ?knownOrganizationLabel .
+  }
+
+  OPTIONAL {
+    ?expression ext:owningBody ?entity .
+    FILTER NOT EXISTS {
+      ?entity org:classification <http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000001> .
+    }
+    
+    ?linkAnnotation rdf:subject ?entity ;
+      rdf:predicate skos:exactMatch ;
+      rdf:object/skos:prefLabel ?derivedOrganizationLabel .
+  }
+  
+  OPTIONAL { ?expression eli:title ?titel }
+  OPTIONAL { ?expression eli:date_publication ?datum }
+
+  {
+    ?concept skos:inScheme ?conceptScheme .
+    FILTER (?conceptScheme != <http://mu.semte.ch/vocabularies/ext/impact>)
+  }
+  UNION
+  {
+    ?concept a ext:NoMatchFound .
+    ?task prov:generated ?originalAnnotation ;
+          dct:isPartOf ?job .
+    ?job ext:codelist ?conceptScheme .
+  }
+
+  OPTIONAL {
+    ?originalAnnotation oa:hasBody ?impactConcept .
+    ?impactConcept skos:inScheme <http://mu.semte.ch/vocabularies/ext/impact> ;
+                   skos:prefLabel ?impact .
+  }
+
+  OPTIONAL {
+    ?activity prov:generated ?originalAnnotation ;
+              prov:wasAssociatedWith ?creator .
+  }
+
+  OPTIONAL {
+    ?approveReview a ext:ReviewAnnotation ;
+                   oa:hasTarget ?originalAnnotation ;
+                   oa:hasBody arev:approve .
+  }
+  OPTIONAL {
+    ?rejectReview a ext:ReviewAnnotation ;
+                  oa:hasTarget ?originalAnnotation ;
+                  oa:hasBody arev:reject .
+  }
+}
+GROUP BY ?expression ?conceptScheme ?concept ?creator ?municipalityLabel ?knownOrganizationLabel ?derivedOrganizationLabel ?impact
