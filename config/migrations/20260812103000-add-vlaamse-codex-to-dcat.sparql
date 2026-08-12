@@ -15,36 +15,25 @@ INSERT DATA {
 ;
 INSERT DATA {
   GRAPH <http://mu.semte.ch/graphs/public> {
-    <http://data.lblod.info/id/services/a5d0d3ff-1593-4861-9cdc-f65d358ffa36> a dcat:DataService;
-      mu:uuid "a5d0d3ff-1593-4861-9cdc-f65d358ffa36";
-      dct:title "Vlaamse Codex"@nl;
-      dcat:endpointURL <https://codex.vlaanderen.be>;
-      dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
-      dcat:servesDataset <http://data.lblod.info/id/datasets/1f898ab4-1008-4701-99ed-bafa494a6910> .
-  }
-}
-;
-INSERT DATA {
-  GRAPH <http://mu.semte.ch/graphs/public> {
     <http://data.lblod.info/id/distributions/bfe864fa-4eb6-477c-9f0e-1846b5c315cb> a dcat:Distribution;
       mu:uuid "bfe864fa-4eb6-477c-9f0e-1846b5c315cb";
       dct:title "SPARQL Endpoint"@nl;
-      dct:issued "2026-08-12T00:00:00"^^xsd:dateTime;
-      dct:modified "2026-08-12T00:00:00"^^xsd:dateTime;
       dcat:accessURL <https://codex.opendata.api.vlaanderen.be:8888/sparql>;
       dcat:accessService <http://data.lblod.info/id/services/a5d0d3ff-1593-4861-9cdc-f65d358ffa36>;
       dct:format <http://publications.europa.eu/resource/authority/file-type/SPARQLQRES>;
-      dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC> .
+      dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
+      dct:issued "2026-08-12T00:00:00"^^xsd:dateTime;
+      dct:modified "2026-08-12T00:00:00"^^xsd:dateTime.
 
-    <http://data.lblod.info/id/distributions/95973b1c-4275-4902-8d34-376a593326a6>
-      a dcat:Distribution;
+    <http://data.lblod.info/id/distributions/95973b1c-4275-4902-8d34-376a593326a6> a dcat:Distribution;
       mu:uuid "95973b1c-4275-4902-8d34-376a593326a6";
       dct:title "JSON-LD API"@nl;
-      dct:issued "2026-08-12T00:00:00"^^xsd:dateTime;
-      dct:modified "2026-08-12T00:00:00"^^xsd:dateTime;
       dcat:accessURL <https://codex.opendata.api.vlaanderen.be:443/api>;
+      dcat:accessService <http://data.lblod.info/id/services/0b18c1de-c1db-4de5-a2ad-6fd29434509e>;
       dct:format <http://publications.europa.eu/resource/authority/file-type/JSON_LD>;
-      dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC> .
+      dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
+      dct:issued "2026-08-12T00:00:00"^^xsd:dateTime;
+      dct:modified "2026-08-12T00:00:00"^^xsd:dateTime.
   }
 }
 ;
@@ -63,7 +52,25 @@ INSERT DATA {
       dct:issued "2026-08-12T00:00:00"^^xsd:dateTime;
       dct:modified "2026-08-12T00:00:00"^^xsd:dateTime;
       dcat:distribution
-          <http://data.lblod.info/id/distributions/bfe864fa-4eb6-477c-9f0e-1846b5c315cb>,
-          <http://data.lblod.info/id/distributions/95973b1c-4275-4902-8d34-376a593326a6> .
+        <http://data.lblod.info/id/distributions/bfe864fa-4eb6-477c-9f0e-1846b5c315cb>,
+        <http://data.lblod.info/id/distributions/95973b1c-4275-4902-8d34-376a593326a6> .
+  }
+}
+;
+INSERT DATA {
+  GRAPH <http://mu.semte.ch/graphs/public> {
+    <http://data.lblod.info/id/services/a5d0d3ff-1593-4861-9cdc-f65d358ffa36> a dcat:DataService;
+      mu:uuid "a5d0d3ff-1593-4861-9cdc-f65d358ffa36";
+      dct:title "Vlaamse Codex SPARQL Endpoint"@nl;
+      dcat:endpointURL <https://codex.opendata.api.vlaanderen.be:8888/sparql>;
+      dct:conformsTo <https://www.w3.org/TR/sparql11-protocol/>;
+      dcat:servesDataset <http://data.lblod.info/id/datasets/1f898ab4-1008-4701-99ed-bafa494a6910> .
+
+    <http://data.lblod.info/id/services/0b18c1de-c1db-4de5-a2ad-6fd29434509e> a dcat:DataService;
+      mu:uuid "0b18c1de-c1db-4de5-a2ad-6fd29434509e";
+      dct:title "Vlaamse Codex API Endpoint"@nl;
+      dcat:endpointURL <https://codex.opendata.api.vlaanderen.be:443/api>;
+      dct:conformsTo <https://www.w3.org/TR/json-ld11/>;
+      dcat:servesDataset <http://data.lblod.info/id/datasets/1f898ab4-1008-4701-99ed-bafa494a6910> .
   }
 }
