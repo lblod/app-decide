@@ -18,8 +18,6 @@ SELECT
   (COUNT(DISTINCT ?approveReview) AS ?positief)
   (COUNT(DISTINCT ?rejectReview) AS ?negatief)
   (?municipalityLabel AS ?gemeente)
-  (?knownOrganizationLabel AS ?organisatie)
-  (GROUP_CONCAT(distinct ?derivedOrganizationLabel ; SEPARATOR=", ") as ?organisatieAfgeleid)
 WHERE {
   ?originalAnnotation a oa:Annotation ;
                       oa:hasTarget ?target ;
@@ -38,22 +36,6 @@ WHERE {
   ?municipality a org:Organization ;
     skos:prefLabel ?municipalityLabel ;
     org:classification <http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000001> .  
-  
-  OPTIONAL {
-    ?expression ^<http://data.europa.eu/eli/ontology#is_realized_by> / <http://data.europa.eu/eli/ontology#passed_by> ?knownOrganization .
-    ?knownOrganization skos:prefLabel ?knownOrganizationLabel .
-  }
-
-  OPTIONAL {
-    ?expression ext:owningBody ?entity .
-    FILTER NOT EXISTS {
-      ?entity org:classification <http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000001> .
-    }
-    
-    ?linkAnnotation rdf:subject ?entity ;
-      rdf:predicate skos:exactMatch ;
-      rdf:object/skos:prefLabel ?derivedOrganizationLabel .
-  }
 
   BIND(xsd:integer(?start) AS ?s)
   BIND(xsd:integer(?end) AS ?e)
@@ -85,4 +67,4 @@ WHERE {
                   oa:hasBody arev:reject .
   }
 }
-GROUP BY ?expression ?subject ?predicate ?completeEntityText ?creator ?municipalityLabel ?knownOrganizationLabel
+GROUP BY ?expression ?subject ?predicate ?completeEntityText ?creator ?municipalityLabel
