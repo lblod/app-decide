@@ -69,7 +69,7 @@ def run_export(dataset: str, dataset_config: dict, timestamp: str) -> None:
                     paginate(dataset_config["query"], BATCH_SIZE, offset)
                 )
                 if writer is None:
-                    writer = csv.DictWriter(fh, fieldnames=variables)
+                    writer = csv.DictWriter(fh, fieldnames=variables, delimiter=";")
                     writer.writeheader()
                 for row in rows:
                     writer.writerow(row)
@@ -81,7 +81,7 @@ def run_export(dataset: str, dataset_config: dict, timestamp: str) -> None:
                 offset += BATCH_SIZE
         else:
             variables, rows = select_rows_with_vars(dataset_config["query"])
-            writer = csv.DictWriter(fh, fieldnames=variables)
+            writer = csv.DictWriter(fh, fieldnames=variables, delimiter=";")
             writer.writeheader()
             for row in rows:
                 writer.writerow(row)
