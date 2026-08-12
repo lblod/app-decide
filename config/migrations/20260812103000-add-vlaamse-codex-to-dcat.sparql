@@ -1,0 +1,69 @@
+PREFIX dcat:  <http://www.w3.org/ns/dcat#>
+PREFIX dct:   <http://purl.org/dc/terms/>
+PREFIX foaf:  <http://xmlns.com/foaf/0.1/>
+PREFIX mu:    <http://mu.semte.ch/vocabularies/core/>
+PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+
+INSERT DATA {
+  GRAPH <http://mu.semte.ch/graphs/public> {
+    <http://data.lblod.info/id/agents/3c5536f1-1427-40ff-b3a5-490897c93fa2> a foaf:Agent;
+      mu:uuid "3c5536f1-1427-40ff-b3a5-490897c93fa2";
+      vcard:hasName "Vlaamse Overheid"@nl .
+  }
+}
+;
+INSERT DATA {
+  GRAPH <http://mu.semte.ch/graphs/public> {
+    <http://data.lblod.info/id/services/a5d0d3ff-1593-4861-9cdc-f65d358ffa36> a dcat:DataService;
+      mu:uuid "a5d0d3ff-1593-4861-9cdc-f65d358ffa36";
+      dct:title "Vlaamse Codex"@nl;
+      dcat:endpointURL <https://codex.vlaanderen.be>;
+      dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
+      dcat:servesDataset <http://data.lblod.info/id/datasets/1f898ab4-1008-4701-99ed-bafa494a6910> .
+  }
+}
+;
+INSERT DATA {
+  GRAPH <http://mu.semte.ch/graphs/public> {
+    <http://data.lblod.info/id/distributions/bfe864fa-4eb6-477c-9f0e-1846b5c315cb> a dcat:Distribution;
+      mu:uuid "bfe864fa-4eb6-477c-9f0e-1846b5c315cb";
+      dct:title "SPARQL Endpoint"@nl;
+      dct:issued "2026-08-12T00:00:00"^^xsd:dateTime;
+      dct:modified "2026-08-12T00:00:00"^^xsd:dateTime;
+      dcat:accessURL <https://codex.opendata.api.vlaanderen.be:8888/sparql>;
+      dcat:accessService <http://data.lblod.info/id/services/a5d0d3ff-1593-4861-9cdc-f65d358ffa36>;
+      dct:format <http://publications.europa.eu/resource/authority/file-type/SPARQLQRES>;
+      dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC> .
+
+    <http://data.lblod.info/id/distributions/95973b1c-4275-4902-8d34-376a593326a6>
+      a dcat:Distribution;
+      mu:uuid "95973b1c-4275-4902-8d34-376a593326a6";
+      dct:title "JSON-LD API"@nl;
+      dct:issued "2026-08-12T00:00:00"^^xsd:dateTime;
+      dct:modified "2026-08-12T00:00:00"^^xsd:dateTime;
+      dcat:accessURL <https://codex.opendata.api.vlaanderen.be:443/api>;
+      dct:format <http://publications.europa.eu/resource/authority/file-type/JSON_LD>;
+      dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC> .
+  }
+}
+;
+INSERT DATA {
+  GRAPH <http://mu.semte.ch/graphs/public> {
+    <http://data.lblod.info/id/datasets/1f898ab4-1008-4701-99ed-bafa494a6910> a dcat:Dataset;
+      mu:uuid "1f898ab4-1008-4701-99ed-bafa494a6910";
+      dct:title "Vlaamse Codex"@nl;
+      dct:description "De Vlaamse Codex bevat de geconsolideerde Vlaamse regelgeving vanaf 1 januari 1959 tot heden. De Codex vormt geen officiële bekendmaking in de zin van de Grondwet. Enkel publicatie in het Belgisch Staatsblad heeft officieel karakter."@nl;
+      dct:publisher <http://data.lblod.info/id/agents/3c5536f1-1427-40ff-b3a5-490897c93fa2>;
+      dcat:contactPoint <http://data.lblod.info/id/agents/3c5536f1-1427-40ff-b3a5-490897c93fa2>;
+      dcat:theme <http://vocab.belgif.be/auth/datatheme/GOVE>;
+      dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
+      dct:language <http://publications.europa.eu/resource/authority/language/NLD>;
+      dcat:landingPage <https://codex.vlaanderen.be>;
+      dct:issued "2026-08-12T00:00:00"^^xsd:dateTime;
+      dct:modified "2026-08-12T00:00:00"^^xsd:dateTime;
+      dcat:distribution
+          <http://data.lblod.info/id/distributions/bfe864fa-4eb6-477c-9f0e-1846b5c315cb>,
+          <http://data.lblod.info/id/distributions/95973b1c-4275-4902-8d34-376a593326a6> .
+  }
+}
