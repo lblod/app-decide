@@ -63,12 +63,11 @@
                 (:access-url :string ,(s-prefix "dcat:accessURL"))
                 (:download-url :string ,(s-prefix "dcat:downloadURL"))
                 (:media-type :string ,(s-prefix "dcat:mediaType"))
-                (:byte-size :string ,(s-prefix "dcat:byteSize")))
+                (:byte-size :string ,(s-prefix "dcat:byteSize"))
+                (:format :uri ,(s-prefix "dct:format")))
   :has-one `((dataset :via ,(s-prefix "dcat:distribution")
                       :inverse t
-                      :as "dataset")
-             (format :via ,(s-prefix "dct:format")
-                     :as "format"))
+                      :as "dataset"))
   :features `(include-uri)
   :resource-base (s-url "http://data.lblod.info/id/distributions/")
   :on-path "distributions")
@@ -122,19 +121,6 @@
   :features `(include-uri)
   :resource-base (s-url "http://data.lblod.info/id/agents/")
   :on-path "agents")
-
-(define-resource format ()
-  :class (s-prefix "dct:MediaTypeOrExtent")
-  :properties `((:name :string ,(s-prefix "rdfs:label"))
-                (:labels :language-string-set ,(s-prefix "dct:description")))
-  :has-many `((distribution :via ,(s-prefix "dct:format")
-                            :inverse t
-                            :as "distributions"))
-  :has-one `((page :via ,(s-prefix "cms:page")
-                   :as "page"))
-  :on-path "formats"
-  :features `(include-uri)
-  :resource-base (s-url "http://data.lblod.info/id/formats/"))
 
 (define-resource page ()
   :class (s-url "http://mu.semte.ch/vocabulary/cms/Page")
