@@ -9,7 +9,8 @@ INSERT DATA {
   GRAPH <http://mu.semte.ch/graphs/public> {
     <http://data.lblod.info/id/agents/3c5536f1-1427-40ff-b3a5-490897c93fa2> a foaf:Agent;
       mu:uuid "3c5536f1-1427-40ff-b3a5-490897c93fa2";
-      vcard:hasName "Vlaamse Overheid"@nl .
+      vcard:hasName "Vlaamse Codex"@nl;
+      vcard:hasEmail "codex@vlaanderen.be".
   }
 }
 ;
@@ -53,7 +54,7 @@ INSERT DATA {
       dct:modified "2026-08-12T00:00:00"^^xsd:dateTime;
       dcat:distribution
         <http://data.lblod.info/id/distributions/bfe864fa-4eb6-477c-9f0e-1846b5c315cb>,
-        <http://data.lblod.info/id/distributions/95973b1c-4275-4902-8d34-376a593326a6> .
+        <http://data.lblod.info/id/distributions/95973b1c-4275-4902-8d34-376a593326a6>.
   }
 }
 ;
