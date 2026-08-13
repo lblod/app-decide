@@ -21,9 +21,11 @@ export default {
               'http://lblod.data.gift/id/jobs/concept/TaskOperation/codelist-matching/annotate',
             resourceLimit: 1000,
             resourceFilter: `
+              ?job <http://mu.semte.ch/vocabularies/ext/codelist> ?codelist .
               FILTER NOT EXISTS {
                 ?someTask <http://redpencil.data.gift/vocabularies/tasks/operation> <http://lblod.data.gift/id/jobs/concept/TaskOperation/codelist-matching/annotate> .
                 ?someTask <http://redpencil.data.gift/vocabularies/tasks/inputContainer> / <http://redpencil.data.gift/vocabularies/tasks/hasResource> ?resource .
+                ?someTask <http://purl.org/dc/terms/isPartOf> / <http://mu.semte.ch/vocabularies/ext/codelist> ?codelist .
               }
             `,
           },
