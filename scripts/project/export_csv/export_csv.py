@@ -36,11 +36,28 @@ def load_datasets() -> dict:
     return datasets
 
 
+# Datatypes rendered with a comma instead of a dot as the decimal separator,
+# so numeric columns import correctly into Belgian-locale Excel (which reads
+# a dot as a thousands separator, not a decimal point).
+_COMMA_DECIMAL_DATATYPES = {
+    "http://www.w3.org/2001/XMLSchema#decimal",
+    "http://www.w3.org/2001/XMLSchema#double",
+    "http://www.w3.org/2001/XMLSchema#float",
+}
+
+
+def _format_binding(binding: dict) -> str:
+    value = binding["value"]
+    if binding.get("datatype") in _COMMA_DECIMAL_DATATYPES:
+        return value.replace(".", ",")
+    return value
+
+
 def select_rows_with_vars(q: str) -> tuple[list[str], list[dict]]:
     result = query(q)
     variables = result["head"]["vars"]
     rows = [
-        {k: v["value"] for k, v in row.items()} for row in result["results"]["bindings"]
+        {k: _format_binding(v) for k, v in row.items()} for row in result["results"]["bindings"]
     ]
     return variables, rows
 
