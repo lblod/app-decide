@@ -74,10 +74,8 @@ WHERE {
                    skos:prefLabel ?impact .
   }
 
-  OPTIONAL {
-    ?activity prov:generated ?originalAnnotation ;
-              prov:wasAssociatedWith ?creator .
-  }
+  ?activity prov:generated ?originalAnnotation ;
+            prov:wasAssociatedWith ?creator .
 
   OPTIONAL {
     ?approveReview a ext:ReviewAnnotation ;
