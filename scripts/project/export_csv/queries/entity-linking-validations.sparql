@@ -5,6 +5,7 @@ PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX eli:  <http://data.europa.eu/eli/ontology#>
 PREFIX epvoc: <https://data.europarl.europa.eu/def/epvoc#>
 PREFIX org: <http://www.w3.org/ns/org#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 
 SELECT
   ?expression
@@ -14,6 +15,7 @@ SELECT
   ?predicate
   (SUBSTR(STR(?completeEntityText), 1, 500) AS ?entityText)
   (GROUP_CONCAT(distinct ?entityType ; SEPARATOR=", ") AS ?type)
+  (GROUP_CONCAT(distinct ?linkedResource ; SEPARATOR=", ") AS ?linkedResource)
   ?creator
   (COUNT(DISTINCT ?approveReview) AS ?positief)
   (COUNT(DISTINCT ?rejectReview) AS ?negatief)
@@ -50,6 +52,12 @@ WHERE {
 
   OPTIONAL { ?entity a ?typeClass . }
   BIND(IF(BOUND(?typeClass), ?typeClass, DATATYPE(?entity)) AS ?entityType)
+
+  OPTIONAL {
+    ?linkStatement rdf:subject ?entity ;
+                   rdf:predicate skos:exactMatch ;
+                   rdf:object ?linkedResource .
+  }
 
   OPTIONAL {
     ?activity prov:generated ?originalAnnotation ;
