@@ -6,6 +6,7 @@ PREFIX eli:  <http://data.europa.eu/eli/ontology#>
 PREFIX epvoc: <https://data.europarl.europa.eu/def/epvoc#>
 PREFIX org: <http://www.w3.org/ns/org#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
 
 SELECT
   ?expression
@@ -59,10 +60,8 @@ WHERE {
                    rdf:object ?linkedResource .
   }
 
-  OPTIONAL {
-    ?activity prov:generated ?originalAnnotation ;
-              prov:wasAssociatedWith ?creator .
-  }
+  ?activity prov:generated ?originalAnnotation ;
+            prov:wasAssociatedWith ?creator .
 
   OPTIONAL {
     ?approveReview a ext:ReviewAnnotation ;
