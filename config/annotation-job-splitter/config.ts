@@ -19,6 +19,13 @@ export default {
               'http://lblod.data.gift/id/jobs/concept/TaskOperation/codelist-matching/evaluation-split-tasks',
             nextOperation:
               'http://lblod.data.gift/id/jobs/concept/TaskOperation/codelist-matching/annotate',
+            resourceLimit: 1000,
+            resourceFilter: `
+              FILTER NOT EXISTS {
+                ?someTask <http://redpencil.data.gift/vocabularies/tasks/operation> <http://lblod.data.gift/id/jobs/concept/TaskOperation/codelist-matching/annotate> .
+                ?someTask <http://redpencil.data.gift/vocabularies/tasks/inputContainer> / <http://redpencil.data.gift/vocabularies/tasks/hasResource> ?resource .
+              }
+            `,
           },
         ],
       },
