@@ -22,6 +22,7 @@ INSERT DATA {
       dcat:accessURL <https://codex.opendata.api.vlaanderen.be:8888/sparql>;
       dcat:accessService <http://data.lblod.info/id/services/a5d0d3ff-1593-4861-9cdc-f65d358ffa36>;
       dct:format <http://publications.europa.eu/resource/authority/file-type/SPARQLQRES>;
+      dct:license <http://data.vlaanderen.be/id/licentie/modellicentie-gratis-hergebruik/v1.0>;
       dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
       dct:issued "2026-08-12T00:00:00"^^xsd:dateTime;
       dct:modified "2026-08-12T00:00:00"^^xsd:dateTime.
@@ -32,6 +33,7 @@ INSERT DATA {
       dcat:accessURL <https://codex.opendata.api.vlaanderen.be:443/api>;
       dcat:accessService <http://data.lblod.info/id/services/0b18c1de-c1db-4de5-a2ad-6fd29434509e>;
       dct:format <http://publications.europa.eu/resource/authority/file-type/JSON_LD>;
+      dct:license <http://data.vlaanderen.be/id/licentie/modellicentie-gratis-hergebruik/v1.0>;
       dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
       dct:issued "2026-08-12T00:00:00"^^xsd:dateTime;
       dct:modified "2026-08-12T00:00:00"^^xsd:dateTime.
