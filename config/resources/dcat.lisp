@@ -135,7 +135,7 @@
 
 (define-resource agent ()
   :class (s-prefix "foaf:Agent")
-  :properties `((:name :string ,(s-prefix "vcard:hasName"))
+  :properties `((:name :language-string-set ,(s-prefix "vcard:hasName"))
                 (:email :string ,(s-prefix "vcard:hasEmail")))
   :features `(include-uri)
   :resource-base (s-url "http://data.lblod.info/id/agents/")
