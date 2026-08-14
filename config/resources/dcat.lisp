@@ -141,10 +141,3 @@
   :resource-base (s-url "http://data.lblod.info/id/agents/")
   :on-path "agents")
 
-(define-resource page ()
-  :class (s-url "http://mu.semte.ch/vocabulary/cms/Page")
-  :resource-base (s-url "http://mu.semte.ch/cms/resources/pages/")
-  :properties `((:title :string ,(s-prefix "dcterms:title"))
-                (:content :string ,(s-prefix "cms:pageContent")))
-  :features `(include-uri)
-  :on-path "pages")
