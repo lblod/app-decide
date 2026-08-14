@@ -398,10 +398,6 @@ ext:BesluitAdministrativeUnitAsset a odrl:Asset, sh:NodeShape ;
     ext:decideOsloOrganizationsSlice;
   sh:targetClass besluit:Bestuurseenheid .
 
-ext:CmsPageAsset a odrl:Asset, sh:NodeShape ;
-  odrl:partOf ext:decidePublicSlice ;
-  sh:targetClass cms:Page .
-
 ext:DcatCatalogAsset a odrl:Asset, sh:NodeShape ;
   odrl:partOf ext:decidePublicSlice ,
     ext:decideHarvestingSlice ;
@@ -412,14 +408,15 @@ ext:DcatDatasetAsset a odrl:Asset, sh:NodeShape ;
     ext:decideHarvestingSlice ;
   sh:targetClass dcat:Dataset .
 
+ext:DcatDataServiceAsset a odrl:Asset, sh:NodeShape ;
+  odrl:partOf ext:decidePublicSlice ,
+    ext:decideHarvestingSlice ;
+  sh:targetClass dcat:DataService .
+
 ext:DcatDistributionAsset a odrl:Asset, sh:NodeShape ;
   odrl:partOf ext:decidePublicSlice ,
     ext:decideHarvestingSlice ;
   sh:targetClass dcat:Distribution .
-
-ext:DctMediaTypeOrExtentAsset a odrl:Asset, sh:NodeShape ;
-  odrl:partOf ext:decidePublicSlice ;
-  sh:targetClass dct:MediaTypeOrExtent .
 
 ext:DctPeriodOfTimeAsset a odrl:Asset, sh:NodeShape ;
   odrl:partOf ext:decidePublicSlice ;
