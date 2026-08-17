@@ -14,7 +14,8 @@ WHERE {
         ext:tokenOut ?tokenOut .
 
   OPTIONAL { ?call ext:duration ?durationSeconds . }
-  OPTIONAL { ?call ext:cost ?costDollar . }
+  OPTIONAL { ?call ext:cost ?costDollarRaw . }
+  BIND(COALESCE(?costDollarRaw, 0) AS ?costDollar)
   OPTIONAL { ?task ext:startedAt ?started . }
   OPTIONAL { ?task ext:endedAt ?ended . }
 
