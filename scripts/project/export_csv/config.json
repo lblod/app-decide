@@ -23,6 +23,12 @@
             "sparql_file": "./queries/smart-search-quotation-validations.sparql",
             "output_file_name": "smart-search-quotation-validations",
             "paginated": false
+        },
+        "ai-calls": {
+            "description": "AI call log (operation, model, tokens, cost, timing)",
+            "sparql_file": "./queries/ai-calls.sparql",
+            "output_file_name": "ai-calls",
+            "paginated": true
         }
     }
 }
