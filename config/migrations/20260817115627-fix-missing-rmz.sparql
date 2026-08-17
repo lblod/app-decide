@@ -1,0 +1,45 @@
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX eli: <http://data.europa.eu/eli/ontology#>
+PREFIX epvoc: <https://data.europarl.europa.eu/def/epvoc#>
+PREFIX mu: <http://mu.semte.ch/vocabularies/core/>
+PREFIX ext: <http://mu.semte.ch/vocabularies/ext/>
+PREFIX oa: <http://www.w3.org/ns/oa#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+
+INSERT {
+  GRAPH <http://mu.semte.ch/graph/public/pdf> {
+    ?task prov:generated ?annotation.
+    ?annotation a oa:Annotation ;
+    mu:uuid ?id ;
+    oa:hasTarget ?resource ;
+    oa:motivatedBy oa:classifying ;
+    ext:manualFixer "Karel" ;
+    dct:modified ?now ;
+    oa:hasBody <https://data.vlaanderen.be/id/concept/ZoneType/fc17fa1b-9b61-4396-a609-845643b3b865> .
+    ?container  <http://redpencil.data.gift/vocabularies/tasks/hasResource> ?annotation .
+  }
+}WHERE {
+  ?task <http://purl.org/dc/terms/isPartOf> ?job .
+  ?task <http://redpencil.data.gift/vocabularies/tasks/resultsContainer> ?container .
+  BIND(STRUUID() as ?id)
+  BIND(NOW() AS ?now)
+  BIND(IRI(CONCAT("http://data.lblod.info/id/annotations/", ?id)) as ?annotation)
+
+  { SELECT DISTINCT ?task ?resource WHERE {
+    ?task <http://purl.org/dc/terms/isPartOf> ?job .
+    ?job dct:creator <http://redpencil.data.gift/id/scheduled-annotation-job/6A7EC00D1E6B0B9189F7662C> .
+    ?task <http://redpencil.data.gift/vocabularies/tasks/index> "2".
+    ?task <http://redpencil.data.gift/vocabularies/tasks/inputContainer> / <http://redpencil.data.gift/vocabularies/tasks/hasResource> ?resource .
+    FILTER EXISTS {
+      ?resource a eli:Expression.
+      ?resource epvoc:expressionContent ?content .
+    }
+    FILTER NOT EXISTS {
+      ?task prov:generated ?ann.
+      ?ann a oa:Annotation ;
+      oa:hasTarget ?expression ;
+      oa:motivatedBy oa:classifying ;
+      oa:hasBody <http://mu.semte.ch/vocabularies/ext/no-match-found> .
+
+    }
+  } } } 
