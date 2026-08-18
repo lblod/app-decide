@@ -1,9 +1,14 @@
     PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 
-    INSERT {
-    GRAPH ?g {
-        ?newS ?p ?newO .
+    DELETE {
+        GRAPH ?g {
+            ?s ?p ?o .
+        }
     }
+    INSERT {
+        GRAPH ?g {
+            ?newS ?p ?newO .
+        }
     }
     WHERE {
         VALUES ?type { skos:ConceptScheme skos:Concept }
