@@ -212,6 +212,10 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://cache/distributions/"
   end
 
+  match "/data-services/*path", %{ accept: [:json], layer: :resources } do
+    Proxy.forward conn, path, "http://cache/data-services/"
+  end
+
   match "/catalog-records/*path", %{ accept: [:json], layer: :resources } do
     Proxy.forward conn, path, "http://cache/catalog-records/"
   end
@@ -226,10 +230,6 @@ defmodule Dispatcher do
 
   match "/agents/*path", %{ accept: [:json], layer: :resources } do
     Proxy.forward conn, path, "http://cache/agents/"
-  end
-
-  match "/formats/*path", %{ accept: [:json], layer: :resources } do
-    Proxy.forward conn, path, "http://cache/formats/"
   end
 
   match "/pages/*path", %{ accept: [:json], layer: :resources } do

@@ -1,0 +1,26 @@
+PREFIX task: <http://redpencil.data.gift/vocabularies/tasks/>
+PREFIX ext:  <http://mu.semte.ch/vocabularies/ext/>
+PREFIX mu:   <http://mu.semte.ch/vocabularies/core/>
+PREFIX dct:  <http://purl.org/dc/terms/>
+
+SELECT ?call ?operation ?endpoint ?model ?codelist ?durationSeconds ?costDollar ?tokenIn ?tokenOut ?started ?ended
+WHERE {
+  ?task task:operation ?operation ;
+        ext:performedAICall ?call .
+
+  ?call ext:aiModel ?model ;
+        ext:endpoint ?endpoint ;
+        ext:tokenIn ?tokenIn ;
+        ext:tokenOut ?tokenOut .
+
+  OPTIONAL { ?call ext:duration ?durationSeconds . }
+  OPTIONAL { ?call ext:cost ?costDollarRaw . }
+  BIND(COALESCE(?costDollarRaw, 0) AS ?costDollar)
+  OPTIONAL { ?task ext:startedAt ?started . }
+  OPTIONAL { ?task ext:endedAt ?ended . }
+
+  OPTIONAL {
+    ?task dct:isPartOf ?job .
+    ?job ext:codelist ?codelist .
+  }
+}
