@@ -40,7 +40,7 @@ where {
 
   ?rmzAnnotation oa:hasBody ?rmzConcept .
   ?rmzAnnotation oa:hasTarget ?expression .
-  ?rmzConcept skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-simple> .
+  ?rmzConcept skos:inScheme <http://lblod.data.gift/id/conceptscheme/restricted-mobility-zone-simple> .
 
   ?work eli:is_realized_by ?expression .
 

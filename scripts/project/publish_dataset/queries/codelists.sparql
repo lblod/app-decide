@@ -16,7 +16,7 @@ insert {
 where {
   {{ organizationFilter }}
   values ?codelist {
-    <http://data.lblod.gift/id/conceptscheme/sdg-simple>
+    <http://lblod.data.gift/id/conceptscheme/sdg-simple>
     <http://mu.semte.ch/vocabularies/ext/impact>
   }
 
