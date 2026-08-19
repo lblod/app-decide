@@ -5,8 +5,9 @@ PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX eli:  <http://data.europa.eu/eli/ontology#>
 PREFIX epvoc: <https://data.europarl.europa.eu/def/epvoc#>
 PREFIX org: <http://www.w3.org/ns/org#>
-PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
 SELECT
   ?expression

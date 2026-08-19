@@ -24,7 +24,7 @@ SELECT ?theme (COUNT(DISTINCT ?expression) AS ?count_annotation) WHERE {
        oa:motivatedBy oa:classifying ;
        oa:hasBody     ?concept ;
        oa:hasTarget   ?expression .
-  ?concept skos:inScheme <http://data.lblod.gift/id/conceptscheme/sdg-simple> ;
+  ?concept skos:inScheme <http://lblod.data.gift/id/conceptscheme/sdg-simple> ;
            skos:prefLabel ?theme .
 }
 GROUP BY ?theme
@@ -44,7 +44,7 @@ SELECT ?work ?theme WHERE {
        oa:motivatedBy oa:classifying ;
        oa:hasBody     ?concept ;
        oa:hasTarget   ?expression .
-  ?concept skos:inScheme <http://data.lblod.gift/id/conceptscheme/sdg-simple> ;
+  ?concept skos:inScheme <http://lblod.data.gift/id/conceptscheme/sdg-simple> ;
            skos:prefLabel ?theme ;
            skos:notation  13 .   # SDG 13 Climate action
   ?expression eli:realizes ?work .

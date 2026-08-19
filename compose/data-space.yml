@@ -67,7 +67,7 @@ services:
     restart: always
     logging: *default-logging
   frontend-dcat:
-    image: lblod/frontend-decide-dcat:0.0.8
+    image: lblod/frontend-decide-dcat:0.0.11
     labels:
       - 'logging=true'
     restart: always
