@@ -1,0 +1,37 @@
+PREFIX task: <http://redpencil.data.gift/vocabularies/tasks/>
+PREFIX eli:  <http://data.europa.eu/eli/ontology#>
+PREFIX oa:   <http://www.w3.org/ns/oa#>
+PREFIX dct:  <http://purl.org/dc/terms/>
+PREFIX adms: <http://www.w3.org/ns/adms#>
+PREFIX ext:  <http://mu.semte.ch/vocabularies/ext/>
+PREFIX sh:   <http://www.w3.org/ns/shacl#>
+
+SELECT ?metric ?city (COUNT(DISTINCT ?work) AS ?decisions) WHERE {
+
+  { SELECT DISTINCT ?work WHERE {
+      { SELECT DISTINCT ?res WHERE {
+          ?task task:operation <http://lblod.data.gift/id/jobs/concept/TaskOperation/codelist-matching/annotate> ;
+                dct:isPartOf ?job .
+          ?job adms:status <http://redpencil.data.gift/id/concept/JobStatus/success> ;
+           ext:codelist <http://lblod.data.gift/id/conceptscheme/restricted-mobility-zone-simple> .
+          {
+            { { ?task task:inputContainer ?c } UNION { ?task task:resultsContainer ?c } }
+            ?c task:hasResource ?res
+          }
+          UNION { ?job ext:shapeForTargets/sh:targetNode ?res }
+      } }
+      {
+        { ?res a eli:Work . BIND(?res AS ?work) }
+        UNION { ?res (eli:embodies|oa:hasTarget|oa:hasTarget/oa:hasSource)?/eli:realizes ?work }
+        UNION { ?work eli:is_realized_by ?res }
+      }
+      ?work a eli:Work .
+  } }
+
+  OPTIONAL { ?work eli:passed_by ?a . BIND(REPLACE(STR(?a), "^https?://([^/]+)/.*$", "$1") AS ?host) }
+  BIND(COALESCE(?host, "") AS ?h)
+  BIND(IF(?h = "ris.freiburg.de", "Freiburg", IF(?h = "data.lblod.info", "Gent", "Bamberg")) AS ?city)
+  BIND("3. codelist RMZ" AS ?metric)
+}
+GROUP BY ?metric ?city
+ORDER BY ?metric ?city

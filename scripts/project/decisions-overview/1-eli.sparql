@@ -1,0 +1,12 @@
+PREFIX eli: <http://data.europa.eu/eli/ontology#>
+
+SELECT ?metric ?city (COUNT(DISTINCT ?work) AS ?decisions) WHERE {
+  ?work a eli:Work .
+
+  OPTIONAL { ?work eli:passed_by ?a . BIND(REPLACE(STR(?a), "^https?://([^/]+)/.*$", "$1") AS ?host) }
+  BIND(COALESCE(?host, "") AS ?h)
+  BIND(IF(?h = "ris.freiburg.de", "Freiburg", IF(?h = "data.lblod.info", "Gent", "Bamberg")) AS ?city)
+  BIND("1. ELI" AS ?metric)
+}
+GROUP BY ?metric ?city
+ORDER BY ?metric ?city
