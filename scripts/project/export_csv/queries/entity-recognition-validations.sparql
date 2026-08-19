@@ -17,6 +17,7 @@ SELECT
   ?predicate
   (SUBSTR(STR(?completeEntityText), 1, 500) AS ?entityText)
   (GROUP_CONCAT(distinct ?entityType ; SEPARATOR=", ") AS ?type)
+  (GROUP_CONCAT(distinct ?linkedResource ; SEPARATOR=", ") AS ?linkedResource)
   ?creator
   (COUNT(DISTINCT ?approveReview) AS ?positief)
   (COUNT(DISTINCT ?rejectReview) AS ?negatief)
@@ -55,9 +56,13 @@ WHERE {
   BIND(IF(BOUND(?typeClass), ?typeClass, DATATYPE(?entity)) AS ?entityType)
 
   OPTIONAL {
-    ?activity prov:generated ?originalAnnotation ;
-              prov:wasAssociatedWith ?creator .
+    ?linkStatement rdf:subject ?entity ;
+                   rdf:predicate skos:exactMatch ;
+                   rdf:object ?linkedResource .
   }
+
+  ?activity prov:generated ?originalAnnotation ;
+            prov:wasAssociatedWith ?creator .
 
   OPTIONAL {
     ?approveReview a ext:ReviewAnnotation ;

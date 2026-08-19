@@ -12,7 +12,7 @@ mu script project-scripts export-csv --list
 
 # Export a specific dataset
 mu script project-scripts export-csv --dataset codelist-labeling-validations
-mu script project-scripts export-csv --dataset entity-linking-validations
+mu script project-scripts export-csv --dataset entity-recognition-validations
 mu script project-scripts export-csv --dataset smart-search-question-validations
 mu script project-scripts export-csv --dataset smart-search-quotation-validations
 mu script project-scripts export-csv --dataset ai-calls
@@ -27,7 +27,7 @@ Output `.csv` files are written to `OUTPUT_DIR` (`/data/app/data/csv-exports` by
 | Dataset                              | Description                                       | Paginated |
 | ------------------------------------- | -------------------------------------------------- | --------- |
 | `codelist-labeling-validations`       | Codelist labeling human validation results         | yes       |
-| `entity-linking-validations`          | Entity linking human validation results            | yes       |
+| `entity-recognition-validations`      | Entity recognition human validation results        | yes       |
 | `smart-search-question-validations`   | Smart search question human validation summary     | no        |
 | `smart-search-quotation-validations`  | Smart search quotation human validation summary    | no        |
 | `ai-calls`                            | AI call log (operation, model, tokens, cost, timing) | yes     |

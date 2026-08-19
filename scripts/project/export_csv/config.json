@@ -6,10 +6,10 @@
             "output_file_name": "codelist-labeling-validations",
             "paginated": true
         },
-        "entity-linking-validations": {
-            "description": "Entity linking human validation results",
-            "sparql_file": "./queries/entity-linking-validations.sparql",
-            "output_file_name": "entity-linking-validations",
+        "entity-recognition-validations": {
+            "description": "Entity recognition human validation results",
+            "sparql_file": "./queries/entity-recognition-validations.sparql",
+            "output_file_name": "entity-recognition-validations",
             "paginated": true
         },
         "smart-search-question-validations": {
