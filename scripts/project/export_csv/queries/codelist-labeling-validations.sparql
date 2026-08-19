@@ -88,4 +88,4 @@ WHERE {
                   oa:hasBody arev:reject .
   }
 }
-GROUP BY ?expression ?conceptScheme ?concept ?creator ?municipalityLabel ?knownOrganizationLabel ?derivedOrganizationLabel ?impact
+GROUP BY ?expression ?conceptScheme ?concept ?creator ?municipalityLabel ?knownOrganizationLabel ?impact
