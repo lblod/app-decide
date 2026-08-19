@@ -27,6 +27,9 @@ export default {
                 ?someTask <http://redpencil.data.gift/vocabularies/tasks/inputContainer> / <http://redpencil.data.gift/vocabularies/tasks/hasResource> ?resource .
                 ?someTask <http://purl.org/dc/terms/isPartOf> / <http://mu.semte.ch/vocabularies/ext/codelist> ?codelist .
               }
+              FILTER NOT EXISTS {
+                ?original <http://purl.org/linguistics/gold/translation> ?resource .
+              }
             `,
           },
         ],
