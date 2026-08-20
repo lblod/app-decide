@@ -65,6 +65,7 @@ app.get("/", async function (req, res) {
         PREFIX org: <http://www.w3.org/ns/org#>
         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
         PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+        PREFIX gold: <http://purl.org/linguistics/gold/>
 
         SELECT ?metric (str(?municipalityLabel) as ?city) ?decisions WHERE {
         VALUES ?municipality { <https://ris.freiburg.de/oparl/body/FR> <https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> <http://data.lblod.info/id/bestuurseenheden/353234a365664e581db5c2f7cc07add2534b47b8e1ab87c821fc6e6365e6bef5> }
@@ -75,7 +76,7 @@ app.get("/", async function (req, res) {
         ?res a eli:Expression ;
             ext:owningBody ?municipality .
         FILTER NOT EXISTS {
-            ?o <http://purl.org/linguistics/gold/translation> ?res.
+            ?o gold:translation ?res.
         }
         BIND("1. ELI" AS ?metric)
         }
@@ -100,11 +101,19 @@ app.get("/", async function (req, res) {
 
         ?task dct:isPartOf ?job .
                     ?job adms:status <http://redpencil.data.gift/id/concept/JobStatus/success> .
-                    {
-                    { { ?task task:inputContainer ?c } UNION { ?task task:resultsContainer ?c } }
-                    ?c task:hasResource ?res
-                    }
-                    UNION { ?job ext:shapeForTargets/sh:targetNode ?res }
+        {
+            { ?task task:inputContainer ?c } UNION { ?task task:resultsContainer ?c } 
+            
+            # the expression itself
+            { ?c task:hasResource ?res }
+            # NER: container holds the translated expression
+            UNION { ?c task:hasResource ?x . ?res gold:translation ?x }
+            # NEL: container holds annotations on the expression
+            UNION { ?c task:hasResource ?a . ?a oa:hasTarget/oa:hasSource ?res }
+            # NEL: container holds annotations on the translated expression
+            UNION { ?c task:hasResource ?a . ?a oa:hasTarget/oa:hasSource ?y . ?res gold:translation ?y }
+        }
+        UNION { ?job ext:shapeForTargets/sh:targetNode ?res }
 
         ?res a eli:Expression ;
             ext:owningBody ?municipality .
