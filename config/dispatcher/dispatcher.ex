@@ -101,6 +101,10 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://resource-type-service/"
   end
 
+  match "/overview-query/*path", %{ accept: [:any], layer: :api_services } do
+    Proxy.forward conn, path, "http://overview-query/"
+  end
+
   #################
   # Jobs & tasks
   #################
