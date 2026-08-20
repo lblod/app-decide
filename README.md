@@ -237,6 +237,16 @@ INSERT DATA {
 * `MODEL_SLUG` must match the model name after sanitisation: every run of non alphanumeric characters becomes a single `-` and the result is lowercased.
 * `PROVIDER/MODEL_ID` is the exact model id from openrouter.ai, for example `mistralai/mistral-medium-3-5`.
 
+## Updating
+To update a system to the latest version, you can perform the following steps:
+- run `docker compose exec -it virtuoso isql-v` to access the virtuoso sql interface
+- in this interface run `CHECKPOINT;` to force virtuoso to create a checkpoint
+- copy your virtuoso data some place safe, just to be sure: `cp -r data/db data/db-bak-thedateoftoday`
+- run `git pull origin development` or whatever branch you want to update to
+- run `docker compose pull` to update the container images of all services
+- run `docker compose down` to stop the stack
+- run `docker compose up -d` to start the stack again
+
 ## Use cases
 
 The DECIDe project is designed to address a set of pre-defined use cases. This README outlines each service individually, allowing cities to select and deploy only the specific components required for their unique needs.
