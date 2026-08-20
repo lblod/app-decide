@@ -244,7 +244,7 @@ To update a system to the latest version, you can perform the following steps:
 - copy your virtuoso data some place safe, just to be sure: `cp -r data/db data/db-bak-thedateoftoday`
 - run `git pull origin development` or whatever branch you want to update to
 - run `docker compose pull` to update the container images of all services
-- run `docker compose down` to stop the stack
+- run `docker compose stop` to stop the stack
 - run `docker compose up -d` to start the stack again
 
 ## Use cases
