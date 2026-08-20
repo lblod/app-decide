@@ -67,7 +67,7 @@
       "catalog_publisher": {
         "uri": "https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7",
         "name": "City of Bamberg",
-        "email": "projekte@stadt.bamberg.de"
+        "email": "projekte.smartcity@stadt.bamberg.de"
       },
       "organizationFilter": "values ?organization { <https://decide.smartcitybamberg.de/organizations#c8e6b8ef-0a33-425a-b9d5-96354823f6e7> }",
       "datadump_base_url": "https://ds.decide.smartcitybamberg.de/datadumps/",
