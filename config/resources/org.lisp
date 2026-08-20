@@ -20,6 +20,7 @@
                 (:created :datetime ,(s-prefix "dct:created"))
                 (:modified :datetime ,(s-prefix "dct:modified"))
                 (:show-in-hvt :boolean ,(s-prefix "ext:showInHVT"))
+                (:target-graph :url ,(s-prefix "ext:targetGraph"))
                 (:represents :uri ,(s-prefix "euvoc:represents")))
   :has-one `((temporal :via ,(s-prefix "dct:temporal")
                        :as "temporal")
