@@ -399,23 +399,19 @@ ext:BesluitAdministrativeUnitAsset a odrl:Asset, sh:NodeShape ;
   sh:targetClass besluit:Bestuurseenheid .
 
 ext:DcatCatalogAsset a odrl:Asset, sh:NodeShape ;
-  odrl:partOf ext:decidePublicSlice ,
-    ext:decideHarvestingSlice ;
+  odrl:partOf ext:decidePublicSlice ;
   sh:targetClass dcat:Catalog .
 
 ext:DcatDatasetAsset a odrl:Asset, sh:NodeShape ;
-  odrl:partOf ext:decidePublicSlice ,
-    ext:decideHarvestingSlice ;
+  odrl:partOf ext:decidePublicSlice ;
   sh:targetClass dcat:Dataset .
 
 ext:DcatDataServiceAsset a odrl:Asset, sh:NodeShape ;
-  odrl:partOf ext:decidePublicSlice ,
-    ext:decideHarvestingSlice ;
+  odrl:partOf ext:decidePublicSlice ;
   sh:targetClass dcat:DataService .
 
 ext:DcatDistributionAsset a odrl:Asset, sh:NodeShape ;
-  odrl:partOf ext:decidePublicSlice ,
-    ext:decideHarvestingSlice ;
+  odrl:partOf ext:decidePublicSlice ;
   sh:targetClass dcat:Distribution .
 
 ext:DctPeriodOfTimeAsset a odrl:Asset, sh:NodeShape ;
