@@ -1,0 +1,74 @@
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX ext: <http://mu.semte.ch/vocabularies/ext/>
+PREFIX odrl: <http://www.w3.org/ns/odrl/2/>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+
+# Delete the resources that were removed from the ODRL policy:
+# ext:CmsPageAsset
+# ext:DctMediaTypeOrExtentAsset
+DELETE {
+  GRAPH <http://mu.semte.ch/graphs/odrl-authorization-policy> {
+    ?s ?p ?o .
+  }
+} WHERE {
+  VALUES ?s {
+    ext:CmsPageAsset
+    ext:DctMediaTypeOrExtentAsset
+  }
+  GRAPH <http://mu.semte.ch/graphs/odrl-authorization-policy> {
+    ?s ?p ?o .
+  }
+}
+;
+# Delete the triples removed from the ODRL policy
+DELETE DATA {
+  GRAPH <http://mu.semte.ch/graphs/odrl-authorization-policy> {
+    ext:DcatCatalogAsset odrl:partOf ext:decideHarvestingSlice .
+    ext:DcatDatasetAsset odrl:partOf ext:decideHarvestingSlice .
+    ext:DcatDataServiceAsset odrl:partOf ext:decideHarvestingSlice .
+    ext:DcatDistributionAsset odrl:partOf ext:decideHarvestingSlice .
+  }
+}
+;
+# Insert resource that was added to the ODRL policy:
+# ext:DcatDataServiceAsset
+INSERT DATA {
+  GRAPH <http://mu.semte.ch/graphs/odrl-authorization-policy> {
+    ext:DcatDataServiceAsset a odrl:Asset, sh:NodeShape ;
+                               odrl:partOf ext:decidePublicSlice ;
+                               sh:targetClass dcat:DataService .
+  }
+}
+;
+# Add/Update the dcterms:modified timestamps for added or modified resources:
+# ext:DcatDataServiceAsset
+# ext:DcatCatalogAsset
+# ext:DcatDatasetAsset
+# ext:DcatDistributionAsset
+# ext:decideAuthorizationPolicy (indirectly)
+DELETE {
+  GRAPH <http://mu.semte.ch/graphs/odrl-authorization-policy> {
+    ?s dcterms:modified ?oldModified .
+  }
+} INSERT {
+  GRAPH <http://mu.semte.ch/graphs/odrl-authorization-policy> {
+    ?s dcterms:modified ?now .
+  }
+} WHERE {
+  VALUES ?s {
+    ext:DcatDataServiceAsset
+    ext:DcatCatalogAsset
+    ext:DcatDatasetAsset
+    ext:DcatDistributionAsset
+    ext:decideAuthorizationPolicy
+  }
+
+  GRAPH <http://mu.semte.ch/graphs/odrl-authorization-policy> {
+    ?s a ?type .
+    OPTIONAL {
+      ?s dcterms:modified ?oldModified .
+    }
+  }
+  BIND(NOW() AS ?now)
+}
