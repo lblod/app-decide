@@ -21,5 +21,7 @@ services:
     logging: *default-logging
   overview-query:
     image: semtech/mu-javascript-template:1.9.1
+    environment:
+      NODE_ENV: "development"
     volumes:
       - "../config/overview-query:/app"
