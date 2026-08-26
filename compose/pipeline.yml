@@ -13,7 +13,7 @@ services:
   # GENERIC PIPELINE COMPONENTS (USED IN OPARL, OSLO, PDF, AND AI PIPELINES)
   ##############################################################################
   frontend-harvesting:
-    image: lblod/frontend-harvesting-self-service:feature-better-oparl-harvesting
+    image: lblod/frontend-harvesting-self-service:feature-oparl-harvesting
     environment:
       EMBER_AUTHENTICATION_ENABLED: 'true'
       EMBER_LOGIN_ROUTE: 'login'
