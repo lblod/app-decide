@@ -53,6 +53,12 @@
       "sparql_file": "./queries/expressions.sparql",
       "interesting_variables": ["expression", "work", "manifests", "annotation"]
     },
+    "translations": {
+      "description": "ELI metadata (expression + work + manifestation)",
+      "output_file_name": "translations",
+      "sparql_file": "./queries/translations.sparql",
+      "interesting_variables": ["expression", "work", "manifests", "annotation"]
+    },
     "human-validations": {
       "description": "Human validation annotations",
       "output_file_name": "human-validations",

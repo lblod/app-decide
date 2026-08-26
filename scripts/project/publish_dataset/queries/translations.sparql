@@ -1,0 +1,36 @@
+prefix eli: <http://data.europa.eu/eli/ontology#>
+prefix oa: <http://www.w3.org/ns/oa#>
+prefix ext: <http://mu.semte.ch/vocabularies/ext/>
+prefix org: <http://www.w3.org/ns/org#>
+
+insert {
+  graph <http://mu.semte.ch/graphs/tmp-export> {
+    ?expression a ext:downloadResource .
+    ?work a ext:downloadResource .
+    ?manifests a ext:downloadResource .
+    ?annotation a ext:downloadResource .
+  }
+}
+where {
+  {{ organizationFilter }}
+
+  ?expression a eli:Expression . 
+  ?work eli:is_realized_by ?expression .
+
+  ?original <http://purl.org/linguistics/gold/translation> ?expression .   
+
+  {
+    ?work eli:passed_by ?org .
+    ?organization org:hasSubOrganization* ?org .
+  }
+  union {
+    ?expression ext:owningBody ?organization .
+  }
+
+  optional {
+    ?expression eli:is_embodied_by ?manifests .
+  }
+  optional {
+    ?annotation oa:hasTarget ?expression .
+  }
+}
