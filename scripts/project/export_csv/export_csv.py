@@ -58,7 +58,8 @@ def select_rows_with_vars(q: str) -> tuple[list[str], list[dict]]:
     result = query(q)
     variables = result["head"]["vars"]
     rows = [
-        {k: _format_binding(v) for k, v in row.items()} for row in result["results"]["bindings"]
+        {k: _format_binding(v) for k, v in row.items()}
+        for row in result["results"]["bindings"]
     ]
     return variables, rows
 
