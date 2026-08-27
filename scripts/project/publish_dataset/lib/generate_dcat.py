@@ -2,18 +2,18 @@ from datetime import datetime
 from jinja2 import Environment, FileSystemLoader
 env = Environment(loader=FileSystemLoader("."))
 
-from helpers import graph_has_subject, turtle_to_insert_data, update, log, delete_linked_resources, delete_reverse_linked_resources
+from helpers import graph_has_type, delete_subjects, turtle_to_insert_data, update, log, delete_linked_resources, delete_reverse_linked_resources
 from config import datadump_file_name, dataset_uri_and_uuid, distribution_uri_and_uuid, service_uri_and_uuid, PUBLIC_GRAPH
 
 def step1_write_catalog(organization: str, organization_config: dict, now_iso: str) -> None:
     log("[Step 1] Generate DCAT Catalog for %s", organization)
     catalog_uri = organization_config["catalog_uri"]
     catalog_publisher_uri = organization_config["catalog_publisher"].get("uri")
-    catalog_subjects = [catalog_uri] + ([catalog_publisher_uri] if catalog_publisher_uri else [])
-
-    if graph_has_subject(catalog_uri, PUBLIC_GRAPH):
+    
+    if graph_has_type(catalog_uri, "http://www.w3.org/ns/dcat#Catalog", PUBLIC_GRAPH):
         log("Catalog '%s' already exists in <%s>, doing nothing.", organization, PUBLIC_GRAPH)
     else:
+        delete_subjects([catalog_uri]) # in case there is a tombstone for it
         catalog_template = env.get_template("templates/dcat-catalog.ttl.j2")
         catalog_output = catalog_template.render(
             ISSUED=now_iso,
@@ -32,13 +32,23 @@ def step2_write_dataset(organization: str, organization_config: dict, dataset: s
     insert_dataset = True
     insert_dataservice = True
     insert_distribution = True
-    if graph_has_subject(dataset_uri, PUBLIC_GRAPH):
+    if graph_has_type(dataset_uri, "http://www.w3.org/ns/dcat#Dataset", PUBLIC_GRAPH):
         log("DCAT Dataset '%s' already exists in <%s>, only appending link to the service and distribution if they don't exist yet.", dataset, PUBLIC_GRAPH)
         insert_dataset = False
-        if graph_has_subject(service_uri, PUBLIC_GRAPH):
+        if graph_has_type(service_uri, "http://www.w3.org/ns/dcat#DataService", PUBLIC_GRAPH):
             insert_dataservice = False
-        if graph_has_subject(distribution_uri, PUBLIC_GRAPH):
+        if graph_has_type(distribution_uri, "http://www.w3.org/ns/dcat#Distribution", PUBLIC_GRAPH):
             insert_distribution = False
+    
+    values_to_delete = []
+    if insert_dataset:
+        values_to_delete.append(dataset_uri)
+    if insert_dataservice:
+        values_to_delete.append(service_uri)
+    if insert_distribution:
+        values_to_delete.append(distribution_uri)
+    if values_to_delete:
+        delete_subjects(values_to_delete, PUBLIC_GRAPH)
 
     datadump_base_url = organization_config.get("datadump_base_url")
     output_file_name = dataset_config.get("output_file_name", dataset)
