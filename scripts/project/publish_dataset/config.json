@@ -16,7 +16,11 @@
       "description": "Codelist annotations (SDG)",
       "output_file_name": "codelists",
       "sparql_file": "./queries/codelists.sparql",
-      "interesting_variables": ["annotation", "activity", "agent"]
+      "interesting_variables": [
+        "annotation",
+        "activity",
+        "agent"
+      ]
     },
     "rmz": {
       "description": "Restricted Mobility Zone (RMZ) Concept annotations + locations",
@@ -51,19 +55,35 @@
       "description": "ELI metadata (expression + work + manifestation)",
       "output_file_name": "expressions",
       "sparql_file": "./queries/expressions.sparql",
-      "interesting_variables": ["expression", "work", "manifests", "annotation"]
+      "interesting_variables": [
+        "expression",
+        "work",
+        "manifests",
+        "annotation"
+      ]
     },
     "translations": {
       "description": "ELI metadata (expression + work + manifestation)",
       "output_file_name": "translations",
       "sparql_file": "./queries/translations.sparql",
-      "interesting_variables": ["expression", "work", "manifests", "annotation"]
+      "interesting_variables": [
+        "expression",
+        "work",
+        "manifests",
+        "annotation"
+      ]
     },
     "human-validations": {
       "description": "Human validation annotations",
       "output_file_name": "human-validations",
       "sparql_file": "./queries/human-validations.sparql",
-      "interesting_variables": ["hvAnnotation"]
+      "interesting_variables": [
+        "hvAnnotation",
+        "originalAnnotation",
+        "originalBody",
+        "specificResource",
+        "selector"
+      ]
     }
   },
   "catalogs": {
