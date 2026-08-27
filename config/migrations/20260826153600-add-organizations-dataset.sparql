@@ -23,6 +23,12 @@ INSERT DATA {
 ;
 INSERT DATA {
   GRAPH <http://mu.semte.ch/graphs/public> {
+    <http://data.lblod.info/id/catalogs/3bea809d-bfdb-485e-a7b2-10c6dea96af9> dcat:dataset <http://data.lblod.info/id/datasets/d06c4158-b533-42d5-8fd9-ed3eb6d50e12> .
+  }
+}
+;
+INSERT DATA {
+  GRAPH <http://mu.semte.ch/graphs/public> {
     <http://data.lblod.info/id/distributions/6c16e756-dc9f-4be9-863d-160d0e24e5fd> a dcat:Distribution;
       mu:uuid "6c16e756-dc9f-4be9-863d-160d0e24e5fd";
       dct:title "Organizations datadump";
