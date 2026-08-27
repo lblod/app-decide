@@ -23,11 +23,4 @@ where {
   union {
     ?expression ext:owningBody ?organization .
   }
-
-  optional {
-    ?expression eli:is_embodied_by ?manifests .
-  }
-  optional {
-    ?annotation oa:hasTarget ?expression .
-  }
 }
