@@ -67,10 +67,7 @@
       "output_file_name": "translations",
       "sparql_file": "./queries/translations.sparql",
       "interesting_variables": [
-        "expression",
-        "work",
-        "manifests",
-        "annotation"
+        "expression"
       ]
     },
     "human-validations": {
@@ -78,11 +75,7 @@
       "output_file_name": "human-validations",
       "sparql_file": "./queries/human-validations.sparql",
       "interesting_variables": [
-        "hvAnnotation",
-        "originalAnnotation",
-        "originalBody",
-        "specificResource",
-        "selector"
+        "hvAnnotation"
       ]
     }
   },

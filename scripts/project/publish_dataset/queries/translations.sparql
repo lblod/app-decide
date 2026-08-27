@@ -6,9 +6,6 @@ prefix org: <http://www.w3.org/ns/org#>
 insert {
   graph <http://mu.semte.ch/graphs/tmp-export> {
     ?expression a ext:downloadResource .
-    ?work a ext:downloadResource .
-    ?manifests a ext:downloadResource .
-    ?annotation a ext:downloadResource .
   }
 }
 where {
