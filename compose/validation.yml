@@ -5,7 +5,7 @@ x-logging: &default-logging
     max-file: '3'
 services:
   annotation-review:
-    image: lblod/annotation-review-service:0.0.7
+    image: lblod/annotation-review-service:0.0.9
     restart: always
     labels:
       - logging=true
