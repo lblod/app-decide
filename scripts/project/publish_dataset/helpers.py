@@ -131,8 +131,8 @@ def select_rows(q: str) -> list[dict]:
     return [{k: v["value"] for k, v in row.items()} for row in bindings]
 
 
-def graph_has_subject(subject: str, graph: str) -> bool:
-    return query(f"ASK {{ GRAPH <{graph}> {{ <{subject}> ?p ?o . }} }}")["boolean"]
+def graph_has_type(subject: str, thing: str, graph: str) -> bool:
+    return query(f"ASK {{ GRAPH <{graph}> {{ <{subject}> a <{thing}> . }} }}")["boolean"]
 
 
 def get_issued(subject: str, graph: str) -> str | None:
