@@ -37,7 +37,7 @@
     },
     "langchain": {
       "provider": "mistralai",
-      "model_name": "mistral-medium-latest",
+      "model_name": "mistral-medium-3-5",
       "base_url": "https://core.ayunis.com/api/openai-compat/v1",
       "temperature": 0.1,
       "max_text_length": 6000
@@ -46,7 +46,7 @@
   "segmentation": {
     "llm": {
       "provider": "mistralai",
-      "model_name": "mistral-medium-latest",
+      "model_name": "mistral-medium-3-5",
       "base_url": "https://core.ayunis.com/api/openai-compat/v1",
       "temperature": 0.1
     },
