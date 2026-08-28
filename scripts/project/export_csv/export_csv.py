@@ -47,7 +47,8 @@ _COMMA_DECIMAL_DATATYPES = {
 
 
 def _format_binding(binding: dict) -> str:
-    value = binding["value"]
+    # Strip embedded newlines (since Excel splits quoted multi-line fields into extra rows)
+    value = binding["value"].replace("\r\n", " ").replace("\r", " ").replace("\n", " ")
     if binding.get("datatype") in _COMMA_DECIMAL_DATATYPES:
         return value.replace(".", ",")
     return value
@@ -57,7 +58,8 @@ def select_rows_with_vars(q: str) -> tuple[list[str], list[dict]]:
     result = query(q)
     variables = result["head"]["vars"]
     rows = [
-        {k: _format_binding(v) for k, v in row.items()} for row in result["results"]["bindings"]
+        {k: _format_binding(v) for k, v in row.items()}
+        for row in result["results"]["bindings"]
     ]
     return variables, rows
 
