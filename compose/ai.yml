@@ -96,9 +96,9 @@ services:
     labels:
       - logging=true
   question-answering:
-    image: docker.io/semanticai/decide-question-answering:0.0.5
+    image: docker.io/semanticai/decide-question-answering:0.1.0
     environment:
-      SEARCH_API_URL: 'http://search/expressions/search'
+      SEARCH_API_URL: 'http://search/expressions/large-search'
       LOG_SPARQL_ALL: 'false'
       EMBEDDING_API_URL: 'http://embedding/embed'
       MU_SPARQL_ENDPOINT: 'http://database:8890/sparql'
