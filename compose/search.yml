@@ -17,6 +17,7 @@ services:
     logging: *default-logging
     volumes:
       - ../config/search:/config
+      - ../data/search:/data
   elasticsearch:
     image: semtech/mu-search-elastic-backend:feature-bump-es-9.2.0
     labels:
@@ -54,7 +55,7 @@ services:
   ### Smart search
   ##################################
   frontend-smart-search:
-    image: lblod/frontend-decide-question-answering:0.0.7
+    image: lblod/frontend-decide-question-answering:0.0.8
     labels:
       - 'logging=true'
     restart: always
