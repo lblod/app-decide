@@ -1,0 +1,13 @@
+INSERT DATA {
+  GRAPH <http://mu.semte.ch/graphs/public> {
+    <http://lblod.data.gift/id/components/named-entity-linking/v1.0.0> skos:prefLabel "Named Entity Recognition" .
+    <http://lblod.data.gift/id/components/pdf-to-eli/v1.0.0> skos:prefLabel "PDF to ELI" .
+    <http://lblod.data.gift/id/components/impact-assessment/v1.0.0> skos:prefLabel "Impact Assessment" .
+    <http://lblod.data.gift/id/components/codelist-annotation/v1.0.0> skos:prefLabel "Codelist Annotation" .
+    <http://lblod.data.gift/id/components/codelist-classifier/v1.0.0> skos:prefLabel "Codelist Classifier" .
+    <http://lblod.data.gift/id/components/entity-extraction/v1.0.0> skos:prefLabel  "Entity Extraction" .
+    <http://lblod.data.gift/id/components/segmentation/v1.0.0> skos:prefLabel  "Segmentation" .
+    <http://lblod.data.gift/id/components/translation/v1.0.0> skos:prefLabel  "Translation" .
+    <http://lblod.data.gift/id/components/codelist-training/v1.0.0> skos:prefLabel  "Codelist Training" .
+  }
+}
