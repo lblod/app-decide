@@ -1,0 +1,466 @@
+PREFIX eli: <http://data.europa.eu/eli/ontology#>
+PREFIX eli-dl: <http://data.europa.eu/eli/eli-draft-legislation-ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+INSERT DATA {
+  GRAPH <http://mu.semte.ch/graphs/public> {
+    eli:based_on rdfs:label "gebaseerd op"@nl .
+    eli:LegalResource rdfs:label "Juridische bron"@nl .
+    eli-dl:motivated rdfs:comment "Een andere activiteit die door deze activiteit werd \"getriggerd\" of er \"logisch uit voortvloeide\".\n\nVoorbeeld: het verzoek om een advies motiveerde het opstellen van een advies."@nl .
+    eli-dl:had_voter_intended_against rdfs:comment "Geeft een persoon aan die aan een stemming deelnam en aangaf tegen te willen stemmen, terwijl deze persoon anders heeft gestemd."@nl .
+    eli-dl:process_description rdfs:label "beschrijving van het wetgevingsproces"@nl .
+    eli-dl:had_responsible_organization rdfs:label "had verantwoordelijke organisatie"@nl .
+    eli:WorkTypeTable skos:definition "Een reeks waarden voor het type van een werk.\nELI bevat geen reeks waarden voor deze tabel."@nl .
+    eli-dl:foresees_application_of rdfs:label "voorziet toepassing van"@nl .
+    eli-dl:created_expression rdfs:comment "Geeft aan dat een activiteit een Expressie heeft gecre\"eerd.\nDeze eigenschap is voornamelijk opgenomen voor compatibiliteit met FRBRoo, maar implementaties gebruiken bij voorkeur created_a_realization_of om naar het niveau van het Werk te verwijzen.\nDit kan aangeven dat sommige Expressies van een Werk door de activiteit zijn gecreëerd en dat andere Expressies later zijn vertaald."@nl .
+    eli-dl:DecisionOutcome-Rejected rdfs:label "Verworpen"@nl .
+    eli:Expression rdfs:comment "De intellectuele verwezenlijking van een Werk in de vorm van identificeerbare immateri\"ele objecten, zoals, maar niet beperkt tot, tekst.\n\nDe inhoud van een Expressie bestaat uit tekens.\n\nEen Expressie kan niet bestaan zonder een fysieke drager, maar is niet afhankelijk van een specifieke fysieke drager en kan gelijktijdig op een of meer dragers bestaan."@nl .
+    eli:has_another_publication rdfs:comment "Inverse van \"is_another_publication_of\"."@nl .
+    eli:is_part_of rdfs:comment "Geeft een werk aan waarin dit werk fysiek is opgenomen. Dit omvat het geval van tekst die in een Publicatieblad is opgenomen, of een artikel dat in een tekst is opgenomen. Gebruik eli:is_member_of voor het begrip conceptuele/temporele opname."@nl .
+    eli:date_applicability rdfs:label "datum van toepasselijkheid"@nl .
+    eli:is_annex_of rdfs:label "is bijlage van"@nl .
+    eli:relevant_for rdfs:comment "Verwijst naar een plaats of een gebied dat met de bron is verbonden. Dit omvat de begrippen jurisdictie, soevereiniteit, toepasselijkheid of administratief gebied. De identificatie van de plaats kan worden ontleend aan de tabel Administrative Territorial Unit die door het Publicatiebureau van de EU is gepubliceerd op https://op.europa.eu/en/web/eu-vocabularies/at-dataset/-/resource/dataset/atu. De lidstaten hoeven hun eigen lijst met waarden niet opnieuw op te stellen.\n\nDe groep merkt de beperkingen op van wat met één enkele eigenschap kan worden uitgedrukt; lidstaten kunnen dit begrip verfijnen door specifieke subeigenschappen te definiëren."@nl .
+    eli:publishes rdfs:label "publiceert"@nl .
+    eli:implements rdfs:comment "Deze eigenschap is verouderd. Gebruik in plaats daarvan \"applies\"."@nl .
+    eli-dl:includes_amendment rdfs:label "bevat amendement"@nl .
+    eli:refers_to rdfs:comment "Elke entiteit waarnaar dit werk of deze expressie verwijst; doorgaans wordt verwezen naar andere Werken, maar het kan ook gaan om wetgevingsprocessen, personen, enz.\n\nMerk op dat er in ELI-DL specifieke subeigenschappen bestaan om toekomstige juridische gevolgen te beschrijven (\"foresees_xxxx\"-koppelingen) en koppelingen tussen amendementen en ontwerpwetgeving.\n\nVoorbeeld: een advies verwijst naar de specifieke versie van de ontwerpwetgeving waarop het is gebaseerd."@nl .
+    eli-dl:latest_activity rdfs:comment "Geeft de laatste activiteit aan die binnen een proces heeft plaatsgevonden. Dit wordt gebruikt om een lezer de laatste fase van een proces aan te geven.\nAfhankelijk van het perspectief kan dit worden gebruikt om te verwijzen naar de lopende activiteit (die nog niet is voltooid), of naar de laatste activiteit die daadwerkelijk is voltooid."@nl .
+    eli:date_applicability rdfs:comment "De datum waarop de wetgeving van toepassing wordt. Dit verschilt van de datum van inwerkingtreding: een tekst kan vandaag in werking treden en bepalen dat deze over drie maanden van toepassing wordt.\n\nDe groep merkt op dat toepasselijkheidsdata tot complexe situaties kunnen leiden, bijvoorbeeld een tekst met verschillende toepasselijkheidsdata voor verschillende jurisdicties; voor dergelijke situaties moeten specifieke uitbreidingen van het model worden gebruikt."@nl .
+    eli-dl:based_on_a_realization_of rdfs:comment "Geeft aan dat een Activiteit een Werk heeft gebruikt. De werken worden beschouwd als de \"input\" van de activiteit.\n\nVoorbeeld: het werk van een commissie \"gebruikte\" een specifieke versie van het ontwerp als input voor het opstellen van een adviesdocument.\n\nOpmerking: de benaming \"used a realization of\" is overgenomen uit FRBRoo. Aangezien een werk een idee is dat uitsluitend in de menselijke geest bestaat, kan niet eenvoudig worden gezegd dat een activiteit een werk heeft \"gebruikt\", maar veeleer dat zij \"een expressie van dit werk heeft gebruikt\"."@nl .
+    eli:has_another_publication rdfs:label "heeft een andere publicatie"@nl .
+    eli-dl:legislative_process_work_type rdfs:comment "Het type van een werk met betrekking tot een wetgevingsproces. De lijst met mogelijke typen moet door elke lidstaat worden gedefinieerd.\n\nVoorbeeld: \"Advies van de economische commissie\", \"effectbeoordeling\", \"tekst van het wetsvoorstel\", \"verslag van het debat\", \"amendement\"."@nl .
+    eli-dl:ParticipationRole rdfs:comment "De rol van een Agent in een Participatie, bijvoorbeeld \"Rapporteur\", \"Schaduwrapporteur\", enz."@nl .
+    eli:transposed_by rdfs:comment "Inverse van \"transposes\".\n\nMerk op dat deze eigenschap wordt uitgedrukt op een juridische bron en niet op een van de taal-specifieke juridische expressies ervan."@nl .
+    eli-dl:amends_draft rdfs:comment "Geeft het basiswerk aan waarnaar een ontwerpamendement verwijst – ongeacht of erover is gestemd. Dit kan een verwijzing zijn naar een specifieke versie van het ontwerp, in welk geval het moet verwijzen naar de \"vorige\" versie van het ontwerp, of naar het abstracte ontwerpwerk indien de versies niet als afzonderlijke entiteiten zijn gedeclareerd.\n\nDeze eigenschap is verplicht voor een amendementswerk, en een amendementswerk kan slechts één exemplaar van een basiswerk van een ontwerp amenderen."@nl .
+    eli:consolidated_by rdfs:comment "Inverse van \"consolidates\". Geeft aan dat deze juridische bron of expressie in aanmerking is genomen in een geconsolideerde tekst (die doorgaans het resultaat is van een redactioneel proces waarbij de wetgeving wordt herzien)."@nl .
+    eli-dl:had_activity_type rdfs:comment "Het type van een activiteit.\n\nDe lijst met mogelijke waarden moet door elke lidstaat worden gedefinieerd.\n\nVoorbeeld: \"vergadering van een commissie\", \"plenaire vergadering\", \"stemming in een commissie\", \"verzoek om advies\", enz."@nl .
+    eli-dl:participation_role rdfs:label "participatierol"@nl .
+    eli-dl:foresees_amendment_of rdfs:label "voorziet amendement van"@nl .
+    eli-dl:responsible_organization_label rdfs:comment "De naam van een organisatie die verantwoordelijk was voor een activiteit."@nl .
+    eli:cited_by_case_law rdfs:comment "Geeft aan dat naar deze LegalResource of LegalExpression wordt verwezen in jurisprudentie, ge\"identificeerd door een geschikte URI. Indien de jurisprudentie niet door een geschikte URI kan worden ge\"identificeerd, kan de eigenschap \"eli:cited_by_case_law_reference\" worden gebruikt met een tekstuele verwijzing naar de jurisprudentie.\n\nDe daadwerkelijke verwijzingsrelatie wordt uitgedrukt vanuit de jurisprudentie naar de wetgeving, maar juridische portalen kunnen de link van wetgeving naar jurisprudentie gebruiken om bijvoorbeeld representatieve jurisprudentie over een wetgeving aan te duiden."@nl .
+    eli-dl:foresees_based_on rdfs:comment "Geeft een reeds gepubliceerde LegalResource aan waarop de toekomstige wet, indien aangenomen, zal worden gebaseerd. Raadpleeg de definitie van de eigenschap eli:based_on.\nMerk op dat de juridische gevolgen in opeenvolgende versies van hetzelfde document kunnen veranderen."@nl .
+    eli-dl:Vote rdfs:comment "Een stemactiviteit"@nl .
+    eli:LegalExpression rdfs:comment "De intellectuele verwezenlijking van een juridische bron in de vorm van een \"reeks tekens\" (doorgaans alfanumerieke tekens in een juridische context).\nBijvoorbeeld elke versie van de juridische bron waarvan de inhoud om welke reden dan ook gespecificeerd en verschillend is van andere versies: taal, versies, enz.;\n\nMerk op dat de ELI-ontologie verschillende perspectieven toelaat op wat moet worden beschouwd als een nieuwe juridische bron of als een nieuwe juridische expressie van dezelfde bron. Doorgaans kan een geconsolideerde versie in de context van ELI worden beschouwd als een afzonderlijke juridische bron (gekoppeld aan de oorspronkelijke versie en de vorige geconsolideerde versie met behulp van de overeenkomstige ELI-relaties), of als een andere juridische expressie van dezelfde juridische bron."@nl .
+    eli-dl:created_expression rdfs:label "heeft expressie gecreëerd"@nl .
+    eli:corrects rdfs:label "corrigeert"@nl .
+    eli:has_part rdfs:comment "inverse van \"is_part_of\""@nl .
+    eli-dl:had_participant_organization rdfs:comment "Een organisatie die aan een activiteit deelneemt, maar er niet noodzakelijk verantwoordelijk voor is."@nl .
+    eli-dl:activity_date rdfs:label "datum van de activiteit"@nl .
+    eli:publisher_agent rdfs:label "publicerende agent"@nl .
+    eli:amends rdfs:label "amendeert"@nl .
+    eli-dl:had_activity_type rdfs:label "had activiteitstype"@nl .
+    eli:related_to rdfs:label "gerelateerd aan"@nl .
+    eli-dl:legislative_process_work_type rdfs:label "type werk van het wetgevingsproces"@nl .
+    eli:ensures_implementation_of rdfs:label "waarborgt de uitvoering van"@nl .
+    eli-dl:foresees_consolidation_of rdfs:comment "Geeft een reeds gepubliceerde LegalResource aan die de toekomstige wet, indien aangenomen, zal consolideren. Raadpleeg de definitie van de eigenschap eli:consoidates.\nMerk op dat de juridische gevolgen in opeenvolgende versies van hetzelfde document kunnen veranderen."@nl .
+    eli-dl:foresees_commencement_of rdfs:comment "Geeft een reeds gepubliceerde LegalResource aan waarvan de toekomstige wet, indien aangenomen, de inwerkingtreding zal regelen. Raadpleeg de definitie van de eigenschap eli:commences.\nMerk op dat de juridische gevolgen in opeenvolgende versies van hetzelfde document kunnen veranderen."@nl .
+    eli:transposes rdfs:comment "Geeft aan dat deze wetgeving (of een deel daarvan) de doelstellingen van andere wetgeving verwezenlijkt door passende uitvoeringsmaatregelen vast te stellen. Doorgaans zetten sommige wetgevingen van lidstaten of regio's van de Europese Unie Europese richtlijnen om. Dit geeft een juridisch bindende koppeling aan tussen de twee wetgevingen, op het niveau van een wet of artikel, van de oorspronkelijke versie van een nationale uitvoeringsmaatregel naar de juridische bron van de richtlijn zoals gepubliceerd in het Publicatieblad van de EU. Kan worden gebruikt voor omzettingstabellen zodra het Publicatiebureau van de EU ELI-ondersteuning tot op artikelniveau heeft ingevoerd.\n\nDe uitvoering van EU-wetgeving op nationaal niveau, met inbegrip van koppelingen naar EU-verordeningen, besluiten enz., moet worden vastgelegd met eli:ensures_implementation_of.\n\nMerk op dat dit moet verwijzen naar de juridische bron van de richtlijn zelf en niet naar een van de taal-specifieke juridische expressies ervan."@nl .
+    eli:repealed_by rdfs:comment "Inverse van \"repeals\". Geeft aan dat deze juridische bron of juridische expressie volledig wordt ingetrokken, opgeheven of vervangen door een andere juridische bron. Indien een bron gedeeltelijk wordt ingetrokken door een andere bron, kan deze koppeling worden gebruikt op het overeenkomstige onderverdelingsniveau dat volledig wordt ingetrokken."@nl .
+    eli:LegalValue rdfs:label "juridische waarde"@nl .
+    eli:responsibility_of_agent rdfs:label "verantwoordelijkheid van agent"@nl .
+    eli-dl:legislative_process_work_id rdfs:comment "Een identificator die kan worden gebruikt om naar een werk van een wetgevingsproces te verwijzen."@nl .
+    eli-dl:TranspositionProcess rdfs:label "omzettingsproces"@nl .
+    eli-dl:created_a_realization_of_legal_resource rdfs:label "heeft een realisatie van juridische bron gecreëerd"@nl .
+    eli-dl:participant_organization_label rdfs:label "label van deelnemende organisatie"@nl .
+    eli:FormatType rdfs:comment "Formeel gedefinieerd als de verzameling skos:Concepts in het conceptschema eli:MediaTypeTable."@nl .
+    eli:corrects rdfs:comment "Geeft aan dat dit werk tekstuele wijzigingen introduceert (zoals correcties van spelfouten) zonder juridische wijziging in een andere bron, expressie of manifestatie; typisch voor rectificaties in EU-wetgeving. Gebruik eli:amends voor wijzigingen die juridische gevolgen hebben."@nl .
+    eli-dl:legislative_process_work_id rdfs:label "identificator van het werk van het wetgevingsproces"@nl .
+    eli-dl:had_voter_favor rdfs:comment "Geeft een persoon aan die aan een stemming deelnam en vóór stemde."@nl .
+    eli:jurisdiction rdfs:label "jurisdictie"@nl .
+    eli:embodies rdfs:label "belichaamt"@nl .
+    eli:uri_schema rdfs:comment "Schema dat de URI van een ELI-instantie beschrijft. ELI maakt gebruik van URI-template-specificaties (IETF RFC 6570). Schema's moeten worden gekoppeld aan lidstaten en worden gepubliceerd in een register."@nl .
+    eli:is_referred_to_by rdfs:comment "Geeft een werk of expressie aan dat naar deze entiteit verwijst."@nl .
+    eli:LegalResourceSubdivision rdfs:label "onderverdeling van juridische bron"@nl .
+    eli:WorkSubdivision rdfs:comment "Een onderdeel van een werk, op een willekeurig precisieniveau. Een onderverdeling kan met haar bovenliggende en onderliggende onderverdelingen worden verbonden via eli:has_part / eli:is_part_of."@nl .
+    eli:language rdfs:comment "De taal van een expressie.\n\nHet Publicatiebureau van de EU biedt een lijst met talen op https://op.europa.eu/en/web/eu-vocabularies/at-dataset/-/resource/dataset/language. Deze lijst is voldoende uitgebreid, zodat lidstaten geen lokale waarden hoeven te definiëren.\n\nMerk op dat, indien nodig, een taal ook op een juridische bron kan worden aangegeven met behulp van de DublinCore-eigenschap \"language\"."@nl .
+    eli:id_local rdfs:comment "De unieke identificator die in een lokaal referentiesysteem wordt gebruikt om achterwaartse compatibiliteit te behouden. Voorbeelden zijn CELEX op EU-niveau of NOR in Frankrijk."@nl .
+    eli-dl:had_responsible_person rdfs:comment "De verantwoordelijke persoon voor een activiteit.\n\nVoorbeeld: de \"rapporteur\" van een tekst in een commissie."@nl .
+    eli:responsibility_of rdfs:label "verantwoordelijkheid van"@nl .
+    eli:first_date_entry_in_force rdfs:comment "De eerste datum waarop enig onderdeel van de juridische bron of juridische expressie in werking is getreden (kan worden beschouwd als de begindatum van een dc:valid-periode voor deze bron)."@nl .
+    eli-dl:LegislativeProcessWork rdfs:label "werk van het wetgevingsproces"@nl .
+    eli-dl:produced_manifestation rdfs:label "heeft manifestatie geproduceerd"@nl .
+    eli:implementation_ensured_by rdfs:comment "Geeft aan dat de uitvoering van deze LegalResource wordt gewaarborgd door een andere LegalResource. Dit houdt een juridische betekenis in (in tegenstelling tot eli:applies). Zie de definitie van eli:ensures_implementation_of."@nl .
+    eli-dl:process_title rdfs:comment "De naam of titel van een proces.\n\nVoorbeeld: \"Forestry (Planning Permission) (Amendment) Bill 2018\", \"Sport: organisatie van de Olympische en Paralympische Spelen 2024\"."@nl .
+    eli-dl:had_voter_intended_abstention rdfs:comment "Geeft een persoon aan die aan een stemming deelnam en aangaf zich te willen onthouden, terwijl deze persoon anders heeft gestemd."@nl .
+    eli-dl:amends_draft rdfs:label "amendeert ontwerp"@nl .
+    eli-dl:number_of_attendees rdfs:label "aantal aanwezigen"@nl .
+    eli-dl:ParliamentaryTerm rdfs:label "parlementaire zittingsperiode"@nl .
+    eli:is_member_of rdfs:label "maakt deel uit van"@nl .
+    eli-dl:was_submitted_by rdfs:label "werd ingediend door"@nl .
+    eli-dl:is_referred_to_by rdfs:label "wordt naar verwezen door"@nl .
+    eli:SubdivisionType rdfs:label "type onderverdeling"@nl .
+    eli-dl:forms_part_of rdfs:label "maakt deel uit van"@nl .
+    eli:published_in_format rdfs:label "gepubliceerd in formaat"@nl .
+    eli-dl:documented_by_a_realization_of rdfs:comment "Geeft aan dat de activiteit werd of zal worden uitgevoerd volgens het plan dat door een Werk wordt beschreven. Doorgaans zijn dit agenda's die voorzien hoe toekomstige activiteiten zullen plaatsvinden."@nl .
+    eli-dl:ForeseenActivity rdfs:label "voorziene activiteit"@nl .
+    eli-dl:motivated rdfs:label "motiveerde"@nl .
+    eli-dl:legislative_process_work_creator rdfs:comment "Geeft de maker van een werk van het wetgevingsproces aan."@nl .
+    eli-dl:TranspositionProcess rdfs:comment "Het proces waarbij EU-wetgeving wordt omgezet in nationale wetgeving."@nl .
+    eli-dl:process_number rdfs:comment "Het nummer waaronder een proces bij het publiek bekend is. Een proces heeft slechts één nummer."@nl .
+    eli:legal_value rdfs:comment "De juridische waarde die verbonden is aan een specifiek formaat van een bron. Een reeks waarden wordt door ELI gedefinieerd in het overeenkomstige conceptschema. Deze waarden zijn:\n - unofficial: geen bijzondere of specifieke status;\n - official: gepubliceerd door een organisatie die als publieke taak heeft de informatie beschikbaar te stellen (bijvoorbeeld een geconsolideerde versie van een EU-richtlijn);\n - authoritative: de uitgever verleent een bijzondere status aan de publicatie (bijvoorbeeld de versie van een wet die is gepubliceerd door de \"Queen's Printer\", of de versie van een EU-richtlijn in het Publicatieblad);\n - definitive: de tekst geeft definitief weer wat de wet bepaalt (bijvoorbeeld de digitaal ondertekende versie van een Publicatieblad)."@nl .
+    eli-dl:DecisionMethod rdfs:comment "Een methode om een beslissing uit te voeren; de manier waarop een beslissing tot stand is gekomen."@nl .
+    eli-dl:forms_part_of rdfs:comment "Geeft een andere, grotere activiteit aan die deze activiteit omvat.\n\nVoorbeeld: de activiteit \"Lezing in commissie van wetgevingsproces 384\" maakt deel uit van \"Eerste lezing in de Assemblée nationale van wetgevingsproces 384\", die op haar beurt deel uitmaakt van \"Wetgevingsproces nummer 384\"."@nl .
+    eli-dl:had_participation rdfs:comment "De deelname van een Agent aan een activiteit."@nl .
+    eli:FormatType rdfs:label "formaatsoort"@nl .
+    eli:Expression rdfs:label "expressie"@nl .
+    eli-dl:activity_id rdfs:comment "Een identificator voor de activiteit."@nl .
+    eli-dl:process_number rdfs:label "nummer van het wetgevingsproces"@nl .
+    eli:changes rdfs:comment "Geeft aan dat dit werk of deze expressie een andere juridisch wijzigt. Dit omvat de begrippen amendement, vervanging, intrekking of andere soorten wijzigingen. Dit kan een directe wijziging zijn (tekstuele of niet-tekstuele wijziging) of een daaruit voortvloeiende of indirecte wijziging. Merk op dat de eigenschap moet worden gebruikt om het bestaan van een wijzigingsrelatie tussen twee rechtshandelingen uit te drukken, en niet het bestaan van een geconsolideerde versie van de tekst die het resultaat van de wijziging weergeeft. Gebruik voor consolidatierelaties de eigenschappen \"consolidates\" en \"consolidated_by\"."@nl .
+    eli:date_publication rdfs:label "datum van publicatie"@nl .
+    eli-dl:excused_person_label rdfs:label "label van verontschuldigde persoon"@nl .
+    eli:has_translation rdfs:label "heeft vertaling"@nl .
+    eli:is_realized_by rdfs:comment "Verbindt een werk met een expressie van dit werk in de vorm van een \"reeks tekens\" (doorgaans alfanumerieke tekens in een juridische context). Inverse van \"realizes\"."@nl .
+    eli:description rdfs:label "beschrijving"@nl .
+    eli-dl:ProcessStatus rdfs:comment "De algemene status van een wetgevingsproces. ELI-DL voorziet in 3 mogelijke waarden: Lopend, Succesvol of Afgebroken. Andere waarden kunnen door implementatoren worden gedefinieerd."@nl .
+    eli:cited_by_case_law_reference rdfs:label "verwezen naar door jurisprudentieverwijzing"@nl .
+    eli:is_another_publication_of rdfs:comment "Geeft aan dat deze bron een nieuwe publicatie is, in een ander officieel publicatieblad, van een andere bron die al elders is gepubliceerd, en niet als dezelfde bron kan worden beschouwd (owl:sameAs kan niet worden gebruikt om mogelijke duplicatie van bepaalde metadata, zoals de publicatiedatum of de uitgever, te voorkomen).\n\nMerk op dat dit verschilt van de uitzonderlijke gevallen van \"herpublicatie\", waarbij dezelfde bron daadwerkelijk enkele dagen na de oorspronkelijke publicatie opnieuw in hetzelfde officiële publicatieblad wordt gepubliceerd, bijvoorbeeld vanwege fouten."@nl .
+    eli:has_annex rdfs:comment "Geeft een bijlage bij dit werk of deze expressie aan."@nl .
+    eli:has_member rdfs:comment "Geeft aan dat dit werk conceptueel een ander werk omvat. Gebruik eli:has_part voor het begrip fysieke opname."@nl .
+    eli-dl:parliamentary_term rdfs:label "parlementaire zittingsperiode"@nl .
+    eli:rightsholder_agent rdfs:comment "Een persoon of organisatie die rechten op de bron bezit of beheert (definitie afkomstig uit Dublin Core).\nDeze eigenschap moet worden gebruikt wanneer de waarde met een geschikte URI kan worden ge\"identificeerd; bij afwezigheid van een dergelijke URI moet de eigenschap \"rightsholder\" worden gebruikt met een tekenreeks als waarde."@nl .
+    eli-dl:legislative_process_work_date rdfs:label "datum van het werk van het wetgevingsproces"@nl .
+    eli-dl:executed rdfs:comment "De voorziene (geplande) activiteit volgens welke deze activiteit is uitgevoerd. Een vergadering werd bijvoorbeeld uitgevoerd volgens de voorziene activiteit uit de agenda."@nl .
+    eli:Format rdfs:label "formaat"@nl .
+    eli-dl:had_voter_against rdfs:label "had tegenstemmer"@nl .
+    eli:is_derivative_of rdfs:comment "Een Werk of Expressie waarvan deze is afgeleid."@nl .
+    eli:Organization rdfs:label "organisatie"@nl .
+    eli-dl:process_keyword rdfs:label "trefwoord van het wetgevingsproces"@nl .
+    eli:embodies rdfs:comment "Verbindt een manifestatie met de expressie die deze belichaamt. Inverse van \"is_embodied_by\"."@nl .
+    eli:WorkType rdfs:label "type werk"@nl .
+    eli:commenced_by rdfs:comment "Inverse van \"commences\". Geeft aan dat deze juridische bron door een andere juridische bron in werking is gesteld.\nSituaties waarin een bron als gevolg van meer dan één bron in werking treedt, zijn uitdrukkelijk toegestaan."@nl .
+    eli-dl:recorded_in_realization_of rdfs:label "opgenomen in realisatie van (verouderd)"@nl .
+    eli-dl:was_submitted_by rdfs:comment "Geeft de organisatie of persoon aan die een proces bij het parlement heeft ingediend (dit kan de regering, de president, de senaat, een groep parlementsleden, een parlementaire commissie, een groep burgers enz. zijn)."@nl .
+    eli-dl:foresees_commencement_of rdfs:label "voorziet inwerkingtreding van"@nl .
+    eli-dl:recorded_in_a_realization_of rdfs:comment "Geeft aan dat een activiteit is opgenomen in een gerelateerd werk.\n\nOpmerking: deze eigenschap is een verkorte weergave van een impliciete FRBR \"Recording Event\" die de opname van het evenement zou hebben gecreëerd."@nl .
+    eli-dl:had_participant_person rdfs:comment "Een persoon die aan een activiteit deelneemt. Er bestaat een meer specifieke eigenschap om de verantwoordelijke persoon van een activiteit aan te geven.\n\nVoorbeeld: leden die in een commissie werken, spreker tijdens een plenaire vergadering."@nl .
+    eli:in_force rdfs:comment "Een waarde die de juridische kracht van een juridische bron of juridische expressie aangeeft. Een reeks waarden wordt door ELI gedefinieerd in het overeenkomstige conceptschema. Deze waarden zijn:\n - in werking\n - gedeeltelijk in werking\n - niet in werking"@nl .
+    eli-dl:decision_outcome rdfs:comment "Geeft de uitkomst van de beslissing aan, bijvoorbeeld aangenomen, verworpen, vervallen, enz."@nl .
+    eli-dl:had_voter_abstention rdfs:label "had onthoudende stemmer"@nl .
+    eli:cited_by rdfs:comment "Inverse van \"cites\".\nMerk op dat de bedoelde betekenis van deze koppeling is aan te geven dat \"naar iets wordt verwezen door wetgeving\" en niet dat \"naar deze wetgeving wordt verwezen door iets\"."@nl .
+    eli:media_type rdfs:comment "Het bestandsformaat van de manifestatie.\nDit veld is bedoeld om het technische bestandsformaat vast te leggen en dient als basis voor contentonderhandeling, zodat de server het juiste bestand kan terugsturen op basis van de voorkeur van de client.\nHoewel deze eigenschap niet verplicht is, wordt het gebruik ervan sterk aanbevolen.\nMogelijke URI-waarden MOETEN worden overgenomen uit http://www.iana.org/assignments/media-types (bijvoorbeeld http://www.iana.org/assignments/media-types/application/xml).\nZie ook de eigenschap \"format\"."@nl .
+    eli-dl:foresees_based_on rdfs:label "voorziet gebaseerd op"@nl .
+    eli-dl:activity_date rdfs:comment "De datum van een activiteit, om één enkele datum aan te geven. Indien een activiteit een tijdsperiode beslaat, kunnen als alternatief \"activity_start_date\" en \"activity_end_date\" worden gebruikt om het begin en einde van de activiteit aan te geven.\n\nDatums kunnen worden uitgedrukt met datumprecisie (yyyy-mm-dd) of met tijdprecisie (yyyy-dd-mmYhh:mm:ss)."@nl .
+    eli-dl:participation_in_name_of rdfs:comment "De Agent namens wie de deelnemende agent heeft gehandeld. Doorgaans draagt de rapporteur van een wetgevingsverslag bij namens een commissie."@nl .
+    eli-dl:foresees_application_of rdfs:comment "Geeft een reeds gepubliceerde LegalResource aan waarop de toekomstige wet, indien aangenomen, van toepassing zal zijn. Raadpleeg de definitie van de eigenschap eli:applies.\nMerk op dat de juridische gevolgen in opeenvolgende versies van hetzelfde document kunnen veranderen."@nl .
+    eli:is_derivative_of rdfs:label "is afgeleid van"@nl .
+    eli-dl:date_last_update rdfs:comment "De datum waarop het proces voor het laatst is bijgewerkt.\n\nEen wetgevingsproces kan voor deze eigenschap maximaal één waarde hebben."@nl .
+    eli-dl:involved_work rdfs:label "betrokken werk"@nl .
+    eli-dl:appointed_participant rdfs:label "aangewezen"@nl .
+    eli-dl:DecisionOutcome rdfs:comment "De mogelijke uitkomsten van een beslissing. ELI-DL definieert een eenvoudige lijst met mogelijke waarden die door implementaties kan worden uitgebreid."@nl .
+    eli-dl:had_excused_person rdfs:comment "Een persoon die was vrijgesteld van een vergadering of een ander type activiteit."@nl .
+    eli: rdfs:comment "Een ontologie voor het beschrijven van wetgeving, gebaseerd op het FRBR-model, waarin de ELI-metadatavelden zijn gecodeerd.\nZie de klassen \"LegalResource\", \"LegalExpression\" en \"Format\" als uitgangspunten.\nGeïnteresseerden kunnen meer informatie over ELI vinden in het ELI-register op http://eurlex.europa.eu/eli en op de website van de vocabulaires van het Publicatiebureau op https://op.europa.eu/en/web/eu-vocabularies/eli."@nl .
+    eli:transposes rdfs:label "zet om"@nl .
+    eli-dl:transposition_deadline rdfs:label "heeft omzettingstermijn"@nl .
+    eli-dl:recorded_in_a_realization_of rdfs:label "opgenomen in een realisatie van"@nl .
+    eli-dl:DecisionMethod rdfs:label "besluitvormingsmethode"@nl .
+    eli:Version rdfs:label "versie"@nl .
+    eli:format rdfs:comment "Het formaat van de manifestatie, uitgedrukt als een aangepaste URI.\nDit veld is bedoeld om het formaat van de bron vanuit het perspectief van een toepassing of gebruiker vast te leggen, in tegenstelling tot de eigenschap \"media_type\", die het formaat vanuit technisch oogpunt uitdrukt. Deze eigenschap maakt het mogelijk verschillende XML-schema's (Akoma N'toso versus propriëtaire schema's) te beschrijven, verschillende typen PDF's (gescande PDF, dynamisch gegenereerde PDF, ondertekende PDF, archief-PDF) te onderscheiden of de papieren (gedrukte) versie van de wetgeving te beschrijven.\nELI bevat een reeks mogelijke waarden voor de meest voorkomende gebruikssituaties. Mogelijke URI-waarden KUNNEN ook worden overgenomen uit http://www.iana.org/assignments/media-types of kunnen door de lidstaten worden gedefinieerd."@nl .
+    eli-dl:Vote rdfs:label "stemming"@nl .
+    eli-dl:number_of_votes_against rdfs:comment "Het totale aantal tegenstemmen."@nl .
+    eli:licence rdfs:label "licentie"@nl .
+    eli-dl:had_legal_basis rdfs:comment "Geeft een rechtshandeling aan waarin de wetgevingsprocedure is vastgelegd waarin deze activiteit plaatsvindt.\n\nVoorbeeld: \"De ondertekening door de voorzitter van het Europees Parlement en de voorzitter van de Raad van procedure 2016/0382/COD had als rechtsgrondslag VWEU/art. 294 en VWEU/art. 194, lid 2.\"."@nl .
+    eli:countersigned_by rdfs:comment "Een persoon of organisatie die de wetgeving mede heeft ondertekend. Afhankelijk van de juridische context kan een medeondertekening aangeven dat de ondertekenende autoriteit de verantwoordelijkheid op zich neemt voor teksten die afkomstig zijn van een persoon die onschendbaar en niet verantwoordelijk is (bijvoorbeeld een koning, groothertog of president), of dat de autoriteit belast is met de uitvoering van de tekst."@nl .
+    eli-dl:ParticipationRole rdfs:label "rol van een Agent in een Participatie"@nl .
+    eli:Version rdfs:comment "Formeel gedefinieerd als de verzameling skos:Concepts in het conceptschema eli:VersionTable."@nl .
+    eli-dl:consists_of rdfs:comment "Geeft een activiteit met een fijnere granulariteit aan die binnen deze activiteit plaatsvindt. Hiermee kunnen activiteiten op een willekeurig precisieniveau in elkaar worden genest.\n\nVoorbeeld: \"Wetgevingsproces nummer 384\" bestaat uit \"Initiatie van proces 384\", \"Eerste lezing in de Assemblée nationale van wetgevingsproces 384\", \"Eerste lezing in de senaat van wetgevingsproces 384\", \"gezamenlijke commissiebehandeling van wetgevingsproces 384\" en \"afkondiging van wetgevingsproces 384\"."@nl .
+    eli:is_exemplified_by rdfs:comment "Koppeling naar een concrete URL van een bestand.\nVerbindt een manifestatie met één enkel exemplaar of één enkele instantie van die manifestatie."@nl .
+    eli:basis_for rdfs:label "grondslag voor"@nl .
+    eli:ComplexWork rdfs:comment "Werken die andere werken als leden hebben. De leden van een Complex Work kunnen alternatieven zijn voor of afgeleiden zijn van andere leden van hetzelfde Complex Work. Doorgaans vertegenwoordigen de leden van het complexe werk de opeenvolgende temporele versies van een rechtshandeling, terwijl het complexe werk de rechtshandeling onafhankelijk van een van haar versies vertegenwoordigt."@nl .
+    eli:date_publication rdfs:comment "Datum van publicatie van de officiële versie van de wetgeving, op papier of online, afhankelijk van wat de officiële publicatie is en wanneer deze is gepubliceerd. Publicatiedata op het niveau van juridische expressies kunnen afzonderlijk worden vastgelegd met behulp van standaard Dublin Core-eigenschappen."@nl .
+    eli-dl:was_motivated_by rdfs:comment "Een andere activiteit die deze activiteit \"triggerde\" of er \"logisch aan voorafging\".\n\nVoorbeeld: het opstellen van een advies werd gemotiveerd door de overdracht van een verzoek om advies door de wetgevingsdienst."@nl .
+    eli:in_force rdfs:label "in werking"@nl .
+    eli:language rdfs:label "taal"@nl .
+    eli-dl:foresees_citation_of rdfs:label "voorziet verwijzing naar"@nl .
+    eli-dl:process_type rdfs:comment "Het type van een proces. Het type van een proces bepaalt vaak de workflow die wordt gevolgd om de wet tot stand te brengen.\n\nDe lijst met mogelijke waarden moet door elke lidstaat worden gedefinieerd.\n\nVoorbeeld: \"Projet de loi\", \"Proposition de loi\", \"Herziening van de Grondwet\", \"Public Bill\"."@nl .
+    eli:format rdfs:label "formaat"@nl .
+    eli:applies rdfs:label "is van toepassing op"@nl .
+    eli-dl:is_subject_of rdfs:comment "Een webpagina of bron die een proces beschrijft. Deze eigenschap is bedoeld om de websites van verschillende instellingen die hetzelfde wetgevingsproces beschrijven, onderling te koppelen.\n\nVoorbeeld: de pagina van het wetgevingsproces op de website van het Publicatieblad, de procespagina op de website van de Senaat, de procespagina op de website van de Raad van State."@nl .
+    eli:passed_by rdfs:comment "De persoon of organisatie die de wet oorspronkelijk heeft aangenomen of vastgesteld: doorgaans het parlement (voor primaire wetgeving) of de regering (voor secundaire wetgeving). Dit geeft de \"juridische auteur\" van de wet aan, in tegenstelling tot de fysieke auteur ervan.\n\nDeze eigenschap kan meerdere keren worden gebruikt om zowel de agent die de tekst heeft opgesteld als de agent die de tekst heeft ondertekend aan te geven, waardoor de tekst een daadwerkelijke rechtshandeling wordt.\n\nDe relatie tussen het huidige en eventuele voormalige wetgevende orgaan moet worden beschreven in de beschrijving van de agent zelf.\n\nLidstaten worden aangemoedigd hun eigen lijst van Agents op te stellen. Het Publicatiebureau van de EU biedt een lijst van rechtspersonen en organisaties op https://op.europa.eu/en/web/eu-vocabularies/at-dataset/-/resource/dataset/corporate-body."@nl .
+    eli:related_to rdfs:comment "Geeft een ander, op enigerlei wijze gerelateerd document aan, dat niet noodzakelijk een juridische bron is. Merk op dat voor verwijzingsrelaties de eigenschap cites moet worden gebruikt."@nl .
+    eli:has_part rdfs:label "heeft onderdeel"@nl .
+    eli:is_about rdfs:comment "Een onderwerp van dit werk. Het gebruik van Eurovoc (http://eurovoc.europa.eu) wordt aangemoedigd om waarden voor deze eigenschap te selecteren. Lidstaten worden aangemoedigd lokale waarden af te stemmen op Eurovoc."@nl .
+    eli:consolidates rdfs:comment "Geeft aan dat deze geconsolideerde juridische bron of expressie (die doorgaans het resultaat is van een redactioneel proces waarbij de wetgeving wordt herzien) rekening houdt met een andere bron. Deze eigenschap moet meerdere keren worden gebruikt om zowel naar de oorspronkelijke versie of de vorige geconsolideerde versie als naar de wetgevingen die de wijziging hebben aangebracht te verwijzen."@nl .
+    eli:InForce rdfs:label "in werking"@nl .
+    eli-dl:foreseen_type_document rdfs:label "voorziene documentsoort"@nl .
+    eli-dl:ForeseenActivity rdfs:comment "Een geplande, voorziene activiteit in de toekomst. Geplande activiteiten worden beschouwd als specifieke (subklassen van) Activiteiten en kunnen daarom worden beschreven met dezelfde reeks eigenschappen als een activiteit uit het verleden."@nl .
+    eli:Agent rdfs:label "agent"@nl .
+    eli-dl:legislative_process_work_version rdfs:label "versie van het werk van het wetgevingsproces"@nl .
+    eli-dl:foresees_citation_of rdfs:comment "Geeft een reeds gepubliceerde LegalResource aan waarnaar de toekomstige wet, indien aangenomen, zal verwijzen. Raadpleeg de definitie van de eigenschap eli:cites.\nMerk op dat de juridische gevolgen in opeenvolgende versies van hetzelfde document kunnen veranderen."@nl .
+    eli:rightsholder rdfs:label "rechthebbende"@nl .
+    eli-dl:ProcessType rdfs:label "type van een wetgevingsproces"@nl .
+    eli-dl:created_legal_expression rdfs:label "heeft juridische expressie gecreëerd"@nl .
+    eli:consolidated_by rdfs:label "geconsolideerd door"@nl .
+    eli:repeals rdfs:comment "Geeft aan dat deze juridische bron of juridische expressie een andere juridische bron of juridische expressie volledig intrekt, opheft of vervangt. Indien een bron een andere gedeeltelijk intrekt, kan deze koppeling worden gebruikt op het overeenkomstige onderverdelingsniveau dat volledig wordt ingetrokken."@nl .
+    eli-dl:decision_method rdfs:comment "De methode die wordt gebruikt om de besluitvormingsactiviteit uit te voeren (bijvoorbeeld hoofdelijke stemming enz.)."@nl .
+    eli-dl:activity_label rdfs:label "label van de activiteit"@nl .
+    eli:transposed_by rdfs:label "omgezet door"@nl .
+    eli-dl:had_voter_intended_favor rdfs:label "had stemmer die vóór wilde stemmen"@nl .
+    eli:legal_value rdfs:label "juridische waarde"@nl .
+    eli-dl:involved_work rdfs:comment "Geeft aan dat een Activiteit op enigerlei wijze een werk (document) heeft gebruikt om te worden uitgevoerd, zonder aan te geven hoe het werd gebruikt.\nDit omvat zowel documenten die als \"input\" van de activiteit zijn gebruikt als documenten die tijdens de activiteit als \"output\" zijn geproduceerd.\nEr bestaan meer specifieke eigenschappen om aan te geven of de werken als \"inputs\" of \"outputs\" van de activiteit moeten worden beschouwd."@nl .
+    eli:number rdfs:comment "Een identificator of ander onderscheidend kenmerk voor een werk of expressie. Dit kan het nummer van wetgeving, het nummer van een artikel of het nummer van een editie van een officieel publicatieblad zijn."@nl .
+    eli:LegalValueTable rdfs:label "tabel van juridische waarden"@nl .
+    eli-dl:excused_person_label rdfs:comment "De naam van een persoon die was vrijgesteld van een vergadering of een ander type activiteit."@nl .
+    eli:responsibility_of_agent rdfs:comment "Een individu, organisatie of organisatorische eenheid die een bepaalde verantwoordelijkheid draagt voor de wetgeving. Doorgaans het ministerie dat verantwoordelijk is of was voor het opstellen van de wetgeving, of het aanspreekpunt voor eventuele vragen over de wetgeving nadat deze is gepubliceerd.\nDeze eigenschap moet worden gebruikt wanneer de waarde met een geschikte URI kan worden ge\"identificeerd; bij afwezigheid van een dergelijke URI moet de eigenschap \"responsibility_of\" worden gebruikt met een tekenreeks als waarde."@nl .
+    eli-dl:includes_amendment rdfs:comment "Geeft een amendement aan dat is aangenomen en in deze versie van het ontwerp van de wetgeving is opgenomen. Deze eigenschap is bedoeld om te verwijzen naar afzonderlijke amendementen waarvan is gestemd dat ze in de tekst van de wet worden geïntegreerd."@nl .
+    eli-dl:answers_to rdfs:label "beantwoordt"@nl .
+    eli-dl:number_of_votes_against rdfs:label "aantal tegenstemmen"@nl .
+    eli-dl:foreseen_date_of_adoption rdfs:label "voorziene datum van aanneming"@nl .
+    eli:implemented_by rdfs:comment "Deze eigenschap is verouderd. Gebruik in plaats daarvan \"applied_by\"."@nl .
+    eli:rights rdfs:label "rechten"@nl .
+    eli-dl:answers_to rdfs:comment "Geeft aan dat dit werk een antwoord is op het andere werk."@nl .
+    eli-dl:LegislativeActivity rdfs:comment "Elke activiteit die plaatsvindt in het kader van het opstellen van wetgeving."@nl .
+    eli:Organization rdfs:comment "Instellingen of groepen personen die juridische erkenning als groep hebben verkregen en collectief als agents kunnen optreden."@nl .
+    eli-dl:created_a_realization_of_legal_resource rdfs:comment "Geeft een LegalResource aan die officieel is gepubliceerd als onderdeel van de wetgevingsactiviteit. Dit wordt gebruikt om de uitkomst van een LegislativeProcess aan te geven, evenals andere \"tussentijdse\" juridische bronnen die tijdens het opstellen van de wetgeving kunnen worden gepubliceerd."@nl .
+    eli-dl:participant_person_label rdfs:label "label van deelnemende persoon"@nl .
+    eli-dl:created_legal_expression rdfs:comment "Geeft aan dat een wetgevingsactiviteit de juridische expressie heeft gecreëerd. Doorgaans creëert een wetgevingsproces de definitieve juridische expressie van de wetgeving, zoals gepubliceerd in het Publicatieblad; maar deze eigenschap kan ook bij wetgevingsactiviteiten worden gebruikt om naar \"tussentijdse\" expressies te verwijzen.\nDeze eigenschap is voornamelijk opgenomen voor compatibiliteit met FRBRoo, maar implementaties gebruiken bij voorkeur created_a_realization_of_legal_resource om naar het niveau van het Werk te verwijzen.\nDit kan aangeven dat sommige Expressies van de definitieve LegalResource door het wetgevingsproces zijn gecreëerd en dat andere Expressies later zijn vertaald."@nl .
+    eli:passed_by rdfs:label "aangenomen door"@nl .
+    eli:corrected_by rdfs:comment "Inverse van \"corrects\". Geeft een bron aan die tekstuele wijzigingen introduceert (zoals correcties van spelfouten) zonder juridische wijziging in dit werk, deze expressie of manifestatie; typisch voor rectificaties in EU-wetgeving. Gebruik eli:amended_by voor wijzigingen die juridische gevolgen hebben."@nl .
+    eli-dl:decision_outcome rdfs:label "uitkomst van de beslissing"@nl .
+    eli-dl:had_excused_person rdfs:label "had vrijgestelde persoon"@nl .
+    eli-dl:responsible_organization_label rdfs:label "label van verantwoordelijke organisatie"@nl .
+    eli-dl:number_of_attendees rdfs:comment "Het totale aantal aanwezigen bij de stemming."@nl .
+    eli:implemented_by rdfs:label "uitgevoerd door"@nl .
+    eli:Work rdfs:comment "Elke onderscheiden intellectuele creatie (d.w.z. de intellectuele inhoud) in de context van ELI.\n\nDe inhoud van een Werk bestaat uit ideeën."@nl .
+    eli:Language rdfs:label "taal"@nl .
+    eli:rightsholder rdfs:comment "Een persoon of organisatie die rechten op de bron bezit of beheert (definitie afkomstig uit Dublin Core).\nDeze eigenschap moet worden gebruikt wanneer de waarde niet met een geschikte URI kan worden ge\"identificeerd; indien een URI beschikbaar is, moet de eigenschap \"rightsholder_agent\" worden gebruikt."@nl .
+    eli-dl:adopts rdfs:label "neemt aan"@nl .
+    eli-dl:legislative_process_work_version rdfs:comment "De versie of status waarin het werk van het wetgevingsproces zich momenteel bevindt: voorbereidend, definitief, enz."@nl .
+    eli:relevant_for rdfs:label "relevant voor"@nl .
+    eli:basis_for rdfs:comment "Geeft aan dat dit werk of deze expressie een ander werk of een andere expressie machtigt. Doorgaans vormt primaire wetgeving de grondslag voor secundaire wetgeving."@nl .
+    eli:commences rdfs:label "stelt in werking"@nl .
+    eli:is_part_of rdfs:label "maakt deel uit van"@nl .
+    eli-dl:participation_role rdfs:comment "De rol van de Agent in een Participatie."@nl .
+    eli:LegalResourceSubdivision rdfs:comment "Een onderdeel van een rechtshandeling, op een willekeurig precisieniveau, zoals een hoofdstuk, artikel, alinea, paragraaf of lijstitem. Een onderverdeling kan met haar bovenliggende en onderliggende onderverdelingen worden verbonden via de eigenschappen eli:has_part / eli:is_part_of."@nl .
+    eli-dl:number_of_votes_abstention rdfs:label "aantal onthoudingen"@nl .
+    eli:LegalValue rdfs:comment "Formeel gedefinieerd als de verzameling skos:Concepts in het conceptschema eli:LegalValueTable."@nl .
+    eli:AdministrativeArea rdfs:comment "Formeel gedefinieerd als de verzameling skos:Concepts in het conceptschema eli:AdministrativeAreaTable of in het conceptschema https://op.europa.eu/en/web/eu-vocabularies/at-dataset/-/resource/dataset/atu (tabel van administratieve territoriale eenheden gepubliceerd door het Publicatiebureau van de EU)."@nl .
+    eli:SubdivisionTypeTable rdfs:label "tabel van typen onderverdelingen"@nl .
+    eli-dl:decision_method rdfs:label "besluitvormingsmethode"@nl .
+    eli:version rdfs:comment "Een skos-conceptschema, dat lokaal kan worden gedefinieerd. Het voorstel van de groep is om te beginnen met een initieel ELI-schema, dat mogelijk concepten omvat zoals \"Official Journal\", \"made\", \"consolidated\", \"proposed\", \"prospective\"."@nl .
+    eli:AdministrativeArea rdfs:label "administratief gebied"@nl .
+    eli:LegalResource rdfs:comment "Een werk in een wetgevingscorpus. Dit is van toepassing op rechtshandelingen die juridisch zijn vastgesteld (ongeacht of ze nog van kracht zijn).\nBijvoorbeeld het abstracte concept van de juridische bron, zoals \"rechtshandeling 3 van 2005\" (aangepast uit Akoma Ntoso).\n\nEen juridische bron kan een rechtshandeling of elk onderdeel van een rechtshandeling vertegenwoordigen, zoals een artikel. Juridische bronnen kunnen met elkaar worden verbonden via eigenschappen die in het model zijn gedefinieerd.\n\nMerk op dat de ELI-ontologie verschillende perspectieven toelaat op wat moet worden beschouwd als een nieuwe juridische bron of als een nieuwe juridische expressie van dezelfde bron. Doorgaans kan een geconsolideerde versie in de context van ELI worden beschouwd als een afzonderlijke juridische bron (gekoppeld aan de oorspronkelijke versie en de vorige geconsolideerde versie via de overeenkomstige ELI-relaties), of als een andere juridische expressie van dezelfde juridische bron."@nl .
+    eli:implementation_ensured_by rdfs:label "uitvoering gewaarborgd door"@nl .
+    eli:is_translation_of rdfs:comment "Geeft aan dat deze expressie is vertaald vanuit een andere, oorspronkelijke expressie; dit kan worden gebruikt om oorspronkelijke en afgeleide expressies van elkaar te onderscheiden.\n\nMerk op dat het vastleggen van deze koppeling geen gevolgen heeft voor de juridische waarde van de oorspronkelijke en vertaalde expressies: afhankelijk van de context kan een vertaling juridisch even bindend zijn als de oorspronkelijke versie, of uitsluitend ter informatie worden gepubliceerd (bijvoorbeeld een land dat bepaalde rechtshandelingen in het Engels vertaalt).\n\nDe expressies die via deze eigenschap zijn verbonden, kunnen realisaties van dezelfde LegalResource of van verschillende LegalResources zijn. Meertalige wetgeving waarbij het niet nodig is om onderscheid te maken tussen oorspronkelijke en afgeleide expressies van dezelfde LegalResource (bijvoorbeeld Europese wetgeving), maakt geen gebruik van deze eigenschap."@nl .
+    eli-dl:Activity rdfs:comment "Een activiteit die plaatsvindt in een juridische context, hetzij binnen wetgevende organen zoals parlementen, hetzij binnen uitvoerende organen zoals regeringen of de Europese Commissie.\n\nDit kan het creëren van een document omvatten, of worden getriggerd door een document dat door een eerdere activiteit is gecreëerd.\n\nDit kan worden gebruikt om activiteiten op een willekeurig precisieniveau te beschrijven: zowel macroactiviteiten, zoals \"behandeling van een tekst in een kamer\", als activiteiten met een fijne granulariteit, zoals \"stemming om de voorzitter van een commissievergadering te kiezen\"."@nl .
+    eli-dl:transposition_deadline rdfs:comment "De uiterste termijn voor de omzetting van de richtlijn."@nl .
+    eli-dl:ParliamentaryTerm rdfs:comment "Een parlementaire zittingsperiode, bijvoorbeeld \"negende zittingsperiode\"."@nl .
+    eli-dl:activity_end_date rdfs:label "einddatum van de activiteit"@nl .
+    eli:specificPropertyOf rdfs:comment "Geeft aan dat een eigenschap in algemene zin een specifiekere eigenschap van een andere eigenschap is. Dit houdt niet dezelfde logische gevolgtrekking in als rdfs:subPropertyOf.\nDit wordt gebruikt om de afstemming op Dublin Core-eigenschappen aan te geven, zonder de Dublin Core-eigenschap opnieuw te definiëren in Protégé en zonder zich vast te leggen op de keuze of een Dublin Core-eigenschap een datatype-eigenschap of een objecteigenschap is."@nl .
+    eli-dl:process_title rdfs:label "titel van het wetgevingsproces"@nl .
+    eli-dl:process_status rdfs:comment "De status van een proces, overeenkomstig een van de mogelijke waarden die in dit model zijn opgenomen."@nl .
+    eli-dl:had_voter_intended_favor rdfs:comment "Geeft een persoon aan die aan een stemming deelnam en aangaf vóór te willen stemmen, terwijl deze persoon anders heeft gestemd."@nl .
+    eli:commenced_by rdfs:label "in werking gesteld door"@nl .
+    eli-dl:had_voter_intended_abstention rdfs:label "had stemmer die zich wilde onthouden"@nl .
+    eli-dl:current_stage rdfs:label "huidige fase"@nl .
+    eli-dl:LegislativeActivity rdfs:label "wetgevingsactiviteit"@nl .
+    eli:FormatTypeTable rdfs:label "tabel van formaten"@nl .
+    eli:Person rdfs:label "persoon"@nl .
+    eli-dl:legislative_process_work_date rdfs:comment "De datum waarop een werk van een wetgevingsproces werd gecreëerd."@nl .
+    eli:has_derivative rdfs:label "heeft afgeleide"@nl .
+    eli:media_type rdfs:label "mediatype"@nl .
+    eli-dl:is_adopted_in rdfs:comment "Geeft aan dat het werk is aangenomen in een ander aangenomen werk."@nl .
+    eli:Person rdfs:comment "Een echte persoon die leeft of heeft geleefd."@nl .
+    eli-dl:appointed_participant rdfs:comment "Geeft een belanghebbende aan die door de activiteit is aangewezen voor een andere activiteit."@nl .
+    eli-dl:legislative_process_work_description rdfs:comment "Een toelichting of korte beschrijving van een werk dat is gecreëerd in de context van een wetgevingsproces.\n\nVoorbeeld: \"Wetsvoorstel tot wijziging van de bepalingen van de Forestry Act 2014 om te voorzien in een omgevingsvergunning voor alle bosbouwontwikkelingen van meer dan 5 hectare; tot wijziging van de Planning and Development Act 2000; en tot regeling van aanverwante aangelegenheden.\"."@nl .
+    eli:changes rdfs:label "wijzigt"@nl .
+    eli:rights rdfs:comment "Informatie over rechten die in verband met en met betrekking tot de bron worden gehouden (definitie afkomstig uit Dublin Core). Deze eigenschap kan bijvoorbeeld worden gebruikt om te verwijzen naar een pagina waarop de licentievoorwaarden worden beschreven."@nl .
+    eli-dl:had_voter_abstention rdfs:comment "Geeft een persoon aan die aan een stemming deelnam en zich van stemming onthield."@nl .
+    eli-dl:process_status rdfs:label "status van het wetgevingsproces"@nl .
+    eli-dl:foresees_execution_of rdfs:label "voorziet uitvoering van"@nl .
+    eli-dl:participant_person_label rdfs:comment "De naam van een persoon die aan een activiteit heeft deelgenomen."@nl .
+    eli:specificPropertyOf rdfs:label "specifieke eigenschap van"@nl .
+    eli:Manifestation rdfs:comment "De fysieke belichaming van een Expressie, hetzij op papier of in een elektronisch formaat.\n\nDe inhoud van een Manifestatie bestaat niet alleen uit tekens, maar ook uit de wijze waarop deze worden gepresenteerd om door gebruikers te worden geconsumeerd, met inbegrip van het type media dat wordt gebruikt."@nl .
+    eli:cites rdfs:label "citeert"@nl .
+    eli:type_subdivision rdfs:comment "Het type van een documentonderverdeling (bijvoorbeeld \"Artikel\", \"Paragraaf\", \"Sectie\", enz.).\nEen onderverdeling kan slechts één type hebben.\n\nELI specificeert geen lijst van mogelijke waarden. Lidstaten worden aangemoedigd hun eigen lijst van waarden op te stellen in het overeenkomstige conceptschema. Het Publicatiebureau van de EU biedt een lijst van waarden voor typen van EU-bronnen op https://op.europa.eu/en/web/eu-vocabularies/at-dataset/-/resource/dataset/subdivision."@nl .
+    eli-dl:had_voter_favor rdfs:label "had stemmer die vóór stemde"@nl .
+    eli-dl:ProcessStage rdfs:comment "Een fase in een workflow. Fasen kunnen op een willekeurig granulariteitsniveau worden beschreven.\n\nDe mogelijke waarden moeten door elke lidstaat worden beschreven, afhankelijk van zijn workflow.\n\nVoorbeeld: \"Dáil tweede fase\", \"1e lezing\", \"behandeling in commissie\", enz."@nl .
+    eli-dl:DecisionOutcome-Rejected rdfs:comment "Geeft aan dat de beslissing is verworpen."@nl .
+    eli:date_no_longer_in_force rdfs:comment "De laatste datum waarop enig onderdeel van de wetgeving van kracht is, indien de datum bekend is (kan worden beschouwd als de einddatum van een dc:valid-periode voor deze bron)."@nl .
+    eli:date_document rdfs:label "datum van het document"@nl .
+    eli:applied_by rdfs:comment "Inverse van \"applies\".\n\nMerk op dat deze eigenschap wordt uitgedrukt op een juridische bron en niet op een van de taal-specifieke juridische expressies ervan."@nl .
+    eli-dl:responsible_person_label rdfs:comment "De naam van een persoon die verantwoordelijk was voor een activiteit."@nl .
+    eli:published_in_format rdfs:comment "Verwijzing naar het Publicatieblad of een andere publicatiemanifestatie waarin dit formaat is gepubliceerd.\nDeze eigenschap moet worden gebruikt wanneer de waarde met een geschikte URI kan worden ge\"identificeerd; bij afwezigheid van een dergelijke URI moet de eigenschap \"published_in\" worden gebruikt met een tekenreeks als waarde."@nl .
+    eli-dl:decided_on_a_realization_of rdfs:label "gebaseerd op een realisatie van"@nl .
+    eli:changed_by rdfs:comment "Inverse van « changes ». Geeft aan dat dit werk of deze expressie juridisch wordt gewijzigd door een andere. Dit omvat de begrippen amendement, vervanging, intrekking of andere soorten wijzigingen."@nl .
+    eli:refers_to rdfs:label "verwijst naar"@nl .
+    eli-dl:is_adopted_in rdfs:label "is aangenomen in"@nl .
+    eli-dl:is_referred_to_by rdfs:comment "Verouderd. Dit is veralgemeend in de ELI-ontologie. Gebruik in plaats daarvan eli:is_referred_to_by."@nl .
+    eli-dl:ProcessStage rdfs:label "Fase van een (wetgevings)proces"@nl .
+    eli:WorkType rdfs:label "Formeel gedefinieerd als de verzameling skos:Concept in het conceptschema eli:WorkTypeTable"@nl .
+    eli:title rdfs:comment "De titel of naam van een expressie.\n\nMerk op dat, indien nodig, een titel ook aan een juridische bron kan worden toegekend met behulp van de Dublin Core-eigenschap \"title\"."@nl .
+    eli:realizes rdfs:comment "Verbindt een expressie met een werk dat door die expressie wordt gerealiseerd. Inverse van \"is_realized_by\"."@nl .
+    eli:cites rdfs:comment "Citaat in de tekst van de wetgeving. Dit kan, afhankelijk van de implementatiecontext, op het niveau van de juridische bron of de juridische expressie worden vastgelegd. Dit omvat zowel letterlijke citaten als verwijzingen in doorverwijzingen."@nl .
+    eli-dl:foresees_consolidation_of rdfs:label "voorziet consolidatie van"@nl .
+    eli:published_in rdfs:label "gepubliceerd in"@nl .
+    eli:type_subdivision rdfs:label "type van onderverdeling"@nl .
+    eli:Format rdfs:comment "De fysieke belichaming van een juridische expressie, hetzij op papier of in een elektronisch formaat.\nBijvoorbeeld elk elektronisch of fysiek formaat van de juridische expressie (XML, TIFF, PDF, enz.); bijvoorbeeld de PDF-versie van rechtshandeling 3 van 2005 (aangepast uit Akoma Ntoso).\nMerk op dat het begrip Format in ELI preciezer is dan een FRBR Manifestation, in die zin dat een Format in ELI een juridische waarde kan dragen (zie de eigenschap eli:legal_value)."@nl .
+    eli:has_translation rdfs:comment "Inverse van \"is_translation_of\". Geeft aan dat deze expressie is vertaald naar een andere afgeleide expressie. Zie de definitie van \"is_translation_of\"."@nl .
+    eli-dl:produced_manifestation rdfs:comment "Geeft aan dat een activiteit een Manifestation heeft gecreëerd.\nDeze eigenschap is voornamelijk opgenomen voor compatibiliteit met FRBRoo, maar implementaties gebruiken bij voorkeur created_a_realization_of om naar het Work-niveau te verwijzen.\nDit kan aangeven dat sommige Manifestations/Formats van de uiteindelijke LegalResource door het wetgevingsproces zijn gecreëerd en andere achteraf zijn gegenereerd."@nl .
+    eli:version_date rdfs:label "versiedatum"@nl .
+    eli-dl:LegislativeProcess rdfs:comment "Een proces voor het opstellen van wetgeving, dat alle fasen van het creëren van de wetgeving omvat, van de initiatie tot de ondertekening of afkondiging waardoor deze wetgeving wordt, met inbegrip van lezingen en vergaderingen en de officiële ondertekening van de wet.\n\nMerk op dat de activiteit van het publiceren van de wetgeving in een Publicatieblad doorgaans geen deel uitmaakt van het wetgevingsproces, aangezien dit gewoonlijk plaatsvindt nadat de ontwerpwetgeving officiële wetgeving is geworden."@nl .
+    eli-dl:DecisionOutcome-Adopted rdfs:comment "Geeft aan dat de beslissing is aangenomen."@nl .
+    eli:version rdfs:label "versie"@nl .
+    eli-dl:had_participation rdfs:label "had deelname"@nl .
+    eli-dl:documented_by_a_realization_of rdfs:label "gedocumenteerd door een realisatie van"@nl .
+    eli: rdfs:label "ELI-metadata-ontologie"@nl .
+    eli:changed_by rdfs:label "gewijzigd door"@nl .
+    eli-dl:had_participant_person rdfs:label "had deelnemende persoon"@nl .
+    eli-dl:ProcessStatus rdfs:label "Status van een wetgevingsproces"@nl .
+    eli:is_about rdfs:label "gaat over"@nl .
+    eli-dl:latest_activity rdfs:label "laatste activiteit"@nl .
+    eli:id_local rdfs:label "lokale id"@nl .
+    eli-dl:draft_amended_by rdfs:comment "Geeft een amendement aan dat deze versie van het ontwerp wijzigt, ongeacht of erover is gestemd."@nl .
+    eli-dl:activity_start_date rdfs:comment "De datum waarop een activiteit is gestart.\n\nDatums kunnen worden uitgedrukt met een datumprecisie (yyyy-mm-dd) of met tijdprecisie (yyyy-dd-mmYhh:mm:ss)."@nl .
+    eli-dl:responsible_person_label rdfs:label "label van verantwoordelijke persoon"@nl .
+    eli:type_document rdfs:comment "Het type van een juridische bron (bijvoorbeeld \"Richtlijn\", \"Règlement grand ducal\", \"wet\", \"règlement ministériel\", \"ontwerpvoorstel\", \"parlementaire akte\", enz.).\n\nLidstaten worden aangemoedigd hun eigen lijst van waarden op te stellen in het overeenkomstige conceptschema. Het Publicatiebureau van de EU biedt een lijst met waarden voor typen van EU-bronnen op https://op.europa.eu/en/web/eu-vocabularies/at-dataset/-/resource/dataset/resource-type."@nl .
+    eli:has_annex rdfs:label "heeft bijlage"@nl .
+    eli-dl:foresees_execution_of rdfs:comment "Geeft een reeds gepubliceerde LegalResource aan waarvan de toekomstige wet, indien aangenomen, de uitvoering zal waarborgen. Raadpleeg de definitie van de eigenschap eli:ensures_execution_of.\nMerk op dat de juridische gevolgen in opeenvolgende versies van hetzelfde document kunnen veranderen."@nl .
+    eli-dl:ActivityType rdfs:label "Type van een activiteit"@nl .
+    eli:type_document rdfs:label "type document"@nl .
+    eli:version_date rdfs:comment "Het tijdstip waarop de verstrekte beschrijving van de wetgeving geldig is."@nl .
+    eli:VersionTable rdfs:label "Versietabel"@nl .
+    eli-dl:ActivityType rdfs:comment "Het type van een activiteit, bijvoorbeeld \"Lezing\", \"Commissievergadering\", \"Vergadering van het Economisch en Sociaal Comité\", enz."@nl .
+    eli-dl:number_of_votes_favor rdfs:comment "Het totale aantal stemmen vóór."@nl .
+    eli:title_alternative rdfs:label "alternatieve titel"@nl .
+    eli-dl:participation_in_name_of rdfs:label "deelname namens"@nl .
+    eli-dl:activity_start_date rdfs:label "startdatum van de activiteit"@nl .
+    eli:amends rdfs:comment "Geeft aan dat dit werk juridische wijzigingen aanbrengt in een andere bron. Gebruik voor wijzigingen die geen juridische gevolgen hebben eli:corrects."@nl .
+    eli-dl:was_executed_in rdfs:comment "De activiteit waarin deze voorziene (geplande) activiteit is uitgevoerd. Bijvoorbeeld: een vergaderagenda werd uitgevoerd tijdens de vergaderactiviteit."@nl .
+    eli:publishes rdfs:comment "Inverse van \"published_in_format\". Merk op dat deze eigenschap geen uitgever aan een bron koppelt, maar een specifiek Format van een bron aan een specifiek Format van een andere bron, waarbij wordt aangegeven dat het subject-Format het object-Format publiceert."@nl .
+    eli:amended_by rdfs:label "gewijzigd door"@nl .
+    eli:publisher rdfs:label "uitgever"@nl .
+    eli-dl:Process rdfs:comment "Een proces, hetzij wetgevend (het opstellen van een wet), hetzij niet-wetgevend, dat niet zal leiden tot het ontstaan van wetgeving."@nl .
+    eli:corrected_by rdfs:label "gecorrigeerd door"@nl .
+    eli-dl:foreseen_date_of_adoption rdfs:comment "De datum waarop wordt verwacht dat het proces zal worden vastgesteld en een officiële akte zal worden."@nl .
+    eli-dl:process_description rdfs:comment "Een toelichting of samenvatting van het proces."@nl .
+    eli-dl:Participation rdfs:label "Deelname"@nl .
+    eli-dl:DraftLegislationWork rdfs:comment "Werken die ontwerpwetgeving zijn.\n\nNet als eli:LegalResource kan deze klasse worden gebruikt om zowel een specifieke versie van het wetgevingsontwerp als het \"abstracte\" wetgevingswerk, onafhankelijk van een van zijn versies, te identificeren (in FRBRoo-termen omvat dit de begrippen \"Individual work\" en \"Complex work\").\n\nVoorbeeld: het wetgevingsontwerp \"bij initiatie\", het wetgevingsontwerp \"na de eerste lezing\", de definitieve versie van het wetgevingsontwerp."@nl .
+    eli:Language rdfs:comment "Formeel gedefinieerd als de verzameling skos:Concept in het conceptschema http://publications.europa.eu/resource/authority/language."@nl .
+    eli-dl:DecisionOutcome rdfs:label "Besluituitkomst"@nl .
+    eli-dl:foresees_transposition_of rdfs:comment "Geeft een reeds gepubliceerde LegalResource aan die de toekomstige wet, indien aangenomen, zal omzetten. Raadpleeg de definitie van de eigenschap eli:transposes.\nMerk op dat de juridische gevolgen in opeenvolgende versies van hetzelfde document kunnen veranderen."@nl .
+    eli:LegalExpression rdfs:label "Juridische expressie"@nl .
+    eli:ensures_implementation_of rdfs:comment "Geeft aan dat deze LegalResource de uitvoering van een andere LegalResource waarborgt. Dit impliceert een juridische betekenis (in tegenstelling tot eli:applies).\n\nDit kan koppelingen omvatten van nationale wetgeving naar EU-wetgeving, of van regionale naar nationale wetgeving. Het kan ook koppelingen omvatten van EU-uitvoeringshandelingen naar EU-wetgevingshandelingen. In het geval van de uitvoering van EU-wetgeving op nationaal niveau omvat dit koppelingen naar EU-verordeningen, besluiten, enz. De omzetting van EU-richtlijnen moet echter worden vastgelegd met eli:transposes.\n\nKoppelingen tussen nationale primaire en secundaire wetgeving moeten worden vastgelegd met eli:based_on / eli:basis_for."@nl .
+    eli-dl:foresees_repeal_of rdfs:comment "Geeft een reeds gepubliceerde LegalResource aan die de toekomstige wet, indien aangenomen, zal intrekken. Raadpleeg de definitie van de eigenschap eli:repeals.\nMerk op dat de juridische gevolgen in opeenvolgende versies van hetzelfde document kunnen veranderen."@nl .
+    eli:title_short rdfs:comment "Vastgestelde korte titel van de expressie (indien aanwezig)."@nl .
+    eli-dl:LegislativeProcessWorkType rdfs:label "Type van een werk van een wetgevingsproces"@nl .
+    eli:InForceTable rdfs:label "Tabel van inwerkingtreding"@nl .
+    eli-dl:LegislativeProcess rdfs:label "Wetgevingsproces"@nl .
+    eli-dl:parliamentary_term rdfs:comment "De parlementaire zittingsperiode waarin de activiteit plaatsvond."@nl .
+    eli:title_short rdfs:label "korte titel"@nl .
+    eli-dl:process_keyword rdfs:comment "De trefwoorden, onderwerpen of categorieën van een proces.\n\nVoorbeeld: Procedure 2016/0382/COD heeft de volgende Eurovoc-trefwoorden: energieverbruik, luchtverontreiniging, hernieuwbare hulpbronnen, EU-programma, milieusamenwerking, broeikasgas, vermindering van gasemissies, energiebesparing en hernieuwbare energie."@nl .
+    eli:ResourceType rdfs:comment "Formeel gedefinieerd als de verzameling skos:Concept in het conceptschema eli:ResourceTypeTable."@nl .
+    eli:consolidates rdfs:label "consolideert"@nl .
+    eli:rightsholder_agent rdfs:label "rechthebbende als agent"@nl .
+    eli:amended_by rdfs:comment "Inverse van \"amends\". Geeft een werk aan dat juridische wijzigingen in deze bron heeft aangebracht. Gebruik voor wijzigingen die geen juridische gevolgen hebben eli:corrected_by."@nl .
+    eli-dl:created_a_realization_of rdfs:label "heeft een realisatie van gecreëerd"@nl .
+    eli-dl:current_stage rdfs:comment "De laatste fase waarin een proces zich momenteel bevindt.\n\nDit is een verkorte weergave van het volledige pad Process latest_activity Activity occured_at_stage ProcessStage.\n\nVoorbeeld: Wetsvoorstel 105 van 2019 bevindt zich momenteel in de fase \"Seanad Éireann, tweede fase\"."@nl .
+    eli:SubdivisionType rdfs:comment "Formeel gedefinieerd als de verzameling skos:Concept in het conceptschema eli:SubdivisionTypeTable."@nl .
+    eli:InForce rdfs:comment "Formeel gedefinieerd als de verzameling skos:Concept in het conceptschema eli:InForceTable."@nl .
+    eli-dl:LegislativeProcessWorkType rdfs:comment "Een mogelijk type voor een werk van een wetgevingsproject."@nl .
+    eli-dl:legislative_process_work_description rdfs:label "beschrijving van het werk van het wetgevingsproces"@nl .
+    eli:date_no_longer_in_force rdfs:label "datum waarop niet langer van kracht"@nl .
+    eli-dl:activity_order rdfs:label "volgorde van de activiteit"@nl .
+    eli:title_alternative rdfs:comment "Een alternatieve titel van de expressie (indien aanwezig).\n\nMerk op dat, indien nodig, een alternatieve titel ook aan een werk kan worden toegekend met behulp van de Dublin Core-eigenschap \"alternative\"."@nl .
+    eli-dl:had_participant_organization rdfs:label "had deelnemende organisatie"@nl .
+    eli:licence rdfs:comment "Een juridisch document dat officiële toestemming verleent om iets met de bron te doen (definitie afkomstig uit Dublin Core)."@nl .
+    eli:publisher_agent rdfs:comment "Een entiteit die verantwoordelijk is voor het beschikbaar stellen van de bron (definitie afkomstig uit Dublin Core).\nDeze eigenschap moet worden gebruikt wanneer de waarde met een geschikte URI kan worden ge\"identificeerd; bij afwezigheid van een dergelijke URI moet de eigenschap \"publisher\" worden gebruikt met een tekenreeks als waarde."@nl .
+    eli:is_embodied_by rdfs:label "is belichaamd in"@nl .
+    eli:is_translation_of rdfs:label "is vertaling van"@nl .
+    eli-dl:DraftLegislationWork rdfs:label "Werk van ontwerpwetgeving"@nl .
+    eli-dl:adopts rdfs:comment "Geeft aan dat het werk het aangenomen werk van een of meerdere gerelateerde werken vertegenwoordigt."@nl .
+    eli-dl:Participation rdfs:comment "De deelname van een Agent aan een Activiteit, in een bepaalde rol en mogelijk namens een andere Agent."@nl .
+    eli:jurisdiction rdfs:comment "Het rechtsgebied waaruit de juridische bron afkomstig is.\n\nDe identificatiecode van de plaats kan worden overgenomen uit de tabel Administrative Territorial Unit die wordt gepubliceerd door het Publicatiebureau van de EU op https://op.europa.eu/en/web/eu-vocabularies/at-dataset/-/resource/dataset/atu. Lidstaten hoeven geen eigen lijst van waarden op te stellen."@nl .
+    eli-dl:refers_to rdfs:label "verwijst naar"@nl .
+    eli:repeals rdfs:label "trekt in"@nl .
+    eli-dl:number_of_votes_favor rdfs:label "aantal stemmen vóór"@nl .
+    eli-dl:foresees_change_of rdfs:comment "Geeft een reeds gepubliceerde LegalResource aan die de toekomstige wet, indien aangenomen, zal wijzigen. Raadpleeg de definitie van de eigenschap eli:changes.\nMerk op dat de juridische gevolgen in opeenvolgende versies van hetzelfde document kunnen veranderen."@nl .
+    eli-dl:had_voter_against rdfs:comment "Geeft een persoon aan die aan een stemming deelnam en tegen stemde."@nl .
+    eli-dl:activity_end_date rdfs:comment "De datum waarop een activiteit is beëindigd.\n\nDatums kunnen worden uitgedrukt met een datumprecisie (yyyy-mm-dd) of met tijdprecisie (yyyy-dd-mmYhh:mm:ss)."@nl .
+    eli:WorkTypeTable rdfs:label "Tabel van werktypen"@nl .
+    eli:realizes rdfs:label "realiseert"@nl .
+    eli-dl:ProcessType rdfs:comment "Een mogelijk type voor een wetgevingsproces."@nl .
+    eli-dl:was_motivated_by rdfs:label "werd gemotiveerd door"@nl .
+    eli-dl:refers_to rdfs:comment "Verouderd. Dit is veralgemeend in de ELI-ontologie. Gebruik in plaats daarvan eli:refers_to."@nl .
+    eli:FormatTypeTable rdfs:comment "Een verzameling typen voor een Format.\nELI bevat een lijst met waarden voor deze tabel.\nDeze moet gebruikersgerichte typen bevatten om bijvoorbeeld authentieke PDF's te onderscheiden van gescande PDF's of on-the-fly gegenereerde PDF's; of bijvoorbeeld XML in een standaardformaat (AkomaNtoso) te onderscheiden van XML in een propriëtair formaat."@nl .
+    eli-dl:created_a_realization_of rdfs:comment "Geeft aan dat een Activity een Work heeft gecreëerd. De werken worden beschouwd als de \"output\" van de activiteit.\n\nDeze eigenschap is bedoeld om te verwijzen naar de tekst van het wetsvoorstel, de amendementen, de adviezen, enz. Om te verwijzen naar de uiteindelijke LegalResource die als resultaat van een wetgevingsproces is gepubliceerd, moet de alternatieve eigenschap \"created_a_realization_of_legal_resource\" worden gebruikt.\n\nGebruik voor de registratie van debatten, die niet echt \"outputs\" van de activiteit zijn, de alternatieve eigenschap \"recorded_in_realization_of\".\n\nOpmerking: de benaming \"created a realization of\" is afkomstig uit FRBRoo. Aangezien een werk een idee is dat alleen in de menselijke geest bestaat, kan niet eenvoudig worden gezegd dat een activiteit een werk heeft \"gecreëerd\", maar eerder dat zij \"een expressie van dit werk heeft gecreëerd\"."@nl .
+    eli:applies rdfs:comment "Geeft aan dat deze wetgeving (of een deel van een wetgeving) op de een of andere manier overeenstemt met een andere wetgeving. Dit is een informatieve koppeling en heeft geen juridische waarde. Gebruik voor juridisch bindende omzettingskoppelingen de eigenschap transposes. Dit kan bijvoorbeeld worden gebruikt:\n - wanneer een reeds bestaande wet al in overeenstemming is met een recente Europese richtlijn (in dat geval wordt de richtlijn strikt genomen niet \"omgezet\");\n - wanneer niet-EU-lidstaten ervoor zorgen dat hun wetgeving in overeenstemming is met EU-recht zonder dit strikt genomen om te zetten;\n - wanneer wetgeving van een lokale overheid in overeenstemming is met nationale wetgeving;\n\nMerk op dat dit moet verwijzen naar een LegalResource en niet naar een taal-specifieke expressie."@nl .
+    eli-dl:had_legal_basis rdfs:label "had juridische grondslag"@nl .
+    eli-dl:LegislativeProcessWorkVersion rdfs:comment "De versie van een document van een wetgevingsproces. Een amendement kan bijvoorbeeld de status \"ontwerp\" (voorbereidend) hebben voordat het formeel wordt ingediend (definitief).\n\nELI-DL biedt 2 mogelijke waarden: Preparatory en Final. Andere waarden kunnen door implementaties worden gedefinieerd om bijvoorbeeld de mogelijke statussen van een amendement, een advies, enz. nader te verfijnen."@nl .
+    eli-dl:number_of_votes_abstention rdfs:comment "Het totale aantal onthoudingen van stemming."@nl .
+    eli-dl:amendment_included_in rdfs:comment "Geeft het basiswerk aan waarin de door een amendement voorgestelde wijzigingen zijn geïntegreerd. Dit kan een verwijzing zijn naar een specifieke versie van het ontwerp; in dat geval moet worden verwezen naar de \"volgende\" versie van het ontwerp, of naar het abstracte ontwerpwerk als de versies niet als afzonderlijke entiteiten zijn gedefinieerd.\n\nAmendementen waarover niet is gestemd, hebben deze eigenschap niet; deze is dus optioneel. Amendementen kunnen in maximaal één ontwerpwerk worden geïntegreerd."@nl .
+    eli-dl:foresees_change_of rdfs:label "voorziet wijziging van"@nl .
+    eli:is_referred_to_by rdfs:label "wordt naar verwezen door"@nl .
+    eli:Agent rdfs:comment "Individuele personen of groepen personen, zoals een wettelijk erkende instelling, die het vermogen hebben om doelbewuste handelingen te verrichten waarvoor zij verantwoordelijk kunnen worden gehouden."@nl .
+    eli-dl:Process rdfs:label "Proces"@nl .
+    eli-dl:is_subject_of rdfs:label "is onderwerp van"@nl .
+    eli:implements rdfs:label "implementeert"@nl .
+    eli-dl:is_answered_in rdfs:comment "Geeft aan dat dit werk een antwoord heeft in een ander werk."@nl .
+    eli-dl:amendment_included_in rdfs:label "amendement opgenomen in"@nl .
+    eli-dl:participant_organization_label rdfs:comment "De naam van een organisatie die aan een activiteit heeft deelgenomen."@nl .
+    eli:repealed_by rdfs:label "ingetrokken door"@nl .
+    eli:is_exemplified_by rdfs:label "wordt geïllustreerd door"@nl .
+    eli:applied_by rdfs:label "wordt toegepast door"@nl .
+    eli:work_type rdfs:comment "Het type werk, ontleend aan een gecontroleerde vocabulaire.\n\nDe lidstaten moeten hun eigen waarden voor werktypen definiëren."@nl .
+    eli:cited_by_case_law_reference rdfs:comment "Geeft aan dat naar deze LegalResource of LegalExpression wordt verwezen in jurisprudentie die niet met een geschikte URI kan worden ge\"identificeerd en die wordt aangeduid met een tekstuele verwijzing. Hiervoor kan een ECLI (European Case Law Identifier) worden gebruikt.\nWanneer de jurisprudentie met een geschikte URI kan worden ge\"identificeerd, moet in plaats daarvan de eigenschap eli:cited_by_case_law worden gebruikt."@nl .
+    eli-dl:recorded_in_realization_of rdfs:comment "Verouderd. Gebruik recorded_in_a_realization_of."@nl .
+    eli-dl:foresees_transposition_of rdfs:label "voorziet omzetting van"@nl .
+    eli-dl:AmendmentToDraftLegislationWork rdfs:label "Amendement op ontwerpwetgevingswerk"@nl .
+    eli:number rdfs:label "nummer"@nl .
+    eli-dl:date_last_update rdfs:label "datum van laatste update"@nl .
+    eli:ResourceTypeTable rdfs:label "Tabel met resourcetypen"@nl .
+    eli:AdministrativeAreaTable rdfs:label "Tabel met administratieve gebieden"@nl .
+    eli:cited_by_case_law rdfs:label "geciteerd door jurisprudentie"@nl .
+    eli-dl:process_id rdfs:comment "Een identificatiecode voor het proces. Deze is bedoeld om vast te leggen hoe het proces door wetgevers wordt ge\"identificeerd. Een proces kan meerdere identificatiecodes hebben voor verschillende instellingen, bijvoorbeeld een identificatiecode voor de regering en een identificatiecode voor het parlement.\n\nMerk op dat er een subeigenschap process_external_id bestaat om, afhankelijk van het perspectief, de identificatiecode van een andere instelling vast te leggen."@nl .
+    eli-dl:consists_of rdfs:label "bestaat uit"@nl .
+    eli-dl:had_responsible_organization rdfs:comment "De organisatie die verantwoordelijk is voor het uitvoeren van de activiteit. Dit kan de instelling zijn waar de activiteit heeft plaatsgevonden, of een dienst of commissie.\n\nVoorbeeld:\nDe activiteit \"1e lezing van 2016/0382/COD\" had het Europees Parlement als verantwoordelijke organisatie.\nDe EU-procedure 2016/0382/COD had het directoraat-generaal Energie als verantwoordelijke organisatie."@nl .
+    eli-dl:Activity rdfs:label "Activiteit"@nl .
+    eli-dl:legislative_process_work_creator rdfs:label "maker van wetgevingsproceswerk"@nl .
+    eli-dl:activity_id rdfs:label "activiteits-ID"@nl .
+    eli:is_member_of rdfs:comment "Geeft aan dat dit werk conceptueel deel uitmaakt van een ander werk. In het geval van wetgeving zijn de opeenvolgende temporele versies conceptueel leden van één «abstracte» bron. Voor het begrip fysieke opname moet eli:is_part_of worden gebruikt."@nl .
+    eli:date_document rdfs:comment "Datum van aanneming of ondertekening (in de vorm jjjj-mm-dd)"@nl .
+    eli-dl:process_type rdfs:label "type wetgevingsproces"@nl .
+    eli-dl:had_voter_intended_against rdfs:label "had kiezer die tegen wilde stemmen"@nl .
+    eli-dl:LegislativeProcessWork rdfs:comment "Elk werk dat door een activiteit tijdens een wetgevingsproces wordt gecreëerd.\nAls het werk een versie van het ontwerp van wetgeving of een amendement is, moeten meer specifieke subklassen worden gebruikt.\n\nVoorbeeld: een effectbeoordeling, een advies van een commissie, een opname of transcript van een debat."@nl .
+    eli-dl:decided_on_a_realization_of rdfs:comment "Geeft aan dat de besluitvormingsactiviteit een beslissing heeft genomen over een bepaald Werk. Dit is een specifiek soort « input » van de activiteit."@nl .
+    eli:is_embodied_by rdfs:comment "Verbindt een expressie met een manifestatie van die expressie. Omgekeerd van \"embodies\"."@nl .
+    eli:has_member rdfs:label "heeft als lid"@nl .
+    eli-dl:process_id rdfs:label "ID van het wetgevingsproces"@nl .
+    eli:ResourceType rdfs:label "Resourcetype"@nl .
+    eli-dl:activity_label rdfs:comment "Een label voor de activiteit dat beschrijft wat er wordt uitgevoerd."@nl .
+    eli:SubdivisionTypeTable rdfs:comment "Een reeks typen voor een onderverdeling van een juridische bron.\nELI bevat geen reeks waarden voor deze tabel."@nl .
+    eli-dl:Decision rdfs:label "Besluit"@nl .
+    eli:WorkSubdivision rdfs:label "Werkonderverdeling"@nl .
+    eli:title rdfs:label "titel"@nl .
+    eli:work_type rdfs:label "type werk"@nl .
+    eli:cited_by rdfs:label "geciteerd door"@nl .
+    eli:Work rdfs:label "Werk"@nl .
+    eli-dl:based_on_a_realization_of rdfs:label "gebaseerd op een realisatie van"@nl .
+    eli-dl:foresees_amendment_of rdfs:comment "Geeft een reeds gepubliceerde rechtsbron aan die de toekomstige wet, indien aangenomen, zal wijzigen. Raadpleeg de definitie van de eigenschap eli:amends. Let op: de juridische gevolgen kunnen veranderen in opeenvolgende versies van hetzelfde document."@nl .
+    eli-dl:occured_at_stage rdfs:label "vond plaats in de fase"@nl .
+    eli-dl:foresees_repeal_of rdfs:label "voorziet in intrekking van"@nl .
+    eli:first_date_entry_in_force rdfs:label "eerste datum van inwerkingtreding"@nl .
+    eli:based_on rdfs:comment "Inverse van \"basis_for\". Geeft aan dat dit werk zijn rechtsgrond vindt in een ander werk, doorgaans een grondwet, een verdrag of een machtigingswet."@nl .
+    eli-dl:Decision rdfs:comment "Een specifiek type activiteit dat heeft geleid tot een beslissingsresultaat. Beslissingen kunnen formeel worden genomen op basis van een schriftelijk document."@nl .
+    eli:Manifestation rdfs:label "Manifestatie"@nl .
+    eli-dl:had_responsible_person rdfs:label "had verantwoordelijke persoon"@nl .
+    eli:commences rdfs:comment "Geeft aan dat deze rechtsbron een andere rechtsbron in werking doet treden. Let op: de datum van inwerkingtreding van de andere rechtsbron moet dienovereenkomstig worden aangepast. Het is ook niet mogelijk aan te geven wanneer de inwerkingtreding zou moeten plaatsvinden."@nl .
+    eli:description rdfs:comment "Een beschrijving van de rechtsbron (definitie uit Dublin Core), bijvoorbeeld een samenvatting."@nl .
+    eli:uri_schema rdfs:label "URI-schema"@nl .
+    eli-dl:AmendmentToDraftLegislationWork rdfs:comment "Een amendement dat is opgesteld om een specifieke versie van een ontwerpwetgeving te wijzigen.\n\nAmendementen kunnen worden beschreven en gepubliceerd, ook als er nog niet over is gestemd of als ze zijn verworpen.\n\nDit is bedoeld om zowel één amendement als een document met een lijst van amendementen te identificeren.\n\nOm een document met een lijst van amendementen te beschrijven, kan de relatie has_part worden gebruikt tussen de instantie van AmendmentToDraftLegislationWork die de lijst met amendementen identificeert en elke instantie van AmendmentToDraftLegislationWork die een afzonderlijk amendement binnen de lijst identificeert."@nl .
+    eli:is_annex_of rdfs:comment "Geeft aan dat dit werk of deze expressie een bijlage is bij een ander werk."@nl .
+    eli:responsibility_of rdfs:comment "Een persoon, organisatie of organisatorische eenheid die een bepaalde verantwoordelijkheid draagt voor de wetgeving. Doorgaans is dit het ministerie dat verantwoordelijk is of was voor het opstellen van de wetgeving, of het aanspreekpunt voor mogelijke vragen over de wetgeving nadat deze is gepubliceerd.\nDeze eigenschap moet worden gebruikt wanneer de waarde niet kan worden ge\"identificeerd aan de hand van een geschikte URI; als er een URI beschikbaar is, moet de eigenschap \"responsibility_of_agent\" worden gebruikt."@nl .
+    eli-dl:DecisionOutcome-Adopted rdfs:label "Aangenomen"@nl .
+    eli-dl:draft_amended_by rdfs:label "ontwerp gewijzigd door"@nl .
+    eli:has_derivative rdfs:comment "Inverse van is_derivative_of"@nl .
+    eli:is_realized_by rdfs:label "wordt gerealiseerd door"@nl .
+    eli-dl:occured_at_stage rdfs:comment "De fase waarin een activiteit plaatsvond.\n\nDe beschrijving van de fasen zelf wordt overgelaten aan de implementatoren.\n\nVoorbeeld: De activiteit \"Presentation of Bill 78 of 2018\" komt overeen met de fase \"Presentation to the House\". De activiteit \"ère lecture - Examen en commission du projet de loi 323\" komt overeen met de fase \"Examen en commission\"."@nl .
+    eli:publisher rdfs:comment "Een entiteit die verantwoordelijk is voor het beschikbaar stellen van de rechtsbron (definitie uit Dublin Core).\nDeze eigenschap moet worden gebruikt wanneer de waarde niet kan worden ge\"identificeerd aan de hand van een geschikte URI; als er een URI beschikbaar is, moet de eigenschap \"publisher_agent\" worden gebruikt."@nl .
+    eli-dl:LegislativeProcessWorkVersion rdfs:label "Versie van een werk van een wetgevingsproces"@nl .
+    eli-dl:foreseen_type_document rdfs:comment "Geeft het verwachte type wetgeving aan dat het resultaat zal zijn van dit wetgevingsproces.\nHet verwachte type wetgeving kan in de loop van de tijd veranderen.\n\nDe waarde moet afkomstig zijn uit de ResourceType-tabel, die al wordt gebruikt voor de eigenschap eli:type_document."@nl .
+    eli-dl:activity_order rdfs:comment "Geeft de volgorde van deze activiteit aan binnen een reeks activiteiten. Merk op dat het bereik van deze eigenschap xsd:decimal is, zodat het altijd mogelijk is een nieuwe activiteit tussen twee opeenvolgende bestaande activiteiten te plaatsen."@nl .
+    eli:is_another_publication_of rdfs:label "is een andere publicatie van"@nl .
+    eli-dl:is_answered_in rdfs:label "wordt beantwoord in"@nl .
+    eli:published_in rdfs:comment "Verwijzing naar het Publicatieblad of een andere publicatiemanifestatie waarin dit formaat is gepubliceerd.\nDeze eigenschap moet worden gebruikt wanneer de waarde niet kan worden ge\"identificeerd aan de hand van een geschikte URI; als er een URI beschikbaar is, moet de eigenschap \"published_in_format\" worden gebruikt."@nl .
+  }
+}
