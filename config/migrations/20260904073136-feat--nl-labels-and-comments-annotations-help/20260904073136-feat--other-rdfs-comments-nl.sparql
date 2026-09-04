@@ -1,0 +1,34 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+INSERT DATA {
+  GRAPH <http://mu.semte.ch/graphs/public> {
+    <http://purl.org/dc/terms/extent> rdfs:comment "De grootte of duur van een onderwerp."@nl .
+    <http://purl.org/dc/terms/date> rdfs:comment "Een tijdstip of periode geassocieerd met een gebeurtenis in de levenscyclus van een onderwerp."@nl .
+    <http://mu.semte.ch/vocabularies/ext/administrative_body> rdfs:comment "Het bestuursorgaan dat verband houdt met dit onderwerp."@nl .
+    <http://www.w3.org/2004/02/skos/core#exactMatch> rdfs:comment "De eigenschap skos:exactMatch wordt gebruikt om twee concepten te koppelen, wat aangeeft dat er een hoge mate van vertrouwen is dat de concepten door elkaar kunnen worden gebruikt in een breed scala aan toepassingen voor informatieverwerking."@nl .
+    <http://www.w3.org/ns/prov#atLocation> rdfs:comment "De locatie van een onderwerp. Een locatie kan een identificeerbare geografische plaats zijn (ISO 19112), maar ook een niet-geografische plaats zoals een map, rij of kolom. Locatie kan op verschillende manieren worden uitgedrukt, zoals door coördinaten, adressen, herkenningspunten, enzovoort."@nl .
+    <http://mu.semte.ch/vocabularies/ext/participants> rdfs:comment "Deelnemers aan een sessie."@nl .
+    <http://mu.semte.ch/vocabularies/ext/legal_framework> rdfs:comment "Het juridische kader dat verband houdt met dit onderwerp."@nl .
+    <http://mu.semte.ch/vocabularies/ext/motivation> rdfs:comment "De motivatie voor dit onderwerp."@nl .
+    <http://mu.semte.ch/vocabularies/ext/article> rdfs:comment "Een artikel dat deel uitmaakt van dit onderwerp."@nl .
+    <http://mu.semte.ch/vocabularies/ext/voting> rdfs:comment "Het deel in dit document dat (de resultaten van) een stemming van welke aard dan ook bevat."@nl .
+    <http://mu.semte.ch/vocabularies/ext/decision> rdfs:comment "Het deel in dit document dat een beslissing van welke aard dan ook bevat."@nl .
+    <http://mu.semte.ch/vocabularies/ext/publication_date> rdfs:comment "De publicatiedatum van dit document."@nl .
+    <http://purl.org/dc/terms/spatial> rdfs:comment "Ruimtelijke kenmerken van dit onderwerp."@nl .
+    <http://mu.semte.ch/vocabularies/ext/previous_decisions> rdfs:comment "Een eerdere beslissing die verband houdt met deze beslissing."@nl .
+    <http://www.w3.org/2006/time#ProperInterval> rdfs:comment "Een tijdsgebonden entiteit met een niet-nul omvang of duur, d.w.z. waarbij de begin- en eindwaarde verschillen."@nl .
+    <https://data.vlaanderen.be/ns/omgevingsvergunning#NormatieveBepaling> rdfs:comment "Een bepaling die een juridische norm schept, wijzigt, beëindigt of bevestigt."@nl .
+    <http://xmlns.com/foaf/0.1/Person> rdfs:comment "De klasse Persoon vertegenwoordigt mensen. Iets is een Persoon als het een persoon is. We maken geen onderscheid of ze nu levend, overleden, echt of denkbeeldig zijn. De klasse Persoon is een subklasse van de klasse Agent, omdat alle mensen als 'agenten' worden beschouwd in FOAF."@nl .
+    <http://purl.org/dc/terms/Location> rdfs:comment "Een ruimtelijk gebied of een benoemde plaats."@nl .
+    <http://mu.semte.ch/vocabularies/ext/AnnotationBody> rdfs:comment "De inhoud van een annotatie, een superklasse die om puur technische redenen is geïntroduceerd in de semantic.works-stack."@nl .
+    <http://www.w3.org/ns/org#Organization> rdfs:comment "Vertegenwoordigt een verzameling mensen die georganiseerd zijn in een gemeenschap of andere sociale, commerciële of politieke structuur. De groep heeft een gemeenschappelijk doel of reden van bestaan die verder gaat dan de verzameling mensen die ertoe behoren en kan optreden als een Agent. Organisaties zijn vaak opgedeeld in hiërarchische structuren."@nl .
+    <http://www.w3.org/ns/locn#Address> rdfs:comment "Een 'adresrepresentatie' zoals conceptueel gedefinieerd door het INSPIRE Adres Representatie-datatype. De eigenschap locn:addressId kan worden gebruikt om dit locn:Address te koppelen aan andere representaties."@nl .
+    <https://data.vlaanderen.be/ns/adres#Straatnaam> rdfs:comment "De straatnaam van een adres."@nl .
+    <https://w3id.org/tree#Node> rdfs:comment "Een tree:Node is een knooppunt dat relaties kan bevatten naar andere knooppunten."@nl .
+    <https://schema.oparl.org/Organization> rdfs:comment "Dit objecttype wordt gebruikt om groepen mensen te vertegenwoordigen die een rol spelen in parlementair werk. In de praktijk gaat het met name om parlementaire fracties en commissies."@nl .
+    <http://data.vlaanderen.be/ns/besluit#Bestuursorgaan> rdfs:comment "Een formeel orgaan van een rechtspersoon dat bevoegd is om juridische handelingen te verrichten."@nl .
+    <https://schema.oparl.org/Paper> rdfs:comment "Dit objecttype wordt gebruikt om gedrukte materialen in parlementair werk te vertegenwoordigen, zoals verzoeken, moties en ontwerp-resoluties. Gedrukte materialen worden behandeld in de vorm van een consultatie (oparl:Consultation) binnen het kader van een agendapunt (oparl:AgendaItem) van een vergadering (oparl:Meeting)."@nl .
+    <http://www.wikidata.org/entity/Q123705> rdfs:comment "Geografisch gelokaliseerde gemeenschap binnen een grotere stad, gemeente of voorstad."@nl .
+    <http://www.w3.org/2001/XMLSchema#date> rdfs:comment "Een datum."@nl .
+    <http://www.w3.org/2001/XMLSchema#string> rdfs:comment "Een stuk tekst."@nl .
+  }
+}
