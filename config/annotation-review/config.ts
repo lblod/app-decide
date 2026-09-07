@@ -25,13 +25,8 @@ export default {
       `,
       // can use to filter annotations for a given target, need to fix the set of agents once we have final uris for them
       annotationFilter: `
-        FILTER NOT EXISTS {
-          VALUES ?hidden {
-            <http://lblod.data.gift/id/components/named-entity-linking/v1.0.0>
-            <http://lblod.data.gift/id/components/translation/v1.0.0>
-          }
-          ?agent <http://www.w3.org/ns/prov#specializationOf>  ?hidden.
-        }
+        FILTER(?agent NOT IN (<http://lblod.data.gift/id/components/named-entity-linking/v1.0.0>,<http://lblod.data.gift/id/components/translation/v1.0.0>))
+        
         FILTER(?type NOT IN (<http://www.w3.org/ns/locn#Address>, <https://data.vlaanderen.be/ns/adres#Straatnaam>, <http://www.wikidata.org/entity/Q2785216>, <http://www.wikidata.org/entity/Q123705>, <https://data.vlaanderen.be/ns/omgevingsvergunning#NormatieveBepaling> ))
         FILTER(!BOUND(?typeClass) || ?typeClass NOT IN ( <http://mu.semte.ch/vocabularies/ext/AnnotationBody> ))
       `,
@@ -85,10 +80,7 @@ export default {
           },
           aiModels: {
             query: `
-              ?annotationT oa:hasTarget / oa:hasSource ?target .
-              ?activityT prov:generated ?annotationT .
-              ?activityT prov:wasAssociatedWith ?something .
-              ?something prov:specializationOf ?aiModel .
+              ?action prov:wasAssociatedWith / prov:specializationOf ?aiModel .
             `,
             variable: 'aiModel',
             type: 'uri',
@@ -119,7 +111,7 @@ export default {
           },
           aiModels: {
             query: `
-              ?agent prov:specializationOf ?aiModel .
+              ?action prov:wasAssociatedWith / prov:specializationOf ?aiModel . 
             `,
             variable: 'aiModel',
             type: 'uri',
@@ -153,8 +145,8 @@ export default {
         PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
         PREFIX mu: <http://mu.semte.ch/vocabularies/core/>
         PREFIX org: <http://www.w3.org/ns/org#>
-        PREFIX ext: <http://mu.semte.ch/vocabularies/ext/>
         PREFIX dct: <http://purl.org/dc/terms/>
+        PREFIX ext: <http://mu.semte.ch/vocabularies/ext/>
       `,
       // can also use to filter ?annotation in case we want to filter the kind of annotations to show
       // note that we have to filter by expressions having a work because other expressions are created
@@ -169,12 +161,8 @@ export default {
       `,
       // can use to filter annotations for a given target, need to fix the set of agents once we have final uris for them
       annotationFilter: `
-       FILTER NOT EXISTS {
-          VALUES ?hidden {
-            <http://lblod.data.gift/id/components/codelist-labeling/v1.0.0/impact_annotator>
-          }
-          ?agent <http://www.w3.org/ns/prov#specializationOf>  ?hidden.
-        }
+        FILTER(?agent NOT IN (<http://lblod.data.gift/id/components/codelist-labeling/v1.0.0/impact_annotator>))
+       
         ?object a skos:Concept .
         FILTER(!BOUND(?typeClass) || ?typeClass NOT IN ( <http://mu.semte.ch/vocabularies/ext/AnnotationBody>, <http://mu.semte.ch/vocabularies/ext/NoMatchFound> ) )
         FILTER NOT EXISTS {
