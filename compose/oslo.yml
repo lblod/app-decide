@@ -5,7 +5,7 @@ x-logging: &default-logging
     max-file: '3'
 services:
   ##############################################################################
-  # GHENT DECISIONS PIPELINE
+  # OSLO DECISIONS PIPELINE
   ##############################################################################
   lokaal-beslist-consumer:
     image: lblod/decide-harvester-consumer-service:feature-add-wingene
@@ -21,7 +21,7 @@ services:
       - logging=true
     restart: always
     logging: *default-logging
-  decisions-ghent-filter:
+  oslo-filter:
     image: lblod/decide-harvester-filter-service:feature-add-wingene
     environment:
       INPUT_GRAPH: http://mu.semte.ch/graphs/oslo-decisions/landing
@@ -37,7 +37,6 @@ services:
     image: lblod/decide-harvester-transformation-service:feature-add-wingene
     environment:
       INPUT_GRAPH: http://mu.semte.ch/graphs/oslo-decisions/landing
-      OUTPUT_GRAPH: http://mu.semte.ch/graphs/public/gent
       ORGANIZATIONS_GRAPH: http://mu.semte.ch/graphs/bestuurseenheden-bestuursorganen
       BYPASS_MU_SPARQL_ENDPOINT: true
       BATCH_SIZE: 1000
