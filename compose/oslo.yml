@@ -8,9 +8,9 @@ services:
   # GHENT DECISIONS PIPELINE
   ##############################################################################
   lokaal-beslist-consumer:
-    image: lblod/decide-harvester-consumer-service:1.0.0
+    image: lblod/decide-harvester-consumer-service:feature-add-wingene
     environment:
-      SYNC_BASE_URL: https://lokaalbeslist-harvester-1.s.redhost.be/ # Harvester 1 hosts Ghent decisions
+      SYNC_BASE_URL: https://lokaalbeslist-harvester-0.s.redhost.be/,https://lokaalbeslist-harvester-1.s.redhost.be/ # Harvester 0 hosts Wingene decisions, harvester 1 hosts Ghent decisions
       SYNC_FILES_PATH: /sync/besluiten/files
       SYNC_DATASET_SUBJECT: http://data.lblod.info/datasets/delta-producer/dumps/lblod-harvester/BesluitenCacheGraphDump
       LANDING_GRAPH: http://mu.semte.ch/graphs/oslo-decisions/landing
@@ -22,7 +22,7 @@ services:
     restart: always
     logging: *default-logging
   decisions-ghent-filter:
-    image: lblod/decide-harvester-filter-service:1.0.0
+    image: lblod/decide-harvester-filter-service:feature-add-wingene
     environment:
       INPUT_GRAPH: http://mu.semte.ch/graphs/oslo-decisions/landing
       BYPASS_MU_SPARQL_ENDPOINT: true
@@ -34,7 +34,7 @@ services:
     restart: always
     logging: *default-logging
   oslo-eli-transformer:
-    image: lblod/decide-harvester-transformation-service:1.0.0
+    image: lblod/decide-harvester-transformation-service:feature-add-wingene
     environment:
       INPUT_GRAPH: http://mu.semte.ch/graphs/oslo-decisions/landing
       OUTPUT_GRAPH: http://mu.semte.ch/graphs/public/gent
