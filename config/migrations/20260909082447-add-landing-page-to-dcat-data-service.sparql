@@ -1,12 +1,18 @@
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 
-INSERT {
-  GRAPH ?g {
-    ?dataService dcat:landingPage <https://ds.decide.lblod.info/sparql> .
-  }
-}
-WHERE {
-  GRAPH ?g {
-    ?dataService a dcat:DataService .
+INSERT DATA {
+  GRAPH <http://mu.semte.ch/graphs/public> {
+    <http://data.lblod.info/id/services/a5d0d3ff-1593-4861-9cdc-f65d358ffa36> a dcat:DataService ; dcat:landingPage <https://ds.decide.lblod.info/sparql> .
+    <http://data.lblod.info/id/services/38bd5577-0c95-5e91-b5de-c6d3fc13f045> a dcat:DataService ; dcat:landingPage <https://ds.decide.lblod.info/sparql> .
+    <http://data.lblod.info/id/services/50c824b9-19a9-5f2d-9592-3d0fb3a10496> a dcat:DataService ; dcat:landingPage <https://ds.decide.lblod.info/sparql> .
+    <http://data.lblod.info/id/services/9dbd86ed-ec5b-5278-add1-cc054045bc50> a dcat:DataService ; dcat:landingPage <https://ds.decide.lblod.info/sparql> .
+    <http://data.lblod.info/id/services/b3004c37-4d93-5653-9c19-3370297e935e> a dcat:DataService ; dcat:landingPage <https://ds.decide.lblod.info/sparql> .
+    <http://data.lblod.info/id/services/d4532663-a37a-5135-a61c-b9da125f3cf0> a dcat:DataService ; dcat:landingPage <https://ds.decide.lblod.info/sparql> .
+    <http://data.lblod.info/id/services/0b18c1de-c1db-4de5-a2ad-6fd29434509e> a dcat:DataService ; dcat:landingPage <https://ds.decide.lblod.info/sparql> .
+    <http://data.lblod.info/id/services/918a36e8-ab4c-50fc-a425-a635e1307e34> a dcat:DataService ; dcat:landingPage <https://ds.decide.lblod.info/sparql> .
+    <http://data.lblod.info/id/services/e13ac81e-ed0d-58b4-856b-c1f7f1aa2dba> a dcat:DataService ; dcat:landingPage <https://ds.decide.lblod.info/sparql> .
+    <http://data.lblod.info/id/services/6f6801af-91a9-528f-b959-fe8ccd591725> a dcat:DataService ; dcat:landingPage <https://ds.decide.lblod.info/sparql> .
+    <http://data.lblod.info/id/services/e433ecf7-e3c1-5c02-87d2-1829a0db838f> a dcat:DataService ; dcat:landingPage <https://ds.decide.lblod.info/sparql> .
+    <http://data.lblod.info/id/services/8277afdf-94a7-51ac-b8e8-fe498e388e50> a dcat:DataService ; dcat:landingPage <https://ds.decide.lblod.info/sparql> .
   }
 }
