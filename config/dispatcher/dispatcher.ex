@@ -372,6 +372,10 @@ defmodule Dispatcher do
     forward(conn, path, "http://cache/bestuurseenheids/")
   end
 
+  match "/sessions/*path", %{reverse_host: ["ds" | _rest], layer: :api_services, accept: %{any: true}} do
+    Proxy.forward(conn, path, "http://acmidm-login/sessions/")
+  end
+
   match "/sessions/*path", %{layer: :api_services, accept: %{any: true}} do
     Proxy.forward(conn, path, "http://login/sessions/")
   end
