@@ -14,5 +14,7 @@ INSERT DATA {
     <http://data.lblod.info/id/services/6f6801af-91a9-528f-b959-fe8ccd591725> a dcat:DataService ; dcat:landingPage <https://ds.decide.lblod.info/sparql> .
     <http://data.lblod.info/id/services/e433ecf7-e3c1-5c02-87d2-1829a0db838f> a dcat:DataService ; dcat:landingPage <https://ds.decide.lblod.info/sparql> .
     <http://data.lblod.info/id/services/8277afdf-94a7-51ac-b8e8-fe498e388e50> a dcat:DataService ; dcat:landingPage <https://ds.decide.lblod.info/sparql> .
+    <http://decide.data.gift/datasets/example/1ae2da8e-9889-426b-a7e8-9360c15ba2cd/dataservice> a dcat:DataService ; dcat:landingPage <https://ds.decide.lblod.info/sparql> .
+    <http://decide.data.gift/datasets/example/60e19fdf-b549-41b9-9adf-420379285127/dataservice> a dcat:DataService ; dcat:landingPage <https://ds.decide.lblod.info/sparql> .
   }
 }
