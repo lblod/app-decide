@@ -1,0 +1,493 @@
+PREFIX eli: <http://data.europa.eu/eli/ontology#>
+PREFIX eli-dl: <http://data.europa.eu/eli/eli-draft-legislation-ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+INSERT DATA {
+  GRAPH <http://mu.semte.ch/graphs/public> {
+    eli:Version rdfs:label "Version"@de .
+    eli:Version rdfs:comment "Formell definiert als die Menge der skos:Concept im Konzeptschema eli:VersionTable"@de .
+    eli:based_on rdfs:label "basierend auf"@de .
+    eli:LegalResource rdfs:label "Rechtliche Ressource"@de .
+    eli-dl:motivated rdfs:comment "Eine weitere Aktivität, die durch diese \\\"ausgelöst\\\" oder \\\"logisch gefolgt\\\" wurde.\n\nBeispiel: Die Anfrage nach einer Stellungnahme motivierte das Verfassen einer Stellungnahme."@de .
+    eli-dl:had_voter_intended_against rdfs:comment "Zeigt eine Person an, die an einer Abstimmung teilgenommen und zum Ausdruck gebracht hat, dass sie gegen etwas stimmen wollte, aber anders abgestimmt hat."@de .
+    eli-dl:process_description rdfs:label "Beschreibung des Gesetzgebungsverfahrens"@de .
+    eli-dl:had_responsible_organization rdfs:label "hat verantwortliche Organisation"@de .
+    eli:WorkTypeTable skos:definition "Ein Satz von Werten für den Typ einer Arbeit.\nELI enthält keinen Satz von Werten für diese Tabelle."@de .
+    eli-dl:foresees_application_of rdfs:label "sieht Anwendung von vor"@de .
+    eli-dl:created_expression rdfs:comment "Zeigt an, dass eine Aktivität einen Ausdruck erstellt hat.\nDiese Eigenschaft ist hauptsächlich für die Kompatibilität mit FRBRoo hier, aber Implementierungen würden bevorzugen, created_a_realization_of zu verwenden, um auf die Arbeitsebene zu verlinken.\nDies könnte anzeigen, dass einige Ausdrücke einer Arbeit durch die Aktivität erstellt wurden und einige andere später übersetzt wurden."@de .
+    eli-dl:DecisionOutcome-Rejected rdfs:label "Abgelehnt"@de .
+    eli:Expression rdfs:comment "Die intellektuelle Realisierung einer Arbeit in Form identifizierbarer immaterieller Objekte, wie z.B., aber nicht beschränkt auf, Text.\n\nDie Substanz des Ausdrucks sind Zeichen.\n\nEin Ausdruck kann nicht ohne einen physischen Träger existieren, hängt aber nicht von einem bestimmten physischen Träger ab und kann auf einem oder mehreren Trägern gleichzeitig existieren."@de .
+    eli:has_another_publication rdfs:comment "Umkehrung von \\\"is_another_publication_of\\\"."@de .
+    eli:is_part_of rdfs:comment "Zeigt eine Arbeit an, in der diese physisch enthalten ist. Behandelt den Fall von Texten, die in einem Amtsblatt enthalten sind, oder einem Artikel, der in einem Text enthalten ist. Für den Begriff der konzeptuellen/zeitlichen Einbeziehung verwenden Sie eli:is_member_of."@de .
+    eli:date_applicability rdfs:label "Anwendungsdatum"@de .
+    eli:is_annex_of rdfs:label "ist Anhang von"@de .
+    eli:relevant_for rdfs:comment "Bezieht sich auf einen Ort oder ein Gebiet, das mit der Ressource verbunden ist. Dies umfasst die Begriffe der Gerichtsbarkeit, Souveränität, Anwendbarkeit oder des Verwaltungsgebiets. Der Ortsidentifikator kann aus der Tabelle der Verwaltungseinheiten des Amts für Veröffentlichungen der EU entnommen werden unter https://op.europa.eu/en/web/eu-vocabularies/at-dataset/-/resource/dataset/atu. Mitgliedstaaten müssen keine eigene Werteliste erstellen.\n\nDie Gruppe merkt die Einschränkungen dessen an, was mit einer einzigen Eigenschaft gesagt werden kann; Mitgliedstaaten können diesen Begriff verfeinern, indem sie spezifische Untereigenschaften deklarieren."@de .
+    eli:publishes rdfs:label "veröffentlicht"@de .
+    eli:implements rdfs:comment "Diese Eigenschaft ist veraltet. Verwenden Sie stattdessen \\\"applies\\\"."@de .
+    eli-dl:includes_amendment rdfs:label "enthält Änderung"@de .
+    eli:refers_to rdfs:comment "Jede Entität, auf die sich diese Arbeit oder dieser Ausdruck bezieht; typischerweise Verweise auf andere Arbeiten, aber auch auf Gesetzgebungsverfahren, Personen usw.\n\nBeachten Sie, dass spezifische Untereigenschaften in ELI-DL existieren, um zukünftige rechtliche Auswirkungen (\\\"foresees_xxxx\\\"-Links) und Verbindungen zwischen Änderungen und Gesetzentwürfen zu beschreiben.\n\nBeispiel: Eine Stellungnahme bezieht sich auf die spezifische Version des Gesetzentwurfs, auf dem sie basiert."@de .
+    eli-dl:latest_activity rdfs:comment "Zeigt die letzte Aktivität an, die innerhalb eines Prozesses stattgefunden hat. Dies wird verwendet, um einem Leser die letzte Phase eines Prozesses anzuzeigen.\nAbhängig von der Perspektive kann dies verwendet werden, um auf die laufende Aktivität (noch nicht abgeschlossen) oder auf die letzte tatsächlich abgeschlossene Aktivität hinzuweisen."@de .
+    eli:date_applicability rdfs:comment "Das Datum, an dem die Gesetzgebung anwendbar wird. Dies ist unterschiedlich vom Datum des Inkrafttretens: Ein Text kann heute in Kraft treten und festlegen, dass er in 3 Monaten anwendbar wird.\n\nDie Gruppe merkt an, dass Anwendungsdaten zu komplexen Situationen führen können, z.B. ein Text mit unterschiedlichen Anwendungsdaten für verschiedene Gerichtsbarkeiten; spezifische Erweiterungen des Modells sollten für solche Situationen verwendet werden."@de .
+    eli:countersigned_by rdfs:label "gegengezeichnet von"@de .
+    eli:countersigned_by rdfs:comment "Eine Person oder Organisation, die die Rechtsvorschrift gegengezeichnet hat. Je nach rechtlichem Kontext kann eine Gegenzeichnung darauf hinweisen, dass die unterzeichnende Behörde die Verantwortung für Texte übernimmt, die von einer unverletzlichen und nicht verantwortlichen Person (z. B. einem König, Großherzog oder Präsidenten) stammen, oder dass die Behörde für die Umsetzung des Textes zuständig ist."@de .
+    eli-dl:based_on_a_realization_of rdfs:comment "Zeigt an, dass eine Aktivität eine Arbeit verwendet hat. Die Arbeiten werden als \\\"Input\\\" der Aktivität betrachtet.\n\nBeispiel: Die Arbeit eines Ausschusses \\\"verwendete\\\" eine bestimmte Version des Entwurfs als Input, um ein Stellungnahmedokument zu erstellen.\n\nHinweis: Die Benennung \\\"verwendete eine Realisierung von\\\" stammt aus FRBRoo. Da eine Arbeit eine Idee ist, die nur im Geist der Menschen existiert, kann nicht einfach gesagt werden, dass eine Aktivität eine Arbeit \\\"verwendet\\\" hat, sondern wirklich \\\"eine Ausdrucksform dieser Arbeit verwendet\\\" hat."@de .
+    eli:has_another_publication rdfs:label "hat eine weitere Veröffentlichung"@de .
+    eli-dl:legislative_process_work_type rdfs:comment "Der Typ einer Arbeit im Gesetzgebungsverfahren. Die Liste der möglichen Typen muss von jedem Mitgliedstaat definiert werden.\n\nBeispiel: \\\"Stellungnahme des Wirtschaftsausschusses\\\", \\\"Folgenabschätzung\\\", \\\"Text des Gesetzentwurfs\\\", \\\"Debattenaufzeichnung\\\", \\\"Änderung\\\"."@de .
+    eli:InForce-notInForce skos:definition "Zeigt an, dass eine rechtliche Ressource derzeit nicht in Kraft ist."@de .
+    eli-dl:ParticipationRole rdfs:label "Rolle eines Akteurs in einer Beteiligung"@de .
+    eli-dl:ParticipationRole rdfs:comment "Die Rolle eines Agenten in einer Teilnahme, z.B. \\\"Berichterstatter\\\", \\\"Schattenberichterstatter\\\" usw."@de .
+    eli:transposed_by rdfs:comment "Umkehrung von \\\"transposes\\\".\n\nBeachten Sie, dass diese Eigenschaft für eine rechtliche Ressource und nicht für einen sprachspezifischen rechtlichen Ausdruck angegeben wird."@de .
+    eli-dl:amends_draft rdfs:comment "Zeigt die Basisarbeit an, auf die sich ein Entwurf einer Änderung bezieht - unabhängig davon, ob sie abgestimmt wurde oder nicht. Dies kann ein Verweis auf eine bestimmte Version des Entwurfs sein, in welchem Fall auf die \\\"vorherige\\\" Version des Entwurfs verwiesen werden sollte, oder auf die abstrakte Entwurfsarbeit, wenn die Versionen nicht als separate Entitäten deklariert sind.\n\nDiese Eigenschaft ist für eine Änderungsarbeit obligatorisch, und eine Änderungsarbeit kann nur eine einzige Instanz einer Entwurfsbasisarbeit ändern."@de .
+    eli:consolidated_by rdfs:comment "Umkehrung von \\\"consolidates\\\". Zeigt an, dass diese rechtliche Ressource oder dieser Ausdruck in einem konsolidierten Text berücksichtigt wird (der normalerweise das Ergebnis eines redaktionellen Prozesses ist, der die Gesetzgebung überarbeitet)."@de .
+    eli-dl:had_activity_type rdfs:comment "Der Typ einer Aktivität.\n\nDie Liste der möglichen Werte muss von jedem Mitgliedstaat definiert werden.\n\nBeispiel: \\\"Ausschusssitzung\\\", \\\"Plenarsitzung\\\", \\\"Ausschussabstimmung\\\", \\\"Stellungnahmeanfrage\\\" usw."@de .
+    eli-dl:participation_role rdfs:label "Teilnahmerolle"@de .
+    eli-dl:foresees_amendment_of rdfs:label "sieht Änderung von vor"@de .
+    eli-dl:responsible_organization_label rdfs:comment "Der Name einer Organisation, die für eine Aktivität verantwortlich war."@de .
+    eli:cited_by_case_law rdfs:comment "Zeigt an, dass diese LegalResource oder LegalExpression in einer Rechtsprechung zitiert wird, die durch einen geeigneten URI identifiziert wird. Wenn die Rechtsprechung nicht durch einen geeigneten URI identifiziert werden kann, kann die Eigenschaft \\\"eli:cited_by_case_law_reference\\\" mit einem textuellen Verweis auf die Rechtsprechung verwendet werden.\n\nDer tatsächliche Zitierlink wird von der Rechtsprechung zur Gesetzgebung ausgedrückt, aber rechtliche Portale können den Link von einer Gesetzgebung zu einer Rechtsprechung verwenden, um z.B. auf repräsentative Rechtsprechungen zu einer Gesetzgebung zu verweisen."@de .
+    eli-dl:foresees_based_on rdfs:comment "Zeigt eine bereits veröffentlichte LegalResource an, auf der das zukünftige Gesetz, falls es verabschiedet wird, basieren wird. Leser sollten die Definition der eli:based_on-Eigenschaft beachten.\nBeachten Sie, dass sich die rechtlichen Auswirkungen in aufeinanderfolgenden Versionen desselben Dokuments ändern können."@de .
+    eli-dl:Vote rdfs:label "Abstimmung"@de .
+    eli-dl:Vote rdfs:comment "Eine Abstimmungsaktivität"@de .
+    eli:WorkTypeTable skos:definition "Ein Satz von Werten für den Typ einer Arbeit.\nELI enthält keinen Satz von Werten für diese Tabelle."@de .
+    eli-dl:foresees_application_of rdfs:comment "Zeigt eine bereits veröffentlichte LegalResource an, die das zukünftige Gesetz, falls es verabschiedet wird, anwenden wird. Leser sollten die Definition der eli:applies-Eigenschaft beachten.\nBeachten Sie, dass sich die rechtlichen Auswirkungen in aufeinanderfolgenden Versionen desselben Dokuments ändern können."@de .
+    eli-dl:created_expression rdfs:label "erstellter Ausdruck"@de .
+    eli:corrects rdfs:label "korrigiert"@de .
+    eli:has_part rdfs:comment "Umkehrung von \\\"is_part_of\\\""@de .
+    eli-dl:had_participant_organization rdfs:comment "Eine Organisation, die an einer Aktivität teilnimmt, aber nicht unbedingt dafür verantwortlich ist."@de .
+    eli-dl:activity_date rdfs:label "Aktivitätsdatum"@de .
+    eli:publisher_agent rdfs:label "Veröffentlichungsagent"@de .
+    eli:amends rdfs:label "ändert"@de .
+    eli-dl:had_activity_type rdfs:label "hat Aktivitätstyp"@de .
+    eli:related_to rdfs:label "bezogen auf"@de .
+    eli:LegalValue-unofficial skos:definition "Dokument hat keinen besonderen oder speziellen Status."@de .
+    eli-dl:legislative_process_work_type rdfs:label "Typ der Arbeit im Gesetzgebungsverfahren"@de .
+    eli:ensures_implementation_of rdfs:label "sichert die Umsetzung von"@de .
+    eli-dl:foresees_consolidation_of rdfs:comment "Zeigt eine bereits veröffentlichte LegalResource an, die das zukünftige Gesetz, falls es verabschiedet wird, konsolidiert. Leser sollten die Definition der eli:consolidates-Eigenschaft beachten.\nBeachten Sie, dass sich die rechtlichen Auswirkungen in aufeinanderfolgenden Versionen desselben Dokuments ändern können."@de .
+    eli-dl:foresees_commencement_of rdfs:comment "Zeigt eine bereits veröffentlichte LegalResource an, die das zukünftige Gesetz, falls es verabschiedet wird, in Kraft setzt. Leser sollten die Definition der eli:commences-Eigenschaft beachten.\nBeachten Sie, dass sich die rechtlichen Auswirkungen in aufeinanderfolgenden Versionen desselben Dokuments ändern können."@de .
+    eli:transposes rdfs:label "setzt um"@de .
+    eli:transposes rdfs:comment "Zeigt an, dass diese Gesetzgebung (oder Teil der Gesetzgebung) die Ziele erfüllt, die von einer anderen Gesetzgebung festgelegt wurden, indem geeignete Umsetzungsmaßnahmen ergriffen werden. Typischerweise setzen einige Gesetzgebungen der Mitgliedstaaten der Europäischen Union oder Regionen europäische Richtlinien um. Dies zeigt eine rechtlich bindende Verbindung zwischen den beiden Gesetzgebungen auf der Ebene des Gesetzes oder Artikels, von der ursprünglichen Version einer nationalen Umsetzungsmaßnahme zur rechtlichen Ressource der Richtlinie, wie sie im Amtsblatt der EU veröffentlicht wurde. Kann für Umsetzungstabellen verwendet werden, sobald das Amt für Veröffentlichungen der EU die ELI-Unterstützung bis auf die Artikelebene eingeführt hat.\n\nDie Umsetzung der EU-Gesetzgebung auf nationaler Ebene, einschließlich Verknüpfungen zu EU-Verordnungen, Entscheidungen usw., muss mit eli:ensures_implementation_of erfasst werden.\n\nBeachten Sie, dass dies auf die rechtliche Ressource der Richtlinie selbst verweisen sollte, nicht auf einen ihrer sprachspezifischen rechtlichen Ausdrücke."@de .
+    eli:repealed_by rdfs:comment "Umkehrung von \\\"repeals\\\". Zeigt an, dass diese rechtliche Ressource oder dieser rechtliche Ausdruck vollständig aufgehoben, abgeschafft oder durch eine andere rechtliche Ressource ersetzt wird. Wenn eine Ressource teilweise durch eine andere aufgehoben wird, kann dieser Link auf der entsprechenden Unterteilungsebene verwendet werden, die vollständig aufgehoben wird."@de .
+    eli:LegalValue rdfs:label "Rechtlicher Wert"@de .
+    eli:responsibility_of_agent rdfs:label "Verantwortung des Agenten"@de .
+    eli-dl:legislative_process_work_id rdfs:comment "Ein Identifikator, der verwendet werden kann, um auf eine Arbeit im Gesetzgebungsverfahren zu verweisen."@de .
+    eli-dl:TranspositionProcess rdfs:label "Umsetzungsprozess"@de .
+    eli-dl:created_a_realization_of_legal_resource rdfs:label "erstellte eine Realisierung einer rechtlichen Ressource"@de .
+    eli-dl:participant_organization_label rdfs:label "Teilnehmerorganisation Bezeichnung"@de .
+    eli:FormatType rdfs:comment "Formal definiert als die Menge der skos:Concept im Konzeptschema eli:MediaTypeTable."@de .
+    eli:corrects rdfs:comment "Zeigt an, dass diese Arbeit textliche Änderungen (wie die Korrektur von Rechtschreibfehlern) ohne rechtliche Änderung in einer anderen Ressource, einem Ausdruck oder einer Manifestation einführt; typischerweise Berichtigungen in der EU-Gesetzgebung. Für Änderungen, die rechtliche Auswirkungen haben, verwenden Sie eli:amends."@de .
+    eli-dl:legislative_process_work_id rdfs:label "Identifikator der Arbeit im Gesetzgebungsverfahren"@de .
+    eli-dl:had_voter_favor rdfs:comment "Zeigt eine Person an, die an einer Abstimmung mit einer Ja-Stimme teilgenommen hat."@de .
+    eli:jurisdiction rdfs:label "Gerichtsbarkeit"@de .
+    eli:embodies rdfs:label "verkörpert"@de .
+    eli:uri_schema rdfs:comment "Schema, das den URI einer ELI-Instanz beschreibt. ELI verwendet URI-Templatespezifikationen (IETF RFC 6570). Schemata sollten mit Mitgliedstaaten verknüpft sein und in einem Register veröffentlicht werden."@de .
+    eli:is_referred_to_by rdfs:comment "Zeigt eine Arbeit oder einen Ausdruck an, der sich auf diese Entität bezieht."@de .
+    eli:LegalResourceSubdivision rdfs:label "Unterteilung der rechtlichen Ressource"@de .
+    eli:WorkSubdivision rdfs:comment "Eine Komponente einer Arbeit auf einer beliebigen Präzisionsebene. Eine Unterteilung kann mit ihrer übergeordneten und untergeordneten Unterteilung unter Verwendung von eli:has_part / eli:is_part_of verknüpft werden."@de .
+    eli:language rdfs:comment "Die Sprache eines Ausdrucks.\n\nDas Amt für Veröffentlichungen der EU stellt eine Liste von Sprachen unter https://op.europa.eu/en/web/eu-vocabularies/at-dataset/-/resource/dataset/language bereit. Diese Liste ist umfangreich genug, sodass Mitgliedstaaten keine eigenen Wertelisten erstellen müssen.\n\nBeachten Sie, dass bei Bedarf eine Sprache auch für eine rechtliche Ressource mit der DublinCore-Eigenschaft \\\"language\\\" angegeben werden kann."@de .
+    eli:id_local rdfs:comment "Der eindeutige Identifikator, der in einem lokalen Referenzsystem verwendet wird, um die Abwärtskompatibilität aufrechtzuerhalten. Zum Beispiel das CELEX auf EU-Ebene oder das NOR in Frankreich."@de .
+    eli-dl:had_responsible_person rdfs:comment "Die verantwortliche Person einer Aktivität.\n\nBeispiel: der \\\"Berichterstatter\\\" eines Textes in einer Kommission."@de .
+    eli:responsibility_of rdfs:label "Verantwortung von"@de .
+    eli:LegalValueTable skos:definition "Ein Satz von Werten für den rechtlichen Wert einer Ressource.\nDie ELI-Ontologie enthält einen Satz von Werten für diese Tabelle."@de .
+    eli:first_date_entry_in_force rdfs:comment "Das erste Datum, an dem ein Teil der rechtlichen Ressource oder des rechtlichen Ausdrucks in Kraft getreten ist (kann als Startdatum eines dc:valid-Bereichs für diese Ressource angesehen werden)."@de .
+    eli-dl:LegislativeProcessWork rdfs:label "Arbeit im Gesetzgebungsverfahren"@de .
+    eli-dl:produced_manifestation rdfs:label "erstellte Manifestation"@de .
+    eli:implementation_ensured_by rdfs:comment "Zeigt an, dass die Umsetzung dieser LegalResource durch eine andere LegalResource sichergestellt wird. Dies impliziert eine rechtliche Bedeutung (im Gegensatz zu eli:applies). Siehe die Definition von eli:ensures_implementation_of."@de .
+    eli-dl:process_title rdfs:comment "Der Name oder Titel eines Prozesses.\n\nBeispiel: \\\"Forstwirtschaft (Baugenehmigung) (Änderungs-)Gesetz 2018\\\", \\\"Sport: Organisation der Olympischen und Paralympischen Spiele 2024\\\"."@de .
+    eli-dl:had_voter_intended_abstention rdfs:comment "Zeigt eine Person an, die an einer Abstimmung teilgenommen und zum Ausdruck gebracht hat, dass sie sich der Stimme enthalten wollte, aber anders abgestimmt hat."@de .
+    eli-dl:amends_draft rdfs:label "ändert Entwurf"@de .
+    eli-dl:number_of_attendees rdfs:label "Anzahl der Teilnehmer"@de .
+    eli-dl:ParliamentaryTerm rdfs:label "Parlamentsperiode"@de .
+    eli:is_member_of rdfs:label "ist Mitglied von"@de .
+    eli-dl:was_submitted_by rdfs:label "wurde eingereicht von"@de .
+    eli-dl:is_referred_to_by rdfs:label "wird verwiesen von"@de .
+    eli:SubdivisionType rdfs:label "Unterteilungstyp"@de .
+    eli-dl:forms_part_of rdfs:label "bildet Teil von"@de .
+    eli:published_in_format rdfs:label "veröffentlicht im Format"@de .
+    eli-dl:documented_by_a_realization_of rdfs:comment "Zeigt an, dass die Aktivität gemäß dem Plan durchgeführt wurde oder wird, der durch eine Arbeit beschrieben wird. Typischerweise sind diese Arbeiten Tagesordnungen, die vorsehen, wie zukünftige Aktivitäten stattfinden werden."@de .
+    eli-dl:ForeseenActivity rdfs:label "Geplante Aktivität"@de .
+    eli-dl:motivated rdfs:label "motiviert"@de .
+    eli-dl:legislative_process_work_creator rdfs:comment "Zeigt den Ersteller der Arbeit im Gesetzgebungsverfahren an."@de .
+    eli-dl:TranspositionProcess rdfs:comment "Der Prozess der Umsetzung einer EU-Gesetzgebung in nationales Recht."@de .
+    eli-dl:process_number rdfs:comment "Die Nummer, unter der ein Prozess der Öffentlichkeit bekannt ist. Ein Prozess hat nur eine Nummer."@de .
+    eli:legal_value rdfs:comment "Der rechtliche Wert, der mit einem bestimmten Format einer Ressource verbunden ist. Ein Satz von Werten wird von ELI im entsprechenden Konzeptschema definiert. Diese Werte sind:\n - inoffiziell: kein besonderer oder spezieller Status;\n - offiziell: veröffentlicht von einer Organisation mit der öffentlichen Aufgabe, die Informationen verfügbar zu machen (z.B. eine konsolidierte Version einer EU-Richtlinie);\n - maßgeblich: der Herausgeber verleiht der Veröffentlichung einen besonderen Status (z.B. die \\\"Queens Printer\\\"-Version eines Parlamentsgesetzes oder die OJ-Version einer EU-Richtlinie);\n - endgültig: der Text ist abschließend das, was das Gesetz besagt (z.B. die digital signierte Version eines OJ)."@de .
+    eli-dl:DecisionMethod rdfs:label "Entscheidungsverfahren"@de .
+    eli-dl:DecisionMethod rdfs:comment "Eine Methode zur Durchführung einer Entscheidung; die Art und Weise, wie eine Entscheidung getroffen wurde."@de .
+    eli-dl:forms_part_of rdfs:comment "Zeigt eine andere größere Aktivität an, die diese umfasst.\n\nBeispiel: Die Aktivität \\\"Lesung in der Kommission des Gesetzgebungsverfahrens 384\\\" bildet einen Teil der \\\"Ersten Lesung in der Nationalversammlung des Gesetzgebungsverfahrens 384\\\", die selbst Teil des \\\"Gesetzgebungsverfahrens Nummer 384\\\" bildet."@de .
+    eli-dl:had_participation rdfs:comment "Die Teilnahme eines Agenten an einer Aktivität."@de .
+    eli:FormatType rdfs:label "Formattyp"@de .
+    eli:Expression rdfs:label "Ausdruck"@de .
+    eli:ResourceTypeTable skos:definition "Ein Satz von Typen für eine rechtliche Ressource.\nELI enthält keinen Satz von Werten für diese Tabelle."@de .
+    eli:InForceTable skos:definition "Ein Satz von Werten für die Rechtskraft einer Ressource.\nELI enthält einen Satz von Werten für diese Tabelle."@de .
+    eli-dl:activity_id rdfs:comment "Ein Identifikator für die Aktivität."@de .
+    eli-dl:process_number rdfs:label "Nummer des Gesetzgebungsverfahrens"@de .
+    eli:changes rdfs:comment "Zeigt an, dass diese Arbeit oder dieser Ausdruck eine andere rechtlich ändert. Dies umfasst die Begriffe der Änderung, des Ersatzes, der Aufhebung oder anderer Arten von Änderungen. Dies kann eine direkte Änderung (textliche oder nicht-textliche Änderung) oder eine konsequente oder indirekte Änderung sein. Beachten Sie, dass die Eigenschaft verwendet werden soll, um das Vorhandensein einer Änderungsbeziehung zwischen zwei Akten auszudrücken, anstatt das Vorhandensein einer konsolidierten Version des Textes, die das Ergebnis der Änderung zeigt. Für Konsolidierungsbeziehungen verwenden Sie die Eigenschaften \\\"consolidates\\\" und \\\"consolidated_by\\\"."@de .
+    eli:date_publication rdfs:label "Veröffentlichungsdatum"@de .
+    eli-dl:excused_person_label rdfs:label "entschuldigte Person Bezeichnung"@de .
+    eli:has_translation rdfs:label "hat Übersetzung"@de .
+    eli:is_realized_by rdfs:comment "Verbindet eine Arbeit mit einem Ausdruck dieser Arbeit in Form einer \\\"Zeichenfolge\\\" (typischerweise alphanumerische Zeichen in einem rechtlichen Kontext). Umkehrung von \\\"realizes\\\"."@de .
+    eli:description rdfs:label "Beschreibung"@de .
+    eli-dl:ProcessStatus rdfs:comment "Der Gesamtstatus eines Gesetzgebungsverfahrens. ELI-DL bietet 3 mögliche Werte: Laufend, Erfolgreich oder Abgebrochen. Andere Werte können von Implementierern definiert werden."@de .
+    eli:cited_by_case_law_reference rdfs:label "zitiert von Rechtsprechungsreferenz"@de .
+    eli:is_another_publication_of rdfs:comment "Zeigt an, dass diese Ressource eine neue Veröffentlichung in einem anderen Amtsblatt einer anderen Ressource ist, die bereits anderswo veröffentlicht wurde, und nicht als dieselbe Ressource betrachtet werden kann (owl:sameAs kann nicht verwendet werden, um mögliche Duplikate bestimmter Metadaten wie das Veröffentlichungsdatum oder den Herausgeber zu vermeiden).\n\nBeachten Sie, dass dies sich von den Ausnahmefällen der \\\"Wiederveröffentlichung\\\" unterscheidet, bei denen dieselbe Ressource tatsächlich einige Tage nach ihrer ersten Veröffentlichung im selben Amtsblatt erneut veröffentlicht wird, falls Fehler vorlagen."@de .
+    eli:has_annex rdfs:comment "Zeigt einen Anhang zu dieser Arbeit oder diesem Ausdruck an."@de .
+    eli:is_part_of eli:originalName "zusammengesetzt"@de .
+    eli:has_member rdfs:comment "Zeigt an, dass diese Arbeit eine andere konzeptuell einschließt. Für den Begriff der physischen Einbeziehung verwenden Sie eli:has_part."@de .
+    eli-dl:parliamentary_term rdfs:label "Parlamentsperiode"@de .
+    eli:rightsholder_agent rdfs:comment "Eine Person oder Organisation, die Rechte an der Ressource besitzt oder verwaltet (Definition von Dublin Core).\nDiese Eigenschaft sollte verwendet werden, wenn der Wert durch einen geeigneten URI identifiziert werden kann; in Abwesenheit eines solchen URI sollte die Eigenschaft \\\"rightsholder\\\" mit einem String-Wert verwendet werden."@de .
+    eli-dl:legislative_process_work_date rdfs:label "Datum der Arbeit im Gesetzgebungsverfahren"@de .
+    eli-dl:executed rdfs:comment "Die geplante Aktivität, gemäß der diese Aktivität ausgeführt wurde. Zum Beispiel wurde eine Sitzung gemäß der geplanten Aktivität aus der Tagesordnung durchgeführt."@de .
+    eli:responsibility_of eli:originalName "Dienststelle"@de .
+    eli:Format rdfs:label "Format"@de .
+    eli:Format rdfs:comment "Die physische Verkörperung eines rechtlichen Ausdrucks, entweder auf Papier oder in einem elektronischen Format.\nZum Beispiel jedes elektronische oder physische Format des rechtlichen Ausdrucks (XML, TIFF, PDF usw.); z. B. die PDF-Version des Gesetzes 3 aus dem Jahr 2005 (angepasst von Akoma Ntoso).\nBeachten Sie, dass der Begriff Format in ELI präziser ist als eine FRBR-Manifestation, da ein Format in ELI einen rechtlichen Wert tragen kann (siehe die Eigenschaft eli:legal_value)."@de .
+    eli:LegalValue-official skos:definition "Dokument wird von einer Organisation mit der öffentlichen Aufgabe veröffentlicht, die Informationen verfügbar zu machen (Eine konsolidierte Version einer EU-Richtlinie, veröffentlicht vom Amt für Veröffentlichungen der EU)."@de .
+    eli-dl:had_voter_against rdfs:label "hatte Wähler gegen"@de .
+    eli:is_derivative_of rdfs:comment "Eine Arbeit oder ein Ausdruck, von der/dem diese abgeleitet ist."@de .
+    eli:Organization rdfs:label "Organisation"@de .
+    eli-dl:process_keyword rdfs:label "Stichwort des Gesetzgebungsverfahrens"@de .
+    eli:embodies rdfs:comment "Verbindet eine Manifestation mit dem Ausdruck, den sie verkörpert. Umkehrung von \\\"is_embodied_by\\\"."@de .
+    eli:WorkType rdfs:label "Werktyp"@de .
+    eli:VersionTable skos:definition "Ein Satz von Werten für die Version einer rechtlichen Ressource.\nELI enthält keinen Satz von Werten für diese Tabelle."@de .
+    eli:commenced_by rdfs:comment "Umkehrung von \\\"commences\\\". Zeigt an, dass diese rechtliche Ressource durch eine andere rechtliche Ressource in Kraft gesetzt wurde.\nSituationen, in denen eine Ressource aufgrund von mehr als einer Ressource in Kraft tritt, sind ausdrücklich erlaubt."@de .
+    eli-dl:recorded_in_realization_of rdfs:label "aufgezeichnet in Realisierung von (veraltet)"@de .
+    eli-dl:was_submitted_by rdfs:comment "Zeigt die Organisation oder Person an, die einen Prozess beim Parlament eingereicht hat (dies könnte die Regierung, der Präsident, der Senat, eine Gruppe von Mitgliedern des Parlaments, ein parlamentarischer Ausschuss, eine Gruppe von Bürgern usw. sein)."@de .
+    eli-dl:foresees_commencement_of rdfs:label "sieht Inkrafttreten von vor"@de .
+    eli-dl:recorded_in_a_realization_of rdfs:comment "Zeigt an, dass eine Aktivität in einer verwandten Arbeit aufgezeichnet wurde.\n\nHinweis: Diese Eigenschaft ist eine Abkürzung für ein implizites FRBR \\\"Aufzeichnungsereignis\\\", das die Aufzeichnung des Ereignisses erstellt hätte."@de .
+    eli:LegalValue-authoritative skos:definition "Der Herausgeber verleiht der Veröffentlichung des Dokuments einen besonderen Status. (\\\"The Queens Printer\\\"-Version eines britischen Parlamentsgesetzes). Dieser Status ist spezifisch für das Vereinigte Königreich, wo kein Text als \\\"definitiv\\\" betrachtet werden kann."@de .
+    eli-dl:had_participant_person rdfs:comment "Eine Person, die an einer Aktivität teilnimmt. Eine präzisere Eigenschaft existiert, um die verantwortliche Person einer Aktivität anzugeben.\n\nBeispiel: Mitglieder in einer Kommission, Redner während einer Plenarsitzung."@de .
+    eli:in_force rdfs:comment "Ein Wert, der die Rechtskraft einer rechtlichen Ressource oder eines rechtlichen Ausdrucks angibt. Ein Satz von Werten wird von ELI im entsprechenden Konzeptschema definiert. Diese Werte sind:\n - in Kraft\n - teilweise in Kraft\n - nicht in Kraft."@de .
+    eli-dl:decision_outcome rdfs:comment "Zeigt das Ergebnis der Entscheidung an, z.B. angenommen, abgelehnt, verfallen usw."@de .
+    eli-dl:had_voter_abstention rdfs:label "hatte Wähler Enthaltung"@de .
+    eli:cited_by rdfs:comment "Umkehrung von \\\"cites\\\".\nBeachten Sie, dass die beabsichtigte Bedeutung dieses Links darin besteht, anzuzeigen, dass \\\"etwas von einer Gesetzgebung zitiert wird\\\" und nicht, dass \\\"diese Gesetzgebung von etwas zitiert wird\\\"."@de .
+    eli:media_type rdfs:comment "Das Dateiformat der Manifestation.\nDieses Feld soll das technische Dateiformat erfassen und dient als Grundlage für die Inhaltsverhandlung, damit der Server die entsprechende Datei basierend auf der Präferenz des Clients zurückgibt.\nObwohl nicht obligatorisch, wird diese Eigenschaft dringend empfohlen.\nMögliche URI-Werte MÜSSEN von http://www.iana.org/assignments/media-types stammen (z.B. http://www.iana.org/assignments/media-types/application/xml).\nSiehe auch die Eigenschaft \\\"format\\\"."@de .
+    eli-dl:foresees_based_on rdfs:label "sieht basierend auf vor"@de .
+    eli-dl:activity_date rdfs:comment "Das Datum einer Aktivität, um ein einzelnes Datum anzugeben. Alternativ können, wenn eine Aktivität einen Zeitraum umfasst, \\\"activity_start_date\\\" und \\\"activity_end_date\\\" verwendet werden, um den Beginn und das Ende der Aktivität anzugeben.\n\nDaten können entweder mit Datumspräzision (JJJJ-MM-TT) oder mit Zeitpräzision (JJJJ-MM-TTThh:mm:ss) ausgedrückt werden."@de .
+    eli-dl:participation_in_name_of rdfs:comment "Der Agent, in dessen Namen der teilnehmende Agent gehandelt hat. Typischerweise trägt der Berichterstatter eines legislativen Berichts im Namen eines Ausschusses bei."@de .
+    eli:is_derivative_of rdfs:label "ist abgeleitet von"@de .
+    eli-dl:date_last_update rdfs:comment "Das Datum, an dem der Prozess zuletzt aktualisiert wurde.\n\nEin Gesetzgebungsprozess kann höchstens einen Wert für diese Eigenschaft haben."@de .
+    eli-dl:involved_work rdfs:label "beteiligte Arbeit"@de .
+    eli-dl:appointed_participant rdfs:label "ernannt"@de .
+    eli-dl:DecisionOutcome rdfs:comment "Die möglichen Ergebnisse einer Entscheidung. ELI-DL definiert eine einfache Liste möglicher Werte, die von Implementierungen erweitert werden können."@de .
+    eli-dl:had_excused_person rdfs:comment "Eine Person, die von einer Sitzung oder einer anderen Art von Aktivität entschuldigt wurde."@de .
+    eli:basis_for rdfs:label "Grundlage für"@de .
+    eli:ComplexWork rdfs:comment "Arbeiten, die andere Arbeiten als Mitglieder haben. Die Mitglieder einer komplexen Arbeit können Alternativen zu oder Ableitungen von anderen Mitgliedern derselben komplexen Arbeit darstellen. Typischerweise repräsentieren die Mitglieder der komplexen Arbeit die aufeinanderfolgenden zeitlichen Versionen eines Gesetzes, während die komplexe Arbeit das Gesetz unabhängig von einer seiner Versionen darstellt."@de .
+    eli:date_publication rdfs:comment "Datum der Veröffentlichung der offiziellen Version der Gesetzgebung, in gedruckter oder Online-Form, abhängig davon, was die offizielle Veröffentlichung ist und wann sie veröffentlicht wurde. Veröffentlichungsdaten auf der Ebene rechtlicher Ausdrücke können separat mit Standard-Dublin-Core-Eigenschaften angegeben werden."@de .
+    eli-dl:was_motivated_by rdfs:comment "Eine andere Aktivität, die diese Aktivität \\\"ausgelöst\\\" oder \\\"logisch vorangegangen\\\" ist.\n\nBeispiel: Das Verfassen einer Stellungnahme wurde durch die Übermittlung einer Anfrage nach einer Stellungnahme durch den Gesetzgebungsdienst motiviert."@de .
+    eli:in_force rdfs:label "in Kraft"@de .
+    eli:language rdfs:label "Sprache"@de .
+    eli-dl:foresees_citation_of rdfs:label "sieht Zitierung von vor"@de .
+    eli-dl:process_type rdfs:comment "Der Typ eines Prozesses. Der Typ eines Prozesses bestimmt oft den Ablauf, der befolgt wird, um das Gesetz zu erstellen.\n\nDie Liste der möglichen Werte muss von jedem Mitgliedstaat definiert werden.\n\nBeispiel: \\\"Projet de loi\\\", \\\"Proposition de loi\\\", \\\"Revision der Verfassung\\\", \\\"Public Bill\\\"."@de .
+    eli:format rdfs:label "Format"@de .
+    eli:applies rdfs:label "gilt für"@de .
+    eli-dl:is_subject_of rdfs:comment "Eine Webseite oder Ressource, die einen Prozess beschreibt. Diese Eigenschaft dient dazu, die Websites verschiedener Institutionen zu verknüpfen, die denselben Gesetzgebungsprozess beschreiben.\n\nBeispiel: die Seite des Gesetzgebungsprozesses auf der OJ-Website, die Seite des Prozesses auf der Website des Senats, die Seite des Prozesses auf der Website des Staatsrats."@de .
+    eli:passed_by rdfs:comment "Die Person oder Organisation, die das Gesetz ursprünglich verabschiedet oder erlassen hat: typischerweise das Parlament (für primäre Gesetzgebung) oder die Regierung (für sekundäre Gesetzgebung). Dies zeigt den \\\"rechtlichen Autor\\\" des Gesetzes im Gegensatz zu seinem physischen Autor an.\n\nDiese Eigenschaft kann mehrfach verwendet werden, um sowohl den Agenten anzugeben, der den Text verfasst hat, als auch/oder den Agenten, der den Text unterzeichnet hat, wodurch er zu einer tatsächlichen Gesetzgebung wird.\n\nDie Beziehung zwischen der aktuellen und einer früheren gesetzgebenden Körperschaft sollte in der Beschreibung des Agenten selbst dargestellt werden.\n\nMitgliedstaaten werden ermutigt, ihre eigene Liste von Agenten zu erstellen. Das Amt für Veröffentlichungen der EU stellt eine Liste von Körperschaften unter https://op.europa.eu/en/web/eu-vocabularies/at-dataset/-/resource/dataset/corporate-body bereit."@de .
+    eli:related_to rdfs:comment "Zeigt ein irgendwie verwandtes anderes Dokument an, nicht unbedingt eine rechtliche Ressource. Beachten Sie, dass Zitationslinks die cites-Eigenschaft verwenden sollten."@de .
+    eli:has_part rdfs:label "hat Teil"@de .
+    eli:is_about rdfs:comment "Ein Thema für diese Arbeit. Die Verwendung von Eurovoc (http://eurovoc.europa.eu) wird empfohlen, um Werte für diese Eigenschaft auszuwählen. Mitgliedstaaten werden ermutigt, lokale Werte an Eurovoc anzupassen."@de .
+    eli:consolidates rdfs:comment "Zeigt an, dass diese konsolidierte rechtliche Ressource oder dieser Ausdruck (der normalerweise das Ergebnis eines redaktionellen Prozesses ist, der die Gesetzgebung überarbeitet) eine andere berücksichtigt. Diese Eigenschaft sollte mehrfach verwendet werden, um sowohl auf die ursprüngliche Version oder die vorherige konsolidierte Version als auch auf die Gesetzgebungen, die die Änderung vornehmen, zu verweisen."@de .
+    eli:InForce rdfs:label "In Kraft"@de .
+    eli-dl:foreseen_type_document rdfs:label "vorgesehener Dokumenttyp"@de .
+    eli-dl:ForeseenActivity rdfs:comment "Eine geplante, zukünftige Aktivität. Geplante Aktivitäten werden als spezifische (Unterklassen von) Aktivitäten betrachtet und können daher mit demselben Satz von Eigenschaften wie eine vergangene Aktivität beschrieben werden."@de .
+    eli:Agent rdfs:label "Agent"@de .
+    eli-dl:legislative_process_work_version rdfs:label "Version der Arbeit im Gesetzgebungsverfahren"@de .
+    eli-dl:foresees_citation_of rdfs:comment "Zeigt eine bereits veröffentlichte LegalResource an, die das zukünftige Gesetz, falls es verabschiedet wird, zitieren wird. Leser sollten die Definition der eli:cites-Eigenschaft beachten.\nBeachten Sie, dass sich die rechtlichen Auswirkungen in aufeinanderfolgenden Versionen desselben Dokuments ändern können."@de .
+    eli:rightsholder rdfs:label "Rechteinhaber"@de .
+    eli-dl:ProcessType rdfs:label "Typ eines Gesetzgebungsverfahrens"@de .
+    eli-dl:created_legal_expression rdfs:label "erstellte rechtlichen Ausdruck"@de .
+    eli:consolidated_by rdfs:label "konsolidiert durch"@de .
+    eli:AdministrativeAreaTable skos:definition "Ein Satz von Werten für Verwaltungsgebiete.\nELI enthält keinen Satz von Werten für diese Tabelle."@de .
+    eli:repeals rdfs:comment "Zeigt an, dass diese rechtliche Ressource oder dieser rechtliche Ausdruck eine andere vollständig aufhebt, abschafft oder ersetzt. Wenn eine Ressource teilweise eine andere aufhebt, kann dieser Link auf der entsprechenden Unterteilungsebene verwendet werden, die vollständig aufgehoben wird."@de .
+    eli:LegalValue-definitive skos:definition "Dokument, bei dem der Text abschließend das besagt, was das Gesetz sagt. (Die digital signierte Version eines Amtsblatts.)"@de .
+    eli-dl:decision_method rdfs:comment "Die Methode, die zur Durchführung der Entscheidungsaktivität verwendet wurde (z.B. namentliche Abstimmung usw.)."@de .
+    eli-dl:activity_label rdfs:label "Aktivitätsbezeichnung"@de .
+    eli:transposed_by rdfs:label "umgesetzt durch"@de .
+    eli-dl:had_voter_intended_favor rdfs:label "hatte Wähler beabsichtigte Zustimmung"@de .
+    eli:legal_value rdfs:label "rechtlicher Wert"@de .
+    eli:LegalValue-official skos:example "Eine konsolidierte Version einer EU-Richtlinie, veröffentlicht vom Amt für Veröffentlichungen der EU."@de .
+    eli-dl:involved_work rdfs:comment "Zeigt an, dass eine Aktivität irgendwie eine Arbeit (Dokument) verwendet hat, um durchgeführt zu werden, ohne anzugeben, wie sie verwendet wurde.\nDies umfasst sowohl die Dokumente, die als \\\"Input\\\" der Aktivität verwendet wurden, als auch die Dokumente, die während der Aktivität als \\\"Output\\\" produziert wurden.\nPräzisere Eigenschaften existieren, um anzugeben, ob die Arbeiten als \\\"Inputs\\\" oder \\\"Outputs\\\" der Aktivität betrachtet werden sollten."@de .
+    eli:number rdfs:comment "Ein Identifikator oder ein anderes Unterscheidungsmerkmal für eine Arbeit oder einen Ausdruck. Dies kann die Nummer einer Gesetzgebung, die Nummer eines Artikels oder die Ausgabenummer eines Amtsblatts sein."@de .
+    eli:LegalValueTable rdfs:label "Tabelle des rechtlichen Werts"@de .
+    eli-dl:excused_person_label rdfs:comment "Der Name einer Person, die von einer Sitzung oder einer anderen Art von Aktivität entschuldigt wurde."@de .
+    eli:responsibility_of_agent rdfs:comment "Eine Einzelperson, Organisation oder Organisationseinheit, die eine Art von Verantwortung für die Gesetzgebung hat. Typischerweise das Ministerium, das für die Ausarbeitung der Gesetzgebung zuständig ist oder der Ansprechpartner für mögliche Fragen zur Gesetzgebung nach ihrer Veröffentlichung.\nDiese Eigenschaft sollte verwendet werden, wenn der Wert durch einen geeigneten URI identifiziert werden kann; in Abwesenheit eines solchen URI sollte die Eigenschaft \\\"responsibility_of\\\" mit einem String-Wert verwendet werden."@de .
+    eli-dl:includes_amendment rdfs:comment "Zeigt eine Änderung an, die verabschiedet und in diese Version des Gesetzesentwurfs aufgenommen wurde. Diese Eigenschaft soll auf einzelne Änderungen verweisen, die zur Integration in den Text des Gesetzes abgestimmt wurden."@de .
+    eli-dl:answers_to rdfs:label "antwortet auf"@de .
+    eli-dl:number_of_votes_against rdfs:label "Anzahl der Gegenstimmen"@de .
+    eli-dl:number_of_votes_against rdfs:comment "Die Gesamtzahl der Gegenstimmen"@de .
+    eli-dl:foreseen_date_of_adoption rdfs:label "vorgesehenes Datum der Verabschiedung"@de .
+    eli:implemented_by rdfs:comment "Diese Eigenschaft ist veraltet. Verwenden Sie stattdessen \\\"applied_by\\\"."@de .
+    eli:LegalValue-authoritative skos:example "\\\"The Queens Printer\\\"-Version eines britischen Parlamentsgesetzes oder die Amtsblattversion einer EU-Richtlinie, veröffentlicht vom Amt für Veröffentlichungen der EU."@de .
+    eli:InForce-partiallyInForce skos:prefLabel "teilweise in Kraft"@de .
+    eli:rights rdfs:label "Rechte"@de .
+    eli-dl:answers_to rdfs:comment "Zeigt an, dass diese Arbeit eine Antwort auf die andere Arbeit ist."@de .
+    eli-dl:LegislativeActivity rdfs:comment "Jede Aktivität, die im Verlauf der Ausarbeitung einer Gesetzgebung stattfindet."@de .
+    eli:Organization rdfs:comment "Institutionen oder Personengruppen, die eine rechtliche Anerkennung als Gruppe erhalten haben und kollektiv als Agenten handeln können."@de .
+    eli-dl:created_a_realization_of_legal_resource rdfs:comment "Zeigt eine LegalResource an, die offiziell als Teil der gesetzgeberischen Aktivität veröffentlicht wird. Dies wird verwendet, um das Ergebnis eines Gesetzgebungsprozesses sowie andere \\\"Zwischen\\\" rechtliche Ressourcen, die im Verlauf der Gesetzesausarbeitung veröffentlicht werden können, anzuzeigen."@de .
+    eli-dl:participant_person_label rdfs:label "Teilnehmerperson Bezeichnung"@de .
+    eli-dl:created_legal_expression rdfs:comment "Zeigt an, dass eine gesetzgeberische Aktivität einen rechtlichen Ausdruck erstellt hat. Typischerweise erstellt ein Gesetzgebungsprozess den endgültigen rechtlichen Ausdruck der Gesetzgebung, wie im Amtsblatt veröffentlicht; dies kann jedoch auch bei gesetzgeberischen Aktivitäten verwendet werden, um auf \\\"Zwischen\\\"-Ausdrücke zu verlinken.\nDiese Eigenschaft ist hauptsächlich für die Kompatibilität mit FRBRoo hier, aber Implementierungen würden es bevorzugen, created_a_realization_of_legal_resource zu verwenden, um auf die Arbeitsebene zu verlinken.\nDies könnte anzeigen, dass einige Ausdrücke der endgültigen LegalResource durch den Gesetzgebungsprozess erstellt wurden und einige andere später übersetzt wurden."@de .
+    eli:passed_by rdfs:label "verabschiedet von"@de .
+    eli:corrected_by rdfs:comment "Umkehrung von \\\"corrects\\\". Zeigt eine Ressource an, die textliche Änderungen (wie die Korrektur von Rechtschreibfehlern) ohne rechtliche Änderung in dieser Arbeit, diesem Ausdruck oder dieser Manifestation einführt; typischerweise Berichtigungen in der EU-Gesetzgebung. Für Änderungen, die rechtliche Auswirkungen haben, verwenden Sie eli:amended_by."@de .
+    eli-dl:decision_outcome rdfs:label "Entscheidungsergebnis"@de .
+    eli-dl:had_excused_person rdfs:label "hatte entschuldigte Person"@de .
+    eli-dl:responsible_organization_label rdfs:label "verantwortliche Organisation Bezeichnung"@de .
+    eli-dl:number_of_attendees rdfs:comment "Die Gesamtzahl der Teilnehmer an der Abstimmung."@de .
+    eli:implemented_by rdfs:label "umgesetzt durch"@de .
+    eli:Work rdfs:comment "Jede eigenständige intellektuelle Schöpfung (d.h. der intellektuelle Inhalt) im Kontext von ELI.\n\nDie Substanz der Arbeit sind Ideen."@de .
+    eli:Language rdfs:label "Sprache"@de .
+    eli:rightsholder rdfs:comment "Eine Person oder Organisation, die Rechte an der Ressource besitzt oder verwaltet (Definition von Dublin Core).\nDiese Eigenschaft sollte verwendet werden, wenn der Wert nicht durch einen geeigneten URI identifiziert werden kann; wenn ein URI verfügbar ist, sollte die Eigenschaft \\\"rightsholder_agent\\\" verwendet werden."@de .
+    eli-dl:adopts rdfs:label "übernimmt"@de .
+    eli:InForce-notInForce skos:prefLabel "nicht in Kraft"@de .
+    eli-dl:legislative_process_work_version rdfs:comment "Die Version oder der Status, in dem sich die Arbeit im Gesetzgebungsverfahren derzeit befindet: vorbereitend, endgültig usw."@de .
+    eli:relevant_for rdfs:label "relevant für"@de .
+    eli:basis_for rdfs:comment "Zeigt an, dass diese Arbeit oder dieser Ausdruck eine andere ermächtigt. Typischerweise ist die primäre Gesetzgebung die Grundlage für die sekundäre Gesetzgebung."@de .
+    eli:commences rdfs:label "setzt in Kraft"@de .
+    eli:is_part_of rdfs:label "ist Teil von"@de .
+    eli-dl:participation_role rdfs:comment "Die Rolle des Agenten in einer Teilnahme."@de .
+    eli:LegalResourceSubdivision rdfs:comment "Eine Komponente eines Rechtsakts auf einer beliebigen Präzisionsebene, wie ein Kapitel, ein Artikel, ein Absatz oder ein Listenelement. Eine Unterteilung kann mit ihrer übergeordneten und untergeordneten Unterteilung unter Verwendung der Eigenschaften eli:has_part / eli:is_part_of verknüpft werden."@de .
+    eli-dl:number_of_votes_abstention rdfs:label "Anzahl der Enthaltungen"@de .
+    eli:LegalValue rdfs:comment "Formal definiert als die Menge der skos:Concept im Konzeptschema eli:LegalValueTable."@de .
+    eli:AdministrativeArea rdfs:comment "Formal definiert als die Menge der skos:Concept entweder im Konzeptschema eli:AdministrativeAreaTable oder im Konzeptschema https://op.europa.eu/en/web/eu-vocabularies/at-dataset/-/resource/dataset/atu (Tabelle der Verwaltungseinheiten, veröffentlicht vom Amt für Veröffentlichungen der EU)."@de .
+    eli:SubdivisionTypeTable rdfs:label "Tabelle des Unterteilungstyps"@de .
+    eli-dl:decision_method rdfs:label "Entscheidungsmethode"@de .
+    eli:version rdfs:comment "Ein skos-Konzeptschema, könnte lokal definiert werden? Der Gruppenvorschlag ist, mit einem initialen ELI-Schema zu beginnen, das Konzepte wie \\\"Amtsblatt\\\", \\\"erlassen\\\", \\\"konsolidiert\\\", \\\"vorgeschlagen\\\", \\\"prospektiv\\\" enthalten könnte."@de .
+    eli:AdministrativeArea rdfs:label "Verwaltungsgebiet"@de .
+    eli:LegalResource rdfs:comment "Eine Arbeit in einem gesetzgeberischen Korpus. Dies gilt für Rechtsakte, die rechtlich erlassen wurden (unabhängig davon, ob sie noch in Kraft sind).\nZum Beispiel das abstrakte Konzept der rechtlichen Ressource; z.B. \\\"Gesetz 3 von 2005\\\" (angepasst von Akoma Ntoso).\n\nEine rechtliche Ressource kann einen Rechtsakt oder jede Komponente eines Rechtsakts, wie einen Artikel, darstellen. Rechtliche Ressourcen können untereinander mit im Modell definierten Eigenschaften verknüpft werden.\n\nBeachten Sie, dass die ELI-Ontologie verschiedene Sichtweisen darauf zulässt, was als neue rechtliche Ressource oder als neuer rechtlicher Ausdruck derselben Ressource betrachtet werden sollte. Typischerweise kann eine konsolidierte Version im Kontext von ELI entweder als separate rechtliche Ressource (verknüpft mit der ursprünglichen Version und der vorherigen konsolidierten Version unter Verwendung entsprechender ELI-Beziehungen) oder als unterschiedlicher rechtlicher Ausdruck derselben rechtlichen Ressource betrachtet werden."@de .
+    eli:implementation_ensured_by rdfs:label "Umsetzung sichergestellt durch"@de .
+    eli:is_translation_of rdfs:comment "Zeigt an, dass dieser Ausdruck aus einem anderen ursprünglichen Ausdruck übersetzt wurde; dies kann verwendet werden, um Originale von abgeleiteten Ausdrücken zu unterscheiden.\n\nBeachten Sie, dass die Feststellung dieses Links keine Auswirkungen auf den rechtlichen Wert der ursprünglichen und übersetzten Ausdrücke hat: Je nach Kontext kann eine Übersetzung genauso rechtlich bindend sein wie die ursprüngliche Version oder nur zu Informationszwecken veröffentlicht werden (z.B. ein Land, das einige Rechtsakte ins Englische übersetzt).\n\nDie mit dieser Eigenschaft verknüpften Ausdrücke können Realisierungen derselben LegalResource oder verschiedener LegalResources sein. Mehrsprachige Gesetzgebungen, die keine Unterscheidung zwischen Original- und abgeleiteten Ausdrücken derselben LegalResource benötigen (z.B. europäische Gesetzgebung), werden diese Eigenschaft nicht verwenden."@de .
+    eli-dl:Activity rdfs:comment "Eine Aktivität, die in einem rechtlichen Kontext stattfindet, entweder in gesetzgebenden Körperschaften wie Parlamenten oder in exekutiven Körperschaften wie Regierungen oder der Europäischen Kommission.\n\nDies kann die Erstellung eines Dokuments beinhalten oder durch ein Dokument ausgelöst werden, das von einer vorherigen Aktivität erstellt wurde.\n\nDies kann verwendet werden, um Aktivitäten auf einer beliebigen Präzisionsebene zu beschreiben: entweder Makroaktivitäten wie \\\"Lesung eines Textes in einer Kammer\\\" oder kleinteilige Aktivitäten wie \\\"Abstimmung zur Wahl des Präsidenten einer Ausschusssitzung\\\"."@de .
+    eli-dl:transposition_deadline rdfs:label "hat Umsetzungsfrist"@de .
+    eli-dl:transposition_deadline rdfs:comment "Die Frist für die Umsetzung der Richtlinie."@de .
+    eli-dl:ParliamentaryTerm rdfs:comment "Eine Parlamentsperiode, z.B. \\\"neunte Legislaturperiode\\\"."@de .
+    eli-dl:activity_end_date rdfs:label "Aktivitätsenddatum"@de .
+    eli:specificPropertyOf rdfs:comment "Zeigt an, dass eine Eigenschaft im allgemeinen Sinne eine spezifischere Eigenschaft einer anderen ist. Dies zieht nicht dieselbe logische Schlussfolgerung wie rdfs:subPropertyOf nach sich.\nDies wird verwendet, um die Ausrichtung auf Dublin Core-Eigenschaften anzuzeigen, ohne die Dublin Core-Eigenschaft in Protégé neu zu deklarieren und ohne sich darauf festzulegen, ob eine Dublin Core-Eigenschaft entweder eine Datentyp- oder eine Objekt-Eigenschaft ist."@de .
+    eli-dl:process_title rdfs:label "Titel des Gesetzgebungsverfahrens"@de .
+    eli-dl:process_status rdfs:comment "Der Status eines Prozesses in einem der möglichen Werte, die in diesem Modell enthalten sind."@de .
+    eli-dl:had_voter_intended_favor rdfs:comment "Zeigt eine Person an, die an einer Abstimmung teilgenommen und zum Ausdruck gebracht hat, dass sie dafür stimmen wollte, aber anders abgestimmt hat."@de .
+    eli:commenced_by rdfs:label "in Kraft gesetzt durch"@de .
+    eli-dl:had_voter_intended_abstention rdfs:label "hatte Wähler beabsichtigte Enthaltung"@de .
+    eli-dl:current_stage rdfs:label "aktuelle Phase"@de .
+    eli-dl:LegislativeActivity rdfs:label "Gesetzgeberische Aktivität"@de .
+    eli:FormatTypeTable rdfs:label "Tabelle des Formattyps"@de .
+    eli:Person rdfs:label "Person"@de .
+    eli-dl:legislative_process_work_date rdfs:comment "Das Datum, an dem eine Arbeit im Gesetzgebungsverfahren erstellt wurde."@de .
+    eli:has_derivative rdfs:label "hat Ableitung"@de .
+    eli:media_type rdfs:label "Medientyp"@de .
+    eli-dl:is_adopted_in rdfs:comment "Zeigt an, dass die Arbeit in einer anderen angenommenen Arbeit angenommen wurde."@de .
+    eli:LegalValue-authoritative skos:prefLabel "maßgeblich"@de .
+    eli:Person rdfs:comment "Eine reale Person, die lebt oder gelebt hat."@de .
+    eli-dl:appointed_participant rdfs:comment "Zeigt einen Stakeholder an, der von der Aktivität für eine andere Aktivität ernannt wurde."@de .
+    eli-dl:legislative_process_work_description rdfs:comment "Eine Beschreibung oder kurze Zusammenfassung für eine im Rahmen eines Gesetzgebungsverfahrens erstellte Arbeit.\n\nBeispiel: \\\"Gesetzentwurf mit dem Titel ein Gesetz zur Änderung der Bestimmungen des Forstgesetzes 2014, um Baugenehmigungen für alle forstwirtschaftlichen Entwicklungen über 5 Hektar vorzusehen; zur Änderung des Raumordnungsgesetzes 2000; und zur Regelung damit zusammenhängender Angelegenheiten.\\\"."@de .
+    eli:changes rdfs:label "ändert"@de .
+    eli:rights rdfs:comment "Informationen über die Rechte, die an und über die Ressource gehalten werden (Definition von Dublin Core). Zum Beispiel kann diese Eigenschaft verwendet werden, um einen Link zu einer Seite bereitzustellen, die die Lizenzbedingungen beschreibt."@de .
+    eli-dl:had_voter_abstention rdfs:comment "Zeigt eine Person an, die an einer Abstimmung mit einer Enthaltungsstimme teilgenommen hat."@de .
+    eli-dl:process_status rdfs:label "Status des Gesetzgebungsverfahrens"@de .
+    eli-dl:foresees_execution_of rdfs:label "sieht Ausführung von vor"@de .
+    eli-dl:participant_person_label rdfs:comment "Der Name einer Person, die an einer Aktivität teilgenommen hat."@de .
+    eli:specificPropertyOf rdfs:label "spezifische Eigenschaft von"@de .
+    eli:Manifestation rdfs:comment "Die physische Verkörperung eines Ausdrucks, entweder auf Papier oder in einem beliebigen elektronischen Format.\n\nDie Substanz der Manifestation sind nicht nur Zeichen, sondern auch die Art und Weise, wie sie den Benutzern präsentiert werden, einschließlich der Art des verwendeten Mediums."@de .
+    eli:cites rdfs:label "zitiert"@de .
+    eli:type_subdivision rdfs:comment "Der Typ einer Dokumentenunterteilung (z.B. \\\"Artikel\\\", \\\"Absatz\\\", \\\"Abschnitt\\\" usw.).\nEine Unterteilung kann nur einen Typ haben.\n\nELI spezifiziert keine Liste möglicher Werte. Mitgliedstaaten werden ermutigt, ihre eigene Liste von Werten im entsprechenden Konzeptschema zu erstellen. Das Amt für Veröffentlichungen der EU stellt eine Liste von Werten für EU-Ressourcentypen unter https://op.europa.eu/en/web/eu-vocabularies/at-dataset/-/resource/dataset/subdivision bereit."@de .
+    eli-dl:had_voter_favor rdfs:label "hatte Wähler dafür"@de .
+    eli-dl:ProcessStage rdfs:comment "Eine Phase in einem Arbeitsablauf. Phasen können auf einer beliebigen Granularitätsebene beschrieben werden.\n\nMögliche Werte müssen von jedem Mitgliedstaat abhängig von seinem Arbeitsablauf beschrieben werden.\n\nBeispiel: \\\"Dáil zweite Phase\\\", \\\"1ère lecture\\\", \\\"examen en commission\\\", usw."@de .
+    eli-dl:DecisionOutcome-Rejected rdfs:comment "Zeigt an, dass die Entscheidung abgelehnt ist."@de .
+    eli:date_no_longer_in_force rdfs:comment "Das letzte Datum, an dem ein Teil der Gesetzgebung in Kraft ist, wenn das Datum bekannt ist (kann als Enddatum eines dc:valid-Bereichs für diese Ressource angesehen werden)."@de .
+    eli:date_document rdfs:label "Datum des Dokuments"@de .
+    eli:applied_by rdfs:comment "Umkehrung von \\\"applies\\\".\n\nBeachten Sie, dass diese Eigenschaft für eine rechtliche Ressource und nicht für einen sprachspezifischen rechtlichen Ausdruck angegeben wird."@de .
+    eli-dl:responsible_person_label rdfs:comment "Der Name einer Person, die für eine Aktivität verantwortlich war."@de .
+    eli:published_in_format rdfs:comment "Referenz auf das Amtsblatt oder eine andere Veröffentlichungsmanifestation, in der dieses Format veröffentlicht wird.\nDiese Eigenschaft sollte verwendet werden, wenn der Wert durch einen geeigneten URI identifiziert werden kann; in Abwesenheit eines solchen URI sollte die Eigenschaft \\\"published_in\\\" mit einem String-Wert verwendet werden."@de .
+    eli-dl:decided_on_a_realization_of rdfs:label "basierend auf einer Realisierung von"@de .
+    eli:changed_by rdfs:comment "Umkehrung von \\\"changes\\\". Zeigt an, dass diese Arbeit oder dieser Ausdruck rechtlich durch eine andere geändert wird. Dies umfasst die Begriffe der Änderung, des Ersatzes, der Aufhebung oder anderer Arten von Änderungen."@de .
+    eli:refers_to rdfs:label "bezieht sich auf"@de .
+    eli-dl:is_adopted_in rdfs:label "ist angenommen in"@de .
+    eli-dl:is_referred_to_by rdfs:comment "Veraltet. Dies wurde in der ELI-Ontologie verallgemeinert. Verwenden Sie stattdessen eli:is_referred_to_by."@de .
+    eli-dl:ProcessStage rdfs:label "Phase eines (Gesetzgebungs-)Verfahrens"@de .
+    eli:WorkType rdfs:label "Formal definiert als die Menge der skos:Concept im Konzeptschema eli:WorkTypeTable."@de .
+    eli:title rdfs:comment "Der Titel oder Name eines Ausdrucks.\n\nBeachten Sie, dass bei Bedarf ein Titel auch für eine Arbeit mit der Dublin Core-Eigenschaft \\\"title\\\" angegeben werden kann."@de .
+    eli:realizes rdfs:comment "Verbindet einen Ausdruck mit einer Arbeit, die durch diesen Ausdruck realisiert wird. Umkehrung von \\\"is_realized_by\\\"."@de .
+    eli:cites rdfs:comment "Zitat im Text der Gesetzgebung. Dies kann auf der Ebene der rechtlichen Ressource oder des rechtlichen Ausdrucks erfolgen, wie es der Implementierungskontext erfordert. Dies umfasst wörtliche Zitate und Zitate in Verweisen."@de .
+    eli-dl:foresees_consolidation_of rdfs:label "sieht Konsolidierung von vor"@de .
+    eli:published_in rdfs:label "veröffentlicht in"@de .
+    eli:print_format skos:prefLabel "Druck"@de .
+    eli:type_subdivision rdfs:label "Typ der Unterteilung"@de .
+    eli:Format rdfs:comment "Die physische Verkörperung eines rechtlichen Ausdrucks, entweder auf Papier oder in einem beliebigen elektronischen Format.\nZum Beispiel jedes elektronische oder physische Format des rechtlichen Ausdrucks (XML, TIFF, PDF usw.); z.B. PDF-Version des Gesetzes 3 von 2005. (angepasst von Akoma Ntoso).\nBeachten Sie, dass der Begriff des Formats in ELI präziser ist als eine FRBR-Manifestation in dem Sinne, dass ein Format in ELI einen rechtlichen Wert tragen kann (siehe die Eigenschaft eli:legal_value)."@de .
+    eli:has_translation rdfs:comment "Umkehrung von \\\"is_translation_of\\\". Zeigt an, dass dieser Ausdruck in einen anderen abgeleiteten Ausdruck übersetzt wurde. Siehe die Definition von \\\"is_translation_of\\\"."@de .
+    eli-dl:produced_manifestation rdfs:comment "Zeigt an, dass eine Aktivität eine Manifestation erstellt hat.\nDiese Eigenschaft ist hauptsächlich für die Kompatibilität mit FRBRoo hier, aber Implementierungen würden es bevorzugen, created_a_realization_of zu verwenden, um auf die Arbeitsebene zu verlinken.\nDies könnte anzeigen, dass einige Manifestationen/Formate der endgültigen LegalResource durch den Gesetzgebungsprozess erstellt wurden und einige andere später generiert wurden."@de .
+    eli:version_date rdfs:label "Versionsdatum"@de .
+    eli-dl:LegislativeProcess rdfs:comment "Ein Prozess der Ausarbeitung einer Gesetzgebung, der alle Phasen der Gesetzeserstellung abdeckt, von der Einleitung bis zur Unterzeichnung oder Verkündung, um es zu einer Gesetzgebung zu machen, einschließlich Lesungen und Versammlungen und der offiziellen Unterzeichnung des Gesetzes.\n\nBeachten Sie, dass die Aktivität der Veröffentlichung der Gesetzgebung in einem Amtsblatt normalerweise nicht Teil des Gesetzgebungsprozesses ist, da sie normalerweise nach der Umwandlung des Gesetzentwurfs in eine offizielle Gesetzgebung erfolgt."@de .
+    eli-dl:DecisionOutcome-Adopted rdfs:comment "Zeigt an, dass die Entscheidung angenommen wurde."@de .
+    eli:version rdfs:label "Version"@de .
+    eli-dl:had_participation rdfs:label "hatte Teilnahme"@de .
+    eli-dl:documented_by_a_realization_of rdfs:label "dokumentiert durch eine Realisierung von"@de .
+    eli: rdfs:label "ELI-Metadaten-Ontologie"@de .
+    eli:changed_by rdfs:label "geändert durch"@de .
+    eli-dl:had_participant_person rdfs:label "hatte Teilnehmerperson"@de .
+    eli-dl:ProcessStatus rdfs:label "Status eines Gesetzgebungsverfahrens"@de .
+    eli:is_about rdfs:label "handelt von"@de .
+    eli-dl:latest_activity rdfs:label "letzte Aktivität"@de .
+    eli:id_local rdfs:label "lokale ID"@de .
+    eli-dl:draft_amended_by rdfs:comment "Zeigt eine Änderung an, die diese Version des Entwurfs ändert - unabhängig davon, ob sie abgestimmt wurde oder nicht."@de .
+    eli-dl:activity_start_date rdfs:comment "Das Datum, an dem eine Aktivität begonnen hat.\n\nDaten können entweder mit Datumspräzision (JJJJ-MM-TT) oder mit Zeitpräzision (JJJJ-MM-TTThh:mm:ss) ausgedrückt werden."@de .
+    eli-dl:responsible_person_label rdfs:label "verantwortliche Person Bezeichnung"@de .
+    eli:type_document rdfs:comment "Der Typ einer rechtlichen Ressource (z.B. \\\"Richtlinie\\\", \\\"Règlement grand-ducal\\\", \\\"Gesetz\\\", \\\"règlement ministériel\\\", \\\"Entwurfsvorlage\\\", \\\"Parlamentsakt\\\" usw.).\n\nMitgliedstaaten werden ermutigt, ihre eigene Liste von Werten im entsprechenden Konzeptschema zu erstellen. Das Amt für Veröffentlichungen der EU stellt eine Liste von Werten für EU-Ressourcentypen unter https://op.europa.eu/en/web/eu-vocabularies/at-dataset/-/resource/dataset/resource-type bereit."@de .
+    eli:has_annex rdfs:label "hat Anhang"@de .
+    eli-dl:foresees_execution_of rdfs:comment "Zeigt eine bereits veröffentlichte LegalResource an, deren Ausführung das zukünftige Gesetz, falls es verabschiedet wird, sicherstellen wird. Leser sollten die Definition der eli:ensures_execution_of-Eigenschaft beachten.\nBeachten Sie, dass sich die rechtlichen Auswirkungen in aufeinanderfolgenden Versionen desselben Dokuments ändern können."@de .
+    eli-dl:ActivityType rdfs:label "Typ einer Aktivität"@de .
+    eli:type_document rdfs:label "Typ des Dokuments"@de .
+    eli:version_date rdfs:comment "Der Zeitpunkt, zu dem die bereitgestellte Beschreibung der Gesetzgebung gültig ist."@de .
+    eli:VersionTable rdfs:label "Versionstabelle"@de .
+    eli-dl:ActivityType rdfs:comment "Der Typ einer Aktivität, z.B. \\\"Lesung\\\", \\\"Ausschusssitzung\\\", \\\"Sitzung des Wirtschafts- und Sozialausschusses\\\" usw."@de .
+    eli-dl:number_of_votes_favor rdfs:comment "Die Gesamtzahl der Stimmen dafür."@de .
+    eli:title_alternative rdfs:label "alternativer Titel"@de .
+    eli-dl:participation_in_name_of rdfs:label "Teilnahme im Namen von"@de .
+    eli-dl:activity_start_date rdfs:label "Aktivitätsstartdatum"@de .
+    eli:amends rdfs:comment "Zeigt an, dass diese Arbeit rechtliche Änderungen in einer anderen Ressource einführt. Für Änderungen ohne rechtliche Auswirkungen verwenden Sie eli:corrects."@de .
+    eli-dl:was_executed_in rdfs:comment "Die Aktivität, die diese geplante Aktivität ausgeführt hat. Zum Beispiel wurde eine Sitzung gemäß der geplanten Aktivität aus der Tagesordnung durchgeführt."@de .
+    eli:publishes rdfs:comment "Umkehrung von \\\"published_in_format\\\". Beachten Sie, dass diese Eigenschaft nicht einen Herausgeber mit einer Ressource verknüpft, sondern eher ein bestimmtes Format einer Ressource mit einem bestimmten Format einer anderen Ressource, was anzeigt, dass das Subjekt-Format das Objekt-Format veröffentlicht."@de .
+    eli:amended_by rdfs:label "geändert durch"@de .
+    eli:publisher rdfs:label "Herausgeber"@de .
+    eli-dl:Process rdfs:comment "Ein Prozess, entweder gesetzgeberisch (die Ausarbeitung eines Gesetzes) oder nicht-gesetzgeberisch, der nicht zu einer Gesetzgebung führen wird."@de .
+    eli:corrected_by rdfs:label "korrigiert durch"@de .
+    eli-dl:foreseen_date_of_adoption rdfs:comment "Das Datum, an dem erwartet wird, dass der Prozess verabschiedet wird, um zu einem offiziellen Gesetz zu werden."@de .
+    eli-dl:process_description rdfs:comment "Eine Beschreibung oder Zusammenfassung für den Prozess."@de .
+    eli-dl:Participation rdfs:label "Teilnahme"@de .
+    eli-dl:DraftLegislationWork rdfs:comment "Arbeiten, die Gesetzentwürfe sind.\n\nWie eli:LegalResource kann diese Klasse verwendet werden, um entweder eine bestimmte Version des Gesetzesentwurfs oder die \\\"abstrakte\\\" Gesetzgebungsarbeit unabhängig von einer ihrer Versionen (in FRBRoo-Begriffen umfasst dies die Begriffe \\\"Individual Work\\\" und \\\"Complex Work\\\") zu identifizieren.\n\nBeispiel: der Gesetzesentwurf \\\"wie eingereicht\\\", der Gesetzesentwurf \\\"nach 1. Lesung\\\", die endgültige Version des Gesetzesentwurfs."@de .
+    eli:Language rdfs:comment "Formal definiert als die Menge der skos:Concept im Konzeptschema http://publications.europa.eu/resource/authority/language."@de .
+    eli-dl:DecisionOutcome rdfs:label "Entscheidungsergebnis"@de .
+    eli-dl:foresees_transposition_of rdfs:comment "Zeigt eine bereits veröffentlichte LegalResource an, die das zukünftige Gesetz, falls es verabschiedet wird, umsetzen wird. Leser sollten die Definition der eli:transposes-Eigenschaft beachten.\nBeachten Sie, dass sich die rechtlichen Auswirkungen in aufeinanderfolgenden Versionen desselben Dokuments ändern können."@de .
+    eli:LegalExpression rdfs:label "Rechtlicher Ausdruck"@de .
+    eli:LegalExpression rdfs:comment "Die intellektuelle Realisierung einer Rechtsquelle in Form einer \\\"Folge von Zeichen\\\" (typischerweise alphanumerische Zeichen im rechtlichen Kontext).\nZum Beispiel jede Version der Rechtsquelle, deren Inhalt aus irgendeinem Grund spezifiziert und von anderen verschieden ist: Sprache, Versionen usw.\n\nBeachten Sie, dass die ELI-Ontologie unterschiedliche Sichtweisen darauf zulässt, was als neue Rechtsquelle oder als neue rechtliche Ausdrucksform derselben Quelle betrachtet werden sollte. Typischerweise kann eine konsolidierte Version im Kontext von ELI entweder als separate Rechtsquelle (verknüpft mit der ursprünglichen Version und der vorherigen konsolidierten Version mittels entsprechender ELI-Beziehungen) oder als unterschiedliche rechtliche Ausdrucksform derselben Rechtsquelle betrachtet werden."@de .
+    eli:ensures_implementation_of rdfs:comment "Zeigt an, dass diese LegalResource die Umsetzung einer anderen LegalResource sicherstellt. Dies impliziert eine rechtliche Bedeutung (im Gegensatz zu eli:applies).\n\nDies kann Verknüpfungen von nationaler Gesetzgebung zu EU-Gesetzgebung oder Verknüpfungen von regionaler zu nationaler Gesetzgebung abdecken. Es kann auch Verknüpfungen von EU-Durchführungsrechtsakten zu EU-Gesetzgebungsakten abdecken. Im Fall der Umsetzung von EU-Gesetzgebung auf nationaler Ebene deckt dies Verknüpfungen zu EU-Verordnungen, Entscheidungen usw. ab. Die Umsetzung von EU-Richtlinien muss jedoch mit eli:transposes erfasst werden.\n\nVerknüpfungen zwischen nationaler primärer und sekundärer Gesetzgebung müssen mit eli:based_on / eli:basis_for erfasst werden."@de .
+    eli-dl:foresees_repeal_of rdfs:comment "Zeigt eine bereits veröffentlichte LegalResource an, die das zukünftige Gesetz, falls es verabschiedet wird, aufheben wird. Leser sollten die Definition der eli:repeals-Eigenschaft beachten.\nBeachten Sie, dass sich die rechtlichen Auswirkungen in aufeinanderfolgenden Versionen desselben Dokuments ändern können."@de .
+    eli:title_short rdfs:comment "Etablierter Kurztitel des Ausdrucks (falls vorhanden)."@de .
+    eli-dl:LegislativeProcessWorkType rdfs:label "Typ einer Arbeit im Gesetzgebungsverfahren"@de .
+    eli:InForceTable rdfs:label "Tabelle der Rechtskraft"@de .
+    eli-dl:LegislativeProcess rdfs:label "Gesetzgebungsprozess"@de .
+    eli:InForce-inForce skos:definition "Zeigt an, dass eine rechtliche Ressource in Kraft ist."@de .
+    eli-dl:parliamentary_term rdfs:comment "Die Parlamentsperiode, in der die Aktivität stattfand."@de .
+    eli:title_short rdfs:label "Kurztitel"@de .
+    eli-dl:process_keyword rdfs:comment "Die Stichwörter, das Thema oder die Kategorien für einen Prozess.\n\nBeispiel: Das Verfahren 2016/0382/COD hat Eurovoc-Stichwörter Energieverbrauch, Luftverschmutzung, erneuerbare Ressourcen, EU-Programm, Umweltzusammenarbeit, Treibhausgas, Reduzierung von Gasemissionen, Energieeinsparung und erneuerbare Energien."@de .
+    eli:ResourceType rdfs:comment "Formal definiert als die Menge der skos:Concept im Konzeptschema eli:ResourceTypeTable."@de .
+    eli:consolidates rdfs:label "konsolidiert"@de .
+    eli:rightsholder_agent rdfs:label "Rechteinhaber Agent"@de .
+    eli:amended_by rdfs:comment "Umkehrung von \\\"amends\\\". Zeigt eine Arbeit an, die rechtliche Änderungen in dieser Ressource eingeführt hat. Für Änderungen ohne rechtliche Auswirkungen verwenden Sie eli:corrected_by."@de .
+    eli:LegalValue-unofficial skos:prefLabel "inoffiziell"@de .
+    eli-dl:created_a_realization_of rdfs:label "erstellte eine Realisierung von"@de .
+    eli-dl:current_stage rdfs:comment "Die letzte Phase, in der sich ein Prozess derzeit befindet.\n\nDies ist eine Abkürzung für den vollständigen Pfad Process latest_activity Activity occured_at_stage ProcessStage.\n\nBeispiel: Gesetzentwurf 105 von 2019 befindet sich derzeit in der Phase \\\"Seanad Éireann, Zweite Phase\\\"."@de .
+    eli:SubdivisionType rdfs:comment "Formal definiert als die Menge der skos:Concept im Konzeptschema eli:SubdivisionTypeTable."@de .
+    eli:InForce rdfs:comment "Formal definiert als die Menge der skos:Concept im Konzeptschema eli:InForceTable."@de .
+    eli-dl:LegislativeProcessWorkType rdfs:comment "Ein möglicher Typ für eine Arbeit im Gesetzgebungsprojekt."@de .
+    eli-dl:legislative_process_work_description rdfs:label "Beschreibung der Arbeit im Gesetzgebungsverfahren"@de .
+    eli:date_no_longer_in_force rdfs:label "Datum nicht mehr in Kraft"@de .
+    eli-dl:activity_order rdfs:label "Aktivitätsreihenfolge"@de .
+    eli:title_alternative rdfs:comment "Ein alternativer Titel des Ausdrucks (falls vorhanden).\n\nBeachten Sie, dass bei Bedarf ein alternativer Titel auch für eine Arbeit mit der Dublin Core-Eigenschaft \\\"alternative\\\" angegeben werden kann."@de .
+    eli-dl:had_participant_organization rdfs:label "hatte Teilnehmerorganisation"@de .
+    eli:licence rdfs:label "Lizenz"@de .
+    eli:licence rdfs:comment "Ein rechtliches Dokument, das offizielle Erlaubnis gibt, etwas mit der Ressource zu tun (Definition von Dublin Core)."@de .
+    eli:publisher_agent rdfs:comment "Eine Entität, die für die Bereitstellung der Ressource verantwortlich ist (Definition von Dublin Core).\nDiese Eigenschaft sollte verwendet werden, wenn der Wert durch einen geeigneten URI identifiziert werden kann; in Abwesenheit eines solchen URI sollte die Eigenschaft \\\"publisher\\\" mit einem String-Wert verwendet werden."@de .
+    eli:is_embodied_by rdfs:label "ist verkörpert durch"@de .
+    eli:is_translation_of rdfs:label "ist Übersetzung von"@de .
+    eli-dl:DraftLegislationWork rdfs:label "Arbeit an Gesetzentwurf"@de .
+    eli-dl:adopts rdfs:comment "Zeigt an, dass die Arbeit die angenommene Arbeit einer oder mehrerer verwandter Arbeiten darstellt."@de .
+    eli-dl:Participation rdfs:comment "Die Teilnahme eines Agenten an einer Aktivität in einer bestimmten Rolle und möglicherweise im Namen eines anderen Agenten."@de .
+    eli:jurisdiction rdfs:comment "Die Gerichtsbarkeit, aus der die rechtliche Ressource stammt.\n\nDer Ortsidentifikator kann aus der Tabelle der Verwaltungseinheiten des Amts für Veröffentlichungen der EU unter https://op.europa.eu/en/web/eu-vocabularies/at-dataset/-/resource/dataset/atu entnommen werden. Mitgliedstaaten müssen keine eigene Werteliste erstellen."@de .
+    eli-dl:refers_to rdfs:label "bezieht sich auf"@de .
+    eli:repeals rdfs:label "hebt auf"@de .
+    eli-dl:number_of_votes_favor rdfs:label "Anzahl der Stimmen dafür"@de .
+    eli-dl:foresees_change_of rdfs:comment "Zeigt eine bereits veröffentlichte LegalResource an, die das zukünftige Gesetz, falls es verabschiedet wird, ändern wird. Leser sollten die Definition der eli:changes-Eigenschaft beachten.\nBeachten Sie, dass sich die rechtlichen Auswirkungen in aufeinanderfolgenden Versionen desselben Dokuments ändern können."@de .
+    eli-dl:had_voter_against rdfs:comment "Zeigt eine Person an, die an einer Abstimmung mit einer Gegenstimme teilgenommen hat."@de .
+    eli-dl:activity_end_date rdfs:comment "Das Datum, an dem eine Aktivität endete.\n\nDaten können entweder mit Datumspräzision (JJJJ-MM-TT) oder mit Zeitpräzision (JJJJ-MM-TTThh:mm:ss) ausgedrückt werden."@de .
+    eli:WorkTypeTable rdfs:label "Werktyp-Tabelle"@de .
+    eli:in_force eli:originalName "Status"@de .
+    eli:realizes rdfs:label "realisiert"@de .
+    eli:InForce-inForce skos:prefLabel "in Kraft"@de .
+    eli-dl:ProcessType rdfs:comment "Ein möglicher Typ für ein Gesetzgebungsverfahren."@de .
+    eli-dl:was_motivated_by rdfs:label "wurde motiviert durch"@de .
+    eli-dl:refers_to rdfs:comment "Veraltet. Dies wurde in der ELI-Ontologie verallgemeinert. Verwenden Sie stattdessen eli:refers_to."@de .
+    eli:FormatTypeTable rdfs:comment "Ein Satz von Typen für ein Format.\nELI enthält eine Liste von Werten für diese Tabelle.\nDies sollte benutzerorientierte Typen enthalten, um z.B. authentische PDFs von gescannten PDFs von generierten PDFs zu unterscheiden; oder z.B. XML in einem Standardformat (AkomaNtoso) vs. XML in einem proprietären Format."@de .
+    eli-dl:created_a_realization_of rdfs:comment "Zeigt an, dass eine Aktivität eine Arbeit erstellt hat. Die Arbeiten werden als \\\"Output\\\" der Aktivität betrachtet.\n\nDiese Eigenschaft soll auf den Text des Gesetzentwurfs, die Änderungen, die Stellungnahmen usw. verweisen, um auf die endgültige LegalResource zu verweisen, die als Ergebnis eines Gesetzgebungsprozesses veröffentlicht wurde, verwenden Sie die alternative Eigenschaft \\\"created_a_realization_of_legal_resource\\\".\n\nFür Aufzeichnungen von Debatten, die nicht wirklich \\\"Outputs\\\" der Aktivität sind, verwenden Sie die alternative Eigenschaft \\\"recorded_in_realization_of\\\".\n\nHinweis: Die Benennung \\\"erstellte eine Realisierung von\\\" stammt aus FRBRoo. Da eine Arbeit eine Idee ist, die nur im Geist der Menschen existiert, kann nicht einfach gesagt werden, dass eine Aktivität eine Arbeit \\\"erstellt\\\" hat, sondern wirklich \\\"eine Ausdrucksform dieser Arbeit erstellt\\\" hat."@de .
+    eli:applies rdfs:comment "Zeigt an, dass diese Gesetzgebung (oder Teil einer Gesetzgebung) irgendwie mit einer anderen Gesetzgebung übereinstimmt. Dies ist ein informativer Link und hat keinen rechtlichen Wert. Für rechtlich bindende Links der Umsetzung verwenden Sie die Eigenschaft transposes. Dies kann beispielsweise verwendet werden:\n - wenn ein bereits bestehendes Gesetz mit einer kürzlich erlassenen europäischen Richtlinie übereinstimmt (in diesem Fall \\\"setzt\\\" es sie nicht streng um);\n - wenn Nicht-EU-Mitgliedstaaten sicherstellen, dass ihre Gesetzgebung mit dem EU-Recht übereinstimmt, ohne es streng umzusetzen;\n - wenn eine Gesetzgebung einer lokalen Behörde mit einer nationalen Gesetzgebung übereinstimmt;\n\nBeachten Sie, dass dies auf eine LegalResource und nicht auf einen sprachspezifischen Ausdruck verweisen sollte."@de .
+    eli-dl:had_legal_basis rdfs:label "hatte rechtliche Grundlage"@de .
+    eli-dl:had_legal_basis rdfs:comment "Gibt einen Rechtsakt an, der den gesetzgeberischen Arbeitsablauf spezifiziert, in dem diese Aktivität stattfindet.\n\nBeispiel: \\\"Die Unterzeichnung durch den Präsidenten des Europäischen Parlaments und den Präsidenten des Rates des Verfahrens 2016/0382/COD hatte die Rechtsgrundlage AEUV/Art. 294 und AEUV/Art. 194 Abs. 2\\\"."@de .
+    eli-dl:LegislativeProcessWorkVersion rdfs:comment "Die Version einer Arbeit im Gesetzgebungsverfahren. Zum Beispiel kann eine Änderung in einem vorbereitenden (vorbereitenden) Status sein, bevor sie eingebracht (endgültig) wird.\n\nELI-DL bietet 2 mögliche Werte: Vorbereitend und Endgültig. Andere Werte können von Implementierern definiert werden, um z.B. die möglichen Status einer Änderung, einer Stellungnahme usw. zu verfeinern."@de .
+    eli-dl:number_of_votes_abstention rdfs:comment "Die Gesamtzahl der Enthaltungen."@de .
+    eli-dl:amendment_included_in rdfs:comment "Zeigt die Basisarbeit an, in der die von einer Änderung vorgeschlagenen Modifikationen integriert wurden. Dies kann ein Verweis auf eine bestimmte Version des Entwurfs sein, in welchem Fall auf die \\\"nächste\\\" Version des Entwurfs verwiesen werden sollte, oder auf die abstrakte Entwurfsarbeit, wenn die Versionen nicht als separate Entitäten deklariert sind.\n\nÄnderungen, die nicht abgestimmt wurden, haben diese Eigenschaft nicht, sie ist somit optional; Änderungen können in höchstens eine Entwurfsarbeit integriert werden."@de .
+    eli-dl:foresees_change_of rdfs:label "sieht Änderung von vor"@de .
+    eli:is_referred_to_by rdfs:label "wird verwiesen von"@de .
+    eli:Agent rdfs:comment "Einzelne Personen oder Personengruppen, wie eine Institution mit rechtlicher Anerkennung, die die Fähigkeit haben, absichtliche Handlungen durchzuführen, für die sie verantwortlich gemacht werden können."@de .
+    eli-dl:Process rdfs:label "Prozess"@de .
+    eli-dl:is_subject_of rdfs:label "ist Gegenstand von"@de .
+    eli:implements rdfs:label "implementiert"@de .
+    eli-dl:is_answered_in rdfs:comment "Zeigt an, dass diese Arbeit eine Antwort in einer anderen Arbeit hat."@de .
+    eli-dl:amendment_included_in rdfs:label "Änderung enthalten in"@de .
+    eli:LegalValue-definitive skos:example "Die digital signierte Version eines Amtsblatts."@de .
+    eli-dl:participant_organization_label rdfs:comment "Der Name einer Organisation, die an einer Aktivität teilgenommen hat."@de .
+    eli:repealed_by rdfs:label "aufgehoben durch"@de .
+    eli:is_exemplified_by rdfs:label "ist exemplifiziert durch"@de .
+    eli:is_exemplified_by rdfs:comment "Verweis auf eine konkrete Datei-URL.\nVerknüpft eine Manifestation mit einem einzelnen Exemplar oder einer Instanz dieser Manifestation."@de .
+    eli:applied_by rdfs:label "angewendet durch"@de .
+    eli:work_type rdfs:comment "Der Typ einer Arbeit, entnommen aus einem kontrollierten Vokabular.\n\nMitgliedstaaten müssen ihre eigenen Arbeitstyp-Werte definieren."@de .
+    eli:cited_by_case_law_reference rdfs:comment "Zeigt an, dass diese LegalResource oder LegalExpression in einer Rechtsprechung zitiert wird, die nicht durch einen geeigneten URI identifiziert werden kann und durch einen textuellen Verweis angegeben wird. Ein ECLI (European Case Law Identifier) kann hier verwendet werden.\nWenn die Rechtsprechung durch einen geeigneten URI identifiziert werden kann, sollte stattdessen die Eigenschaft eli:cited_by_case_law verwendet werden."@de .
+    eli-dl:recorded_in_a_realization_of rdfs:label "aufgezeichnet in einer Realisierung von"@de .
+    eli-dl:recorded_in_realization_of rdfs:comment "Dies ist veraltet. Verwenden Sie recorded_in_a_realization_of."@de .
+    eli-dl:foresees_transposition_of rdfs:label "sieht Umsetzung von vor"@de .
+    eli-dl:AmendmentToDraftLegislationWork rdfs:label "Änderung an Gesetzentwurf"@de .
+    eli:number rdfs:label "Nummer"@de .
+    eli:LegalValue-official skos:prefLabel "offiziell"@de .
+    eli-dl:date_last_update rdfs:label "Datum der letzten Aktualisierung"@de .
+    eli:ResourceTypeTable rdfs:label "Ressourcentyp-Tabelle"@de .
+    eli:AdministrativeAreaTable rdfs:label "Tabelle der Verwaltungsgebiete"@de .
+    eli:cited_by_case_law rdfs:label "zitiert von Rechtsprechung"@de .
+    eli-dl:process_id rdfs:comment "Ein Identifikator für den Prozess. Dies soll erfassen, wie der Prozess von Gesetzgebern identifiziert wird. Ein Prozess kann mehrere Identifikatoren für verschiedene Institutionen haben, z.B. einen Identifikator für die Regierung und einen Identifikator für das Parlament.\n\nBeachten Sie, dass eine Untereigenschaft process_external_id existiert, um den Identifikator einer anderen Institution abhängig von der Perspektive zu erfassen."@de .
+    eli-dl:consists_of rdfs:label "besteht aus"@de .
+    eli-dl:consists_of rdfs:comment "Gibt eine feingranularere Aktivität an, die innerhalb dieser stattfindet. Dies ermöglicht das Verschachteln von Aktivitäten ineinander mit beliebiger Präzision.\n\nBeispiel: \\\"Gesetzgebungsverfahren Nr. 384\\\" besteht aus \\\"Einleitung des Verfahrens 384\\\", \\\"Erste Lesung in der Nationalversammlung des Gesetzgebungsverfahrens 384\\\", \\\"Erste Lesung im Senat des Gesetzgebungsverfahrens 384\\\", \\\"Lesung im Vermittlungsausschuss des Gesetzgebungsverfahrens 384\\\" und \\\"Verabschiedung des Gesetzgebungsverfahrens 384\\\"."@de .
+    eli-dl:had_responsible_organization rdfs:comment "Die Organisation, die für die Durchführung der Aktivität verantwortlich ist. Dies kann die Institution sein, in der die Aktivität stattfand, oder ein Dienst, eine Kommission.\n\nBeispiel:\nDie Aktivität \\\"1. Lesung von 2016/0382/COD\\\" hatte die verantwortliche Organisation Europäisches Parlament.\nDas EU-Verfahren 2016/0382/COD hatte die verantwortliche Organisation Generaldirektion Energie."@de .
+    eli-dl:Activity rdfs:label "Aktivität"@de .
+    eli-dl:legislative_process_work_creator rdfs:label "Ersteller der Arbeit im Gesetzgebungsverfahren"@de .
+    eli-dl:activity_id rdfs:label "Aktivitäts-ID"@de .
+    eli:is_member_of rdfs:comment "Zeigt an, dass diese Arbeit konzeptuell in einer anderen enthalten ist. Im Fall einer Gesetzgebung sind ihre aufeinanderfolgenden zeitlichen Versionen konzeptuell Mitglieder einer einzigen \\\"abstrakten\\\" Ressource. Für den Begriff der physischen Einbeziehung verwenden Sie eli:is_part_of."@de .
+    eli:date_document rdfs:comment "Datum der Verabschiedung oder Unterzeichnung (im Format JJJJ-MM-TT)."@de .
+    eli-dl:process_type rdfs:label "Typ des Gesetzgebungsverfahrens"@de .
+    eli:LegalValue-definitive skos:prefLabel "endgültig"@de .
+    eli-dl:had_voter_intended_against rdfs:label "hatte Wähler beabsichtigte Gegenstimme"@de .
+    eli-dl:LegislativeProcessWork rdfs:comment "Jede Arbeit, die von einer Aktivität während eines Gesetzgebungsverfahrens erstellt wurde.\nWenn die Arbeit eine Version des Gesetzesentwurfs oder eine Änderung ist, sollten spezifischere Unterklassen verwendet werden.\n\nBeispiel: eine Folgenabschätzung, eine Stellungnahme eines Ausschusses, eine Debattenaufzeichnung oder ein Transkript."@de .
+    eli-dl:decided_on_a_realization_of rdfs:comment "Zeigt an, dass die Entscheidungsaktivität über eine Arbeit entschieden hat. Dies ist eine spezifische Art von \\\"Input\\\" der Aktivität."@de .
+    eli:is_embodied_by rdfs:comment "Verbindet einen Ausdruck mit einer Manifestation dieses Ausdrucks. Umkehrung von \\\"embodies\\\"."@de .
+    eli:has_member rdfs:label "hat Mitglied"@de .
+    eli-dl:process_id rdfs:label "ID des Gesetzgebungsverfahrens"@de .
+    eli:ResourceType rdfs:label "Ressourcentyp"@de .
+    eli-dl:activity_label rdfs:comment "Eine Bezeichnung für die Aktivität, die beschreibt, was durchgeführt wird."@de .
+    eli:SubdivisionTypeTable rdfs:comment "Ein Satz von Typen für eine Unterteilung einer rechtlichen Ressource.\nELI enthält keinen Satz von Werten für diese Tabelle."@de .
+    eli-dl:Decision rdfs:label "Entscheidung"@de .
+    eli:WorkSubdivision rdfs:label "Unterteilung der Arbeit"@de .
+    eli:title rdfs:label "Titel"@de .
+    eli:work_type rdfs:label "Werktyp"@de .
+    eli:cited_by rdfs:label "zitiert von"@de .
+    eli:Work rdfs:label "Werk"@de .
+    eli:InForce-partiallyInForce skos:definition "Zeigt an, dass Teile der rechtlichen Ressource in Kraft sind und Teile nicht."@de .
+    eli-dl:based_on_a_realization_of rdfs:label "basierend auf einer Realisierung von"@de .
+    eli-dl:foresees_amendment_of rdfs:comment "Zeigt eine bereits veröffentlichte LegalResource an, die das zukünftige Gesetz, falls es verabschiedet wird, ändern wird. Leser sollten die Definition der eli:amends-Eigenschaft beachten.\nBeachten Sie, dass sich die rechtlichen Auswirkungen in aufeinanderfolgenden Versionen desselben Dokuments ändern können."@de .
+    eli-dl:occured_at_stage rdfs:label "trat auf in Phase"@de .
+    eli-dl:foresees_repeal_of rdfs:label "sieht Aufhebung von vor"@de .
+    eli:first_date_entry_in_force rdfs:label "erstes Datum des Inkrafttretens"@de .
+    eli:based_on rdfs:comment "Umkehrung von \\\"basis_for\\\". Zeigt an, dass diese Arbeit durch eine andere ermächtigt wird, typischerweise eine Verfassung, ein Vertrag oder ein Ermächtigungsgesetz."@de .
+    eli-dl:Decision rdfs:comment "Eine spezifische Art von Aktivität, die zu einem Entscheidungsergebnis führte. Entscheidungen können formal auf der Grundlage eines schriftlichen Dokuments getroffen werden."@de .
+    eli:Manifestation rdfs:label "Manifestation"@de .
+    eli-dl:had_responsible_person rdfs:label "hatte verantwortliche Person"@de .
+    eli:commences rdfs:comment "Zeigt an, dass diese rechtliche Ressource eine andere rechtliche Ressource in Kraft setzt.\nBeachten Sie, dass das Datum des Inkrafttretens der anderen Ressource entsprechend geändert werden sollte.\nBeachten Sie auch, dass es nicht möglich ist anzugeben, wann das Inkrafttreten stattfinden soll."@de .
+    eli:description rdfs:comment "Eine Beschreibung der Ressource (Definition von Dublin Core), z.B. eine Zusammenfassung."@de .
+    eli:uri_schema rdfs:label "URI-Schema"@de .
+    eli-dl:AmendmentToDraftLegislationWork rdfs:comment "Eine Änderung, die erstellt wurde, um eine bestimmte Version eines Gesetzesentwurfs zu ändern.\n\nÄnderungen können beschrieben und veröffentlicht werden, auch wenn sie noch nicht abgestimmt wurden oder sogar wenn sie abgelehnt wurden.\n\nDies dient dazu, sowohl eine einzelne Änderung als auch ein Dokument, das eine Liste von Änderungen enthält, zu identifizieren.\n\nUm ein Dokument zu beschreiben, das eine Liste von Änderungen enthält, kann die Beziehung has_part zwischen der Instanz von AmendmentToDraftLegislationWork, die die Änderungsliste identifiziert, und jeder Instanz von AmendmentToDraftLegislationWork, die eine einzelne Änderung innerhalb der Liste identifiziert, verwendet werden."@de .
+    eli:is_annex_of rdfs:comment "Zeigt an, dass diese Arbeit oder dieser Ausdruck ein Anhang einer anderen ist."@de .
+    eli:responsibility_of rdfs:comment "Eine Einzelperson, Organisation oder Organisationseinheit, die eine Art von Verantwortung für die Gesetzgebung hat. Typischerweise das Ministerium, das für die Ausarbeitung der Gesetzgebung zuständig ist oder der Ansprechpartner für mögliche Fragen zur Gesetzgebung nach ihrer Veröffentlichung.\nDiese Eigenschaft sollte verwendet werden, wenn der Wert nicht durch einen geeigneten URI identifiziert werden kann; wenn ein URI verfügbar ist, sollte die Eigenschaft \\\"responsibility_of_agent\\\" verwendet werden."@de .
+    eli-dl:DecisionOutcome-Adopted rdfs:label "Angenommen"@de .
+    eli-dl:draft_amended_by rdfs:label "Entwurf geändert durch"@de .
+    eli:has_derivative rdfs:comment "Umkehrung von is_derivative_of."@de .
+    eli:is_realized_by rdfs:label "ist realisiert durch"@de .
+    eli-dl:occured_at_stage rdfs:comment "Die Phase, in der eine Aktivität stattfand.\n\nDie Beschreibung der Phasen selbst bleibt den Implementierern überlassen.\n\nBeispiel: Die Aktivität \\\"Vorstellung des Gesetzentwurfs 78 von 2018\\\" entspricht der Phase \\\"Vorstellung im Haus\\\". Die Aktivität \\\"1ère lecture - Examen en commission du projet de loi 323\\\" entspricht der Phase \\\"Examen en commission\\\"."@de .
+    eli:publisher rdfs:comment "Eine Entität, die für die Bereitstellung der Ressource verantwortlich ist (Definition von Dublin Core).\nDiese Eigenschaft sollte verwendet werden, wenn der Wert nicht durch einen geeigneten URI identifiziert werden kann; wenn ein URI verfügbar ist, sollte die Eigenschaft \\\"publisher_agent\\\" verwendet werden."@de .
+    eli-dl:LegislativeProcessWorkVersion rdfs:label "Version einer Arbeit im Gesetzgebungsverfahren"@de .
+    eli-dl:foreseen_type_document rdfs:comment "Zeigt den erwarteten Typ der Gesetzgebung an, die das Ergebnis dieses Gesetzgebungsverfahrens sein wird.\nDer erwartete Typ der Gesetzgebung kann sich im Laufe der Zeit ändern.\n\nDer Wert muss aus der ResourceType-Tabelle entnommen werden, die bereits für die eli:type_document-Eigenschaft verwendet wird."@de .
+    eli-dl:activity_order rdfs:comment "Zeigt die Reihenfolge dieser Aktivität in einer Abfolge von Aktivitäten an. Beachten Sie, dass der Bereich dieser Eigenschaft xsd:decimal ist, sodass es immer möglich ist, eine neue Aktivität zwischen zwei aufeinanderfolgende bestehende Aktivitäten einzuordnen."@de .
+    eli:is_another_publication_of rdfs:label "ist eine weitere Veröffentlichung von"@de .
+    eli-dl:is_answered_in rdfs:label "ist beantwortet in"@de .
+    eli:published_in rdfs:comment "Referenz auf das Amtsblatt oder eine andere Veröffentlichungsmanifestation, in der dieses Format veröffentlicht wird.\nDiese Eigenschaft sollte verwendet werden, wenn der Wert nicht durch einen geeigneten URI identifiziert werden kann; wenn ein URI verfügbar ist, sollte die Eigenschaft \\\"published_in_format\\\" verwendet werden."@de .
+  }
+}
