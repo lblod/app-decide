@@ -1,0 +1,12 @@
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+
+INSERT {
+  GRAPH ?g {
+    ?dataService dcat:landingPage <https://ds.decide.lblod.info/sparql> .
+  }
+}
+WHERE {
+  GRAPH ?g {
+    ?dataService a dcat:DataService .
+  }
+}
