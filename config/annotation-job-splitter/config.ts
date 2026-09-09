@@ -77,5 +77,51 @@ export default {
           },
         ],
       },
+    // The -untranslated variants below skip the translating task and segment the
+    // original ELI expressions directly. NER then runs in the source language and
+    // annotates the original expression, so no entity projection is needed.
+    'http://lblod.data.gift/id/jobs/concept/JobOperation/ner-and-nel-annotations-untranslated':
+      {
+        taskConfiguration: [
+          {
+            currentOperation:
+              'http://lblod.data.gift/id/jobs/concept/TaskOperation/annotation-split-tasks',
+            nextOperation:
+              'http://lblod.data.gift/id/jobs/concept/TaskOperation/segmenting',
+            resourceLimit: 1000,
+            resourceFilter: `
+              FILTER NOT EXISTS {
+                ?original <http://purl.org/linguistics/gold/translation> ?resource .
+              }
+              FILTER NOT EXISTS {
+                ?someTask <http://redpencil.data.gift/vocabularies/tasks/operation> <http://lblod.data.gift/id/jobs/concept/TaskOperation/segmenting> .
+                ?someTask <http://redpencil.data.gift/vocabularies/tasks/inputContainer> / <http://redpencil.data.gift/vocabularies/tasks/hasResource> ?resource .
+              }
+            `,
+          },
+        ],
+      },
+    'http://lblod.data.gift/id/jobs/concept/JobOperation/harvesting/json-to-enriched-untranslated':
+      {
+        taskConfiguration: [
+          {
+            currentOperation:
+              'http://lblod.data.gift/id/jobs/concept/TaskOperation/split-task-json-to-eli',
+            nextOperation:
+              'http://lblod.data.gift/id/jobs/concept/TaskOperation/segmenting',
+          },
+        ],
+      },
+    'http://lblod.data.gift/id/jobs/concept/JobOperation/harvesting/pdf-to-enriched-untranslated':
+      {
+        taskConfiguration: [
+          {
+            currentOperation:
+              'http://lblod.data.gift/id/jobs/concept/TaskOperation/split-task-pdf-to-enriched-translating',
+            nextOperation:
+              'http://lblod.data.gift/id/jobs/concept/TaskOperation/segmenting',
+          },
+        ],
+      },
   },
 };
