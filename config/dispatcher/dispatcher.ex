@@ -77,6 +77,13 @@ defmodule Dispatcher do
     Proxy.forward conn, [], "http://database:8890/sparql"
   end
 
+  # NOTE (09/09/2026): Additional rule to ensure requests for SPARQL endpoint on
+  # DCAT frontend are actually forwarded to frontend instead of directly to the
+  # SPARQL endpoint below.
+  match "/sparql", %{ reverse_host: ["ds" | _rest], accept: [:html], layer: :sparql} do
+    forward(conn, [], "http://frontend-dcat/index.html")
+  end
+
   match "/sparql", %{ accept: [:any], layer: :sparql } do
     Proxy.forward conn, [], "http://database:8890/sparql"
   end
