@@ -146,7 +146,12 @@ SELECT ?issued WHERE {{ GRAPH <{graph}> {{ <{subject}> dct:issued ?issued . }} }
 
 def enhance_uris(shapesGraph: RDFGraph, prefix: str, add: str) -> RDFGraph:
     """
-    Read a Turtle file, replace any subject/object URI starting with `prefix` with a new URI of the form `prefix` + `/` + `add`
+    Read a Turtle file, replace any subject/object URI starting with `prefix` with a new URI of the form `prefix` + `-` + `add`.
+
+    Joined with `-` rather than `/`: appending as a new path segment made every shape's URI end in
+    just `/<add>`, so shacl-play's diagram generator (which derives PlantUML "diamond" node names from
+    each shape's local name) saw every shape resolve to the same local name and collided when a node
+    shape had more than one sh:or property.
     """
     new_g = RDFGraph()
     # preserve any bound namespace prefixes
@@ -157,9 +162,9 @@ def enhance_uris(shapesGraph: RDFGraph, prefix: str, add: str) -> RDFGraph:
         new_s = s
         new_o = o
         if isinstance(s, URIRef) and str(s).startswith(prefix):
-            new_s = URIRef(f"{str(s)}/{add}")
+            new_s = URIRef(f"{str(s)}-{add}")
         if isinstance(o, URIRef) and str(o).startswith(prefix):
-            new_o = URIRef(f"{str(o)}/{add}")
+            new_o = URIRef(f"{str(o)}-{add}")
         new_g.add((new_s, p, new_o))
 
     return new_g
