@@ -17,7 +17,7 @@ services:
     volumes:
       - ../config/annotation-review:/config
   frontend-human-validator:
-    image: lblod/frontend-decide-human-validator:0.0.17
+    image: lblod/frontend-decide-human-validator:0.0.18
     labels:
       - 'logging=true'
     restart: always
