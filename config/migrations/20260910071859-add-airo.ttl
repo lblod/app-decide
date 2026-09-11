@@ -1,0 +1,926 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sd: <https://w3id.org/okn/o/sd#> .
+@prefix airo: <https://w3id.org/airo#> .
+@prefix dqv: <http://www.w3.org/ns/dqv#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix schema: <https://schema.org/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+
+@prefix ext: <http://mu.semte.ch/vocabularies/ext/> .
+@prefix conceptscheme: <http://lblod.data.gift/id/conceptschemes/> .
+@prefix concept: <http://lblod.data.gift/id/concepts/> .
+@prefix concept-ner: <http://lblod.data.gift/id/concept/named-entity-recognition/> .
+@prefix concept-nerf: <http://lblod.data.gift/id/concept/named-entity-refinement/> .
+@prefix concept-lr: <http://lblod.data.gift/id/concept/location-refinement/> .
+
+@prefix metric: <http://lblod.data.gift/id/metrics/> .
+@prefix dim: <http://lblod.data.gift/id/dims/> .
+@prefix qm: <http://lblod.data.gift/id/quality-measurements/> .
+@prefix input: <http://lblod.data.gift/id/inputs/> .
+
+@prefix model: <http://lblod.data.gift/id/ai-models/> .
+@prefix version: <http://lblod.data.gift/id/softwares/> .
+@prefix code: <http://lblod.data.gift/id/source-codes/> .
+
+<http://lblod.data.gift/id/pipelines/pdf-to-eli/v1.0.0> a airo:AISystem ;
+  dcterms:title "Transform a PDF to an ELI work with the content stored as an ELI expression"@en ;
+  dcterms:description "A system to fetch a remote or local PDF, extract its content and store it as ELI work + ELI expression."@en  ;
+  airo:hasComponent <http://lblod.data.gift/id/services/pdf-content-extraction/v1.0.0> .
+
+<http://lblod.data.gift/id/pipelines/pdf-to-enriched/v1.0.0> a airo:AISystem ;
+  dcterms:title "Extract decisions from PDFs and enrich the data with annotations"@en ;
+  dcterms:description "A system to fetch a remote or local PDF, extract its content, store it as ELI work + ELI expression, and enrich the data with by annotating linked entities."@en  ;
+  airo:hasComponent <http://lblod.data.gift/id/services/pdf-content-extraction/v1.0.0> ,
+    <http://lblod.data.gift/id/services/ner/v1.0.0> ,
+    <http://lblod.data.gift/id/services/nel/v1.0.0> .
+
+<http://lblod.data.gift/id/pipelines/json-to-enriched/v1.0.0> a airo:AISystem ;
+  dcterms:title "JSON to enriched Linked Data system"@en ;
+  dcterms:description "A system that receives structured JSON data and extracts ELI Work and Expression resources from it.  The extracted resources are enriched with annotations identifying entities."@en ;
+  airo:hasComponent <http://lblod.data.gift/id/services/ner/v1.0.0> ,
+    <http://lblod.data.gift/id/services/nel/v1.0.0> .
+
+<http://lblod.data.gift/id/pipelines/ner-and-nel-annotations/v1.0.0> a airo:AISystem ;
+  dcterms:title "Extract and link entities in ELI resources"@en ;
+  dcterms:description "A system that extracts and links entities, as linked data, to ELI Expressions"@en ;
+  airo:hasComponent <http://lblod.data.gift/id/services/ner/v1.0.0> ,
+    <http://lblod.data.gift/id/services/nel/v1.0.0> .
+
+<http://lblod.data.gift/id/pipelines/nel-annotations/v1.0.0> a airo:AISystem ;
+  dcterms:title "Link entities in ELI resources to Linked Data"@en ;
+  dcterms:description "A system that extracts and links entities, as linked data, to ELI Expressions"@en ;
+  airo:hasComponent <http://lblod.data.gift/id/services/nel/v1.0.0> .
+
+<http://lblod.data.gift/id/pipelines/codelist-labeling-evaluation/v1.0.0> a airo:AISystem ;
+  dcterms:title "Decision Labeling with Codelist System"@en ;
+  dcterms:description "A system to label ELI expression with concepts from a skos:ConceptScheme and optionally add positive or negative impact."@en ;
+  airo:hasComponent <http://lblod.data.gift/id/services/codelist-labeling/v1.0.0> .
+
+<http://lblod.data.gift/id/pipelines/question-answering/v1.0.0> a airo:AISystem ;
+  dcterms:title "Answer questions on local decisions."@en ;
+  dcterms:description "A system that tries to answer user questions based on information found in relevant local decisions."@en ;
+  airo:hasComponent <http://lblod.data.gift/id/services/question-answering/v1.0.0> .
+
+<http://lblod.data.gift/id/services/pdf-content-extraction/v1.0.0> a airo:AIComponent ,
+    prov:Agent ;
+  airo:hasVersion version:b3f72785-f246-43eb-9e75-0463780b446b ;
+  airo:hasComponent <http://lblod.data.gift/id/components/pdf-to-eli/v1.0.0> .
+
+<http://lblod.data.gift/id/services/question-answering/v1.0.0> a airo:AIComponent ,
+    prov:Agent ;
+  airo:hasVersion version:0d8ee329-0c26-465a-ad10-598c12827e4d .
+
+<http://lblod.data.gift/id/services/ner/v1.0.0> a airo:AIComponent ,
+    prov:Agent ;
+  airo:hasVersion version:40e166fd-5df3-41e1-aa00-4d38220d6eb5 ;
+  airo:hasComponent <http://lblod.data.gift/id/components/translation/v1.0.0> ,
+    <http://lblod.data.gift/id/components/segmentation/v1.0.0> ,
+    <http://lblod.data.gift/id/components/entity-extraction/v1.0.0> ;
+  airo:hasTrainingData <http://lblod.data.gift/id/data/ner-abb-flanders/v1.0.0> ,
+    <http://lblod.data.gift/id/data/ner-abb-multilingual/v1.0.0> .
+
+<http://lblod.data.gift/id/data/ner-abb-flanders/v1.0.0> a airo:Data ;
+  dcterms:title "NER training dataset for Flemish municipalities"@en ;
+  dcterms:description "Dutch municipal decision documents from a range of Flemish municipalities (among them Kortrijk, Poperinge, Denderleeuw, Scherpenheuvel-Zichem and Zwevegem), annotated for named entities, document structure and document type. Annotated in Label Studio and exported with character-level spans left untouched — no BIO tagging, no tokenizer, no label grouping — so the data stays independent of any particular training setup."@en ;
+  vcard:url "https://huggingface.co/datasets/lblod/abb-legal-ner-nl-flanders" .
+
+<http://lblod.data.gift/id/data/ner-abb-multilingual/v1.0.0> a airo:Data ;
+  dcterms:title "NER multilingual dataset"@en ;
+  dcterms:description "Multilingual (English, Dutch, German) NER model for legal/administrative decision documents. This improved version adds native German training data (municipal decisions from Freiburg and Bamberg) on top of the original Dutch (Ghent) and English (translated) data, improving detection quality on German text and on text translated from German."@en ;
+  vcard:url "https://huggingface.co/lblod/multilingual-ner-abb-improved" .
+
+<http://lblod.data.gift/id/services/nel/v1.0.0> a airo:AIComponent ,
+    prov:Agent ;
+  airo:hasVersion version:3ee89f4b-0bc4-4c76-951a-306f88987c41 ;
+  airo:hasComponent <http://lblod.data.gift/id/components/named-entity-linking/v1.0.0> .
+
+<http://lblod.data.gift/id/services/codelist-labeling/v1.0.0> a airo:AIComponent ,
+    prov:Agent ;
+  airo:hasVersion version:0d2b7cba-6f4c-42bb-b0ab-29187ae1b00c ;
+  airo:hasComponent <http://lblod.data.gift/id/components/codelist-annotation/v1.0.0> ,
+    <http://lblod.data.gift/id/components/codelist-training/v1.0.0> ,
+    <http://lblod.data.gift/id/components/impact-assessment/v1.0.0> .
+
+<http://lblod.data.gift/id/components/codelist-annotation/v1.0.0> a airo:AIComponent ,
+    prov:Agent ;
+  rdfs:seeAlso <http://lblod.data.gift/id/jobs/concept/TaskOperation/codelist-matching/annotate> ;
+  airo:hasModel model:mistral-medium-3.5 .
+
+<http://lblod.data.gift/id/components/codelist-training/v1.0.0> a airo:AIComponent ,
+    prov:Agent ;
+  rdfs:seeAlso <http://lblod.data.gift/id/jobs/concept/TaskOperation/codelist-matching/train> ;
+  airo:hasModel model:distilbert-base-uncased .
+
+<http://lblod.data.gift/id/components/impact-assessment/v1.0.0> a airo:AIComponent ,
+    prov:Agent ;
+  rdfs:seeAlso <http://lblod.data.gift/id/jobs/concept/TaskOperation/codelist-matching/assess-impact> .
+
+<http://lblod.data.gift/id/components/pdf-to-eli/v1.0.0> a airo:AIComponent ,
+    prov:Agent ;
+  rdfs:seeAlso <http://lblod.data.gift/id/jobs/concept/TaskOperation/pdf-to-eli> ;
+  airo:hasModel model:mistral-large-2512 .
+
+<http://lblod.data.gift/id/components/translation/v1.0.0> a airo:AIComponent ,
+    prov:Agent;
+  rdfs:seeAlso <http://lblod.data.gift/id/jobs/concept/TaskOperation/translating> ;
+  airo:hasModel model:mistral-nemo-2407 .
+
+<http://lblod.data.gift/id/components/segmentation/v1.0.0> a airo:AIComponent ,
+    prov:Agent ;
+  rdfs:seeAlso <http://lblod.data.gift/id/jobs/concept/TaskOperation/segmenting> ;
+  airo:hasModel model:mistral-large-largest , 
+    model:mistral-medium-3.5 . 
+
+<http://lblod.data.gift/id/components/entity-extraction/v1.0.0> a airo:AIComponent ,
+    prov:Agent ;
+  rdfs:seeAlso <http://lblod.data.gift/id/jobs/concept/TaskOperation/entity-extracting> ;
+  airo:hasModel model:named-entity-recognition-model ,
+    model:named-entity-refinement-model ,
+    model:location-refinement-model ,
+    model:bert-base-multilingual-cased .
+
+<http://lblod.data.gift/id/components/named-entity-linking/v1.0.0> a airo:AIComponent ,
+    prov:Agent ;
+  rdfs:seeAlso <http://lblod.data.gift/id/jobs/concept/TaskOperation/named-entity-linking> ;
+  airo:hasModel model:ministral-14b-2512 .
+
+version:b3f72785-f246-43eb-9e75-0463780b446b a airo:Version ;
+  rdfs:label "Version for pdf-content-extraction-service" ;
+  vcard:url <https://github.com/semantic-ai/decide-pdf-content-extraction/releases/tag/v0.2.4> .
+
+version:0d8ee329-0c26-465a-ad10-598c12827e4d a airo:Version ;
+  rdfs:label "Version for decide-question-answering-service" ;
+  vcard:url <https://github.com/semantic-ai/decide-question-answering/releases/tag/v0.0.5> .
+
+version:40e166fd-5df3-41e1-aa00-4d38220d6eb5 a airo:Version ;
+  rdfs:label "Version for decide-geocoding-service" ;
+  vcard:url <https://github.com/semantic-ai/decide-geocoding-service/releases/tag/v0.2.4> .
+
+version:3ee89f4b-0bc4-4c76-951a-306f88987c41 a airo:Version ;
+  rdfs:label "Version for entity-linking-backend" ;
+  vcard:url <https://github.com/semantic-ai/entity-linking-backend/releases/tag/v0.2.4> .
+
+version:0d2b7cba-6f4c-42bb-b0ab-29187ae1b00c a airo:Version ;
+rdfs:label "Version for codelist-labeling-service" ;
+vcard:url <https://github.com/semantic-ai/codelist-labeling-service/releases/tag/v0.2.6> .
+
+<http://lblod.data.gift/id/conceptscheme/ai-advisory-board-model-levels> a skos:ConceptScheme ;
+  skos:prefLabel "AI advisory board model guidelines" ;
+  skos:description "A concept scheme that defines the different levels of AI models as defined by the AI advisory board." .
+
+<http://lblod.data.gift/id/concept/ai-model-level/small-trained-model> a skos:Concept ;
+  skos:prefLabel "Small trained model" ;
+  skos:description "Train smaller models (non-LLM) on datasets using available pre-trained models (e.g. transformers from the huggingface), when labels are not available, you can make use of external providers of LLMs to generate labels (and store this generated data for provenance as linked data)." ;
+  skos:notation "L1" ;
+  skos:topConceptOf <http://lblod.data.gift/id/conceptscheme/ai-advisory-board-model-levels> .
+
+<http://lblod.data.gift/id/concept/ai-model-level/local-os-llm> a skos:Concept ;
+  skos:prefLabel "Local OS LLM" ;
+  skos:description "If the problem can not be solved using smaller models, document the motivation why only a LLM can provide a solution for your use case and prove that the solution is business-aligned. As a next step, consider the of an open source LLM which can be hosted and evaluated locally on the infrastructure of Digiteam. Adhering to the Flanders AI strategy we defined a set of criteria for each of the six principles to evaluate popular OS LLM families. When choosing a model, consult the scores, and try to stick models which have the higher scores. If models with bad scores are used, there must be a very clear motivation on why the same can not be achieved by models families with higher scores. Note that the scores can not be summed up and serve as a ranking, they provide a general assessment of a model family." ;
+  skos:notation "L2" ;
+  skos:topConceptOf <http://lblod.data.gift/id/conceptscheme/ai-advisory-board-model-levels> .
+
+<http://lblod.data.gift/id/concept/ai-model-level/external-os-llm> a skos:Concept ;
+  skos:prefLabel "External OS LLM" ;
+  skos:description "If your application can not run on an OS LLM because it is too large to run economically on a dedicated server, and you can not achieve results with smaller OS LLM, verify if you can run the larger OS LLM on our list of OS SaaS LLM Providers. This is preferable over using proprietary SaaS LLMs, because we maintain model ownership (e.g., we have the weights and could theoretically buy a bigger server should we want to)." ;
+  skos:notation "L3" ;
+  skos:topConceptOf <http://lblod.data.gift/id/conceptscheme/ai-advisory-board-model-levels> .
+
+<http://lblod.data.gift/id/concept/ai-model-level/external-proprietary-llm> a skos:Concept ;
+  skos:prefLabel "External proprietary LLM" ;
+  skos:description "If none of this is sufficient, go with a proprietary SaaS LLM Provider from our list. We don't have the LLM model, they can revoke or alter the LLM model and our application breaks. This means it should always be considered as the last option. " ;
+  skos:notation "L4" ;
+  skos:topConceptOf <http://lblod.data.gift/id/conceptscheme/ai-advisory-board-model-levels> .
+
+model:mistral-large-2512 a airo:GPAIModel ;
+  ext:classificationLevel <http://lblod.data.gift/id/concept/ai-model-level/external-os-llm> ;
+  schema:datePublished "2025-12-02"^^xsd:date ;
+  sd:hasSourceCode code:932c53e2-1988-4d67-bc65-f1606c54231c ;
+  sd:hasVersionId "3123f82420d99a7fc9313b2d69f9a0ab6cb6ab4d" .
+
+code:932c53e2-1988-4d67-bc65-f1606c54231c a sd:SourceCode ;
+  schema:codeRepository "https://huggingface.co/mistralai/Mistral-Large-3-675B-Base-2512" .
+
+model:mistral-medium-3.5 a airo:GPAIModel ,
+    sd:SoftwareVersion ;
+  ext:classificationLevel <http://lblod.data.gift/id/concept/ai-model-level/external-os-llm> ;
+  schema:datePublished "2026-04-28"^^xsd:date ;
+  sd:hasSourceCode code:f9209348-89ee-40ff-88e2-1e8bea4cbb64 ;
+  sd:hasVersionId "22b2b868a15677cfa6061277ed2f653d1349a9ab" .
+
+code:f9209348-89ee-40ff-88e2-1e8bea4cbb64 a sd:SourceCode ;
+  schema:codeRepository "https://huggingface.co/mistralai/Mistral-Medium-3.5-128B" .
+
+model:mistral-nemo-2407 a airo:GPAIModel ,
+    sd:SoftwareVersion ;
+  ext:classificationLevel <http://lblod.data.gift/id/concept/ai-model-level/local-os-llm> ;
+  schema:datePublished "2024-07-18"^^xsd:date ;
+  sd:hasSourceCode code:6b5a74f2-116b-4b0d-ae5d-cb797ae1210f ;
+  sd:hasVersionId "a4477a2f977929a969745b69bbd62e03043551a5" .
+
+code:6b5a74f2-116b-4b0d-ae5d-cb797ae1210f a sd:SourceCode ;
+  schema:codeRepository "https://huggingface.co/mistralai/Mistral-Nemo-Base-2407" .
+
+model:ministral-14b-2512 a airo:GPAIModel ,
+    sd:SoftwareVersion ;
+  ext:classificationLevel <http://lblod.data.gift/id/concept/ai-model-level/local-os-llm> ;
+  sd:hasSourceCode code:21ef96dd-660c-4242-8bcb-7f8b14b3ebd5 ;
+  sd:hasVersionId "5b0ceedbb42dff466ae60b258ba296f32da51384" .
+
+code:21ef96dd-660c-4242-8bcb-7f8b14b3ebd5 a sd:SourceCode ;
+  schema:codeRepository "https://huggingface.co/mistralai/Ministral-3-14B-Base-2512" .
+
+model:distilbert-base-uncased a airo:AIModel ,
+    sd:SoftwareVersion ;
+  sd:hasSourceCode code:48e09f19-16d5-4dde-af3f-9c36095d1a39 ;
+  sd:hasVersionId "12040accade4e8a0f71eabdb258fecc2e7e948be" ;
+  ext:classificationLevel <http://lblod.data.gift/id/concept/ai-model-level/small-trained-model> .
+
+code:48e09f19-16d5-4dde-af3f-9c36095d1a39 a sd:SourceCode ;
+  schema:codeRepository "https://huggingface.co/distilbert/distilbert-base-uncased"^^xsd:anyURI .
+
+
+model:bert-base-multilingual-cased a airo:GPAIModel ,
+    sd:SoftwareVersion ;
+  sd:hasSourceCode code:ca5b7597-1d63-4efe-8d5f-7a4c2d5e8919 ;
+  sd:hasVersionId "3f076fdb1ab68d5b2880cb87a0886f315b8146f8"^^xsd:string ;
+  ext:classificationLevel <http://lblod.data.gift/id/concept/ai-model-level/local-os-llm> .
+
+code:ca5b7597-1d63-4efe-8d5f-7a4c2d5e8919 a sd:SourceCode ;
+  schema:codeRepository "https://huggingface.co/google-bert/bert-base-multilingual-cased"^^xsd:anyURI .
+
+
+model:named-entity-recognition-model a airo:AIModel ,
+    sd:SoftwareVersion ;
+  airo:hasInput input:text-input ;
+  airo:producesOutput conceptscheme:NamedEntityRecognitionClasses ;
+  sd:hasSourceCode code:5a220028-5cb7-4329-9ee0-44ef9368dc29 ;
+  sd:hasVersionId "337b19623ae9a1732706f6bf1e7e801f42334d2c"^^xsd:string ;
+  schema:datePublished "2026-07-28"^^xsd:date ;
+  ext:classificationLevel <http://lblod.data.gift/id/concept/ai-model-level/local-os-llm> ;
+  dqv:hasQualityMeasurement qm:60cc5f15-e51e-446c-8380-32c5b8d12e2c ,
+    qm:0a968d5b-218c-4227-962d-4df461554c76 ,
+    qm:e5e86e8b-18be-4f05-bdda-d28dcbe2c629 ,
+    qm:cb18c6bd-1ffa-44c6-893a-c365d2bd41e2 ,
+    qm:0c2287ad-f46f-4e66-b5a2-5adc5d2e47f2 ,
+    qm:a0d6f822-0712-40f5-afa5-2091376b734f ,
+    qm:309a4165-70b7-412b-ac6b-0b9deeafe40a ,
+    qm:07811622-359b-4822-9549-b51dde4f1672 ,
+    qm:e7d23204-51cd-40e2-bb8a-dceeea0f63da ,
+    qm:7d19cbdf-3749-4e2f-94bc-5fc4de83f570 ,
+    qm:7459b4a9-e836-4a8d-81cd-e3eb4509cade ,
+    qm:887b1e5a-9a12-487a-abcb-be15991f1f33 ,
+    qm:783f11cf-4aa0-4680-a276-032abfec0b7b ,
+    qm:3d5261e4-24df-4fe2-b87e-97c69689921a ,
+    qm:ad134a2c-7df8-44d3-aa99-4c81cb579980 .
+
+code:5a220028-5cb7-4329-9ee0-44ef9368dc29 a sd:SourceCode ;
+  schema:codeRepository "https://huggingface.co/lblod/multilingual-ner-abb-improved"^^xsd:anyURI .
+  
+
+model:named-entity-refinement-model a airo:AIModel ,
+    sd:SoftwareVersion ;
+  airo:hasInput input:text-input ;
+  airo:producesOutput conceptscheme:NamedEntityRefinementClasses ;
+  sd:hasSourceCode code:85710c58-4a8d-416c-b62a-43277a33eb7f ;
+  sd:hasVersionId "4955506920c7a42d0bfd457255c657db5ad42723"^^xsd:string ;
+  schema:datePublished "2026-07-28"^^xsd:date ;
+  ext:classificationLevel <http://lblod.data.gift/id/concept/ai-model-level/small-trained-model> ;
+  dqv:hasQualityMeasurement qm:f3a1c2d4-9b8e-4f7a-b6c5-1e2d3f4a5b6c ,
+    qm:a7b2e3f5-0c9d-4e8b-a1d6-2f3e4c5d6a7b ,
+    qm:c8d3f4a6-1e0b-4f9c-b2e7-3a4b5c6d7e8f ,
+    qm:d9e4a5b7-2f1c-4a0d-c3f8-4b5c6d7e8f9a ,
+    qm:e0f5b6c8-3a2d-4b1e-d4a9-5c6d7e8f9a0b ,
+    qm:f1a6c7d9-4b3e-4c2f-e5b0-6d7e8f9a0b1c ,
+    qm:a2b7d8e0-5c4f-4d3a-f6c1-7e8f9a0b1c2d ,
+    qm:b3c8e9f1-6d5a-4e4b-a7d2-8f9a0b1c2d3e ,
+    qm:c4d9f0a2-7e6b-4f5c-b8e3-9a0b1c2d3e4f ,
+    qm:d5e0a1b3-8f7c-4a6d-c9f4-0b1c2d3e4f5a ,
+    qm:e6f1b2c4-9a8d-4b7e-d0a5-1c2d3e4f5a6b ,
+    qm:f7a2c3d5-0b9e-4c8f-e1b6-2d3e4f5a6b7c ,
+    qm:a8b3d4e6-1c0f-4d9a-f2c7-3e4f5a6b7c8d ,
+    qm:b9c4e5f7-2d1a-4e0b-a3d8-4f5a6b7c8d9e ,
+    qm:c0d5f6a8-3e2b-4f1c-b4e9-5a6b7c8d9e0f ,
+    qm:d1e6a7b9-4f3c-4a2d-c5f0-6b7c8d9e0f1a ,
+    qm:e2f7b8c0-5a4d-4b3e-d6a1-7c8d9e0f1a2b ,
+    qm:f3a8c9d1-6b5e-4c4f-e7b2-8d9e0f1a2b3c ,
+    qm:a4b9d0e2-7c6f-4d5a-f8c3-9e0f1a2b3c4d ,
+    qm:b5c0e1f3-8d7a-4e6b-a9d4-0f1a2b3c4d5e ,
+    qm:c6d1f2a4-9e8b-4f7c-b0e5-1a2b3c4d5e6f ,
+    qm:d7e2a3b5-0f9c-4a8d-c1f6-2b3c4d5e6f7a ,
+    qm:e8f3b4c6-1a0d-4b9e-d2a7-3c4d5e6f7a8b ,
+    qm:f9a4c5d7-2b1e-4c0f-e3b8-4d5e6f7a8b9c ,
+    qm:a0b5d6e8-3c2f-4d1a-f4c9-5e6f7a8b9c0d ,
+    qm:b1c6e7f9-4d3a-4e2b-a5d0-6f7a8b9c0d1e ,
+    qm:c2d7f8a0-5e4b-4f3c-b6e1-7a8b9c0d1e2f ,
+    qm:d3e8a9b1-6f5c-4a4d-c7f2-8b9c0d1e2f3a ,
+    qm:e4f9b0c2-7a6d-4b5e-d8a3-9c0d1e2f3a4b ,
+    qm:f5a0c1d3-8b7e-4c6f-e9b4-0d1e2f3a4b5c .
+
+code:85710c58-4a8d-416c-b62a-43277a33eb7f a sd:SourceCode ;
+  schema:codeRepository
+  "https://huggingface.co/lblod/longformer-classifier-refinement-abb"^^xsd:anyURI .
+  
+
+model:location-refinement-model a airo:AIModel ,
+    sd:SoftwareVersion ;
+  airo:hasInput input:text-input ;
+  airo:producesOutput conceptscheme:LocationRefinementClasses ;
+  sd:hasSourceCode code:aa8fa48c-eb6e-4ba3-915f-26a5d673672f ;
+  sd:hasVersionId "4892c3ccb42a8a5f1b3e9a76ec2ac2e5e41941a4"^^xsd:string ;
+  schema:datePublished "2026-07-28"^^xsd:date ;
+  ext:classificationLevel <http://lblod.data.gift/id/concept/ai-model-level/local-os-llm> ;
+  dqv:hasQualityMeasurement qm:1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d ,
+    qm:2b3c4d5e-6f7a-8b9c-0d1e-2f3a4b5c6d7e ,
+    qm:3c4d5e6f-7a8b-9c0d-1e2f-3a4b5c6d7e8f ,
+    qm:4d5e6f7a-8b9c-0d1e-2f3a-4b5c6d7e8f9a ,
+    qm:5e6f7a8b-9c0d-1e2f-3a4b-5c6d7e8f9a0b ,
+    qm:6f7a8b9c-0d1e-2f3a-4b5c-6d7e8f9a0b1c ,
+    qm:7a8b9c0d-1e2f-3a4b-5c6d-7e8f9a0b1c2d ,
+    qm:8b9c0d1e-2f3a-4b5c-6d7e-8f9a0b1c2d3e ,
+    qm:9c0d1e2f-3a4b-5c6d-7e8f-9a0b1c2d3e4f ,
+    qm:0d1e2f3a-4b5c-6d7e-8f9a-0b1c2d3e4f5a ,
+    qm:1e2f3a4b-5c6d-7e8f-9a0b-1c2d3e4f5a6b ,
+    qm:2f3a4b5c-6d7e-8f9a-0b1c-2d3e4f5a6b7c ,
+    qm:3a4b5c6d-7e8f-9a0b-1c2d-3e4f5a6b7c8d ,
+    qm:4b5c6d7e-8f9a-0b1c-2d3e-4f5a6b7c8d9e ,
+    qm:5c6d7e8f-9a0b-1c2d-3e4f-5a6b7c8d9e0f ,
+    qm:6d7e8f9a-0b1c-2d3e-4f5a-6b7c8d9e0f1a ,
+    qm:7e8f9a0b-1c2d-3e4f-5a6b-7c8d9e0f1a2b ,
+    qm:8f9a0b1c-2d3e-4f5a-6b7c-8d9e0f1a2b3c ,
+    qm:9a0b1c2d-3e4f-5a6b-7c8d-9e0f1a2b3c4d ,
+    qm:0b1c2d3e-4f5a-6b7c-8d9e-0f1a2b3c4d5e ,
+    qm:1c2d3e4f-5a6b-7c8d-9e0f-1a2b3c4d5e6f ,
+    qm:2d3e4f5a-6b7c-8d9e-0f1a-2b3c4d5e6f7a ,
+    qm:3e4f5a6b-7c8d-9e0f-1a2b-3c4d5e6f7a8b ,
+    qm:4f5a6b7c-8d9e-0f1a-2b3c-4d5e6f7a8b9c ,
+    qm:5a6b7c8d-9e0f-1a2b-3c4d-5e6f7a8b9c0d ,
+    qm:6b7c8d9e-0f1a-2b3c-4d5e-6f7a8b9c0d1e ,
+    qm:7c8d9e0f-1a2b-3c4d-5e6f-7a8b9c0d1e2f ,
+    qm:8d9e0f1a-2b3c-4d5e-6f7a-8b9c0d1e2f3a ,
+    qm:9e0f1a2b-3c4d-5e6f-7a8b-9c0d1e2f3a4b ,
+    qm:0f1a2b3c-4d5e-6f7a-8b9c-0d1e2f3a4b5c ,
+    qm:1a2b3c4d-5e6f-7a8b-9c0d-2e3f4a5b6c7d ,
+    qm:2b3c4d5e-6f7a-8b9c-0d1e-3f4a5b6c7d8e ,
+    qm:3c4d5e6f-7a8b-9c0d-1e2f-4a5b6c7d8e9f ,
+    qm:4d5e6f7a-8b9c-0d1e-2f3a-5b6c7d8e9f0a ,
+    qm:5e6f7a8b-9c0d-1e2f-3a4b-6c7d8e9f0a1b ,
+    qm:6f7a8b9c-0d1e-2f3a-4b5c-7d8e9f0a1b2c .
+
+code:aa8fa48c-eb6e-4ba3-915f-26a5d673672f a sd:SourceCode ;
+  schema:codeRepository "https://huggingface.co/lblod/abb-dual-location-component-ner"^^xsd:anyURI .
+  
+input:text-input a airo:Input ;
+  dcterms:type "string"^^xsd:string .
+
+
+metric:PrecisionMetric a dqv:Metric ;
+  dqv:inDimension dim:Accuracy ;
+  dqv:expectedDataType xsd:decimal ;
+  rdfs:label "Precision Accuracy Metric" ;
+  rdfs:comment "The proportion of predicted positive instances that are actually positive." .
+
+metric:RecallMetric a dqv:Metric ;
+  dqv:inDimension dim:Accuracy ;
+  dqv:expectedDataType xsd:decimal ;
+  rdfs:label "Recall Accuracy Metric" ;
+  rdfs:comment "The proportion of actual positive instances that are correctly identified." .
+
+metric:F1ScoreMetric a dqv:Metric ;
+  dqv:inDimension dim:Accuracy ;
+  dqv:expectedDataType xsd:decimal ;
+  rdfs:label "F1 Score metric" ;
+  rdfs:comment "The harmonic mean of precision and recall, balancing both into a single performance measure." .
+
+dim:Accuracy a dqv:Dimension ;
+  rdfs:label "Accuracy" .
+
+
+conceptscheme:NamedEntityRecognitionClasses a skos:ConceptScheme ,
+    airo:Output ;
+  skos:prefLabel "Named Entity Recognition Model Classes"@en .
+
+concept-ner:administrative_body a skos:Concept ;
+  skos:prefLabel "Administrative Body"@en ;
+  skos:inScheme conceptscheme:NamedEntityRecognitionClasses .
+
+concept-ner:legal_ground a skos:Concept ;
+  skos:prefLabel "Legal Ground"@en ;
+  skos:inScheme conceptscheme:NamedEntityRecognitionClasses .
+
+concept-ner:mandatary a skos:Concept ;
+  skos:prefLabel "Mandatary"@en ;
+  skos:inScheme conceptscheme:NamedEntityRecognitionClasses .
+
+concept-ner:location a skos:Concept ;
+  skos:prefLabel "Location"@en ;
+  skos:inScheme conceptscheme:NamedEntityRecognitionClasses .
+
+concept-ner:date a skos:Concept ;
+  skos:prefLabel "Date"@en ;
+  skos:inScheme conceptscheme:NamedEntityRecognitionClasses .
+
+conceptscheme:NamedEntityRefinementClasses a skos:ConceptScheme ,
+    airo:Output ;
+  skos:prefLabel "Named Entity Refinement Model Classes"@en .
+
+concept-nerf:context_date a skos:Concept ;
+  skos:prefLabel "Context Date"@en ;
+  skos:inScheme conceptscheme:NamedEntityRefinementClasses .
+
+concept-nerf:context_location a skos:Concept ;
+  skos:prefLabel "Context Location"@en ;
+  skos:inScheme conceptscheme:NamedEntityRefinementClasses .
+
+concept-nerf:context_period a skos:Concept ;
+  skos:prefLabel "Context Period"@en ;
+  skos:inScheme conceptscheme:NamedEntityRefinementClasses .
+
+concept-nerf:entry_date a skos:Concept ;
+  skos:prefLabel "Entry Date"@en ;
+  skos:inScheme conceptscheme:NamedEntityRefinementClasses .
+
+concept-nerf:expiry_date a skos:Concept ;
+  skos:prefLabel "Expiry Date"@en ;
+  skos:inScheme conceptscheme:NamedEntityRefinementClasses .
+
+concept-nerf:impact_location a skos:Concept ;
+  skos:prefLabel "Impact Location"@en ;
+  skos:inScheme conceptscheme:NamedEntityRefinementClasses .
+
+concept-nerf:legal_basis_date a skos:Concept ;
+  skos:prefLabel "Legal Basis Date"@en ;
+  skos:inScheme conceptscheme:NamedEntityRefinementClasses .
+
+concept-nerf:publication_date a skos:Concept ;
+  skos:prefLabel "Publication Date"@en ;
+  skos:inScheme conceptscheme:NamedEntityRefinementClasses .
+
+concept-nerf:session_date a skos:Concept ;
+  skos:prefLabel "Session Date"@en ;
+  skos:inScheme conceptscheme:NamedEntityRefinementClasses .
+
+concept-nerf:validity_period a skos:Concept ;
+  skos:prefLabel "Validity Period"@en ;
+  skos:inScheme conceptscheme:NamedEntityRefinementClasses .
+
+conceptscheme:LocationRefinementClasses a skos:ConceptScheme ,
+    airo:Output ;
+  skos:prefLabel "Location Refinement Model Classes"@en .
+
+concept-lr:building a skos:Concept ;
+  skos:prefLabel "Building"@en ;
+  skos:inScheme conceptscheme:LocationRefinementClasses .
+
+concept-lr:city a skos:Concept ;
+  skos:prefLabel "City"@en ;
+  skos:inScheme conceptscheme:LocationRefinementClasses .
+
+concept-lr:district a skos:Concept ;
+  skos:prefLabel "District"@en ;
+  skos:inScheme conceptscheme:LocationRefinementClasses .
+
+concept-lr:domain_zone_area a skos:Concept ;
+  skos:prefLabel "Domain Zone Area"@en ;
+  skos:inScheme conceptscheme:LocationRefinementClasses .
+
+concept-lr:grave_location a skos:Concept ;
+  skos:prefLabel "Grave Location"@en ;
+  skos:inScheme conceptscheme:LocationRefinementClasses .
+
+concept-lr:housenumber a skos:Concept ;
+  skos:prefLabel "House Number"@en ;
+  skos:inScheme conceptscheme:LocationRefinementClasses .
+
+concept-lr:intersection a skos:Concept ;
+  skos:prefLabel "Intersection"@en ;
+  skos:inScheme conceptscheme:LocationRefinementClasses .
+
+concept-lr:parcel a skos:Concept ;
+  skos:prefLabel "Parcel"@en ;
+  skos:inScheme conceptscheme:LocationRefinementClasses .
+
+concept-lr:postcode a skos:Concept ;
+  skos:prefLabel "Postcode"@en ;
+  skos:inScheme conceptscheme:LocationRefinementClasses .
+
+concept-lr:province a skos:Concept ;
+  skos:prefLabel "Province"@en ;
+  skos:inScheme conceptscheme:LocationRefinementClasses .
+
+concept-lr:road a skos:Concept ;
+  skos:prefLabel "Road"@en ;
+  skos:inScheme conceptscheme:LocationRefinementClasses .
+
+concept-lr:street a skos:Concept ;
+  skos:prefLabel "Street"@en ;
+  skos:inScheme conceptscheme:LocationRefinementClasses .
+
+qm:60cc5f15-e51e-446c-8380-32c5b8d12e2c a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:PrecisionMetric ;
+  ext:forClass concept-ner:administrative_body;
+  dqv:value "0.67"^^xsd:decimal .
+
+qm:0a968d5b-218c-4227-962d-4df461554c76 a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:PrecisionMetric ;
+  ext:forClass concept-ner:legal_ground;
+  dqv:value "0.66"^^xsd:decimal .
+
+qm:e5e86e8b-18be-4f05-bdda-d28dcbe2c629 a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:PrecisionMetric ;
+  ext:forClass concept:madatary ;
+  dqv:value "0.87"^^xsd:decimal .
+
+qm:cb18c6bd-1ffa-44c6-893a-c365d2bd41e2 a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:PrecisionMetric ;
+  ext:forClass concept-ner:location ;
+  dqv:value "0.88"^^xsd:decimal .
+
+qm:0c2287ad-f46f-4e66-b5a2-5adc5d2e47f2 a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:PrecisionMetric ;
+  ext:forClass concept-ner:date ;
+  dqv:value "0.82"^^xsd:decimal .
+
+qm:a0d6f822-0712-40f5-afa5-2091376b734f a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:RecallMetric ;
+  ext:forClass concept-ner:administrative_body ;
+  dqv:value "0.79"^^xsd:decimal .
+
+qm:309a4165-70b7-412b-ac6b-0b9deeafe40a a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:RecallMetric ;
+  ext:forClass concept-ner:legal_ground;
+  dqv:value "0.83"^^xsd:decimal .
+
+qm:07811622-359b-4822-9549-b51dde4f1672 a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:RecallMetric ;
+  ext:forClass concept:madatary;
+  dqv:value "0.97"^^xsd:decimal .
+
+qm:e7d23204-51cd-40e2-bb8a-dceeea0f63da a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:RecallMetric ;
+  ext:forClass concept-ner:location ;
+  dqv:value "0.82"^^xsd:decimal .
+
+qm:7d19cbdf-3749-4e2f-94bc-5fc4de83f570 a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:RecallMetric ;
+  ext:forClass concept-ner:date ;
+  dqv:value "0.97"^^xsd:decimal .
+
+qm:7459b4a9-e836-4a8d-81cd-e3eb4509cade a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:F1ScoreMetric ;
+  ext:forClass concept-ner:administrative_body ;
+  dqv:value "0.72"^^xsd:decimal .
+
+qm:887b1e5a-9a12-487a-abcb-be15991f1f33 a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:F1ScoreMetric ;
+  ext:forClass concept-ner:legal_ground ;
+  dqv:value "0.74"^^xsd:decimal .
+
+qm:783f11cf-4aa0-4680-a276-032abfec0b7b a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:F1ScoreMetric ;
+  ext:forClass concept:madatary ;
+  dqv:value "0.91"^^xsd:decimal .
+
+qm:3d5261e4-24df-4fe2-b87e-97c69689921a a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:F1ScoreMetric ;
+  ext:forClass concept-ner:location ;
+  dqv:value "0.85"^^xsd:decimal .
+
+qm:ad134a2c-7df8-44d3-aa99-4c81cb579980 a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:F1ScoreMetric ;
+  ext:forClass concept-ner:date;
+  dqv:value "0.98"^^xsd:decimal .
+
+qm:f3a1c2d4-9b8e-4f7a-b6c5-1e2d3f4a5b6c a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:PrecisionMetric ;
+  ext:forClass concept-nerf:context_date ;
+  dqv:value "0.9272"^^xsd:decimal .
+
+qm:a7b2e3f5-0c9d-4e8b-a1d6-2f3e4c5d6a7b a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:RecallMetric ;
+  ext:forClass concept-nerf:context_date ;
+  dqv:value "0.9405"^^xsd:decimal .
+
+qm:c8d3f4a6-1e0b-4f9c-b2e7-3a4b5c6d7e8f a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:F1ScoreMetric ;
+  ext:forClass concept-nerf:context_date ;
+  dqv:value "0.9338"^^xsd:decimal .
+
+qm:d9e4a5b7-2f1c-4a0d-c3f8-4b5c6d7e8f9a a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:PrecisionMetric ;
+  ext:forClass concept-nerf:context_location ;
+  dqv:value "0.9671"^^xsd:decimal .
+
+qm:e0f5b6c8-3a2d-4b1e-d4a9-5c6d7e8f9a0b a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:RecallMetric ;
+  ext:forClass concept-nerf:context_location ;
+  dqv:value "0.9751"^^xsd:decimal .
+
+qm:f1a6c7d9-4b3e-4c2f-e5b0-6d7e8f9a0b1c a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:F1ScoreMetric ;
+  ext:forClass concept-nerf:context_location ;
+  dqv:value "0.9711"^^xsd:decimal .
+
+qm:a2b7d8e0-5c4f-4d3a-f6c1-7e8f9a0b1c2d a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:PrecisionMetric ;
+  ext:forClass concept-nerf:context_period ;
+  dqv:value "0.9744"^^xsd:decimal .
+
+qm:b3c8e9f1-6d5a-4e4b-a7d2-8f9a0b1c2d3e a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:RecallMetric ;
+  ext:forClass concept-nerf:context_period ;
+  dqv:value "0.8321"^^xsd:decimal .
+
+qm:c4d9f0a2-7e6b-4f5c-b8e3-9a0b1c2d3e4f a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:F1ScoreMetric ;
+  ext:forClass concept-nerf:context_period ;
+  dqv:value "0.8976"^^xsd:decimal .
+
+qm:d5e0a1b3-8f7c-4a6d-c9f4-0b1c2d3e4f5a a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:PrecisionMetric ;
+  ext:forClass concept-nerf:entry_date ;
+  dqv:value "0.9528"^^xsd:decimal .
+
+qm:e6f1b2c4-9a8d-4b7e-d0a5-1c2d3e4f5a6b a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:RecallMetric ;
+  ext:forClass concept-nerf:entry_date ;
+  dqv:value "0.9587"^^xsd:decimal .
+
+qm:f7a2c3d5-0b9e-4c8f-e1b6-2d3e4f5a6b7c a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:F1ScoreMetric ;
+  ext:forClass concept-nerf:entry_date ;
+  dqv:value "0.9557"^^xsd:decimal .
+
+qm:a8b3d4e6-1c0f-4d9a-f2c7-3e4f5a6b7c8d a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:PrecisionMetric ;
+  ext:forClass concept-nerf:expiry_date ;
+  dqv:value "0.8980"^^xsd:decimal .
+
+qm:b9c4e5f7-2d1a-4e0b-a3d8-4f5a6b7c8d9e a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:RecallMetric ;
+  ext:forClass concept-nerf:expiry_date ;
+  dqv:value "0.9496"^^xsd:decimal .
+
+qm:c0d5f6a8-3e2b-4f1c-b4e9-5a6b7c8d9e0f a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:F1ScoreMetric ;
+  ext:forClass concept-nerf:expiry_date ;
+  dqv:value "0.9231"^^xsd:decimal .
+
+qm:d1e6a7b9-4f3c-4a2d-c5f0-6b7c8d9e0f1a a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:PrecisionMetric ;
+  ext:forClass concept-nerf:impact_location ;
+  dqv:value "0.9501"^^xsd:decimal .
+
+qm:e2f7b8c0-5a4d-4b3e-d6a1-7c8d9e0f1a2b a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:RecallMetric ;
+  ext:forClass concept-nerf:impact_location ;
+  dqv:value "0.9559"^^xsd:decimal .
+
+qm:f3a8c9d1-6b5e-4c4f-e7b2-8d9e0f1a2b3c a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:F1ScoreMetric ;
+  ext:forClass concept-nerf:impact_location ;
+  dqv:value "0.9530"^^xsd:decimal .
+
+qm:a4b9d0e2-7c6f-4d5a-f8c3-9e0f1a2b3c4d a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:PrecisionMetric ;
+  ext:forClass concept-nerf:legal_basis_date ;
+  dqv:value "1.0000"^^xsd:decimal .
+
+qm:b5c0e1f3-8d7a-4e6b-a9d4-0f1a2b3c4d5e a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:RecallMetric ;
+  ext:forClass concept-nerf:legal_basis_date ;
+  dqv:value "0.9926"^^xsd:decimal .
+
+qm:c6d1f2a4-9e8b-4f7c-b0e5-1a2b3c4d5e6f a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:F1ScoreMetric ;
+  ext:forClass concept-nerf:legal_basis_date ;
+  dqv:value "0.9963"^^xsd:decimal .
+
+qm:d7e2a3b5-0f9c-4a8d-c1f6-2b3c4d5e6f7a a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:PrecisionMetric ;
+  ext:forClass concept-nerf:publication_date ;
+  dqv:value "0.9501"^^xsd:decimal .
+
+qm:e8f3b4c6-1a0d-4b9e-d2a7-3c4d5e6f7a8b a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:RecallMetric ;
+  ext:forClass concept-nerf:publication_date ;
+  dqv:value "0.9870"^^xsd:decimal .
+
+qm:f9a4c5d7-2b1e-4c0f-e3b8-4d5e6f7a8b9c a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:F1ScoreMetric ;
+  ext:forClass concept-nerf:publication_date ;
+  dqv:value "0.9682"^^xsd:decimal .
+
+qm:a0b5d6e8-3c2f-4d1a-f4c9-5e6f7a8b9c0d a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:PrecisionMetric ;
+  ext:forClass concept-nerf:session_date ;
+  dqv:value "0.9597"^^xsd:decimal .
+
+qm:b1c6e7f9-4d3a-4e2b-a5d0-6f7a8b9c0d1e a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:RecallMetric ;
+  ext:forClass concept-nerf:session_date ;
+  dqv:value "0.9597"^^xsd:decimal .
+
+qm:c2d7f8a0-5e4b-4f3c-b6e1-7a8b9c0d1e2f a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:F1ScoreMetric ;
+  ext:forClass concept-nerf:session_date ;
+  dqv:value "0.9597"^^xsd:decimal .
+
+qm:d3e8a9b1-6f5c-4a4d-c7f2-8b9c0d1e2f3a a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:PrecisionMetric ;
+  ext:forClass concept-nerf:validity_period ;
+  dqv:value "0.9932"^^xsd:decimal .
+
+qm:e4f9b0c2-7a6d-4b5e-d8a3-9c0d1e2f3a4b a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:RecallMetric ;
+  ext:forClass concept-nerf:validity_period ;
+  dqv:value "0.9397"^^xsd:decimal .
+
+qm:f5a0c1d3-8b7e-4c6f-e9b4-0d1e2f3a4b5c a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:F1ScoreMetric ;
+  ext:forClass concept-nerf:validity_period ;
+  dqv:value "0.9648"^^xsd:decimal .
+
+qm:1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:PrecisionMetric ;
+  ext:forClass concept-lr:building ;
+  dqv:value "0.82"^^xsd:decimal .
+
+qm:2b3c4d5e-6f7a-8b9c-0d1e-2f3a4b5c6d7e a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:RecallMetric ;
+  ext:forClass concept-lr:building ;
+  dqv:value "0.84"^^xsd:decimal .
+
+qm:3c4d5e6f-7a8b-9c0d-1e2f-3a4b5c6d7e8f a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:F1ScoreMetric ;
+  ext:forClass concept-lr:building ;
+  dqv:value "0.83"^^xsd:decimal .
+
+qm:4d5e6f7a-8b9c-0d1e-2f3a-4b5c6d7e8f9a a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:PrecisionMetric ;
+  ext:forClass concept-lr:city ;
+  dqv:value "0.94"^^xsd:decimal .
+
+qm:5e6f7a8b-9c0d-1e2f-3a4b-5c6d7e8f9a0b a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:RecallMetric ;
+  ext:forClass concept-lr:city ;
+  dqv:value "0.94"^^xsd:decimal .
+
+qm:6f7a8b9c-0d1e-2f3a-4b5c-6d7e8f9a0b1c a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:F1ScoreMetric ;
+  ext:forClass concept-lr:city ;
+  dqv:value "0.94"^^xsd:decimal .
+
+qm:7a8b9c0d-1e2f-3a4b-5c6d-7e8f9a0b1c2d a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:PrecisionMetric ;
+  ext:forClass concept-lr:district ;
+  dqv:value "0.82"^^xsd:decimal .
+
+qm:8b9c0d1e-2f3a-4b5c-6d7e-8f9a0b1c2d3e a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:RecallMetric ;
+  ext:forClass concept-lr:district ;
+  dqv:value "0.95"^^xsd:decimal .
+
+qm:9c0d1e2f-3a4b-5c6d-7e8f-9a0b1c2d3e4f a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:F1ScoreMetric ;
+  ext:forClass concept-lr:district ;
+  dqv:value "0.88"^^xsd:decimal .
+
+qm:0d1e2f3a-4b5c-6d7e-8f9a-0b1c2d3e4f5a a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:PrecisionMetric ;
+  ext:forClass concept-lr:domain_zone_area ;
+  dqv:value "0.61"^^xsd:decimal .
+
+qm:1e2f3a4b-5c6d-7e8f-9a0b-1c2d3e4f5a6b a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:RecallMetric ;
+  ext:forClass concept-lr:domain_zone_area ;
+  dqv:value "0.61"^^xsd:decimal .
+
+qm:2f3a4b5c-6d7e-8f9a-0b1c-2d3e4f5a6b7c a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:F1ScoreMetric ;
+  ext:forClass concept-lr:domain_zone_area ;
+  dqv:value "0.61"^^xsd:decimal .
+
+qm:3a4b5c6d-7e8f-9a0b-1c2d-3e4f5a6b7c8d a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:PrecisionMetric ;
+  ext:forClass concept-lr:grave_location ;
+  dqv:value "0.93"^^xsd:decimal .
+
+qm:4b5c6d7e-8f9a-0b1c-2d3e-4f5a6b7c8d9e a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:RecallMetric ;
+  ext:forClass concept-lr:grave_location ;
+  dqv:value "1.00"^^xsd:decimal .
+
+qm:5c6d7e8f-9a0b-1c2d-3e4f-5a6b7c8d9e0f a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:F1ScoreMetric ;
+  ext:forClass concept-lr:grave_location ;
+  dqv:value "0.97"^^xsd:decimal .
+
+qm:6d7e8f9a-0b1c-2d3e-4f5a-6b7c8d9e0f1a a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:PrecisionMetric ;
+  ext:forClass concept-lr:housenumber ;
+  dqv:value "0.98"^^xsd:decimal .
+
+qm:7e8f9a0b-1c2d-3e4f-5a6b-7c8d9e0f1a2b a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:RecallMetric ;
+  ext:forClass concept-lr:housenumber ;
+  dqv:value "0.99"^^xsd:decimal .
+
+qm:8f9a0b1c-2d3e-4f5a-6b7c-8d9e0f1a2b3c a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:F1ScoreMetric ;
+  ext:forClass concept-lr:housenumber ;
+  dqv:value "0.99"^^xsd:decimal .
+
+qm:9a0b1c2d-3e4f-5a6b-7c8d-9e0f1a2b3c4d a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:PrecisionMetric ;
+  ext:forClass concept-lr:intersection ;
+  dqv:value "0.95"^^xsd:decimal .
+
+qm:0b1c2d3e-4f5a-6b7c-8d9e-0f1a2b3c4d5e a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:RecallMetric ;
+  ext:forClass concept-lr:intersection ;
+  dqv:value "0.98"^^xsd:decimal .
+
+qm:1c2d3e4f-5a6b-7c8d-9e0f-1a2b3c4d5e6f a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:F1ScoreMetric ;
+  ext:forClass concept-lr:intersection ;
+  dqv:value "0.96"^^xsd:decimal .
+
+qm:2d3e4f5a-6b7c-8d9e-0f1a-2b3c4d5e6f7a a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:PrecisionMetric ;
+  ext:forClass concept-lr:parcel ;
+  dqv:value "0.86"^^xsd:decimal .
+
+qm:3e4f5a6b-7c8d-9e0f-1a2b-3c4d5e6f7a8b a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:RecallMetric ;
+  ext:forClass concept-lr:parcel ;
+  dqv:value "0.92"^^xsd:decimal .
+
+qm:4f5a6b7c-8d9e-0f1a-2b3c-4d5e6f7a8b9c a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:F1ScoreMetric ;
+  ext:forClass concept-lr:parcel ;
+  dqv:value "0.89"^^xsd:decimal .
+
+qm:5a6b7c8d-9e0f-1a2b-3c4d-5e6f7a8b9c0d a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:PrecisionMetric ;
+  ext:forClass concept-lr:postcode ;
+  dqv:value "0.99"^^xsd:decimal .
+
+qm:6b7c8d9e-0f1a-2b3c-4d5e-6f7a8b9c0d1e a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:RecallMetric ;
+  ext:forClass concept-lr:postcode ;
+  dqv:value "0.99"^^xsd:decimal .
+
+qm:7c8d9e0f-1a2b-3c4d-5e6f-7a8b9c0d1e2f a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:F1ScoreMetric ;
+  ext:forClass concept-lr:postcode ;
+  dqv:value "0.99"^^xsd:decimal .
+
+qm:8d9e0f1a-2b3c-4d5e-6f7a-8b9c0d1e2f3a a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:PrecisionMetric ;
+  ext:forClass concept-lr:province ;
+  dqv:value "1.00"^^xsd:decimal .
+
+qm:9e0f1a2b-3c4d-5e6f-7a8b-9c0d1e2f3a4b a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:RecallMetric ;
+  ext:forClass concept-lr:province ;
+  dqv:value "1.00"^^xsd:decimal .
+
+qm:0f1a2b3c-4d5e-6f7a-8b9c-0d1e2f3a4b5c a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:F1ScoreMetric ;
+  ext:forClass concept-lr:province ;
+  dqv:value "1.00"^^xsd:decimal .
+
+qm:1a2b3c4d-5e6f-7a8b-9c0d-2e3f4a5b6c7d a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:PrecisionMetric ;
+  ext:forClass concept-lr:road ;
+  dqv:value "0.81"^^xsd:decimal .
+
+qm:2b3c4d5e-6f7a-8b9c-0d1e-3f4a5b6c7d8e a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:RecallMetric ;
+  ext:forClass concept-lr:road ;
+  dqv:value "0.91"^^xsd:decimal .
+
+qm:3c4d5e6f-7a8b-9c0d-1e2f-4a5b6c7d8e9f a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:F1ScoreMetric ;
+  ext:forClass concept-lr:road ;
+  dqv:value "0.85"^^xsd:decimal .
+
+qm:4d5e6f7a-8b9c-0d1e-2f3a-5b6c7d8e9f0a a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:PrecisionMetric ;
+  ext:forClass concept-lr:street ;
+  dqv:value "0.95"^^xsd:decimal .
+
+qm:5e6f7a8b-9c0d-1e2f-3a4b-6c7d8e9f0a1b a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:RecallMetric ;
+  ext:forClass concept-lr:street ;
+  dqv:value "0.95"^^xsd:decimal .
+
+qm:6f7a8b9c-0d1e-2f3a-4b5c-7d8e9f0a1b2c a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf metric:F1ScoreMetric ;
+  ext:forClass concept-lr:street ;
+  dqv:value "0.95"^^xsd:decimal .
