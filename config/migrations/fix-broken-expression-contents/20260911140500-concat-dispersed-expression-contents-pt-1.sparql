@@ -1,0 +1,23 @@
+PREFIX eli: <http://data.europa.eu/eli/ontology#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+
+DELETE {
+  GRAPH ?g {
+    ?s <https://data.europarl.europa.eu/def/epvoc#expressionContent> ?content1.
+    ?s <https://data.europarl.europa.eu/def/epvoc#expressionContent> ?content2.
+  }
+}
+INSERT {
+  GRAPH ?g {
+    ?s <https://data.europarl.europa.eu/def/epvoc#expressionContent> ?newContent.
+  }
+}
+WHERE {
+  ?s a eli:Expression .
+  GRAPH ?g {
+    ?s <https://data.europarl.europa.eu/def/epvoc#expressionContent> ?content1.
+    ?s <https://data.europarl.europa.eu/def/epvoc#expressionContent> ?content2.
+    FILTER(?content1 < ?content2)
+    BIND(CONCAT(?content1, "\n", ?content2) AS ?newContent)
+  }
+}
