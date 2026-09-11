@@ -1,0 +1,31 @@
+PREFIX ex: <http://example.org/>
+PREFIX eurovoc: <http://eurovoc.europa.eu/>
+
+DELETE {
+  GRAPH ?g {
+    ?s ?p ?o.
+  }
+
+}WHERE {
+
+  VALUES ?s {
+    <http://data.lblod.info/id/catalogs/5d39120a-9575-41aa-b098-a63d6df99e6b>
+    <http://mu.semte.ch/ext/resources/publishers/0a99b381-636b-41c7-b387-a0376c1495ad>
+    <http://mu.semte.ch/cms/resources/pages/6d1a64ad-c639-4452-8d24-4c5672c85623>
+    <http://data.lblod.info/id/formats/a6a5b899-35f3-4194-aad7-9e35448bf43d>
+    <http://data.lblod.info/id/agents/6887467a-f009-450d-8f03-df2e59f6e82c>
+    <http://data.lblod.info/id/concept-schemes/e8228abc-fce5-4f5e-82e6-7fba967a0d56>
+    eurovoc:fb3a92a8-4a15-4976-b231-2f9e350edeb6
+    <http://data.lblod.info/id/catalog-records/e77be476-7373-4b69-8373-719236acd16a>
+
+    <http://data.lblod.info/id/distributions/08a3c086-db07-458b-9a65-34064697503c>
+    <http://data.lblod.info/id/datasets/123e4567-e89b-12d3-a456-426614174000>
+    ex:qualifiedAttribution
+    ex:identifier
+    ex:temporal
+  }
+
+  GRAPH ?g {
+    ?s ?p ?o.
+  }
+}

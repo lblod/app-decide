@@ -1,0 +1,164 @@
+services:
+  # Freiburg goes for a minimal setup for now and simply wants to publish the DCAT
+  # data and distribution downloads created in the DECIDe project. The pipelines
+  # are run on central servers.
+  #
+  # Example configuration when using app-letsencrypt as reverse proxy to forward
+  # traffic to the app's identifier.
+  # identifier:
+  #   environment:
+  #     # Note, <BASE-URL> should be replaced by the base URL used for your
+  #     # app. For example, for ABB's instance of the app this is
+  #     # `decide.lblod.info`.
+  #     VIRTUAL_HOST: "ds.<BASE-URL>,dashboard.<BASE-URL>,yasgui.<BASE-URL>,human-validator.<BASE-URL>"
+  #     LETSENCRYPT_HOST: "ds.<BASE-URL>,dashboard.<BASE-URL>,yasgui.<BASE-URL>,human-validator.<BASE-URL>"
+  #     LETSENCRYPT_EMAIL: "<SUPPORT-EMAIL>"
+  #   # Make sure the identifier service is both part of the app's default network
+  #   # as well as the `proxy` network configured at the end of this file.
+  #   networks:
+  #     - default
+  #     - proxy
+
+  # use minimal virtuoso settings
+  virtuoso:
+    volumes:
+      - ./config/virtuoso/virtuoso.minimal.ini:/data/virtuoso.ini
+      - ./data/db:/data
+  # Disable unneeded base services:
+  file:
+    restart: no
+    entrypoint: ["echo", "Service file is disabled"]
+
+  # Disable general data space services
+  frontend-yasgui:
+    restart: no
+    entrypoint: ["echo", "Service frontend-yasgui is disabled"]
+  dsp-auth-wrapper:
+    restart: no
+    entrypoint: ["echo", "Service dsp-auth-wrapper is disabled"]
+
+  vc-issuer:
+    restart: no
+    entrypoint: ["echo", "Service vc-issuer is disabled"]
+  acmidm-login:
+    restart: no
+    entrypoint: ["echo", "Service acmidm-login is disabled"]
+
+  # Disable pipeline services:
+  frontend-harvesting:
+    restart: no
+    entrypoint: ["echo", "Service frontend-harvesting is disabled"]
+  login:
+    restart: no
+    entrypoint: ["echo", "Service login is disabled"]
+  job-controller:
+    restart: no
+    entrypoint: ["echo", "Service job-controller is disabled"]
+  scheduled-job-controller:
+    restart: no
+    entrypoint: ["echo", "Service scheduled-job-controller is disabled"]
+  annotation-job-splitter:
+    restart: no
+    entrypoint: ["echo", "Service annotation-job-splitter is disabled"]
+  harvest_singleton-job:
+    restart: no
+    entrypoint: ["echo", "Service harvest_singleton-job is disabled"]
+
+  resource-type-service:
+    restart: no
+    entrypoint: ["echo", "Service resource-type-service is disabled"]
+  harvest_diff:
+    restart: no
+    entrypoint: ["echo", "Service harvest_diff is disabled"]
+  harvest_sameas:
+    restart: no
+    entrypoint: ["echo", "Service harvest_sameas is disabled"]
+  oparl-to-eli:
+    restart: no
+    entrypoint: ["echo", "Service oparl-to-eli is disabled"]
+  lokaal-beslist-consumer:
+    restart: no
+    entrypoint: ["echo", "Service lokaal-beslist-consumer is disabled"]
+  decisions-ghent-filter:
+    restart: no
+    entrypoint: ["echo", "Service decisions-ghent-filter is disabled"]
+  oslo-eli-transformer:
+    restart: no
+    entrypoint: ["echo", "Service oslo-eli-transformer is disabled"]
+  json-to-eli:
+    restart: no
+    entrypoint: ["echo", "Service json-to-eli is disabled"]
+  entity-linking:
+    restart: no
+    entrypoint: ["echo", "Service entity-linking is disabled"]
+  pdf-scraper:
+    restart: no
+    entrypoint: ["echo", "Service pdf-scraper is disabled"]
+  pdf-content:
+    restart: no
+    entrypoint: ["echo", "Service pdf-content is disabled"]
+  apache-tika:
+    restart: no
+    entrypoint: ["echo", "Service apache-tika is disabled"]
+  question-answering:
+    restart: no
+    entrypoint: ["echo", "Service question-answering is disabled"]
+  nominatim:
+    restart: no
+    entrypoint: ["echo", "Service nominatim is disabled"]
+  named-entity-recognition:
+    restart: no
+    entrypoint: ["echo", "Service named-entity-recognition is disabled"]
+  ollama:
+    restart: no
+    entrypoint: ["echo", "Service ollama is disabled"]
+  codelist-labeling:
+    restart: no
+    entrypoint: ["echo", "Service codelist-labeling is disabled"]
+  search:
+    restart: no
+    entrypoint: ["echo", "Service search is disabled"]
+  elasticsearch:
+    restart: no
+    entrypoint: ["echo", "Service elasticsearch is disabled"]
+  embedding:
+    restart: no
+    entrypoint: ["echo", "Service embedding is disabled"]
+  municipality-linker:
+    restart: no
+    entrypoint: ["echo", "Service municipality-linker is disabled"]
+  frontend-smart-search:
+    restart: no
+    entrypoint: ["echo", "Service frontend-smart-search is disabled"]
+  annotation-review:
+    restart: no
+    entrypoint: ["echo", "Service annotation-review is disabled"]
+  frontend-human-validator:
+    restart: no
+    entrypoint: ["echo", "Service frontend-human-validator is disabled"]
+  report-generation:
+    restart: no
+    entrypoint: ["echo", "Service report-generation is disabled"]
+  policy-impact-report:
+    restart: no
+    entrypoint: ["echo", "Service policy-impact-report is disabled"]
+  frontend-policy-impact-report:
+    restart: no
+    entrypoint: ["echo", "Service frontend-policy-impact-report is disabled"]
+
+  # LDES services for DCAT federation
+  # Replace the values below to set the base URL used for your app's LDES feed.
+  # Make sure this URL ends with `/ldes/`.
+  ldes-delta-pusher:
+    environment:
+      LDES_BASE: "<REPLACE-WITH-BASE-URL>"
+      # WRITE_INITIAL_STATE: "true"
+  ldes-serve-feed:
+    environment:
+      BASE_URL: "<REPLACE-WITH-BASE-URL>"
+
+# Uncomment to configure network exposed by app-letsencrypt
+# networks:
+#   proxy:
+#     name: letsencrypt_default
+#     external: true

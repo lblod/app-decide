@@ -7,7 +7,8 @@
         "oslc": "http://open-services.net/ns/core#",
         "nfo": "http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#",
         "task": "http://redpencil.data.gift/vocabularies/tasks/",
-        "ext": "http://mu.semte.ch/vocabularies/ext/"
+        "ext": "http://mu.semte.ch/vocabularies/ext/",
+        "sh": "http://www.w3.org/ns/shacl#"
     },
     "resources": {
         "jobs": {
@@ -33,6 +34,10 @@
                 "operation": {
                     "type": "url",
                     "predicate": "task:operation"
+                },
+                "split-decisions": {
+                    "type": "boolean",
+                    "predicate": "ext:splitDecisions"
                 }
             },
             "relationships": {
@@ -64,16 +69,12 @@
                     "type": "url",
                     "predicate": "ext:codelist"
                 },
-                "shape-for-targets": {
-                    "type": "url",
-                    "predicate": "ext:shapeForTargets"
-                },
                 "graph-for-targets": {
                     "type": "url",
                     "predicate": "ext:graphForTargets"
                 },
                 "property-path-for-text": {
-                    "type": "url",
+                    "type": "string",
                     "predicate": "ext:propertyPathForText"
                 },
                 "confidence-threshold": {
@@ -81,10 +82,53 @@
                     "predicate": "ext:confidenceThreshold"
                 }
             },
+            "relationships": {
+                "shape-for-targets": {
+                    "predicate": "ext:shapeForTargets",
+                    "target": "node-shape",
+                    "cardinality": "many"
+                }
+            },
             "features": [
                 "include-uri"
             ],
             "new-resource-base": "http://redpencil.data.gift/id/annotation-job/"
+        },
+        "scheduled-annotation-jobs": {
+            "name": "scheduled-annotation-job",
+            "class": "ext:ScheduledAnnotationJob",
+            "super": [
+                "scheduled-job"
+            ],
+            "attributes": {
+                "codelist": {
+                    "type": "url",
+                    "predicate": "ext:codelist"
+                },
+                "graph-for-targets": {
+                    "type": "url",
+                    "predicate": "ext:graphForTargets"
+                },
+                "property-path-for-text": {
+                    "type": "string",
+                    "predicate": "ext:propertyPathForText"
+                },
+                "confidence-threshold": {
+                    "type": "number",
+                    "predicate": "ext:confidenceThreshold"
+                }
+            },
+            "relationships": {
+                "shape-for-targets": {
+                    "predicate": "ext:shapeForTargets",
+                    "target": "node-shape",
+                    "cardinality": "many"
+                }
+            },
+            "features": [
+                "include-uri"
+            ],
+            "new-resource-base": "http://redpencil.data.gift/id/scheduled-annotation-job/"
         },
         "tasks": {
             "name": "task",
@@ -97,6 +141,10 @@
                 "modified": {
                     "type": "datetime",
                     "predicate": "dct:modified"
+                },
+                "checked-for-scheduling": {
+                    "type": "datetime",
+                    "predicate": "ext:checkedForScheduling"
                 },
                 "status": {
                     "type": "url",
@@ -193,6 +241,24 @@
                 "include-uri"
             ],
             "new-resource-base": "http://redpencil.data.gift/id/dataContainers/"
+        },
+        "node-shapes": {
+            "name": "node-shape",
+            "class": "sh:NodeShape",
+            "attributes": {
+                "target-node": {
+                    "type": "uri-set",
+                    "predicate": "sh:targetNode"
+                },
+                "target-class": {
+                    "type": "uri-set",
+                    "predicate": "sh:targetClass"
+                }
+            },
+            "features": [
+                "include-uri"
+            ],
+            "new-resource-base": "http://redpencil.data.gift/id/shapes/"
         }
     }
 }

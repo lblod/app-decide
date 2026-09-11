@@ -1,0 +1,50 @@
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+    DELETE {
+        GRAPH ?g {
+            ?s ?p ?o .
+        }
+    }
+    INSERT {
+        GRAPH ?g {
+            ?newS ?p ?newO .
+        }
+    }
+    WHERE {
+        VALUES ?type { skos:ConceptScheme skos:Concept }
+
+        {
+            # All triples of a wrong "lblod.gift" concept scheme or concept
+            GRAPH ?g {
+                ?s a ?type ;
+                ?p ?o .
+                FILTER(CONTAINS(str(?s), "data.lblod.gift"))
+            }
+        } UNION {
+            # All triples pointing to a wrong "lblod.gift" concept scheme or concept
+            # Note: codelists live in a separate graph than the triples pointing to them
+            GRAPH ?gCodelists {
+                ?o a ?type .
+            }
+            GRAPH ?g {
+               ?s ?p ?o .
+               FILTER(CONTAINS(str(?o), "data.lblod.gift"))
+            }
+        }
+
+        BIND(
+            IF(
+            isURI(?s) && CONTAINS(str(?s), "data.lblod.gift"),
+            URI(REPLACE(str(?s), "data.lblod.gift", "lblod.data.gift")),
+            ?s
+            ) AS ?newS
+        )
+
+        BIND(
+            IF(
+            isURI(?o) && CONTAINS(str(?o), "data.lblod.gift"),
+            URI(REPLACE(str(?o), "data.lblod.gift", "lblod.data.gift")),
+            ?o
+            ) AS ?newO
+        )
+    }

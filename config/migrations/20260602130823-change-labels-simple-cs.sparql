@@ -1,0 +1,18 @@
+DELETE {
+  GRAPH ?g {
+    <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-simple> skos:prefLabel ?old.
+    <http://data.lblod.gift/id/conceptscheme/sdg-simple> skos:prefLabel ?oldSdg.
+  }
+}
+INSERT {
+  GRAPH ?g {
+    <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-simple> skos:prefLabel "Restricted Mobility Zones"@en .
+    <http://data.lblod.gift/id/conceptscheme/sdg-simple> skos:prefLabel "Sustainable Development Goals"@en .
+  }
+}
+WHERE {
+  GRAPH ?g {
+    <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-simple> skos:prefLabel ?old.
+    <http://data.lblod.gift/id/conceptscheme/sdg-simple> skos:prefLabel ?oldSdg.
+  }
+}

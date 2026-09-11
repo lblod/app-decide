@@ -1,0 +1,591 @@
+@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix skos:	<http://www.w3.org/2004/02/skos/core#> .
+<http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/088784b6-e188-48bf-b94f-94665f9e1f53>	rdf:type	skos:Concept .
+@prefix ns2:	<http://lblod.data.gift/vocabularies/organisatie/> .
+<http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/088784b6-e188-48bf-b94f-94665f9e1f53>	rdf:type	ns2:BestuurseenheidClassificatieCode .
+@prefix ns3:	<http://mu.semte.ch/vocabularies/ext/> .
+<http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/088784b6-e188-48bf-b94f-94665f9e1f53>	rdf:type	ns3:BestuurseenheidClassificatieCode ,
+		ns3:OrganizationClassificationCode .
+@prefix ns4:	<http://mu.semte.ch/vocabularies/core/> .
+<http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/088784b6-e188-48bf-b94f-94665f9e1f53>	ns4:uuid	"088784b6-e188-48bf-b94f-94665f9e1f53" ;
+	skos:prefLabel	"PEVA provincie" ;
+	skos:inScheme	<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> .
+@prefix ns5:	<http://data.vlaanderen.be/id/conceptscheme/> .
+<http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/088784b6-e188-48bf-b94f-94665f9e1f53>	skos:inScheme	ns5:BestuurseenheidClassificatieCode ;
+	skos:topConceptOf	ns5:BestuurseenheidClassificatieCode .
+<http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/2ad46df5-5c79-4d67-84d5-604c1377231e>	rdf:type	skos:Concept ,
+		ns2:BestuurseenheidClassificatieCode ,
+		ns3:OrganizationClassificationCode ,
+		ns3:BestuurseenheidClassificatieCode ;
+	ns4:uuid	"2ad46df5-5c79-4d67-84d5-604c1377231e" ;
+	skos:prefLabel	"PEVA gemeente" ;
+	skos:inScheme	<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ,
+		ns5:BestuurseenheidClassificatieCode ;
+	skos:topConceptOf	ns5:BestuurseenheidClassificatieCode .
+<http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/36a82ba0-7ff1-4697-a9dd-2e94df73b721>	rdf:type	ns2:BestuurseenheidClassificatieCode ,
+		skos:Concept ,
+		ns3:BestuurseenheidClassificatieCode ,
+		ns3:OrganizationClassificationCode ;
+	ns4:uuid	"36a82ba0-7ff1-4697-a9dd-2e94df73b721" ;
+	skos:prefLabel	"Autonoom gemeentebedrijf" ;
+	skos:inScheme	<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ,
+		<http://lblod.data.gift/concept-schemes/06bad311-e964-48a4-9b6b-f765819e76e0> ,
+		ns5:BestuurseenheidClassificatieCode ;
+	skos:topConceptOf	ns5:BestuurseenheidClassificatieCode .
+@prefix ns6:	<http://schema.org/> .
+<http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/36a82ba0-7ff1-4697-a9dd-2e94df73b721>	ns6:publication	<http://lblod.data.gift/concepts/83f7b480-fcaf-4795-b603-7f3bce489325> .
+<http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000000>	rdf:type	ns2:BestuurseenheidClassificatieCode ,
+		skos:Concept ,
+		ns3:OrganizationClassificationCode ,
+		ns3:BestuurseenheidClassificatieCode ;
+	ns4:uuid	"5ab0e9b8a3b2ca7c5e000000" ;
+	skos:prefLabel	"Provincie" ;
+	skos:inScheme	ns5:BestuurseenheidClassificatieCode ,
+		<http://lblod.data.gift/concept-schemes/06bad311-e964-48a4-9b6b-f765819e76e0> ;
+	skos:topConceptOf	ns5:BestuurseenheidClassificatieCode ;
+	ns6:publication	<http://lblod.data.gift/concepts/83f7b480-fcaf-4795-b603-7f3bce489325> ,
+		<http://lblod.data.gift/concepts/403b71bd-5ab9-4c92-8990-4bb19d5469d1> .
+<http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000001>	rdf:type	ns2:BestuurseenheidClassificatieCode ,
+		skos:Concept ,
+		ns3:OrganizationClassificationCode ,
+		ns3:BestuurseenheidClassificatieCode ;
+	ns3:deeltBestuurVan	<http://data.lblod.info/id/bestuurseenheden/08b6bdc2c34dacae28168cf967ef2e13384f032a147ddaea7f1145eff4f0d161> ;
+	ns4:uuid	"5ab0e9b8a3b2ca7c5e000001" ;
+	skos:prefLabel	"Gemeente" ;
+	skos:inScheme	ns5:BestuurseenheidClassificatieCode ,
+		<http://lblod.data.gift/concept-schemes/06bad311-e964-48a4-9b6b-f765819e76e0> ;
+	skos:topConceptOf	ns5:BestuurseenheidClassificatieCode ;
+	ns6:publication	<http://lblod.data.gift/concepts/83f7b480-fcaf-4795-b603-7f3bce489325> ,
+		<http://lblod.data.gift/concepts/403b71bd-5ab9-4c92-8990-4bb19d5469d1> .
+<http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000002>	rdf:type	ns2:BestuurseenheidClassificatieCode ,
+		skos:Concept ,
+		ns3:BestuurseenheidClassificatieCode ,
+		ns3:OrganizationClassificationCode ;
+	ns4:uuid	"5ab0e9b8a3b2ca7c5e000002" ;
+	skos:prefLabel	"OCMW" ;
+	skos:inScheme	<http://lblod.data.gift/concept-schemes/06bad311-e964-48a4-9b6b-f765819e76e0> ,
+		ns5:BestuurseenheidClassificatieCode ;
+	skos:topConceptOf	ns5:BestuurseenheidClassificatieCode ;
+	ns6:publication	<http://lblod.data.gift/concepts/83f7b480-fcaf-4795-b603-7f3bce489325> .
+<http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000003>	rdf:type	ns2:BestuurseenheidClassificatieCode ,
+		skos:Concept ,
+		ns3:BestuurseenheidClassificatieCode ,
+		ns3:OrganizationClassificationCode ;
+	ns4:uuid	"5ab0e9b8a3b2ca7c5e000003" ;
+	skos:prefLabel	"District" ;
+	skos:inScheme	<http://lblod.data.gift/concept-schemes/06bad311-e964-48a4-9b6b-f765819e76e0> ,
+		ns5:BestuurseenheidClassificatieCode ;
+	skos:topConceptOf	ns5:BestuurseenheidClassificatieCode ;
+	ns6:publication	<http://lblod.data.gift/concepts/83f7b480-fcaf-4795-b603-7f3bce489325> .
+<http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/66ec74fd-8cfc-4e16-99c6-350b35012e86>	rdf:type	ns2:BestuurseenheidClassificatieCode ,
+		skos:Concept ,
+		ns3:OrganizationClassificationCode ,
+		ns3:BestuurseenheidClassificatieCode ;
+	ns4:uuid	"66ec74fd-8cfc-4e16-99c6-350b35012e86" ;
+	skos:prefLabel	"Bestuur van de eredienst" ;
+	skos:inScheme	<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ,
+		ns5:BestuurseenheidClassificatieCode ,
+		<http://lblod.data.gift/concept-schemes/19c53ee2-bac1-4ce8-8015-6ff589ccfaca> ,
+		<http://lblod.data.gift/concept-schemes/06bad311-e964-48a4-9b6b-f765819e76e0> ;
+	skos:topConceptOf	ns5:BestuurseenheidClassificatieCode ;
+	ns6:publication	<http://lblod.data.gift/concepts/403b71bd-5ab9-4c92-8990-4bb19d5469d1> .
+<http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/80310756-ce0a-4a1b-9b8e-7c01b6cc7a2d>	rdf:type	ns2:BestuurseenheidClassificatieCode ,
+		ns3:BestuurseenheidClassificatieCode ,
+		ns3:OrganizationClassificationCode ,
+		skos:Concept ;
+	ns4:uuid	"80310756-ce0a-4a1b-9b8e-7c01b6cc7a2d" ;
+	skos:prefLabel	"Autonoom provinciebedrijf" ;
+	skos:inScheme	<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ,
+		<http://lblod.data.gift/concept-schemes/06bad311-e964-48a4-9b6b-f765819e76e0> ,
+		ns5:BestuurseenheidClassificatieCode ;
+	skos:topConceptOf	ns5:BestuurseenheidClassificatieCode ;
+	ns6:publication	<http://lblod.data.gift/concepts/83f7b480-fcaf-4795-b603-7f3bce489325> .
+@prefix ns7:	<http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/> .
+ns7:a3922c6d-425b-474f-9a02-ffb71a436bfc	rdf:type	ns2:BestuurseenheidClassificatieCode ,
+		ns3:OrganizationClassificationCode ,
+		skos:Concept ,
+		ns3:BestuurseenheidClassificatieCode ;
+	ns4:uuid	"a3922c6d-425b-474f-9a02-ffb71a436bfc" ;
+	skos:prefLabel	"Politiezone" ;
+	skos:inScheme	ns5:BestuurseenheidClassificatieCode ,
+		<http://lblod.data.gift/concept-schemes/06bad311-e964-48a4-9b6b-f765819e76e0> ;
+	skos:topConceptOf	ns5:BestuurseenheidClassificatieCode ;
+	ns6:publication	<http://lblod.data.gift/concepts/83f7b480-fcaf-4795-b603-7f3bce489325> .
+ns7:b156b67f-c5f4-4584-9b30-4c090be02fdc	rdf:type	ns2:BestuurseenheidClassificatieCode ,
+		skos:Concept ,
+		ns3:OrganizationClassificationCode ,
+		ns3:BestuurseenheidClassificatieCode ;
+	ns4:uuid	"b156b67f-c5f4-4584-9b30-4c090be02fdc" ;
+	skos:prefLabel	"Projectvereniging" ;
+	skos:inScheme	ns5:BestuurseenheidClassificatieCode ,
+		<http://lblod.data.gift/concept-schemes/06bad311-e964-48a4-9b6b-f765819e76e0> ;
+	skos:topConceptOf	ns5:BestuurseenheidClassificatieCode .
+ns7:cd93f147-3ece-4308-acab-5c5ada3ec63d	rdf:type	ns2:BestuurseenheidClassificatieCode ,
+		ns3:BestuurseenheidClassificatieCode ,
+		ns3:OrganizationClassificationCode ,
+		skos:Concept ;
+	ns4:uuid	"cd93f147-3ece-4308-acab-5c5ada3ec63d" ;
+	skos:prefLabel	"Opdrachthoudende vereniging" ;
+	skos:inScheme	<http://lblod.data.gift/concept-schemes/06bad311-e964-48a4-9b6b-f765819e76e0> ,
+		ns5:BestuurseenheidClassificatieCode ;
+	skos:topConceptOf	ns5:BestuurseenheidClassificatieCode ;
+	ns6:publication	<http://lblod.data.gift/concepts/83f7b480-fcaf-4795-b603-7f3bce489325> .
+ns7:d01bb1f6-2439-4e33-9c25-1fc295de2e71	rdf:type	ns2:BestuurseenheidClassificatieCode ,
+		ns3:OrganizationClassificationCode ,
+		ns3:BestuurseenheidClassificatieCode ,
+		skos:Concept ;
+	ns4:uuid	"d01bb1f6-2439-4e33-9c25-1fc295de2e71" ;
+	skos:prefLabel	"Dienstverlenende vereniging" ;
+	skos:inScheme	ns5:BestuurseenheidClassificatieCode ,
+		<http://lblod.data.gift/concept-schemes/06bad311-e964-48a4-9b6b-f765819e76e0> ;
+	skos:topConceptOf	ns5:BestuurseenheidClassificatieCode ;
+	ns6:publication	<http://lblod.data.gift/concepts/83f7b480-fcaf-4795-b603-7f3bce489325> .
+ns7:d90c511e-f827-488c-84ba-432c8f69561c	rdf:type	ns2:BestuurseenheidClassificatieCode ,
+		skos:Concept ,
+		ns3:BestuurseenheidClassificatieCode ,
+		ns3:OrganizationClassificationCode ;
+	ns4:uuid	"d90c511e-f827-488c-84ba-432c8f69561c" ;
+	skos:prefLabel	"Vlaamse gemeenschapscommissie" ;
+	skos:inScheme	ns5:BestuurseenheidClassificatieCode ;
+	skos:topConceptOf	ns5:BestuurseenheidClassificatieCode .
+ns7:ea446861-2c51-45fa-afd3-4e4a37b71562	rdf:type	ns2:BestuurseenheidClassificatieCode ,
+		skos:Concept ,
+		ns3:OrganizationClassificationCode ,
+		ns3:BestuurseenheidClassificatieCode ;
+	ns4:uuid	"ea446861-2c51-45fa-afd3-4e4a37b71562" ;
+	skos:prefLabel	"Hulpverleningszone" ;
+	skos:inScheme	ns5:BestuurseenheidClassificatieCode ,
+		<http://lblod.data.gift/concept-schemes/06bad311-e964-48a4-9b6b-f765819e76e0> ;
+	skos:topConceptOf	ns5:BestuurseenheidClassificatieCode ;
+	ns6:publication	<http://lblod.data.gift/concepts/83f7b480-fcaf-4795-b603-7f3bce489325> .
+ns7:f9cac08a-13c1-49da-9bcb-f650b0604054	rdf:type	ns2:BestuurseenheidClassificatieCode ,
+		skos:Concept ,
+		ns3:BestuurseenheidClassificatieCode ,
+		ns3:OrganizationClassificationCode ;
+	ns4:uuid	"f9cac08a-13c1-49da-9bcb-f650b0604054" ;
+	skos:prefLabel	"Centraal bestuur van de eredienst" ;
+	skos:inScheme	<http://lblod.data.gift/concept-schemes/06bad311-e964-48a4-9b6b-f765819e76e0> ,
+		<http://lblod.data.gift/concept-schemes/19c53ee2-bac1-4ce8-8015-6ff589ccfaca> ,
+		ns5:BestuurseenheidClassificatieCode ,
+		<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ;
+	skos:topConceptOf	ns5:BestuurseenheidClassificatieCode ;
+	ns6:publication	<http://lblod.data.gift/concepts/403b71bd-5ab9-4c92-8990-4bb19d5469d1> .
+<http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/013cc838-173a-4657-b1ae-b00c048df943>	rdf:type	ns2:BestuursorgaanClassificatieCode ,
+		skos:Concept ,
+		ns3:BestuursorgaanClassificatieCode .
+@prefix ns8:	<http://data.lblod.info/id/lb-orgaan-classificatiecode/> .
+<http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/013cc838-173a-4657-b1ae-b00c048df943>	skos:broader	ns8:aa5f804a-2ad0-422d-9569-ea93496f5b69 ;
+	ns4:uuid	"013cc838-173a-4657-b1ae-b00c048df943" ;
+	skos:prefLabel	"Raad van bestuur" ;
+	skos:inScheme	ns5:BestuursorgaanClassificatieCode .
+@prefix ns9:	<http://data.lblod.info/id/conceptscheme/> .
+<http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/013cc838-173a-4657-b1ae-b00c048df943>	skos:inScheme	ns9:LokaalOrgaanClassificatieCode ,
+		<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ;
+	skos:topConceptOf	ns5:BestuursorgaanClassificatieCode ;
+	ns6:publication	<http://lblod.data.gift/concepts/403b71bd-5ab9-4c92-8990-4bb19d5469d1> .
+<http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/04f65457bf125b2dc59fd71917ac3d08>	rdf:type	ns2:BestuursorgaanClassificatieCode ,
+		skos:Concept ,
+		ns3:BestuursorgaanClassificatieCode ;
+	ns4:uuid	"04f65457bf125b2dc59fd71917ac3d08" ;
+	skos:prefLabel	"Kerkraad" ;
+	skos:inScheme	<http://lblod.data.gift/concept-schemes/19c53ee2-bac1-4ce8-8015-6ff589ccfaca> .
+@prefix ns10:	<http://data.vlaanderen.be/id/concept/> .
+<http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/04f65457bf125b2dc59fd71917ac3d08>	skos:inScheme	ns10:BestuursorgaanClassificatieCode ,
+		<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ;
+	skos:topConceptOf	ns10:BestuursorgaanClassificatieCode .
+<http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/0d985699479162198b889f10e4f1a8ce>	rdf:type	ns2:BestuursorgaanClassificatieCode ,
+		skos:Concept ,
+		ns3:BestuursorgaanClassificatieCode ;
+	ns4:uuid	"0d985699479162198b889f10e4f1a8ce" ;
+	skos:prefLabel	"Centraal kerkbestuur" ;
+	skos:inScheme	<http://lblod.data.gift/concept-schemes/19c53ee2-bac1-4ce8-8015-6ff589ccfaca> ,
+		ns10:BestuursorgaanClassificatieCode ,
+		<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ;
+	skos:topConceptOf	ns10:BestuursorgaanClassificatieCode .
+<http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/0dbc70ec-6be9-4997-b8e1-11b6c0542382>	rdf:type	ns2:BestuursorgaanClassificatieCode ,
+		skos:Concept ,
+		ns3:BestuursorgaanClassificatieCode ;
+	ns4:uuid	"0dbc70ec-6be9-4997-b8e1-11b6c0542382" ;
+	skos:prefLabel	"Bevoegd beslissingsorgaan" ;
+	skos:inScheme	ns5:BestuursorgaanClassificatieCode .
+@prefix ns11:	<http://mu.semte.ch/vocabularies/ext/lmb/> .
+<http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/0dbc70ec-6be9-4997-b8e1-11b6c0542382>	skos:inScheme	ns11:vrije-bestuursorgaan-codes ,
+		<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ;
+	skos:topConceptOf	ns5:BestuursorgaanClassificatieCode ,
+		ns11:vrije-bestuursorgaan-codes .
+<http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/11f0af9e-016c-4e0b-983a-d8bc73804abc>	rdf:type	ns2:BestuursorgaanClassificatieCode ,
+		ns3:BestuursorgaanClassificatieCode ,
+		skos:Concept ;
+	ns4:uuid	"11f0af9e-016c-4e0b-983a-d8bc73804abc" ;
+	skos:prefLabel	"Adjunct-algemeen directeur" ;
+	skos:inScheme	ns5:BestuursorgaanClassificatieCode ,
+		<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ;
+	skos:topConceptOf	ns5:BestuursorgaanClassificatieCode .
+<http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/17e76b36-64a1-4db1-8927-def3064b4bf1>	rdf:type	ns2:BestuursorgaanClassificatieCode ,
+		ns3:BestuursorgaanClassificatieCode ,
+		skos:Concept ;
+	skos:broader	ns8:aa5f804a-2ad0-422d-9569-ea93496f5b69 ;
+	ns4:uuid	"17e76b36-64a1-4db1-8927-def3064b4bf1" ;
+	skos:prefLabel	"Regionaal bestuurscomit\u00E9" ;
+	skos:inScheme	ns5:BestuursorgaanClassificatieCode ,
+		ns9:LokaalOrgaanClassificatieCode ,
+		<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ;
+	skos:topConceptOf	ns5:BestuursorgaanClassificatieCode .
+<http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/180a2fba-6ca9-4766-9b94-82006bb9c709>	rdf:type	ns2:BestuursorgaanClassificatieCode ,
+		skos:Concept ,
+		ns3:BestuursorgaanClassificatieCode ;
+	ns4:uuid	"180a2fba-6ca9-4766-9b94-82006bb9c709" ;
+	skos:prefLabel	"Gouverneur" ;
+	skos:inScheme	ns5:BestuursorgaanClassificatieCode ,
+		<http://lblod.data.gift/concept-schemes/0887b850-b810-40d4-be0f-cafd01d3259b> ,
+		ns11:gemeente-bestuursorgaan-codes ,
+		<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ;
+	skos:topConceptOf	ns5:BestuursorgaanClassificatieCode ,
+		ns11:gemeente-bestuursorgaan-codes .
+<http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/1afce932-53c1-46d8-8aab-90dcc331e67d>	rdf:type	ns2:BestuursorgaanClassificatieCode ,
+		skos:Concept ,
+		ns3:BestuursorgaanClassificatieCode ;
+	ns4:uuid	"1afce932-53c1-46d8-8aab-90dcc331e67d" ;
+	skos:prefLabel	"Politieraad" ;
+	skos:inScheme	ns5:BestuursorgaanClassificatieCode ,
+		ns11:vrije-bestuursorgaan-codes ,
+		<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ;
+	skos:topConceptOf	ns5:BestuursorgaanClassificatieCode ,
+		ns11:vrije-bestuursorgaan-codes ;
+	ns6:publication	<http://lblod.data.gift/concepts/83f7b480-fcaf-4795-b603-7f3bce489325> .
+<http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/39854196-f214-4688-87a1-d6ad12baa2fa>	rdf:type	ns3:BestuursorgaanClassificatieCode ,
+		ns2:BestuursorgaanClassificatieCode ,
+		skos:Concept ;
+	ns4:uuid	"39854196-f214-4688-87a1-d6ad12baa2fa" ;
+	skos:prefLabel	"Algemeen directeur" ;
+	skos:inScheme	ns5:BestuursorgaanClassificatieCode ,
+		<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ;
+	skos:topConceptOf	ns5:BestuursorgaanClassificatieCode .
+<http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/3e9f22c1-0d35-445b-8a37-494addedf2d8>	rdf:type	ns3:BestuursorgaanClassificatieCode ,
+		ns2:BestuursorgaanClassificatieCode ,
+		skos:Concept ;
+	ns4:uuid	"3e9f22c1-0d35-445b-8a37-494addedf2d8" ;
+	skos:prefLabel	"Financieel beheerder" ;
+	skos:inScheme	ns5:BestuursorgaanClassificatieCode ,
+		<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ;
+	skos:topConceptOf	ns5:BestuursorgaanClassificatieCode .
+<http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/41caf7e6-b040-4720-9cc2-a96cfffed5b4>	rdf:type	ns2:BestuursorgaanClassificatieCode ,
+		ns3:BestuursorgaanClassificatieCode ,
+		skos:Concept ;
+	ns4:uuid	"41caf7e6-b040-4720-9cc2-a96cfffed5b4" ;
+	skos:prefLabel	"Leidend Ambtenaar" ;
+	skos:inScheme	ns5:BestuursorgaanClassificatieCode ,
+		<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ;
+	skos:topConceptOf	ns5:BestuursorgaanClassificatieCode .
+<http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/4393389e99127b68e7fc11936ba92e18>	rdf:type	ns2:BestuursorgaanClassificatieCode ,
+		ns3:BestuursorgaanClassificatieCode ,
+		skos:Concept ;
+	ns4:uuid	"4393389e99127b68e7fc11936ba92e18" ;
+	skos:prefLabel	"Centraal bestuur" ;
+	skos:inScheme	<http://lblod.data.gift/concept-schemes/19c53ee2-bac1-4ce8-8015-6ff589ccfaca> ,
+		ns10:BestuursorgaanClassificatieCode ,
+		<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ;
+	skos:topConceptOf	ns10:BestuursorgaanClassificatieCode .
+<http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/4955bd72cd0e4eb895fdbfab08da0284>	rdf:type	ns3:BestuursorgaanClassificatieCode ,
+		ns2:BestuursorgaanClassificatieCode ,
+		skos:Concept ;
+	ns4:uuid	"4955bd72cd0e4eb895fdbfab08da0284" ;
+	skos:prefLabel	"Burgemeester" ;
+	skos:inScheme	<http://lblod.data.gift/concept-schemes/0887b850-b810-40d4-be0f-cafd01d3259b> ,
+		ns5:BestuursorgaanClassificatieCode ,
+		<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ,
+		ns11:gemeente-bestuursorgaan-codes ;
+	skos:topConceptOf	ns5:BestuursorgaanClassificatieCode ,
+		ns11:gemeente-bestuursorgaan-codes .
+<http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/53c0d8cd-f3a2-411d-bece-4bd83ae2bbc9>	rdf:type	ns3:BestuursorgaanClassificatieCode ,
+		ns2:BestuursorgaanClassificatieCode ,
+		skos:Concept ;
+	ns4:uuid	"53c0d8cd-f3a2-411d-bece-4bd83ae2bbc9" ;
+	skos:prefLabel	"Voorzitter van het Bijzonder Comit\u00E9 voor de Sociale Dienst" ;
+	skos:inScheme	ns5:BestuursorgaanClassificatieCode ,
+		<http://lblod.data.gift/concept-schemes/0887b850-b810-40d4-be0f-cafd01d3259b> ,
+		<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ;
+	skos:topConceptOf	ns5:BestuursorgaanClassificatieCode .
+<http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/5733254e-73ff-4844-8d43-7afb7ec726e8>	rdf:type	ns3:BestuursorgaanClassificatieCode ,
+		ns2:BestuursorgaanClassificatieCode ,
+		skos:Concept ;
+	skos:broader	ns8:aa5f804a-2ad0-422d-9569-ea93496f5b69 ;
+	ns4:uuid	"5733254e-73ff-4844-8d43-7afb7ec726e8" ;
+	skos:prefLabel	"Directiecomit\u00E9" ;
+	skos:inScheme	ns9:LokaalOrgaanClassificatieCode ,
+		ns5:BestuursorgaanClassificatieCode ,
+		<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ;
+	skos:topConceptOf	ns5:BestuursorgaanClassificatieCode .
+<http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/5ab0e9b8a3b2ca7c5e000005>	rdf:type	ns3:BestuursorgaanClassificatieCode ,
+		ns2:BestuursorgaanClassificatieCode ,
+		skos:Concept ;
+	ns4:uuid	"5ab0e9b8a3b2ca7c5e000005" ;
+	skos:prefLabel	"Gemeenteraad" ;
+	skos:inScheme	<http://lblod.data.gift/concept-schemes/0887b850-b810-40d4-be0f-cafd01d3259b> ,
+		ns5:BestuursorgaanClassificatieCode ,
+		<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ,
+		ns11:gemeente-bestuursorgaan-codes ;
+	skos:topConceptOf	ns5:BestuursorgaanClassificatieCode ,
+		ns11:gemeente-bestuursorgaan-codes .
+<http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/5ab0e9b8a3b2ca7c5e000006>	rdf:type	ns3:BestuursorgaanClassificatieCode ,
+		ns2:BestuursorgaanClassificatieCode ,
+		skos:Concept ;
+	ns4:uuid	"5ab0e9b8a3b2ca7c5e000006" ;
+	skos:prefLabel	"College van Burgemeester en Schepenen" ;
+	skos:inScheme	<http://lblod.data.gift/concept-schemes/0887b850-b810-40d4-be0f-cafd01d3259b> ,
+		ns5:BestuursorgaanClassificatieCode ,
+		<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ,
+		ns11:gemeente-bestuursorgaan-codes ;
+	skos:topConceptOf	ns5:BestuursorgaanClassificatieCode ,
+		ns11:gemeente-bestuursorgaan-codes .
+<http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/5ab0e9b8a3b2ca7c5e000007>	rdf:type	ns3:BestuursorgaanClassificatieCode ,
+		ns2:BestuursorgaanClassificatieCode ,
+		skos:Concept ;
+	ns4:uuid	"5ab0e9b8a3b2ca7c5e000007" ;
+	skos:prefLabel	"Raad voor Maatschappelijk Welzijn" ;
+	skos:inScheme	ns5:BestuursorgaanClassificatieCode ,
+		<http://lblod.data.gift/concept-schemes/0887b850-b810-40d4-be0f-cafd01d3259b> ,
+		<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ,
+		ns11:gemeente-bestuursorgaan-codes ;
+	skos:topConceptOf	ns5:BestuursorgaanClassificatieCode ,
+		ns11:gemeente-bestuursorgaan-codes .
+<http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/5ab0e9b8a3b2ca7c5e000008>	rdf:type	ns3:BestuursorgaanClassificatieCode ,
+		ns2:BestuursorgaanClassificatieCode ,
+		skos:Concept ;
+	ns4:uuid	"5ab0e9b8a3b2ca7c5e000008" ;
+	skos:prefLabel	"Vast Bureau" ;
+	skos:inScheme	ns5:BestuursorgaanClassificatieCode ,
+		<http://lblod.data.gift/concept-schemes/0887b850-b810-40d4-be0f-cafd01d3259b> ,
+		<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ,
+		ns11:gemeente-bestuursorgaan-codes ;
+	skos:topConceptOf	ns5:BestuursorgaanClassificatieCode ,
+		ns11:gemeente-bestuursorgaan-codes .
+<http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/5ab0e9b8a3b2ca7c5e000009>	rdf:type	ns3:BestuursorgaanClassificatieCode ,
+		ns2:BestuursorgaanClassificatieCode ,
+		skos:Concept ;
+	ns4:uuid	"5ab0e9b8a3b2ca7c5e000009" ;
+	skos:prefLabel	"Bijzonder Comit\u00E9 voor de Sociale Dienst" ;
+	skos:inScheme	<http://lblod.data.gift/concept-schemes/0887b850-b810-40d4-be0f-cafd01d3259b> ,
+		ns5:BestuursorgaanClassificatieCode ,
+		<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ,
+		ns11:gemeente-bestuursorgaan-codes ;
+	skos:topConceptOf	ns5:BestuursorgaanClassificatieCode ,
+		ns11:gemeente-bestuursorgaan-codes .
+<http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/5ab0e9b8a3b2ca7c5e00000a>	rdf:type	ns3:BestuursorgaanClassificatieCode ,
+		ns2:BestuursorgaanClassificatieCode ,
+		skos:Concept ;
+	ns4:uuid	"5ab0e9b8a3b2ca7c5e00000a" ;
+	skos:prefLabel	"Districtsraad" ;
+	skos:inScheme	<http://lblod.data.gift/concept-schemes/0887b850-b810-40d4-be0f-cafd01d3259b> ,
+		ns5:BestuursorgaanClassificatieCode ,
+		<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ,
+		ns11:gemeente-bestuursorgaan-codes ;
+	skos:topConceptOf	ns5:BestuursorgaanClassificatieCode ,
+		ns11:gemeente-bestuursorgaan-codes .
+<http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/5ab0e9b8a3b2ca7c5e00000b>	rdf:type	ns3:BestuursorgaanClassificatieCode ,
+		ns2:BestuursorgaanClassificatieCode ,
+		skos:Concept ;
+	ns4:uuid	"5ab0e9b8a3b2ca7c5e00000b" ;
+	skos:prefLabel	"Districtscollege" ;
+	skos:inScheme	ns5:BestuursorgaanClassificatieCode ,
+		<http://lblod.data.gift/concept-schemes/0887b850-b810-40d4-be0f-cafd01d3259b> ,
+		<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ,
+		ns11:gemeente-bestuursorgaan-codes ;
+	skos:topConceptOf	ns5:BestuursorgaanClassificatieCode ,
+		ns11:gemeente-bestuursorgaan-codes .
+<http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/5ab0e9b8a3b2ca7c5e00000c>	rdf:type	ns3:BestuursorgaanClassificatieCode ,
+		ns2:BestuursorgaanClassificatieCode ,
+		skos:Concept ;
+	ns4:uuid	"5ab0e9b8a3b2ca7c5e00000c" ;
+	skos:prefLabel	"Provincieraad" ;
+	skos:inScheme	ns5:BestuursorgaanClassificatieCode ,
+		<http://lblod.data.gift/concept-schemes/0887b850-b810-40d4-be0f-cafd01d3259b> ,
+		<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ,
+		ns11:gemeente-bestuursorgaan-codes ;
+	skos:topConceptOf	ns5:BestuursorgaanClassificatieCode ,
+		ns11:gemeente-bestuursorgaan-codes .
+<http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/5ab0e9b8a3b2ca7c5e00000d>	rdf:type	ns3:BestuursorgaanClassificatieCode ,
+		ns2:BestuursorgaanClassificatieCode ,
+		skos:Concept ;
+	ns4:uuid	"5ab0e9b8a3b2ca7c5e00000d" ;
+	skos:prefLabel	"Deputatie" ;
+	skos:inScheme	<http://lblod.data.gift/concept-schemes/0887b850-b810-40d4-be0f-cafd01d3259b> ,
+		ns5:BestuursorgaanClassificatieCode ,
+		<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ,
+		ns11:decretale-bestuursorgaan-codes ;
+	skos:topConceptOf	ns5:BestuursorgaanClassificatieCode ,
+		ns11:decretale-bestuursorgaan-codes .
+<http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/5ab19107-82d2-4273-a986-3da86fda050d>	rdf:type	ns3:BestuursorgaanClassificatieCode ,
+		ns2:BestuursorgaanClassificatieCode ,
+		skos:Concept ;
+	ns4:uuid	"5ab19107-82d2-4273-a986-3da86fda050d" ;
+	skos:prefLabel	"Griffier" ;
+	skos:inScheme	ns5:BestuursorgaanClassificatieCode ,
+		<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ;
+	skos:topConceptOf	ns5:BestuursorgaanClassificatieCode .
+<http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/62644b9c-4514-41dd-a660-4c35257f2b35>	rdf:type	ns3:BestuursorgaanClassificatieCode ,
+		ns2:BestuursorgaanClassificatieCode ,
+		skos:Concept ;
+	ns4:uuid	"62644b9c-4514-41dd-a660-4c35257f2b35" ;
+	skos:prefLabel	"Financieel directeur" ;
+	skos:inScheme	ns5:BestuursorgaanClassificatieCode ,
+		<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ;
+	skos:topConceptOf	ns5:BestuursorgaanClassificatieCode .
+<http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/7148e12a-ae03-4a7b-bb16-7b6269b84175>	rdf:type	ns3:BestuursorgaanClassificatieCode ,
+		ns2:BestuursorgaanClassificatieCode ,
+		skos:Concept ;
+	ns4:uuid	"7148e12a-ae03-4a7b-bb16-7b6269b84175" ;
+	skos:prefLabel	"College" ;
+	skos:inScheme	ns5:BestuursorgaanClassificatieCode ;
+	skos:topConceptOf	ns5:BestuursorgaanClassificatieCode .
+<http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/90a9ec83cb93b9369bba7ff29d9ce5ce>	rdf:type	ns2:BestuursorgaanClassificatieCode ,
+		skos:Concept ,
+		ns3:BestuursorgaanClassificatieCode ;
+	ns4:uuid	"90a9ec83cb93b9369bba7ff29d9ce5ce" ;
+	skos:prefLabel	"Bestuursraad" ;
+	skos:inScheme	<http://lblod.data.gift/concept-schemes/19c53ee2-bac1-4ce8-8015-6ff589ccfaca> ,
+		<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ,
+		ns10:BestuursorgaanClassificatieCode ;
+	skos:topConceptOf	ns10:BestuursorgaanClassificatieCode .
+<http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/9314533e-891f-4d84-a492-0338af104065>	rdf:type	ns2:BestuursorgaanClassificatieCode ,
+		skos:Concept ,
+		ns3:BestuursorgaanClassificatieCode ;
+	ns4:uuid	"9314533e-891f-4d84-a492-0338af104065" ;
+	skos:prefLabel	"Districtsburgemeester" ;
+	skos:inScheme	<http://lblod.data.gift/concept-schemes/0887b850-b810-40d4-be0f-cafd01d3259b> ,
+		ns5:BestuursorgaanClassificatieCode ,
+		<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ,
+		ns11:gemeente-bestuursorgaan-codes ;
+	skos:topConceptOf	ns5:BestuursorgaanClassificatieCode ,
+		ns11:gemeente-bestuursorgaan-codes .
+@prefix ns12:	<http://data.vlaanderen.be/id/concept/BestuursorgaanClassificatieCode/> .
+ns12:a0701624aefb115b7eda2ff39139c2dd	rdf:type	ns3:BestuursorgaanClassificatieCode ,
+		ns2:BestuursorgaanClassificatieCode ,
+		skos:Concept ;
+	ns4:uuid	"a0701624aefb115b7eda2ff39139c2dd" ;
+	skos:prefLabel	"Kathedrale kerkraad" ;
+	skos:inScheme	<http://lblod.data.gift/concept-schemes/19c53ee2-bac1-4ce8-8015-6ff589ccfaca> ,
+		<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ,
+		ns10:BestuursorgaanClassificatieCode ;
+	skos:topConceptOf	ns10:BestuursorgaanClassificatieCode .
+ns12:a9e30e31-0cd2-4f4a-9352-545c5d43be83	rdf:type	ns2:BestuursorgaanClassificatieCode ,
+		skos:Concept ,
+		ns3:BestuursorgaanClassificatieCode ;
+	ns4:uuid	"a9e30e31-0cd2-4f4a-9352-545c5d43be83" ;
+	skos:prefLabel	"Zoneraad" ;
+	skos:inScheme	ns5:BestuursorgaanClassificatieCode ,
+		<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ;
+	skos:topConceptOf	ns5:BestuursorgaanClassificatieCode ;
+	ns6:publication	<http://lblod.data.gift/concepts/83f7b480-fcaf-4795-b603-7f3bce489325> .
+ns12:af811edba97c6ec34874d0830cbb1183	rdf:type	ns2:BestuursorgaanClassificatieCode ,
+		skos:Concept ,
+		ns3:BestuursorgaanClassificatieCode ;
+	ns4:uuid	"af811edba97c6ec34874d0830cbb1183" ;
+	skos:prefLabel	"Kerkfabriekraad" ;
+	skos:inScheme	<http://lblod.data.gift/concept-schemes/19c53ee2-bac1-4ce8-8015-6ff589ccfaca> ,
+		ns10:BestuursorgaanClassificatieCode ,
+		<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ;
+	skos:topConceptOf	ns10:BestuursorgaanClassificatieCode .
+ns12:b475fa47e17a8a05ae04a9e1fb9c9258	rdf:type	ns2:BestuursorgaanClassificatieCode ,
+		skos:Concept ,
+		ns3:BestuursorgaanClassificatieCode ;
+	ns4:uuid	"b475fa47e17a8a05ae04a9e1fb9c9258" ;
+	skos:prefLabel	"Comit\u00E9" ;
+	skos:inScheme	<http://lblod.data.gift/concept-schemes/19c53ee2-bac1-4ce8-8015-6ff589ccfaca> ,
+		ns10:BestuursorgaanClassificatieCode ,
+		<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ,
+		ns11:vrije-bestuursorgaan-codes ;
+	skos:topConceptOf	ns10:BestuursorgaanClassificatieCode ,
+		ns11:vrije-bestuursorgaan-codes .
+ns12:b52094ff-21a2-4da8-8dbe-f513365d1528	rdf:type	ns2:BestuursorgaanClassificatieCode ,
+		skos:Concept ,
+		ns3:BestuursorgaanClassificatieCode ;
+	skos:broader	ns8:aa5f804a-2ad0-422d-9569-ea93496f5b69 ;
+	ns4:uuid	"b52094ff-21a2-4da8-8dbe-f513365d1528" ;
+	skos:prefLabel	"Algemene vergadering" ;
+	skos:inScheme	ns5:BestuursorgaanClassificatieCode ,
+		<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ,
+		ns9:LokaalOrgaanClassificatieCode ;
+	skos:topConceptOf	ns5:BestuursorgaanClassificatieCode .
+ns12:ed40469e-3b6f-4f38-99ba-18912ee352b0	rdf:type	ns2:BestuursorgaanClassificatieCode ,
+		ns3:BestuursorgaanClassificatieCode ,
+		skos:Concept ;
+	ns4:uuid	"ed40469e-3b6f-4f38-99ba-18912ee352b0" ;
+	skos:prefLabel	"Adjunct-financieel directeur" ;
+	skos:inScheme	ns5:BestuursorgaanClassificatieCode ,
+		<http://lblod.data.gift/concept-schemes/10caf4a4-1ff5-4c05-917e-56489910d68b> ;
+	skos:topConceptOf	ns5:BestuursorgaanClassificatieCode .
+ns12:ff20fa3e-806b-4160-b74b-7483fe3a6ecd	rdf:type	ns2:BestuursorgaanClassificatieCode ,
+		ns3:BestuursorgaanClassificatieCode ,
+		skos:Concept ;
+	ns4:uuid	"ff20fa3e-806b-4160-b74b-7483fe3a6ecd" ;
+	skos:prefLabel	"Collegelid" ;
+	skos:inScheme	ns5:BestuursorgaanClassificatieCode ;
+	skos:topConceptOf	ns5:BestuursorgaanClassificatieCode .
+ns5:BestuurseenheidClassificatieCode	rdf:type	skos:ConceptScheme .
+@prefix xsd:	<http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms:	<http://purl.org/dc/terms/> .
+ns5:BestuurseenheidClassificatieCode	dcterms:modified	"2018-03-21"^^xsd:date ;
+	ns4:uuid	"8d051880fe128d220e233f1a5130d629" ;
+	skos:prefLabel	"BestuurseenheidClassificatieCode" ;
+	skos:note	"Classificatie van de bestuurseenheid." .
+ns5:BestuursorgaanClassificatieCode	rdf:type	skos:ConceptScheme ;
+	dcterms:modified	"2018-03-21"^^xsd:date ;
+	ns4:uuid	"f5b2b6183754eebd18286b184828f325" ;
+	skos:prefLabel	"BestuursorgaanClassificatieCode" ;
+	skos:note	"Het type bestuursorgaan." .
+ns9:LokaalOrgaanClassificatieCode	rdf:type	skos:ConceptScheme ;
+	ns4:uuid	"72fa7be9-c329-4531-be1f-89488bda2041" ;
+	skos:prefLabel	"Lokaal orgaan classificatie code" .
+<http://data.lblod.info/id/lb-orgaan-classificatiecode/0aecbecb-9186-4f65-a050-0719a5cb1bab>	rdf:type	skos:Concept ,
+		ns3:BestuursorgaanClassificatieCode ;
+	skos:broader	ns8:aa5f804a-2ad0-422d-9569-ea93496f5b69 ;
+	ns4:uuid	"0aecbecb-9186-4f65-a050-0719a5cb1bab" ;
+	skos:prefLabel	"Gemeenteraadscommissies" ;
+	skos:inScheme	ns9:LokaalOrgaanClassificatieCode .
+<http://data.lblod.info/id/lb-orgaan-classificatiecode/79b34b2f-5bc5-4939-900b-3db7fc3e1ef3>	rdf:type	skos:Concept ,
+		ns3:BestuursorgaanClassificatieCode ;
+	skos:broader	ns8:aa5f804a-2ad0-422d-9569-ea93496f5b69 ;
+	ns4:uuid	"79b34b2f-5bc5-4939-900b-3db7fc3e1ef3" ;
+	skos:prefLabel	"Vervoerregioraad" ;
+	skos:inScheme	ns9:LokaalOrgaanClassificatieCode .
+<http://data.lblod.info/id/lb-orgaan-classificatiecode/7f7f4e20-ff35-4f26-91f5-a7faaf8f59aa>	rdf:type	skos:Concept ,
+		ns3:BestuursorgaanClassificatieCode ;
+	skos:broader	ns8:aa5f804a-2ad0-422d-9569-ea93496f5b69 ;
+	ns4:uuid	"7f7f4e20-ff35-4f26-91f5-a7faaf8f59aa" ;
+	skos:prefLabel	"Bekkenbestuur" ;
+	skos:inScheme	ns9:LokaalOrgaanClassificatieCode .
+<http://data.lblod.info/id/lb-orgaan-classificatiecode/9ae0afa7-eeaf-4fe1-a00f-75db18fd4a89>	rdf:type	skos:Concept ,
+		ns3:BestuursorgaanClassificatieCode ;
+	skos:broader	ns8:aa5f804a-2ad0-422d-9569-ea93496f5b69 ;
+	ns4:uuid	"9ae0afa7-eeaf-4fe1-a00f-75db18fd4a89" ;
+	skos:prefLabel	"Beheersorgaan" ;
+	skos:inScheme	ns9:LokaalOrgaanClassificatieCode .
+ns8:aa5f804a-2ad0-422d-9569-ea93496f5b69	rdf:type	skos:Concept ,
+		ns3:BestuursorgaanClassificatieCode ;
+	ns4:uuid	"aa5f804a-2ad0-422d-9569-ea93496f5b69" ;
+	skos:prefLabel	"Ander Orgaan" ;
+	skos:inScheme	ns9:LokaalOrgaanClassificatieCode ;
+	skos:topConceptOf	ns9:LokaalOrgaanClassificatieCode .
+ns8:afc54ba6-f649-4941-82e4-38b9512b072d	rdf:type	skos:Concept ,
+		ns3:BestuursorgaanClassificatieCode ;
+	skos:broader	ns8:aa5f804a-2ad0-422d-9569-ea93496f5b69 ;
+	ns4:uuid	"afc54ba6-f649-4941-82e4-38b9512b072d" ;
+	skos:prefLabel	"Lokale adviesraad" ;
+	skos:inScheme	ns9:LokaalOrgaanClassificatieCode .
+ns8:b3c79d7e-b0b5-4afe-8da9-3809bd30c11d	rdf:type	skos:Concept ,
+		ns3:BestuursorgaanClassificatieCode ;
+	skos:broader	ns8:aa5f804a-2ad0-422d-9569-ea93496f5b69 ;
+	ns4:uuid	"b3c79d7e-b0b5-4afe-8da9-3809bd30c11d" ;
+	skos:prefLabel	"GECORO" ;
+	skos:inScheme	ns9:LokaalOrgaanClassificatieCode .
+<http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/4b8450cf-a326-4c66-9e63-b4ec10acc7f6>	rdf:type	ns3:BestuurseenheidClassificatieCode ,
+		ns3:OrganizationClassificationCode ,
+		ns2:BestuurseenheidClassificatieCode ;
+	ns4:uuid	"4b8450cf-a326-4c66-9e63-b4ec10acc7f6" ;
+	skos:prefLabel	"Opdrachthoudende vereniging met private deelname" .
+<http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/52cc9d8d-1c9a-4d92-9936-da9d4a622ec4>	rdf:type	ns2:BestuurseenheidClassificatieCode ,
+		ns3:OrganizationClassificationCode ,
+		ns3:BestuurseenheidClassificatieCode ;
+	ns4:uuid	"52cc9d8d-1c9a-4d92-9936-da9d4a622ec4" ;
+	skos:prefLabel	"Agentschap Binnenlands Bestuur" .

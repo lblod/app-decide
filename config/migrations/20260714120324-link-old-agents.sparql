@@ -1,0 +1,12 @@
+PREFIX prov: <http://www.w3.org/ns/prov#>
+INSERT DATA {
+  GRAPH <http://mu.semte.ch/graphs/public> {
+    <http://data.gift/id/components/segmentation/v1.0.0> prov:specializationOf <http://lblod.data.gift/id/components/segmentation/v1.0.0> .
+    <http://lblod.data.gift/id/components/impact-assessment/v1.0.0> prov:specializationOf <http://lblod.data.gift/id/components/impact-assessment/v1.0.0> .
+    <http://data.gift/id/components/named-entity-linking/v1.0.0> prov:specializationOf <http://lblod.data.gift/id/components/named-entity-linking/v1.0.0> .
+    <http://data.gift/id/components/entity-extraction/v1.0.0> prov:specializationOf <http://lblod.data.gift/id/components/entity-extraction/v1.0.0> .
+    <http://data.gift/id/components/translation/v1.0.0> prov:specializationOf <http://lblod.data.gift/id/components/translation/v1.0.0> .
+    <http://lblod.data.gift/id/components/codelist-annotation/v1.0.0> prov:specializationOf <http://lblod.data.gift/id/components/codelist-annotation/v1.0.0> .
+    <http://lblod.data.gift/id/components/pdf-to-eli/v1.0.0> prov:specializationOf <http://lblod.data.gift/id/components/pdf-to-eli/v1.0.0> .
+  }
+}

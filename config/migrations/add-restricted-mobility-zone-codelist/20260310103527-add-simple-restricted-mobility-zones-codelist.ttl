@@ -1,0 +1,27 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix skos: <http://www.w3.org/2004/02/skos/core#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix dc: <http://purl.org/dc/terms/>.
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix dbpedia: <http://dbpedia.org/resource/>.
+@prefix dbpedia-owl: <http://dbpedia.org/ontology/>.
+@prefix dbpprop: <http://dbpedia.org/property/>.
+@prefix wdprop: <http://www.wikidata.org/prop/direct/>.
+@prefix ruben: <https://ruben.verborgh.org/profile/#>.
+@prefix rubent: <https://www.rubensworks.net/#>.
+@prefix schema: <http://schema.org/>.
+@prefix bow: <https://betweenourworlds.org/ontology/>.
+@prefix lc: <http://semweb.mmlab.be/ns/linkedconnections#>.
+
+<http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-simple> a skos:ConceptScheme;
+    <http://mu.semte.ch/vocabularies/core/uuid> "5490f09a-49b9-44fd-8203-d0801699e779";
+    skos:prefLabel "Simpele lijst van beperkte mobiliteitszone"@nl;
+    skos:definition "Lijst met 1 concept van beperkte mobiliteitszone waarbij de lijst van types van beperkte mobiliteitszones gebruikt wordt als definitie."@nl.
+<https://data.vlaanderen.be/id/concept/ZoneType/fc17fa1b-9b61-4396-a609-845643b3b865> a skos:Concept;
+    <http://mu.semte.ch/vocabularies/core/uuid> "fc17fa1b-9b61-4396-a609-845643b3b865";
+    skos:prefLabel "Restrictive mobility zone"@en, "Beperkte mobiliteitszone"@nl;
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-simple>;
+    skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-simple>;
+    skos:definition "This is an non-exhaustive list of restricted mobility zones: Reserved parking space: Occupancy in which a parking space is reserved for another purpose (such as containers, moving, etc.); School street: A street temporarily restricted to motorised traffic during school drop-off and pick-up hours.; Bicycle zone: A street where cyclists have priority and motor vehicles are subordinated or restricted.; Home zone: A street/zone designed as a social space for pedestrians and cyclists; motorized transport is permitted, but limited; Pedestrian zone: A zone prioritised for pedestrians where motorised traffic is prohibited or heavily restricted (eg. only access to permit holders between certain hours); Car-free zone: A zone prioritised for pedestrians where motorised traffic is prohibited or heavily restricted (eg. only access to permit holders between certain hours); Zero Emission Zone: A geographically defined area where access is restricted based on vehicle emission standards.; Low Emission Zone: A geographically defined area where access is restricted based on vehicle emission standards."@en, "Dit is een niet-volledige lijst van beperkte mobiliteitszones: Werk: Inname openbaar domein voor werken (bijv. schermen, bouwkracht, enz.); Grondwerk: Inname openbaar domein voor wegen, riolering en/of nijverheidswerken.; Evenement: Inname openbaar domein door een tijdelijk evenement, zoals sportevenementen, markten, festivals; Parkeerverbod: Een inname openbaar domein waarbij een parkeerplaats gereserveerd is voor een andere doeleinde (zoals containers, verhuizing, enz.); Schoolstraat: Een straat tijdelijk beperkt tot motorvoertuigen tijdens school drop-off en pick-up uren.; Fietszone: Een straat waar fietsers prioriteit hebben en motorvoertuigen subordineerd of beperkt zijn.; Woonerf: Een straat of zone ontworpen als een sociaal gebied voor voetgangers en fietsers; motorvoertuigen zijn toegestaan, maar beperkt; Voetgangerszone: Een zone waarvoor voetgangers prioriteit hebben en motorvoertuigen verboden of sterk beperkt zijn (bijvoorbeeld alleen toegang voor gemachtigden binnen bepaalde uren); Autoluwe zone: Een zone waarvoor voetgangers prioriteit hebben en motorvoertuigen verboden of sterk beperkt zijn (bijvoorbeeld alleen toegang voor gemachtigden binnen bepaalde uren); Zero Emissie Zone (ZEZ): Een geografisch gedefinieerd gebied waar toegang wordt beperkt op basis van de emissiestandaard van voertuigen.; Lage Emissie Zone (LEZ): Een geografisch gedefinieerd gebied waar toegang wordt beperkt op basis van de emissiestandaard van voertuigen."@nl.

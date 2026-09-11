@@ -1,0 +1,6 @@
+PREFIX ext: <http://mu.semte.ch/vocabularies/ext/>
+INSERT DATA {
+  GRAPH <http://mu.semte.ch/graphs/public> {
+    <http://lblod.data.gift/id/jobs/concept/TaskOperation/codelist-matching/assess-impact> ext:isEnabledFor <http://data.lblod.gift/id/conceptscheme/sdg-simple>, <http://lblod.data.gift/id/conceptscheme/sdg-simple> .
+  }
+}

@@ -1,0 +1,11 @@
+PREFIX dcterms: <http://purl.org/dc/terms/>
+INSERT {
+  GRAPH <http://mu.semte.ch/graphs/odrl-authorization-policy> {
+    ?s dcterms:modified ?now .
+  }
+} WHERE {
+  GRAPH <http://mu.semte.ch/graphs/odrl-authorization-policy> {
+    ?s a ?type .
+  }
+  BIND (NOW() AS ?now)
+}

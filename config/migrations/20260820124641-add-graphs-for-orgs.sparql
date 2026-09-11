@@ -1,0 +1,22 @@
+  PREFIX ext: <http://mu.semte.ch/vocabularies/ext/>
+  INSERT DATA {
+    GRAPH <http://mu.semte.ch/graphs/public> {
+      <http://data.lblod.info/id/bestuurseenheden/353234a365664e581db5c2f7cc07add2534b47b8e1ab87c821fc6e6365e6bef5> ext:targetGraph <http://mu.semte.ch/graphs/public/gent> .
+      <https://ris.freiburg.de/oparl/body/FR> ext:targetGraph <http://mu.semte.ch/graphs/public/freiburg> .
+    }
+  };
+  INSERT {
+    GRAPH <http://mu.semte.ch/graphs/public> {
+      ?s ext:targetGraph <http://mu.semte.ch/graphs/public/pdf> .
+    }
+  }
+  WHERE {
+    GRAPH ?g {
+      ?s <http://www.w3.org/ns/org#classification> <http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000001> .
+    }
+    FILTER NOT EXISTS {
+      GRAPH <http://mu.semte.ch/graphs/public> {
+        ?s ext:targetGraph ?graph .
+      }
+    }
+  }

@@ -26,9 +26,9 @@ services:
       - debug
   resource:
     restart: "no"
-  file:
+  cache:
     restart: "no"
-  odrl-parser:
+  file:
     restart: "no"
   vc-issuer:
     restart: "no"
@@ -37,6 +37,12 @@ services:
   migrations:
     restart: "no"
   deltanotifier:
+    restart: "no"
+  frontend-yasgui:
+    restart: "no"
+  frontend-dcat:
+    restart: "no"
+  frontend-human-validator:
     restart: "no"
   frontend-harvesting:
     restart: "no"
@@ -55,4 +61,73 @@ services:
   harvest_sameas:
     restart: no
   login:
+    restart: no
+  entity-linking:
+    restart: "no"
+  pdf-content:
+    restart: "no"
+  apache-tika:
+    restart: "no"
+  question-answering:
+    restart: "no"
+  search:
+    restart: no
+    profiles:
+      - search
+  elasticsearch:
+    restart: no
+    profiles:
+      - search
+  municipality-linker:
+    restart: no
+    profiles:
+      - search
+  embedding:
+    restart: no
+    profiles:
+      - search
+  ollama:
+    restart: no
+    profiles:
+      - search
+  annotation-review:
+    restart: no
+  resource-type-service:
+    restart: no
+  pdf-scraper:
+    restart: "no"
+  nominatim:
+    restart: "no"
+  named-entity-recognition:
+    restart: "no"
+  codelist-labeling:
+    restart: "no"
+  frontend-smart-search:
+    restart: "no"
+  kibana:
+    restart: no
+    profiles:
+      - search
+    image: docker.elastic.co/kibana/kibana:9.2.0
+    environment:
+      ELASTICSEARCH_HOSTS: "http://elasticsearch:9200"
+    ports:
+      - 127.0.0.1:5601:5601
+    user: root
+    command: |
+      sh -c "/usr/local/bin/kibana-docker --allow-root;"
+  policy-impact-report:
+    restart: no
+  frontend-policy-impact-report:
+    restart: no
+  ldes-delta-pusher:
+    restart: no
+  ldes-serve-feed:
+    restart: no
+  registration:
+    image: semtech/mu-registration-service:2.8.0
+    links:
+      - database:database
+    restart: no
+  json-to-eli:
     restart: no

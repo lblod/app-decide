@@ -1,0 +1,26 @@
+PREFIX oa: <http://www.w3.org/ns/oa#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX mu: <http://mu.semte.ch/vocabularies/core/>
+DELETE {
+  GRAPH ?g {
+    ?annotation oa:hasBody ?noMatch .
+    ?noMatch ?p ?o.
+  }
+}
+INSERT {
+  GRAPH <http://mu.semte.ch/graphs/public> {
+    <http://mu.semte.ch/vocabularies/ext/no-match-found> a skos:Concept, <http://mu.semte.ch/vocabularies/ext/NoMatchFound> ;
+    skos:prefLabel "No Match Found" ;
+    mu:uuid "b8fb6be7-c063-4e87-a3af-4cca5685cdbd" .
+  }
+  GRAPH ?g {
+    ?annotation oa:hasBody <http://mu.semte.ch/vocabularies/ext/no-match-found> .
+  }
+}WHERE {
+  ?annotation a oa:Annotation.
+  GRAPH ?g {
+    ?annotation oa:hasBody ?noMatch .
+    ?noMatch a <http://mu.semte.ch/vocabularies/ext/NoMatchFound> .
+    ?noMatch ?p ?o.
+  }
+} 

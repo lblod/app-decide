@@ -1,0 +1,24 @@
+DELETE {
+  GRAPH ?g {
+    ?s ?p ?old.
+  }
+}
+INSERT {
+  GRAPH ?g {
+    ?s ?p ?new.
+  }
+}
+WHERE {
+  VALUES (?old ?new) {
+(<http://lblod.data.gift/id/components/codelist-labeling/v1.0.0/impact_annotator> <http://lblod.data.gift/id/components/impact-assessment/v1.0.0>)
+(<http://lblod.data.gift/id/components/codelist-labeling/v1.0.0/model_annotator> <http://lblod.data.gift/id/components/codelist-annotation/v1.0.0>)
+(<http://lblod.data.gift/id/components/codelist-labeling/v1.0.0/classifier_annotator> <http://lblod.data.gift/id/components/codelist-classifier/v1.0.0>)
+(<http://lblod.data.gift/id/components/named-entity-recognition/v1.0.0/ner_extractor> <http://lblod.data.gift/id/components/entity-extraction/v1.0.0>)
+(<http://lblod.data.gift/id/components/named-entity-recognition/v1.0.0/segmenter> <http://lblod.data.gift/id/components/segmentation/v1.0.0>)
+(<http://lblod.data.gift/id/components/named-entity-recognition/v1.0.0/translator> <http://lblod.data.gift/id/components/translation/v1.0.0>)
+  }
+  GRAPH ?g {
+    ?s ?p ?old.
+  }
+
+}

@@ -1,0 +1,12 @@
+x-logging: &default-logging
+  driver: 'json-file'
+  options:
+    max-size: '10m'
+    max-file: '3'
+services:
+  json-to-eli:
+    image: lblod/decide-json-to-eli-service:0.0.4
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging

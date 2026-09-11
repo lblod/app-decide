@@ -1,0 +1,31 @@
+PREFIX besluit: <http://data.vlaanderen.be/ns/besluit#>
+PREFIX mu: <http://mu.semte.ch/vocabularies/core/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX org: <http://www.w3.org/ns/org#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+INSERT {
+  GRAPH <http://mu.semte.ch/graphs/organizations> {
+    ?s a org:Organization ;
+       mu:uuid ?uuid ;
+       dcterms:identifier ?identifier ;
+       skos:prefLabel ?prefLabelNl ;
+       org:classification ?classification1 , ?classification2 ;
+       org:hasSubOrganization ?subOrg .
+  }
+}
+WHERE {
+  GRAPH <http://mu.semte.ch/graphs/bestuurseenheden-bestuursorganen> {
+    ?s a besluit:Bestuurseenheid ;
+      mu:uuid ?uuid ;
+      skos:prefLabel ?prefLabel .
+
+    OPTIONAL { ?s dcterms:identifier ?identifier . }
+    OPTIONAL { ?s besluit:classificatie ?classification1 . }
+    OPTIONAL { ?s org:classification ?classification2 . }
+    OPTIONAL { ?s org:hasSubOrganization ?subOrg . }
+
+    BIND(STRLANG(STR(?prefLabel), "nl") AS ?prefLabelNl)
+  }
+}

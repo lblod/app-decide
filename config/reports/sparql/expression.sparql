@@ -1,0 +1,28 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ext: <http://mu.semte.ch/vocabularies/ext/> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
+
+<http://example.org/eli_expression_title_sparql_shape>
+a ext:SparqlShape ;
+sh:targetClass eli:Expression ;
+sh:prefixes [ sh:declare [
+        a sh:PrefixDeclaration ;
+        sh:namespace "http://data.europa.eu/eli/ontology#"^^xsd:anyURI ;
+        sh:prefix "eli" ;
+    ] ];
+sh:sparql [
+    sh:select """
+    PREFIX eli: <http://data.europa.eu/eli/ontology#>
+    
+    select distinct $this ?value
+    where {
+        $this a <http://data.europa.eu/eli/ontology#Expression> .
+        FILTER NOT EXISTS {
+            $this eli:title ?title .
+        }
+
+        BIND ("Deze expressie heeft geen titel." as ?value)
+    }""" ;
+        sh:message "Deze expressie heeft geen titel."
+] .

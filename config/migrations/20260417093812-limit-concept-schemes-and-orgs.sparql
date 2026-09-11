@@ -1,0 +1,11 @@
+PREFIX ext: <http://mu.semte.ch/vocabularies/ext/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+INSERT DATA {
+  GRAPH <http://mu.semte.ch/graphs/public> {
+    <https://ris.freiburg.de/oparl/body/FR> skos:prefLabel "Freiburg" ;
+    ext:showInHVT "true"^^xsd:boolean .
+    <http://data.lblod.info/id/bestuurseenheden/353234a365664e581db5c2f7cc07add2534b47b8e1ab87c821fc6e6365e6bef5> ext:showInHVT "true"^^xsd:boolean .
+    <http://data.lblod.gift/id/conceptscheme/sdg-simple> ext:showInHVT "true"^^xsd:boolean .
+    <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-simple> ext:showInHVT "true"^^xsd:boolean .
+  }
+}

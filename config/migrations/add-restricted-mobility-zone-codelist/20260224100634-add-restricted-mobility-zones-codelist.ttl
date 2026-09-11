@@ -1,0 +1,379 @@
+
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix mu: <http://mu.semte.ch/vocabularies/core#> .
+
+<http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> a skos:ConceptScheme ;
+    mu:uuid "96668f64-2863-435a-a300-3e66efc0f84b" ;
+    skos:prefLabel "Types van beperkte mobiliteitszones"@nl ;
+    skos:prefLabel "Types of restricted mobility zones"@en ;
+    skos:definition """Beperkte mobiliteitszones zijn types van locaties waar er impact is op de mobiliteit van bepaalde doelgroepen en waarover er besluitvorming gevoerd is door een overheid. 
+                    Impact kan beperkend zijn zoals bij innames openbaar domein, mobiliteitshinder of bepaalde reglementen (aanvullend, tijdelijk, autoluwe zones, lage emissiezones). Impact kan ook car(e) free betekenen voor bepaalde doelgroepen (speelstraten, fietstraten, autoluwe gebieden)."""@nl ;
+    skos:definition """Restricted mobility zones are types of locations where there is an impact on the mobility of certain target groups and where decision-making has been carried out by a government. 
+                    Impact can be restrictive such as with public domain occupancy, mobility hindrance or certain regulations (complementary, temporary, car-free zones, low emission zones). Impact can also mean car(e) free for certain target groups (play streets, bicycle streets, pedestrian areas)."""@en .
+
+# -------------------------------
+# Zone types die in reglementen voorkomen
+# -------------------------------
+
+<https://data.vlaanderen.be/id/concept/ZoneType/dea804b7-b4b1-47c3-8438-40a04be013c7>
+  a skos:Concept ;
+  mu:uuid "dea804b7-b4b1-47c3-8438-40a04be013c7" ;
+  <http://www.w3.org/2002/07/owl#deprecated> false;
+  skos:definition "Een geografisch gedefinieerd gebied waar toegang wordt beperkt op basis van de emissiestandaard van voertuigen."@nl;
+  skos:definition "A geographically defined area where access is restricted based on vehicle emission standards."@en;
+  skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types>;
+  skos:prefLabel "Lage Emissie Zone (LEZ)"@nl;
+  skos:prefLabel "Low Emission Zone"@en;
+  skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> .
+
+<https://data.vlaanderen.be/id/concept/ZoneType/efc8d1ed-61b0-4bbb-8811-def871a6367b>
+  a skos:Concept ;
+  mu:uuid "efc8d1ed-61b0-4bbb-8811-def871a6367b" ;
+  <http://www.w3.org/2002/07/owl#deprecated> false;
+  skos:definition "Een geografisch gedefinieerd gebied waar toegang wordt beperkt op basis van de emissiestandaard van voertuigen."@nl;
+  skos:definition "A geographically defined area where access is restricted based on vehicle emission standards."@en;
+  skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types>;
+  skos:prefLabel "Zero Emissie Zone (ZEZ)"@nl;
+  skos:prefLabel "Zero Emission Zone"@en;
+  skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> .
+
+<https://data.vlaanderen.be/id/concept/ZoneType/bf79aa98-a214-4aee-a915-5328b0b05c07>
+  a skos:Concept ;
+  mu:uuid "bf79aa98-a214-4aee-a915-5328b0b05c07" ;
+  <http://www.w3.org/2002/07/owl#deprecated> false;
+  skos:definition "Een zone waarvoor voetgangers prioriteit hebben en motorvoertuigen verboden of sterk beperkt zijn (bijvoorbeeld alleen toegang voor gemachtigden binnen bepaalde uren)"@nl;
+  skos:definition "A zone prioritised for pedestrians where motorised traffic is prohibited or heavily restricted (eg. only access to permit holders between certain hours)"@en;
+  skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types>;
+  skos:prefLabel "Autoluwe zone"@nl;
+  skos:prefLabel "Car-free zone"@en;
+  skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> .
+
+<https://data.vlaanderen.be/id/concept/ZoneType/c463f4ff-6453-43dc-8266-0c4af80d5b10>
+  a skos:Concept ;
+  mu:uuid "c463f4ff-6453-43dc-8266-0c4af80d5b10" ;
+  <http://www.w3.org/2002/07/owl#deprecated> false;
+  skos:definition "Een zone waarvoor voetgangers prioriteit hebben en motorvoertuigen verboden of sterk beperkt zijn (bijvoorbeeld alleen toegang voor gemachtigden binnen bepaalde uren)"@nl;
+  skos:definition "A zone prioritised for pedestrians where motorised traffic is prohibited or heavily restricted (eg. only access to permit holders between certain hours)"@en;
+  skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types>;
+  skos:prefLabel "Voetgangerszone"@nl;
+  skos:prefLabel "Pedestrian zone"@en;
+  skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> .
+
+<https://data.vlaanderen.be/id/concept/ZoneType/3c95845d-b5fd-47a4-a784-b99f081f5bc4>
+  a skos:Concept ;
+  mu:uuid "3c95845d-b5fd-47a4-a784-b99f081f5bc4" ;
+  <http://www.w3.org/2002/07/owl#deprecated> false;
+  skos:definition "Een straat of zone ontworpen als een sociaal gebied voor voetgangers en fietsers; motorvoertuigen zijn toegestaan, maar beperkt"@nl;
+  skos:definition "A street/zone designed as a social space for pedestrians and cyclists; motorized transport is permitted, but limited"@en;
+  skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types>;
+  skos:prefLabel "Woonerf"@nl;
+  skos:prefLabel "Home zone"@en;
+  skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> .
+
+<https://data.vlaanderen.be/id/concept/ZoneType/502c3398-4842-4408-9543-574bd9c31b36>
+  a skos:Concept ;
+  mu:uuid "502c3398-4842-4408-9543-574bd9c31b36" ;
+  <http://www.w3.org/2002/07/owl#deprecated> false;
+  skos:definition "Een straat waar fietsers prioriteit hebben en motorvoertuigen subordineerd of beperkt zijn."@nl;
+  skos:definition "A street where cyclists have priority and motor vehicles are subordinated or restricted."@en;
+  skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types>;
+  skos:prefLabel "Fietszone"@nl;
+  skos:prefLabel "Bicycle zone"@en;
+  skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> .
+
+<https://data.vlaanderen.be/id/concept/ZoneType/8cc0caf8-2789-4191-bd40-05d5749714cf>
+  a skos:Concept ;
+  mu:uuid "8cc0caf8-2789-4191-bd40-05d5749714cf" ;
+  <http://www.w3.org/2002/07/owl#deprecated> false;
+  skos:definition "Een straat tijdelijk beperkt tot motorvoertuigen tijdens school drop-off en pick-up uren."@nl;
+  skos:definition "A street temporarily restricted to motorised traffic during school drop-off and pick-up hours."@en;
+  skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types>;
+  skos:prefLabel "Schoolstraat"@nl;
+  skos:prefLabel "School street"@en;
+  skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> .
+
+<https://data.vlaanderen.be/id/concept/ZoneType/6b94b24b-b308-4366-bf1b-cb6f69b93596>
+  a skos:Concept ;
+  mu:uuid "6b94b24b-b308-4366-bf1b-cb6f69b93596" ;
+  <http://www.w3.org/2002/07/owl#deprecated> false;
+  skos:definition "Een inname openbaar domein waarbij een parkeerplaats gereserveerd is voor een andere doeleinde (zoals containers, verhuizing, enz.)"@nl;
+  skos:definition "Occupancy in which a parking space is reserved for another purpose (such as containers, moving, etc.)"@en;
+  skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types>;
+  skos:prefLabel "Parkeerverbod"@nl;
+  skos:prefLabel "Reserved parking space"@en;
+  skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> .
+
+# -------------------------------
+# Inname openbaar domein (GIPOD)
+# -------------------------------
+
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/0aee5e89-610b-4572-9a81-c3de1d413de2> skos:prefLabel "Evenement"@nl;
+    mu:uuid "0aee5e89-610b-4572-9a81-c3de1d413de2";
+    skos:definition "Occupancy of public domain by a temporary event, such as sport events, markets, festivals"@en;
+    skos:definition "Inname openbaar domein door een tijdelijk evenement, zoals sportevenementen, markten, festivals"@nl;
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> .
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/7b840712-729c-489d-b438-527b9e37e88c> skos:prefLabel "Ambulante handel"@nl;
+    mu:uuid "7b840712-729c-489d-b438-527b9e37e88c";
+    skos:definition "Ambulante handel"@nl;
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/0aee5e89-610b-4572-9a81-c3de1d413de2> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/7b840712-729c-489d-b438-527b9e37e88c>.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/58d35ead-c0f6-4aaa-a9df-d4eb481bc579> skos:prefLabel "Betoging"@nl;
+    mu:uuid "58d35ead-c0f6-4aaa-a9df-d4eb481bc579";
+    skos:definition "Betoging"@nl;
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/0aee5e89-610b-4572-9a81-c3de1d413de2> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/58d35ead-c0f6-4aaa-a9df-d4eb481bc579>.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/d973a83b-7435-4f1f-95c9-7c528a30b640> skos:prefLabel "Feest/kermis"@nl;
+    mu:uuid "d973a83b-7435-4f1f-95c9-7c528a30b640";
+    skos:definition "Feest/kermis"@nl;
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/0aee5e89-610b-4572-9a81-c3de1d413de2> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/d973a83b-7435-4f1f-95c9-7c528a30b640>.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/211e4b1c-652d-48eb-b2aa-a8278fdab35c> skos:prefLabel "Markt"@nl;
+    mu:uuid "211e4b1c-652d-48eb-b2aa-a8278fdab35c";
+    skos:definition "Markt"@nl;
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/0aee5e89-610b-4572-9a81-c3de1d413de2> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/211e4b1c-652d-48eb-b2aa-a8278fdab35c>.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/2a550f5a-0d4a-4414-bee6-2349efeab55c> skos:prefLabel "Opname TV/Film"@nl;
+    mu:uuid "2a550f5a-0d4a-4414-bee6-2349efeab55c";
+    skos:definition "Opname TV/Film"@nl;
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/0aee5e89-610b-4572-9a81-c3de1d413de2> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/2a550f5a-0d4a-4414-bee6-2349efeab55c>.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/8253b70f-ca10-4c15-88b4-2b97893bb786> skos:prefLabel "Reclame"@nl;
+    mu:uuid "8253b70f-ca10-4c15-88b4-2b97893bb786";
+    skos:definition "Reclame"@nl;
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/0aee5e89-610b-4572-9a81-c3de1d413de2> skos:narrower  <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/8253b70f-ca10-4c15-88b4-2b97893bb786>.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/a818cefd-f490-4ec9-9028-2106c6c2cdee> skos:prefLabel "Speelstraat"@nl;
+    mu:uuid "a818cefd-f490-4ec9-9028-2106c6cdee";
+    skos:definition "A street closed to motorised traffic on certain days/hours, creating a pedestrian zone allowing children to play on the street."@en;
+    skos:definition "Een straat die op bepaalde dagen/uren afgesloten is voor gemotoriseerd verkeer, waardoor een voetgangerszone ontstaat waar kinderen op straat kunnen spelen."@nl;
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/0aee5e89-610b-4572-9a81-c3de1d413de2> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/a818cefd-f490-4ec9-9028-2106c6c2cdee>.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/cb056ca4-c827-4450-bfbe-e906a60b2146> skos:prefLabel "Sport"@nl;
+    mu:uuid "cb056ca4-c827-4450-bfbe-e906a60b2146";
+    skos:definition "Sport"@nl;
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/0aee5e89-610b-4572-9a81-c3de1d413de2> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/cb056ca4-c827-4450-bfbe-e906a60b2146>.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/1721dc36-9ff3-464d-b4d1-0d4f49762857> skos:prefLabel "Terras"@nl;
+    mu:uuid "1721dc36-9ff3-464d-b4d1-0d4f49762857";
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    skos:definition "Terras"@nl.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/4596e56a-81bb-49dd-a01b-49b8ccf09ea3> skos:prefLabel "Terras evenement"@nl;
+    mu:uuid "4596e56a-81bb-49dd-a01b-49b8ccf09ea3";
+    skos:definition "Terras evenement"@nl;
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/1721dc36-9ff3-464d-b4d1-0d4f49762857> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/4596e56a-81bb-49dd-a01b-49b8ccf09ea3>.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/ffb21296-cb03-4bcf-aa03-c358cdeeb90d> skos:prefLabel "Terras vast"@nl;
+    mu:uuid "ffb21296-cb03-4bcf-aa03-c358cdeeb90d";
+    skos:definition "Terras vast"@nl;
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/1721dc36-9ff3-464d-b4d1-0d4f49762857> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/ffb21296-cb03-4bcf-aa03-c358cdeeb90d>;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/0aee5e89-610b-4572-9a81-c3de1d413de2> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/1721dc36-9ff3-464d-b4d1-0d4f49762857>.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/76b0692c-d990-49dd-872e-c61577b75c79> skos:prefLabel "Uitstalling"@nl;
+    mu:uuid "76b0692c-d990-49dd-872e-c61577b75c79";
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    skos:definition "Uitstalling"@nl;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/0aee5e89-610b-4572-9a81-c3de1d413de2> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/76b0692c-d990-49dd-872e-c61577b75c79>.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/18902bb9-a231-407f-8ee0-b2c588d60341> skos:prefLabel "Andere"@nl;
+    mu:uuid "18902bb9-a231-407f-8ee0-b2c588d60341";
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    skos:definition "Andere"@nl;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/0aee5e89-610b-4572-9a81-c3de1d413de2> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/18902bb9-a231-407f-8ee0-b2c588d60341>;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/718225ee-78e8-4b6f-bc63-7748cfd0a4d2> skos:prefLabel "Grondwerk"@nl;
+    mu:uuid "718225ee-78e8-4b6f-bc63-7748cfd0a4d2";
+    skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    skos:definition "Occupancy of public domain for road, sewer and/or utility works."@en;
+    skos:definition "Inname openbaar domein voor wegen, riolering en/of nijverheidswerken."@nl.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/64c0aee7-dd02-4eb5-ac0f-ebc0746fccc4> skos:prefLabel "Kunstwerk"@nl;
+    mu:uuid "64c0aee7-dd02-4eb5-ac0f-ebc0746fccc4";
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    skos:definition "Kunstwerk"@nl;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/718225ee-78e8-4b6f-bc63-7748cfd0a4d2> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/64c0aee7-dd02-4eb5-ac0f-ebc0746fccc4>.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/512d62cb-2b22-449b-8416-93ffd109b7b7> skos:prefLabel "Nutswerken"@nl;
+    mu:uuid "512d62cb-2b22-449b-8416-93ffd109b7b7";
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    skos:definition "Nutswerken"@nl.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/a486a968-e498-4708-8820-901686f0712f> skos:prefLabel "Elektriciteit"@nl;
+    mu:uuid "a486a968-e498-4708-8820-901686f0712f";
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    skos:definition "Elektriciteit"@nl;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/512d62cb-2b22-449b-8416-93ffd109b7b7> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/a486a968-e498-4708-8820-901686f0712f>.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/8fe2554e-0d2a-4662-b003-486d85e7a7e0> skos:prefLabel "Kabel/leiding (deprecated)"@nl;
+    mu:uuid "8fe2554e-0d2a-4662-b003-486d85e7a7e0";
+    <http://www.w3.org/2002/07/owl#deprecated> true;
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    skos:definition "Kabel/leiding (deprecated)"@nl;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/512d62cb-2b22-449b-8416-93ffd109b7b7> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/8fe2554e-0d2a-4662-b003-486d85e7a7e0>.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/7ab7ce8f-e648-4765-9d47-1983adcc461c> skos:prefLabel "Olie, gas, chemicaliën"@nl;
+    mu:uuid "7ab7ce8f-e648-4765-9d47-1983adcc461c";
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    skos:definition "Olie, gas, chemicaliën"@nl;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/512d62cb-2b22-449b-8416-93ffd109b7b7> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/7ab7ce8f-e648-4765-9d47-1983adcc461c>.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/b050476d-c4b4-40e0-b93c-d35e6446bca1> skos:prefLabel "Openbare verlichting"@nl;
+    mu:uuid "b050476d-c4b4-40e0-b93c-d35e6446bca1";
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    skos:definition "Openbare verlichting"@nl;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/512d62cb-2b22-449b-8416-93ffd109b7b7> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/b050476d-c4b4-40e0-b93c-d35e6446bca1>.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/29c35b68-5d3a-4995-9da5-3102a31e543e> skos:prefLabel "Pijpleiding (deprecated)"@nl;
+    mu:uuid "29c35b68-5d3a-4995-9da5-3102a31e543e";
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    skos:definition "Pijpleiding (deprecated)"@nl;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/512d62cb-2b22-449b-8416-93ffd109b7b7> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/29c35b68-5d3a-4995-9da5-3102a31e543e>.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/abf55560-9c84-46cf-98ff-a84881e2e0e7> skos:prefLabel "Riolering (deprecated)"@nl;
+    mu:uuid "abf55560-9c84-46cf-98ff-a84881e2e0e7";
+    <http://www.w3.org/2002/07/owl#deprecated> true;
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    skos:definition "Riolering (deprecated)"@nl;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/512d62cb-2b22-449b-8416-93ffd109b7b7> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/abf55560-9c84-46cf-98ff-a84881e2e0e7>.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/9ca97530-c1cf-45ed-8d80-e34563694d24> skos:prefLabel "Telecom"@nl;
+    mu:uuid "9ca97530-c1cf-45ed-8d80-e34563694d24";
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    skos:definition "Telecom"@nl;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/512d62cb-2b22-449b-8416-93ffd109b7b7> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/9ca97530-c1cf-45ed-8d80-e34563694d24>.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/a5e42efa-3d68-4e53-9fd6-31387d3f0f1f> skos:prefLabel "Thermisch"@nl;
+    mu:uuid "a5e42efa-3d68-4e53-9fd6-31387d3f0f1f";
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    skos:definition "Thermisch"@nl;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/512d62cb-2b22-449b-8416-93ffd109b7b7> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/a5e42efa-3d68-4e53-9fd6-31387d3f0f1f>.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/13136134-d28f-42ad-85f5-1c690cdf9f8a> skos:prefLabel "Water"@nl;
+    mu:uuid "13136134-d28f-42ad-85f5-1c690cdf9f8a";
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    skos:definition "Water"@nl;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/512d62cb-2b22-449b-8416-93ffd109b7b7> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/13136134-d28f-42ad-85f5-1c690cdf9f8a>;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/718225ee-78e8-4b6f-bc63-7748cfd0a4d2> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/512d62cb-2b22-449b-8416-93ffd109b7b7>.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/c22392c5-3a20-4bcd-8eee-a777bd49c92c> skos:prefLabel "Riolering"@nl;
+    mu:uuid "c22392c5-3a20-4bcd-8eee-a777bd49c92c";
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    skos:definition "Riolering"@nl;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/718225ee-78e8-4b6f-bc63-7748cfd0a4d2> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/c22392c5-3a20-4bcd-8eee-a777bd49c92c>.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/c2238dd0-3ce4-4013-bd9d-078ca97fe1e3> skos:prefLabel "Spoorwerken"@nl;
+    mu:uuid "c2238dd0-3ce4-4013-bd9d-078ca97fe1e3";
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    skos:definition "Spoorwerken"@nl;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/718225ee-78e8-4b6f-bc63-7748cfd0a4d2> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/c2238dd0-3ce4-4013-bd9d-078ca97fe1e3>.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/a2cfc89d-6a77-4e38-964d-d52ed15ad1c3> skos:prefLabel "Wegeniswerken"@nl;
+    mu:uuid "a2cfc89d-6a77-4e38-964d-d52ed15ad1c3";
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    skos:definition "Wegeniswerken"@nl;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/718225ee-78e8-4b6f-bc63-7748cfd0a4d2> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/a2cfc89d-6a77-4e38-964d-d52ed15ad1c3>.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/57b057bd-74c8-40be-a759-ecac60de1efe> skos:prefLabel "Andere"@nl;
+    mu:uuid "57b057bd-74c8-40be-a759-ecac60de1efe";
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    skos:definition "Andere"@nl;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/718225ee-78e8-4b6f-bc63-7748cfd0a4d2> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/57b057bd-74c8-40be-a759-ecac60de1efe>;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/60ad4826-893d-4695-b815-a0adb39287e4> skos:prefLabel "Werk"@nl;
+    mu:uuid "60ad4826-893d-4695-b815-a0adb39287e4";
+    skos:topConceptOf <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    skos:definition "Occupancy of public domain for works (eg. scaffolding, construction crane, etc.)"@en;
+    skos:definition "Inname openbaar domein voor werken (bijv. schermen, bouwkracht, enz.)"@nl.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/7194c73c-726c-4522-8ba5-5241d5eab033> skos:prefLabel "Bouwwerken"@nl;
+    mu:uuid "7194c73c-726c-4522-8ba5-5241d5eab033";
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    skos:definition "Bouwwerken"@nl.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/e0bb412c-3a78-4d97-823d-0e20a6a6a982> skos:prefLabel "Container"@nl;
+    mu:uuid "e0bb412c-3a78-4d97-823d-0e20a6a6a982";
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    skos:definition "Container"@nl;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/7194c73c-726c-4522-8ba5-5241d5eab033> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/e0bb412c-3a78-4d97-823d-0e20a6a6a982>.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/25b50cc4-5d85-4c69-97ff-9844ea9492aa> skos:prefLabel "Hoogtewerker"@nl;
+    mu:uuid "25b50cc4-5d85-4c69-97ff-9844ea9492aa";
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    skos:definition "Hoogtewerker"@nl;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/7194c73c-726c-4522-8ba5-5241d5eab033> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/25b50cc4-5d85-4c69-97ff-9844ea9492aa>.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/25180fb6-c6c4-45ed-b16b-3827394e7b57> skos:prefLabel "Stelling"@nl;
+    mu:uuid "25180fb6-c6c4-45ed-b16b-3827394e7b57";
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    skos:definition "Stelling"@nl;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/7194c73c-726c-4522-8ba5-5241d5eab033> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/25180fb6-c6c4-45ed-b16b-3827394e7b57>.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/cfa88563-8d32-4144-8939-6678cbb74bf2> skos:prefLabel "Werfkeet"@nl;
+    mu:uuid "cfa88563-8d32-4144-8939-6678cbb74bf2";
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    skos:definition "Werfkeet"@nl;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/7194c73c-726c-4522-8ba5-5241d5eab033> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/cfa88563-8d32-4144-8939-6678cbb74bf2>.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/00f2461c-45e0-46a2-a566-aeff4fcc1f5e> skos:prefLabel "(Werf)kraan"@nl;
+    mu:uuid "00f2461c-45e0-46a2-a566-aeff4fcc1f5e";
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    skos:definition "(Werf)kraan"@nl;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/7194c73c-726c-4522-8ba5-5241d5eab033> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/00f2461c-45e0-46a2-a566-aeff4fcc1f5e>;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/60ad4826-893d-4695-b815-a0adb39287e4> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/7194c73c-726c-4522-8ba5-5241d5eab033>.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/134127b6-040c-4a34-80ed-969c3369ff2c> skos:prefLabel "Kunstwerk"@nl;
+    mu:uuid "134127b6-040c-4a34-80ed-969c3369ff2c";
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    skos:definition "Kunstwerk"@nl;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/60ad4826-893d-4695-b815-a0adb39287e4> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/134127b6-040c-4a34-80ed-969c3369ff2c>.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/9e8aacea-10a7-4b46-b469-58e2f7ab117b> skos:prefLabel "Nutswerken"@nl;
+    mu:uuid "9e8aacea-10a7-4b46-b469-58e2f7ab117b";
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    skos:definition "Nutswerken"@nl;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/60ad4826-893d-4695-b815-a0adb39287e4> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/9e8aacea-10a7-4b46-b469-58e2f7ab117b>.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/2ad0a0e9-4bbf-49c1-8818-8e6666924eb4> skos:prefLabel "Riolering"@nl;
+    mu:uuid "2ad0a0e9-4bbf-49c1-8818-8e6666924eb4";
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    skos:definition "Riolering"@nl;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/60ad4826-893d-4695-b815-a0adb39287e4> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/2ad0a0e9-4bbf-49c1-8818-8e6666924eb4>.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/2fce9d88-ba22-440a-915a-a6da2fb27344> skos:prefLabel "Spoorwerken"@nl;
+    mu:uuid "2fce9d88-ba22-440a-915a-a6da2fb27344";
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    skos:definition "Spoorwerken"@nl;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/60ad4826-893d-4695-b815-a0adb39287e4> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/2fce9d88-ba22-440a-915a-a6da2fb27344>.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/19c1fa56-0a13-4c09-a0be-d1a0d05e9486> skos:prefLabel "(Verhuis)lift/levering"@nl;
+    mu:uuid "19c1fa56-0a13-4c09-a0be-d1a0d05e9486";
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    skos:definition "(Verhuis)lift/levering"@nl;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/60ad4826-893d-4695-b815-a0adb39287e4> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/19c1fa56-0a13-4c09-a0be-d1a0d05e9486>.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/21fefaa4-4d71-4dd7-b104-f0b16d032acb> skos:prefLabel "Wegeniswerken"@nl;
+    mu:uuid "21fefaa4-4d71-4dd7-b104-f0b16d032acb";
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    skos:definition "Wegeniswerken"@nl;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/60ad4826-893d-4695-b815-a0adb39287e4> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/21fefaa4-4d71-4dd7-b104-f0b16d032acb>.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/19669f7c-18a5-43c0-88ad-35c711d56abe> skos:prefLabel "Andere"@nl;
+    mu:uuid "19669f7c-18a5-43c0-88ad-35c711d56abe";
+    skos:inScheme <http://data.lblod.gift/id/conceptscheme/restricted-mobility-zone-types> ;
+    skos:definition "Andere"@nl;
+    a skos:Concept.
+<https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/60ad4826-893d-4695-b815-a0adb39287e4> skos:narrower <https://gipod.api.vlaanderen.be//api/v1/taxonomies/public-domain-occupancy/types/19669f7c-18a5-43c0-88ad-35c711d56abe>;
+    a skos:Concept.

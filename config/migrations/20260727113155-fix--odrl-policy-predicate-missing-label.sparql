@@ -1,0 +1,20 @@
+PREFIX dcterms: <http://purl.org/dc/terms/>
+DELETE {
+  GRAPH ?graph {
+    ?privatePolicy dcterms: ?description .
+  }
+} INSERT {
+  GRAPH ?graph {
+    ?privatePolicy dcterms:description ?description .
+  }
+} WHERE {
+  VALUES ?privatePolicy {
+    <http://decide.data.gift/datasets/example/60e19fdf-b549-41b9-9adf-420379285127/policy>
+  }
+  VALUES ?graph {
+    <http://mu.semte.ch/graphs/public>
+  }
+  GRAPH ?graph {
+    ?privatePolicy dcterms: ?description .
+  }
+}

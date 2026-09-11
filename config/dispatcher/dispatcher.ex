@@ -8,9 +8,9 @@ defmodule Dispatcher do
     any: ["*/*"]
   ]
 
-  define_layers([:static, :sparql, :api_services, :frontend_fallback, :resources, :not_found])
+  define_layers([:static, :sparql, :frontend, :api_services, :resources, :frontend_fallback, :not_found])
 
-  options "/*path", _ do
+  options "/*_path", _ do
     conn
     |> Plug.Conn.put_resp_header("access-control-allow-headers", "content-type,accept")
     |> Plug.Conn.put_resp_header("access-control-allow-methods", "*")
@@ -27,7 +27,7 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://vc-issuer/sessions/"
   end
 
-   match "/vc-verifier/*path", %{ accept: [:any], layer: :static } do
+  match "/vc-verifier/*path", %{ accept: [:any], layer: :static } do
     Proxy.forward conn, path, "http://vc-issuer/verifier/"
   end
 
@@ -61,32 +61,87 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://vc-issuer/issuer/"
   end
 
+  get "/question-answering/openapi.json", %{ accept: [:any], layer: :api_services } do
+    Proxy.forward conn, [], "http://question-answering/openapi.json"
+  end
+
+  match "/datadumps/*path", %{ accept: [:any], layer: :api_services } do
+    Proxy.forward conn, path, "http://datadumps/"
+  end
+
+  match "/question-answering/*path", %{ accept: [:any], layer: :api_services } do
+    Proxy.forward conn, path, "http://question-answering/question-answering/"
+  end
+
+  match "/api/sparql", %{ accept: [:any], layer: :sparql } do
+    Proxy.forward conn, [], "http://database:8890/sparql"
+  end
+
+  # NOTE (09/09/2026): Additional rule to ensure requests for SPARQL endpoint on
+  # DCAT frontend are actually forwarded to frontend instead of directly to the
+  # SPARQL endpoint below.
+  match "/sparql", %{ reverse_host: ["ds" | _rest], accept: [:html], layer: :sparql} do
+    forward(conn, [], "http://frontend-dcat/index.html")
+  end
+
+  match "/sparql", %{ accept: [:any], layer: :sparql } do
+    Proxy.forward conn, [], "http://database:8890/sparql"
+  end
+
+  match "/api/private/sparql", %{ accept: [:any], layer: :sparql } do
+    Proxy.forward conn, [], "http://dsp-auth-wrapper/sparql"
+  end
+
+  match "/annotation-review/*path", %{ accept: [:any], layer: :static } do
+    Proxy.forward conn, path, "http://annotation-review/"
+  end
+
+  match "/policy-impact-report/*path", %{ accept: [:any], layer: :static } do
+    Proxy.forward conn, path, "http://policy-impact-report/"
+  end
+
+  match "/shacl-reports/*path", %{ accept: [:any], layer: :static } do
+    Proxy.forward conn, path, "http://report-generation/"
+  end
+
+  match "/resource-type-service/*path", %{ accept: [:json], layer: :api_services } do
+    Proxy.forward conn, path, "http://resource-type-service/"
+  end
+
+  match "/overview-query/*path", %{ accept: [:any], layer: :api_services } do
+    Proxy.forward conn, path, "http://overview-query/"
+  end
+
   #################
   # Jobs & tasks
   #################
 
   match "/jobs/*path", %{accept: [:json], layer: :api_services} do
-    Proxy.forward conn, path, "http://resource/jobs/"
+    Proxy.forward conn, path, "http://cache/jobs/"
   end
 
   match "/annotation-jobs/*path", %{accept: [:json], layer: :api_services} do
-    Proxy.forward conn, path, "http://resource/annotation-jobs/"
+    Proxy.forward conn, path, "http://cache/annotation-jobs/"
   end
 
   match "/tasks/*path", %{accept: [:json], layer: :api_services} do
-    Proxy.forward conn, path, "http://resource/tasks/"
+    Proxy.forward conn, path, "http://cache/tasks/"
   end
 
   match "/scheduled-jobs/*path", %{accept: [:json], layer: :api_services} do
-    Proxy.forward conn, path, "http://resource/scheduled-jobs/"
+    Proxy.forward conn, path, "http://cache/scheduled-jobs/"
+  end
+
+  match "/scheduled-annotation-jobs/*path", %{accept: [:json], layer: :api_services} do
+    Proxy.forward conn, path, "http://resource/scheduled-annotation-jobs/"
   end
 
   match "/scheduled-tasks/*path", %{accept: [:json], layer: :api_services} do
-    Proxy.forward conn, path, "http://resource/scheduled-tasks/"
+    Proxy.forward conn, path, "http://cache/scheduled-tasks/"
   end
 
   match "/cron-schedules/*path", %{accept: [:json], layer: :api_services} do
-    Proxy.forward conn, path, "http://resource/cron-schedules/"
+    Proxy.forward conn, path, "http://cache/cron-schedules/"
   end
 
   #################
@@ -94,39 +149,43 @@ defmodule Dispatcher do
   #################
 
   match "/data-containers/*path", %{accept: [:json], layer: :api_services} do
-    Proxy.forward conn, path, "http://resource/data-containers/"
+    Proxy.forward conn, path, "http://cache/data-containers/"
   end
 
   match "/job-errors/*path", %{accept: [:json], layer: :api_services} do
-    Proxy.forward conn, path, "http://resource/job-errors/"
+    Proxy.forward conn, path, "http://cache/job-errors/"
   end
 
   match "/reports/*path", %{accept: [:json], layer: :api_services} do
-    Proxy.forward conn, path, "http://resource/reports/"
+    Proxy.forward conn, path, "http://cache/reports/"
   end
 
   match "/log-entries/*path", %{accept: [:json], layer: :api_services} do
-    Proxy.forward conn, path, "http://resource/log-entries/"
+    Proxy.forward conn, path, "http://cache/log-entries/"
   end
 
   match "/log-levels/*path", %{accept: [:json], layer: :api_services} do
-    Proxy.forward conn, path, "http://resource/log-levels/"
+    Proxy.forward conn, path, "http://cache/log-levels/"
   end
 
   match "/status-codes/*path", %{accept: [:json], layer: :api_services} do
-    Proxy.forward conn, path, "http://resource/status-codes/"
+    Proxy.forward conn, path, "http://cache/status-codes/"
   end
 
   match "/log-sources/*path", %{accept: [:json], layer: :api_services} do
-    Proxy.forward conn, path, "http://resource/log-sources/"
+    Proxy.forward conn, path, "http://cache/log-sources/"
   end
 
   match "/remote-data-objects/*path", %{accept: [:json], layer: :api_services} do
-    Proxy.forward conn, path, "http://resource/remote-data-objects/"
+    Proxy.forward conn, path, "http://cache/remote-data-objects/"
   end
 
   match "/harvesting-collections/*path", %{accept: [:json], layer: :api_services} do
-    Proxy.forward conn, path, "http://resource/harvesting-collections/"
+    Proxy.forward conn, path, "http://cache/harvesting-collections/"
+  end
+
+  match "/node-shapes/*path", %{accept: [:json], layer: :api_services} do
+    Proxy.forward conn, path, "http://cache/node-shapes/"
   end
 
   #################
@@ -142,119 +201,147 @@ defmodule Dispatcher do
   end
 
   #################
+  # JSON-TO-ELI
+  #################
+  match "/json-to-eli/*path", %{ accept: [:any], layer: :api_services } do
+    Proxy.forward conn, path, "http://json-to-eli/"
+  end
+
+  #################
   # RESOURCES
   #################
 
   match "/datasets/*path", %{ accept: [:json], layer: :resources } do
-    Proxy.forward conn, path, "http://resource/datasets/"
+    Proxy.forward conn, path, "http://cache/datasets/"
   end
 
   match "/catalogs/*path", %{ accept: [:json], layer: :resources } do
-    Proxy.forward conn, path, "http://resource/catalogs/"
+    Proxy.forward conn, path, "http://cache/catalogs/"
   end
 
   match "/distributions/*path", %{ accept: [:json], layer: :resources } do
-    Proxy.forward conn, path, "http://resource/distributions/"
+    Proxy.forward conn, path, "http://cache/distributions/"
+  end
+
+  match "/data-services/*path", %{ accept: [:json], layer: :resources } do
+    Proxy.forward conn, path, "http://cache/data-services/"
   end
 
   match "/catalog-records/*path", %{ accept: [:json], layer: :resources } do
-    Proxy.forward conn, path, "http://resource/catalog-records/"
+    Proxy.forward conn, path, "http://cache/catalog-records/"
   end
 
   match "/concepts/*path", %{ accept: [:json], layer: :resources } do
-    Proxy.forward conn, path, "http://resource/concepts/"
+    Proxy.forward conn, path, "http://cache/concepts/"
   end
 
   match "/concept-schemes/*path", %{ accept: [:json], layer: :resources } do
-    Proxy.forward conn, path, "http://resource/concept-schemes/"
+    Proxy.forward conn, path, "http://cache/concept-schemes/"
   end
 
   match "/agents/*path", %{ accept: [:json], layer: :resources } do
-    Proxy.forward conn, path, "http://resource/agents/"
-  end
-
-  match "/formats/*path", %{ accept: [:json], layer: :resources } do
-    Proxy.forward conn, path, "http://resource/formats/"
+    Proxy.forward conn, path, "http://cache/agents/"
   end
 
   match "/pages/*path", %{ accept: [:json], layer: :resources } do
-    Proxy.forward conn, path, "http://resource/pages/"
+    Proxy.forward conn, path, "http://cache/pages/"
   end
 
   match "/activities/*path", %{ accept: [:json], layer: :resources } do
-    Proxy.forward conn, path, "http://resource/activities/"
+    Proxy.forward conn, path, "http://cache/activities/"
   end
 
   match "/legislative-processes/*path", %{ accept: [:json], layer: :resources } do
-    Proxy.forward conn, path, "http://resource/legislative-processes/"
+    Proxy.forward conn, path, "http://cache/legislative-processes/"
   end
 
   match "/legislative-process-works/*path", %{ accept: [:json], layer: :resources } do
-    Proxy.forward conn, path, "http://resource/legislative-process-works/"
+    Proxy.forward conn, path, "http://cache/legislative-process-works/"
   end
 
   match "/draft-legislation-works/*path", %{ accept: [:json], layer: :resources } do
-    Proxy.forward conn, path, "http://resource/draft-legislation-works/"
+    Proxy.forward conn, path, "http://cache/draft-legislation-works/"
   end
 
   match "/parliamentary-terms/*path", %{ accept: [:json], layer: :resources } do
-    Proxy.forward conn, path, "http://resource/parliamentary-terms/"
+    Proxy.forward conn, path, "http://cache/parliamentary-terms/"
   end
 
   match "/participations/*path", %{ accept: [:json], layer: :resources } do
-    Proxy.forward conn, path, "http://resource/participations/"
+    Proxy.forward conn, path, "http://cache/participations/"
   end
 
   match "/foreseen-activities/*path", %{ accept: [:json], layer: :resources } do
-    Proxy.forward conn, path, "http://resource/foreseen-activities/"
+    Proxy.forward conn, path, "http://cache/foreseen-activities/"
   end
 
   match "/decisions/*path", %{ accept: [:json], layer: :resources } do
-    Proxy.forward conn, path, "http://resource/decisions/"
+    Proxy.forward conn, path, "http://cache/decisions/"
   end
 
   match "/votes/*path", %{ accept: [:json], layer: :resources } do
-    Proxy.forward conn, path, "http://resource/votes/"
+    Proxy.forward conn, path, "http://cache/votes/"
   end
 
   match "/process-stages/*path", %{ accept: [:json], layer: :resources } do
-    Proxy.forward conn, path, "http://resource/process-stages/"
+    Proxy.forward conn, path, "http://cache/process-stages/"
   end
 
   match "/organizations/*path", %{ accept: [:json], layer: :resources } do
-    Proxy.forward conn, path, "http://resource/organizations/"
+    Proxy.forward conn, path, "http://cache/organizations/"
   end
 
   match "/people/*path", %{ accept: [:json], layer: :resources } do
-    Proxy.forward conn, path, "http://resource/people/"
+    Proxy.forward conn, path, "http://cache/people/"
   end
 
   match "/legal-expressions/*path", %{ accept: [:json], layer: :resources } do
-    Proxy.forward conn, path, "http://resource/legal-expressions/"
+    Proxy.forward conn, path, "http://cache/legal-expressions/"
+  end
+
+  match "/works/*path", %{ accept: [:json], layer: :resources } do
+    Proxy.forward conn, path, "http://cache/works/"
+  end
+
+  # NOTE (12/06/2026): This rule ensures requests for the `/expressions` route that
+  # have `text/html` as accept-header are forwarded to the hvt frontend instead of
+  # to resources.  Otherwise, requests meant for the frontend are matched by the
+  # rule below and incorrectly forwarded to resources.  The prioritisation is
+  # done by the layers.
+  match "/expressions/*_path",  %{reverse_host: ["human-validator" | _rest], accept: [:html], layer: :frontend} do
+    forward(conn, [], "http://frontend-human-validator/index.html")
+  end
+
+  match "/expressions/*path", %{ accept: [:json], layer: :resources } do
+    Proxy.forward conn, path, "http://cache/expressions/"
   end
 
   match "/manifestations/*path", %{ accept: [:json], layer: :resources } do
-    Proxy.forward conn, path, "http://resource/manifestations/"
+    Proxy.forward conn, path, "http://cache/manifestations/"
   end
 
   match "/complex-works/*path", %{ accept: [:json], layer: :resources } do
-    Proxy.forward conn, path, "http://resource/complex-works/"
+    Proxy.forward conn, path, "http://cache/complex-works/"
   end
 
   match "/annotations/*path", %{ accept: [:json], layer: :resources } do
-    Proxy.forward conn, path, "http://resource/annotations/"
+    Proxy.forward conn, path, "http://cache/annotations/"
   end
 
   match "/specific-resources/*path", %{ accept: [:json], layer: :resources } do
-    Proxy.forward conn, path, "http://resource/specific-resources/"
+    Proxy.forward conn, path, "http://cache/specific-resources/"
+  end
+
+  match "/text-position-selectors/*path", %{ accept: [:json], layer: :resources } do
+    Proxy.forward conn, path, "http://resource/text-position-selectors/"
   end
 
   match "/locations/*path", %{ accept: [:json], layer: :resources } do
-    Proxy.forward conn, path, "http://resource/locations/"
+    Proxy.forward conn, path, "http://cache/locations/"
   end
 
   match "/geometries/*path", %{ accept: [:json], layer: :resources } do
-    Proxy.forward conn, path, "http://resource/geometries/"
+    Proxy.forward conn, path, "http://cache/geometries/"
   end
 
   #################################################################
@@ -266,7 +353,7 @@ defmodule Dispatcher do
   end
 
   get "/files/*path", %{layer: :api_services, accept: %{json: true}} do
-    Proxy.forward(conn, path, "http://resource/files/")
+    Proxy.forward(conn, path, "http://cache/files/")
   end
 
   #################
@@ -274,18 +361,22 @@ defmodule Dispatcher do
   #################
 
   match "/gebruikers/*path", %{layer: :resources, accept: %{any: true}} do
-    forward(conn, path, "http://resource/gebruikers/")
+    forward(conn, path, "http://cache/gebruikers/")
   end
 
   match "/accounts/*path", %{layer: :resources, accept: %{any: true}} do
-    forward(conn, path, "http://resource/accounts/")
+    forward(conn, path, "http://cache/accounts/")
   end
 
   match "/bestuurseenheids/*path", %{layer: :resources, accept: %{any: true}} do
-    forward(conn, path, "http://resource/bestuurseenheids/")
+    forward(conn, path, "http://cache/bestuurseenheids/")
   end
 
-  match "/sessions/*path", %{reverse_host: ["dashboard" | _rest]} do
+  match "/sessions/*path", %{reverse_host: ["ds" | _rest], layer: :api_services, accept: %{any: true}} do
+    Proxy.forward(conn, path, "http://acmidm-login/sessions/")
+  end
+
+  match "/sessions/*path", %{layer: :api_services, accept: %{any: true}} do
     Proxy.forward(conn, path, "http://login/sessions/")
   end
 
@@ -293,15 +384,23 @@ defmodule Dispatcher do
     Proxy.forward(conn, path, "http://mocklogin/sessions/")
   end
 
-  match "/sessions/*path", %{layer: :api_services, accept: %{any: true}} do
+  match "/sessions/*path", %{reverse_host: ["yasgui" | _rest]} do
     Proxy.forward(conn, path, "http://login/sessions/")
+  end
+
+  match "/mock/sessions/*path", %{reverse_host: ["yasgui" | _rest]} do
+    Proxy.forward(conn, path, "http://mocklogin/sessions/")
+  end
+
+  match "/sessions/*path", %{reverse_host: ["ds" | _rest], layer: :api_services, accept: %{any: true}} do
+    Proxy.forward(conn, path, "http://acmidm-login/sessions/")
   end
 
   match "/mock/sessions/*path", %{layer: :api_services, accept: %{any: true} } do
     Proxy.forward(conn, path, "http://mocklogin/sessions/")
   end
 
-###############
+  ###############
   # STATIC
   ###############
 
@@ -318,40 +417,139 @@ defmodule Dispatcher do
     forward(conn, path, "http://frontend-harvesting/@appuniversum/")
   end
 
-  match "/index.html", %{layer: :static} do
-    forward(conn, [], "http://frontend/index.html")
+  # dcat
+  match "/index.html",  %{reverse_host: ["ds" | _rest], layer: :static} do
+    forward(conn, [], "http://frontend-dcat/index.html")
   end
 
-  get "/assets/*path", %{layer: :static} do
-    forward(conn, path, "http://frontend/assets/")
+  get "/assets/*path", %{reverse_host: ["ds" | _rest], layer: :static} do
+    forward(conn, path, "http://frontend-dcat/assets/")
   end
 
-  get "/@appuniversum/*path", %{layer: :static} do
-    forward(conn, path, "http://frontend/@appuniversum/")
+  get "/@appuniversum/*path",  %{reverse_host: ["ds" | _rest], layer: :static} do
+    forward(conn, path, "http://frontend-dcat/@appuniversum/")
   end
 
+  # human validator
+  match "/index.html",  %{reverse_host: ["human-validator" | _rest], layer: :static} do
+    forward(conn, [], "http://frontend-human-validator/index.html")
+  end
+
+  get "/assets/*path", %{reverse_host: ["human-validator" | _rest], layer: :static} do
+    forward(conn, path, "http://frontend-human-validator/assets/")
+  end
+
+  get "/@appuniversum/*path",  %{reverse_host: ["human-validator" | _rest], layer: :static} do
+    forward(conn, path, "http://frontend-human-validator/@appuniversum/")
+  end
+
+  # yasgui
+  match "/index.html",  %{reverse_host: ["yasgui" | _rest], layer: :static} do
+    forward(conn, [], "http://frontend-yasgui/index.html")
+  end
+
+  get "/assets/*path", %{reverse_host: ["yasgui" | _rest], layer: :static} do
+    forward(conn, path, "http://frontend-yasgui/assets/")
+  end
+
+  get "/@appuniversum/*path",  %{reverse_host: ["yasgui" | _rest], layer: :static} do
+    forward(conn, path, "http://frontend-yasgui/@appuniversum/")
+  end
+
+  # smart search
+  match "/index.html",  %{reverse_host: ["smart-search" | _rest], layer: :static} do
+    forward(conn, [], "http://frontend-smart-search/index.html")
+  end
+
+  get "/assets/*path", %{reverse_host: ["smart-search" | _rest], layer: :static} do
+    forward(conn, path, "http://frontend-smart-search/assets/")
+  end
+
+  get "/@appuniversum/*path",  %{reverse_host: ["smart-search" | _rest], layer: :static} do
+    forward(conn, path, "http://frontend-smart-search/@appuniversum/")
+  end
+
+
+    # policy impact report
+  match "/index.html",  %{reverse_host: ["policy-impact-report" | _rest], layer: :static} do
+    forward(conn, [], "http://frontend-policy-impact-report/index.html")
+  end
+
+  get "/assets/*path", %{reverse_host: ["policy-impact-report" | _rest], layer: :static} do
+    forward(conn, path, "http://frontend-policy-impact-report/assets/")
+  end
+
+  get "/@appuniversum/*path",  %{reverse_host: ["policy-impact-report" | _rest], layer: :static} do
+    forward(conn, path, "http://frontend-policy-impact-report/@appuniversum/")
+  end
 
   #################
   # FRONTEND PAGES
   #################
 
+  # we don't forward the path, because the app should take care of this in the browser.
+
   # self-service
-  match "/*path", %{reverse_host: ["dashboard" | _rest], accept: %{html: true}} do
-    # we don't forward the path, because the app should take care of this in the browser.
+  match "/*_path", %{reverse_host: ["dashboard" | _rest], accept: %{html: true}, layer: :frontend_fallback } do
     forward(conn, [], "http://frontend-harvesting/index.html")
   end
 
-  match "/*path", %{layer: :frontend_fallback, accept: %{html: true}} do
-    # we don't forward the path, because the app should take care of this in the browser.
-    forward(conn, [], "http://frontend/index.html")
+  match "/*_path", %{ reverse_host: ["ds" | _rest], accept: %{html: true}, layer: :frontend_fallback } do
+    forward(conn, [], "http://frontend-dcat/index.html")
+  end
+
+  match "/*_path", %{reverse_host: ["human-validator" | _rest], accept: %{html: true}, layer: :frontend_fallback} do
+    forward(conn, [], "http://frontend-human-validator/index.html")
+  end
+
+  match "/*_path", %{reverse_host: ["yasgui" | _rest], accept: %{html: true}, layer: :frontend_fallback } do
+    forward(conn, [], "http://frontend-yasgui/index.html")
+  end
+
+  match "/*_path", %{reverse_host: ["smart-search" | _rest], accept: %{html: true}, layer: :frontend_fallback} do
+    forward(conn, [], "http://frontend-smart-search/index.html")
+  end
+
+  match "/*_path", %{reverse_host: ["policy-impact-report" | _rest], accept: %{html: true}, layer: :frontend_fallback} do
+    forward(conn, [], "http://frontend-policy-impact-report/index.html")
   end
 
   #################
   # DCAT
   #################
+  # NOTE (12/06/2026): This rule ensures requests for the `/dcat` route that
+  # have `text/html` as accept-header are forwarded to the frontend instead of
+  # the service.  Otherwise, requests meant for the frontend are matched by the
+  # rule below and incorrectly forwarded to the service.  The prioritisation is
+  # done by the layers.
+  match "/dcat/*_path", %{ reverse_host: ["ds" | _rest], accept: %{html: true}, layer: :frontend } do
+    forward(conn, [], "http://frontend-dcat/index.html")
+  end
 
-  match "/dcat/*path" do
+  get "/dcat/*path", %{ accept: [:any], layer: :api_services } do
     forward(conn, path, "http://dcat/")
+  end
+
+  ###############################################################
+  # LDES
+  ###############################################################
+  match "/ldes/*path", %{ accept: %{any: true}, layer: :api_services} do
+    Proxy.forward conn, path, "http://ldes-serve-feed/"
+  end
+
+  ##################
+  # SEARCH
+  ##################
+  get "/search/*path", %{layer: :api_services, accept: [:json]} do
+    Proxy.forward conn, path, "http://search/"
+  end
+
+  post "/search/:type/large-search", %{layer: :api_services, accept: [:json]} do
+    Proxy.forward conn, [(type <> "/large-search")], "http://search/"
+  end
+
+  match "/embedding/*path", %{layer: :api_services, accept: [:json]} do
+    Proxy.forward conn, path, "http://embedding/"
   end
 
   #################

@@ -1,0 +1,62 @@
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix cms: <http://mu.semte.ch/vocabulary/cms/> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcatap: <http://data.europa.eu/r5r/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix eurovoc: <http://eurovoc.europa.eu/> .
+@prefix ex: <http://example.org/> .
+@prefix ext: <http://mu.semte.ch/vocabularies/ext/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix ldes: <https://w3id.org/ldes#> .
+@prefix mu: <http://mu.semte.ch/vocabularies/core/> .
+@prefix odrl: <https://www.w3.org/TR/odrl-vocab/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix agent: <http://data.lblod.info/id/agents/> .
+@prefix dataset: <http://data.lblod.info/id/datasets/> .
+@prefix distribution: <http://data.lblod.info/id/distributions/> .
+@prefix service: <http://data.lblod.info/id/services/> .
+
+##############################################################################
+# Dataset
+{% if insert_dataset %}
+<{{ catalog_uri }}> dcat:dataset <{{ dataset_uri }}> .
+
+<{{ dataset_uri }}> a dcat:Dataset;
+    mu:uuid "{{ dataset_uuid }}";
+    dct:title "{{ dataset.description }}"@en;
+    dct:description "{{ dataset.description }} for {{ catalog_publisher.name }}"@en;
+    dct:publisher <{{ catalog_publisher.uri }}>;
+    dcat:contactPoint <{{ catalog_publisher.uri }}>;
+    dcat:theme <http://vocab.belgif.be/auth/datatheme/GOVE>;
+    dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
+    dct:issued "{{ ISSUED }}"^^xsd:dateTime;
+    dct:modified "{{ MODIFIED }}"^^xsd:dateTime .
+{% endif %}
+
+{% if datadump_url and insert_distribution %}
+<{{ dataset_uri }}> dcat:distribution <{{ distribution_uri }}> .
+
+<{{ distribution_uri }}> a dcat:Distribution;
+    mu:uuid "{{ distribution_uuid }}";
+    dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE>;
+    dct:title "{{ dataset.description }} for {{ catalog_publisher.name }} - Data dump"@en;
+    dcat:downloadURL <{{ datadump_url }}>;
+    dcat:accessURL <{{ datadump_url }}>;
+    dct:license <http://opendatacommons.org/licenses/pddl/1.0/> .
+{% endif %}
+
+{% if sparql_endpoint and insert_dataservice %}
+<{{ catalog_uri }}> dcat:service <{{ service_uri }}> .
+
+<{{ service_uri }}> a dcat:DataService;
+    mu:uuid "{{ service_uuid }}";
+    dct:title "{{ catalog_publisher.name }} SPARQL Endpoint"@en;
+    dcat:endpointURL <{{ sparql_endpoint }}>;
+    dct:conformsTo <https://www.w3.org/TR/sparql11-protocol/>;
+    dcat:servesDataset <{{ dataset_uri }}> .
+{% endif %}

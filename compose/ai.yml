@@ -1,0 +1,211 @@
+x-logging: &default-logging
+  driver: 'json-file'
+  options:
+    max-size: '10m'
+    max-file: '3'
+
+services:
+  ##############################################################################
+  # AI PIPELINES
+  ##############################################################################
+  entity-linking:
+    image: semanticai/entity-linking-backend:1.0.0
+    environment:
+      TARGET_GRAPH: 'http://mu.semte.ch/graphs/public'
+      DEFAULT_GRAPH: 'http://mu.semte.ch/graphs/harvesting'
+      ALLOW_MU_AUTH_SUDO: 'true'
+      OLLAMA_HOST: 'http://ollama:11434'
+      NOMINATIM_ENDPOINT: 'http://nominatim:8080/'
+      MCP_SERVER_URL: 'http://localhost:80/mcp/sse'
+      ENABLED_TOOLS: 'search_sparql_docs,execute_sparql_query,search_location'
+      JOB_GRAPH: 'http://mu.semte.ch/graphs/harvesting'
+      AI_GRAPH: 'http://mu.semte.ch/graphs/public/pdf'
+      LLM_PROVIDER: 'mistral'
+      LLM_MAX_RETRIES: 3
+      MISTRAL_MODEL: 'ministral-14b-2512'
+      CONFIG_PATH: '/config/config.json'
+      COMPOSE_FILE: /tmp/docker-compose.yaml
+      COMPOSE_SERVICE: entity-linking
+    logging: *default-logging
+    labels:
+      - logging=true
+    links:
+      - database:database
+    volumes:
+      - ./../config/nel/config:/config
+      - ./../compose/ai.yml:/tmp/docker-compose.yaml
+    restart: always
+  pdf-scraper:
+    image: semanticai/decide-pdf-scraper:1.0.0
+    environment:
+      TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
+      JOB_GRAPH: http://mu.semte.ch/graphs/harvesting
+      DATA_CONTAINER_GRAPH: http://mu.semte.ch/graphs/harvesting
+      HARVEST_COLLECTIONS_GRAPH: http://mu.semte.ch/graphs/harvesting
+      REMOTE_OBJECT_GRAPH: http://mu.semte.ch/graphs/harvesting
+      FILES_GRAPH: http://mu.semte.ch/graphs/harvesting
+      OPARL_TEMP_GRAPH: http://mu.semte.ch/graphs/harvesting
+      OSLO_TEMP_GRAPH: http://mu.semte.ch/graphs/harvesting
+
+      PUBLICATION_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      EXPRESSIONS_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      WORKS_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      MANIFESTATIONS_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      AI_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      ALLOW_MU_AUTH_SUDO: true
+    labels:
+      - logging=true
+    restart: always
+    logging: *default-logging
+  pdf-content:
+    image: semanticai/decide-pdf-content-extraction:1.0.0
+    environment:
+      APACHE_TIKA_URL: 'http://apache-tika:9998/tika'
+      TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
+      JOB_GRAPH: http://mu.semte.ch/graphs/harvesting
+      DATA_CONTAINER_GRAPH: http://mu.semte.ch/graphs/harvesting
+      HARVEST_COLLECTIONS_GRAPH: http://mu.semte.ch/graphs/harvesting
+      REMOTE_OBJECT_GRAPH: http://mu.semte.ch/graphs/harvesting
+      FILES_GRAPH: http://mu.semte.ch/graphs/harvesting
+      OPARL_TEMP_GRAPH: http://mu.semte.ch/graphs/harvesting
+      OSLO_TEMP_GRAPH: http://mu.semte.ch/graphs/harvesting
+
+      PUBLICATION_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      EXPRESSIONS_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      WORKS_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      MANIFESTATIONS_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      AI_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      ALLOW_MU_AUTH_SUDO: true
+      MOUNTED_SHARE_FOLDER: '/mnt/share'
+      CONFIG_PATH: '/config/config.json'
+      COMPOSE_FILE: /tmp/docker-compose.yaml
+      COMPOSE_SERVICE: pdf-content
+      IGNORE_MOUNT_REGEX: '^(/data)|(/app)|(/mnt)'
+    volumes:
+      - ./../data/files:/mnt/share
+      - ./../config/pdf-content/config.json:/config/config.json:ro # Mount config as read-only
+      - ./../compose/ai.yml:/tmp/docker-compose.yaml
+    labels:
+      - logging=true
+    restart: always
+    logging: *default-logging
+  apache-tika:
+    image: lblod/apache-tika-service:0.0.3
+    restart: always
+    logging: *default-logging
+    labels:
+      - logging=true
+  question-answering:
+    image: docker.io/semanticai/decide-question-answering:1.0.0
+    environment:
+      SEARCH_API_URL: 'http://search/expressions/large-search'
+      LOG_SPARQL_ALL: 'false'
+      EMBEDDING_API_URL: 'http://embedding/embed'
+      MU_SPARQL_ENDPOINT: 'http://database:8890/sparql'
+      MU_SPARQL_TIMEOUT: '30'
+      GENERATION_PROVIDER: 'ollama'
+      GENERATION_ENDPOINT: 'http://ollama:11434'
+      GENERATION_MODEL: 'mistral-nemo'
+      GENERATION_TIMEOUT: '300.0'
+      MAX_CONTENT_CHARS: '50000'
+      REQUEST_TIMEOUT: '10.0'
+      ALLOW_MU_AUTH_SUDO: 'true'
+      DEFAULT_MU_AUTH_SCOPE: 'http://services.semantic.works/decide-question-answering-service'
+    restart: always
+    logging: *default-logging
+    labels:
+      - logging=true
+  nominatim:
+    image: mediagis/nominatim:5.1
+    restart: always
+    environment:
+      PBF_PATH: /data/merged.osm.pbf
+      PBF_URL: ''
+    volumes:
+      - ./../data/nominatim/db:/var/lib/postgresql/16/main
+      - ./../data/nominatim/src:/data
+
+    logging: *default-logging
+    labels:
+      - logging=true
+  named-entity-recognition:
+    image: semanticai/decide-geocoding-service:1.0.0
+    environment:
+      TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
+      JOB_GRAPH: http://mu.semte.ch/graphs/harvesting
+      DATA_CONTAINER_GRAPH: http://mu.semte.ch/graphs/harvesting
+      HARVEST_COLLECTIONS_GRAPH: http://mu.semte.ch/graphs/harvesting
+      REMOTE_OBJECT_GRAPH: http://mu.semte.ch/graphs/harvesting
+      FILES_GRAPH: http://mu.semte.ch/graphs/harvesting
+      OPARL_TEMP_GRAPH: http://mu.semte.ch/graphs/harvesting
+      OSLO_TEMP_GRAPH: http://mu.semte.ch/graphs/harvesting
+
+      PUBLICATION_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      EXPRESSIONS_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      WORKS_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      MANIFESTATIONS_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      AI_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      ALLOW_MU_AUTH_SUDO: true
+      CONFIG_PATH: '/config/config.json'
+      COMPOSE_FILE: /tmp/docker-compose.yaml
+      COMPOSE_SERVICE: named-entity-recognition
+    volumes:
+      - ./../config/ner/config.json:/config/config.json:ro # Mount config as read-only
+      - ./../compose/ai.yml:/tmp/docker-compose.yaml
+    depends_on:
+      - virtuoso
+    labels:
+      - logging=true
+    restart: always
+    logging: *default-logging
+
+  ollama:
+    image: ollama/ollama:0.21.2
+    volumes:
+      - ../data/ollama:/root/.ollama
+    labels:
+      - logging=true
+    restart: always
+    logging: *default-logging
+    # in case you have an nvidia gpu available, like on our server
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
+    entrypoint:
+      - /bin/sh
+      - -c
+      - ollama serve & pid=$$! && sleep 5 && ollama pull embeddinggemma && wait $$pid
+
+  codelist-labeling:
+    image: semanticai/codelist-labeling-service:1.0.0
+    environment:
+      TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
+      JOB_GRAPH: http://mu.semte.ch/graphs/harvesting
+      DATA_CONTAINER_GRAPH: http://mu.semte.ch/graphs/harvesting
+      HARVEST_COLLECTIONS_GRAPH: http://mu.semte.ch/graphs/harvesting
+      REMOTE_OBJECT_GRAPH: http://mu.semte.ch/graphs/harvesting
+      FILES_GRAPH: http://mu.semte.ch/graphs/harvesting
+      OPARL_TEMP_GRAPH: http://mu.semte.ch/graphs/harvesting
+      OSLO_TEMP_GRAPH: http://mu.semte.ch/graphs/harvesting
+
+      PUBLICATION_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      EXPRESSIONS_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      WORKS_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      MANIFESTATIONS_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      AI_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      ALLOW_MU_AUTH_SUDO: true
+      NOMINATIM_ENDPOINT: http://nominatim:8080/
+      CONFIG_PATH: '/config/config.json'
+      COMPOSE_FILE: /tmp/docker-compose.yaml
+      COMPOSE_SERVICE: codelist-labeling
+    restart: always
+    labels:
+      - logging=true
+    logging: *default-logging
+    volumes:
+      - ./../config/codelist/config.json:/config/config.json:ro # Mount config as read-only
+      - ./../compose/ai.yml:/tmp/docker-compose.yaml

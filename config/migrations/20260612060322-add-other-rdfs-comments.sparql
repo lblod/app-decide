@@ -1,0 +1,37 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+INSERT DATA {
+  GRAPH <http://mu.semte.ch/graphs/public> {
+    <http://purl.org/dc/terms/extent> rdfs:comment "The size or duration of the resource."@en .
+    <http://purl.org/dc/terms/date> rdfs:comment "A point or period of time associated with an event in the lifecycle of the resource."@en .
+    <http://mu.semte.ch/vocabularies/ext/administrative_body> rdfs:comment "The administrative body related to this resource."@en .
+    <http://www.w3.org/2004/02/skos/core#exactMatch> rdfs:comment "The property skos:exactMatch is used to link two concepts, indicating a high degree of confidence that the concepts can be used interchangeably across a wide range of information retrieval applications."@en .
+    <http://www.w3.org/ns/prov#atLocation> rdfs:comment "The location of any resource. A location can be an identifiable geographic place (ISO 19112), but it can also be a non-geographic place such as a directory, row, or column. As such, there are numerous ways in which location can be expressed, such as by a coordinate, address, landmark, and so forth."@en .
+    <http://mu.semte.ch/vocabularies/ext/participants> rdfs:comment "Participants to a session."@en .
+    <http://mu.semte.ch/vocabularies/ext/legal_framework> rdfs:comment "The legal framework related to this resource."@en .
+    <http://mu.semte.ch/vocabularies/ext/motivation> rdfs:comment "The motivation for this resource."@en .
+    <http://mu.semte.ch/vocabularies/ext/article> rdfs:comment "An article that forms a part of this resource."@en .
+    <http://mu.semte.ch/vocabularies/ext/voting> rdfs:comment "The section in this document that contains (the results of) a vote of any kind."@en .
+    <http://mu.semte.ch/vocabularies/ext/decision> rdfs:comment "The section in this document that contains a  decision of any kind."@en .
+    <http://mu.semte.ch/vocabularies/ext/publication_date> rdfs:comment "The publication date of this document."@en .
+    <http://purl.org/dc/terms/spatial> rdfs:comment "Spatial characteristics of the resource."@en .
+    <http://mu.semte.ch/vocabularies/ext/previous_decisions> rdfs:comment "A previous decision that is related to this decision."@en .
+
+    <http://www.w3.org/2006/time#ProperInterval> rdfs:comment "A temporal entity with non-zero extent or duration, i.e. for which the value of the beginning and end are different"@en .
+    <https://data.vlaanderen.be/ns/omgevingsvergunning#NormatieveBepaling> rdfs:comment "A provision that creates, amends, terminates, or confirms a legal norm."@en .
+    <http://xmlns.com/foaf/0.1/Person> rdfs:comment " The Person class represents people. Something is a Person if it is a person. We don't nitpick about whether they're alive, dead, real, or imaginary. The Person class is a sub-class of the Agent class, since all people are considered 'agents' in FOAF."@en .
+    <http://purl.org/dc/terms/Location> rdfs:comment "A spatial region or named place."@en .
+    <http://mu.semte.ch/vocabularies/ext/AnnotationBody> rdfs:comment "The body of an annotation, a superclass introduced because of purely technical reasons in the semantic.works stack."@en .
+    <http://www.w3.org/ns/org#Organization> rdfs:comment "Represents a collection of people organized together into a community or other social, commercial or political structure. The group has some common purpose or reason for existence which goes beyond the set of people belonging to it and can act as an Agent. Organizations are often decomposable into hierarchical structures."@en .
+    <http://www.w3.org/ns/locn#Address> rdfs:comment "An \"address representation\" as conceptually defined by the INSPIRE Address Representation data type. The locn:addressId property may be used to link this locn:Address to other representations."@en .
+    <https://data.vlaanderen.be/ns/adres#Straatnaam> rdfs:comment "A streetname of an address."@en .
+    <https://w3id.org/tree#Node> rdfs:comment "A tree:Node is a node that may contain relations to other nodes."@en .
+    <https://schema.oparl.org/Organization> rdfs:comment "This object type is used to represent groups of people who play a role in parliamentary work. In practice, this includes in particular parliamentary groups and committees."@en .
+    <http://data.vlaanderen.be/ns/besluit#Bestuursorgaan> rdfs:comment "A formal body of a legal entity that is authorized to perform legal acts."@en .
+    <https://schema.oparl.org/Paper> rdfs:comment "This object type is used to represent printed materials in parliamentary work, such as inquiries, motions, and draft resolutions. Printed materials are dealt with in the form of a consultation (oparl:Consultation) within the framework of an agenda item (oparl:AgendaItem) of a meeting (oparl:Meeting). "@en .
+    <http://www.wikidata.org/entity/Q123705> rdfs:comment "Geographically localized community within a larger city, town or suburb"@en .
+
+    <http://www.w3.org/2001/XMLSchema#date> rdfs:comment "A date"@en .
+    <http://www.w3.org/2001/XMLSchema#string> rdfs:comment "A piece of text"@en .
+
+  }
+}

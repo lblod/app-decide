@@ -1,0 +1,17 @@
+PREFIX eli: <http://data.europa.eu/eli/ontology#>
+INSERT {
+  GRAPH  <http://mu.semte.ch/graphs/public/freiburg> {
+    ?s <http://mu.semte.ch/vocabularies/ext/owningBody> <https://ris.freiburg.de/oparl/body/FR>.
+  }
+}WHERE {
+  GRAPH <http://mu.semte.ch/graphs/public/freiburg> {
+    ?s a eli:Expression.
+
+  }
+  FILTER NOT EXISTS {
+    ?o <http://purl.org/linguistics/gold/translation> ?s.
+  }
+  FILTER NOT EXISTS {
+    ?s <http://mu.semte.ch/vocabularies/ext/owningBody> <https://ris.freiburg.de/oparl/body/FR>.
+  }
+}

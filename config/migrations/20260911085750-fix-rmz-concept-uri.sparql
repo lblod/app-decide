@@ -1,0 +1,24 @@
+DELETE {
+  GRAPH ?g {
+    <https://data.vlaanderen.be/id/concept/ZoneType/fc17fa1b-9b61-4396-a609-845643b3b865>  ?p ?o.
+  }
+  GRAPH ?h {
+    ?ss ?pp <https://data.vlaanderen.be/id/concept/ZoneType/fc17fa1b-9b61-4396-a609-845643b3b865>.
+  }
+}
+INSERT {
+  GRAPH ?g {
+    <http://lblod.data.gift/id/concept/fc17fa1b-9b61-4396-a609-845643b3b865> ?p ?o.
+  }
+  GRAPH ?h {
+    ?ss ?pp  <http://lblod.data.gift/id/concept/fc17fa1b-9b61-4396-a609-845643b3b865>.
+  }
+}
+WHERE {
+  GRAPH ?g {
+    <https://data.vlaanderen.be/id/concept/ZoneType/fc17fa1b-9b61-4396-a609-845643b3b865>  ?p ?o.
+  }
+  GRAPH ?h {
+    ?ss ?pp <https://data.vlaanderen.be/id/concept/ZoneType/fc17fa1b-9b61-4396-a609-845643b3b865>.
+  }
+}

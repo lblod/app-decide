@@ -1,0 +1,51 @@
+* Fetch all the organizations withing the decide database
+
+** Create .ttl file in the data/datadumps folder so it can be used as the downloadUrl of the Organizations distribution in the DCAT. 
+
+#+begin_src sparql :format text/turtle :results file raw :file ../data/datadumps/20260826000000-organizations-new.ttl
+  PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+  PREFIX besluit: <http://data.vlaanderen.be/ns/besluit#>
+  PREFIX org: <http://www.w3.org/ns/org#>
+  PREFIX mandaat: <http://data.vlaanderen.be/ns/mandaat#>
+  PREFIX besluit: <http://data.vlaanderen.be/ns/besluit#>
+  PREFIX prov: <http://www.w3.org/ns/prov#>
+
+  construct {
+    ?organization ?p ?o .
+  }
+  where {
+    ?organization a org:Organization  .
+    ?organization ?p ?o .
+    FILTER (?p NOT IN (prov:wasDerivedFrom))
+
+    FILTER NOT EXISTS {
+      VALUES ?classificatie {
+        <http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/36a82ba0-7ff1-4697-a9dd-2e94df73b721> # Autonoom Gemeentebedrijf
+        <http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/80310756-ce0a-4a1b-9b8e-7c01b6cc7a2d> # Autonoom Provinciebedrijf
+        <http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/f9cac08a-13c1-49da-9bcb-f650b0604054> # Centraal bestuur van eredienst
+        <http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/66ec74fd-8cfc-4e16-99c6-350b35012e86> # Bestuur van eredienst
+      }
+      ?organization besluit:classificatie ?classificatie . 
+    }
+
+    FILTER NOT EXISTS {
+      VALUES ?eenheidClas {
+        <http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/f9cac08a-13c1-49da-9bcb-f650b0604054>
+        <http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/66ec74fd-8cfc-4e16-99c6-350b35012e86>
+      }
+      ?organization besluit:bestuurt / besluit:classificatie  ?eenheidClas .
+    }
+
+    # No AI generated organizations
+    filter not exists {
+      ?statement rdf:object ?organization .
+
+      filter not exists {
+        ?statement rdf:predicate <http://www.w3.org/2004/02/skos/core#exactMatch> .
+      }
+    }
+  }
+#+end_src
+
+#+RESULTS:
+[[file:../data/datadumps/20260826000000-organizations-new.ttl]]

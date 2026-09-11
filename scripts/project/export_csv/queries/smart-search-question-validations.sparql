@@ -1,0 +1,32 @@
+PREFIX ext:    <http://mu.semte.ch/vocabularies/ext/>
+PREFIX arev:   <http://mu.semte.ch/vocabularies/ext/annotation-review#>
+PREFIX oa:     <http://www.w3.org/ns/oa#>
+PREFIX schema: <http://schema.org/>
+
+SELECT
+  (SUM(?isApproved) AS ?positief)
+  (SUM(?isRejected) AS ?negatief)
+  (SUM(?isNoReaction) AS ?geenReactie)
+WHERE {
+  ?question schema:suggestedAnswer ?answer .
+
+  OPTIONAL {
+    ?approveReview a ext:ReviewAnnotation ;
+                   oa:hasTarget ?answer ;
+                   oa:hasBody arev:approve .
+  }
+  OPTIONAL {
+    ?rejectReview a ext:ReviewAnnotation ;
+                  oa:hasTarget ?answer ;
+                  oa:hasBody arev:reject .
+  }
+
+  BIND(IF(BOUND(?approveReview), 1, 0) AS ?isApproved)
+  BIND(IF(BOUND(?rejectReview), 1, 0) AS ?isRejected)
+  BIND(
+    IF(
+      NOT EXISTS { ?anyReview a ext:ReviewAnnotation ; oa:hasTarget ?answer . },
+      1, 0
+    ) AS ?isNoReaction
+  )
+}

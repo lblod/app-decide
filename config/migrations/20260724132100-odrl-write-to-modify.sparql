@@ -1,0 +1,21 @@
+DELETE {
+  GRAPH ?g {
+    <http://decide.data.gift/datasets/example/60e19fdf-b549-41b9-9adf-420379285127/policy/prohibition> <http://www.w3.org/ns/odrl/2/action> <http://www.w3.org/ns/odrl/2/write>.
+
+    <http://decide.data.gift/datasets/example/1ae2da8e-9889-426b-a7e8-9360c15ba2cd/policy/prohibition> <http://www.w3.org/ns/odrl/2/action> <http://www.w3.org/ns/odrl/2/write>
+  }
+}
+INSERT {
+  GRAPH ?g {
+    <http://decide.data.gift/datasets/example/60e19fdf-b549-41b9-9adf-420379285127/policy/prohibition> <http://www.w3.org/ns/odrl/2/action> <http://www.w3.org/ns/odrl/2/modify>.
+
+    <http://decide.data.gift/datasets/example/1ae2da8e-9889-426b-a7e8-9360c15ba2cd/policy/prohibition> <http://www.w3.org/ns/odrl/2/action> <http://www.w3.org/ns/odrl/2/modify>
+  }
+}
+WHERE {
+  GRAPH ?g {
+    <http://decide.data.gift/datasets/example/60e19fdf-b549-41b9-9adf-420379285127/policy/prohibition> <http://www.w3.org/ns/odrl/2/action> <http://www.w3.org/ns/odrl/2/write>.
+
+    <http://decide.data.gift/datasets/example/1ae2da8e-9889-426b-a7e8-9360c15ba2cd/policy/prohibition> <http://www.w3.org/ns/odrl/2/action> <http://www.w3.org/ns/odrl/2/write>
+  }
+}

@@ -1,7 +1,6 @@
 (in-package :mu-cl-resources)
 
 (add-prefix "besluit" "http://data.vlaanderen.be/ns/besluit#")
-(add-prefix "cms" "http://mu.semte.ch/vocabulary/cms/")
 (add-prefix "dcat" "http://www.w3.org/ns/dcat#")
 (add-prefix "dct" "http://purl.org/dc/terms/")
 (add-prefix "eli" "http://data.europa.eu/eli/ontology#")
@@ -27,3 +26,4 @@
 (add-prefix "meb" "http://rdf.myexperiment.org/ontologies/base/")
 (add-prefix "muAccount" "http://mu.semte.ch/vocabularies/account/")
 (add-prefix "dcterms" "http://purl.org/dc/terms/")
+(add-prefix "sh" "http://www.w3.org/ns/shacl#")

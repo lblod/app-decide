@@ -1,0 +1,14 @@
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>  
+DELETE {
+  GRAPH ?g {
+    ?s skos:prefLabel ?label1.
+  }
+}
+
+WHERE {
+  GRAPH ?g {
+    ?s skos:prefLabel ?label1.
+  }
+  ?s skos:prefLabel ?label2.
+  FILTER (?label1 != ?label2 && STRLEN(LANG(?label1)) = 0)
+} 

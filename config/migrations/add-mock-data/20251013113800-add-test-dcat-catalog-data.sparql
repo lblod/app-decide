@@ -195,7 +195,6 @@ INSERT DATA {
       # optionals we likely won't use
       ################################
       dcat:qualifiedRelation ex:relation-001 ;
-      dcat:temporalResolution "P1Y"^^xsd:duration ;
       dcat:spatialResolutionInMeters 1 ;
       foaf:page ex:foaf-document-001
     .
