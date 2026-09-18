@@ -27,7 +27,7 @@ services:
     platform: linux/amd64
   lokaal-beslist-consumer:
     platform: linux/amd64
-  decisions-ghent-filter:
+  oslo-filter:
     platform: linux/amd64
   oslo-eli-transformer:
     platform: linux/amd64
