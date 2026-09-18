@@ -131,3 +131,17 @@ services:
     restart: no
   json-to-eli:
     restart: no
+  acmidm-login:
+    restart: no
+  sink:
+    restart: no
+  report-generation:
+    restart: no
+  harvest_singleton-job:
+    restart: no
+  scheduled-job-controller:
+    restart: no
+  annotation-job-splitter:
+    restart: no
+  dsp-auth-wrapper:
+    restart: no
