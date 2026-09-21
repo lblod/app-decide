@@ -303,6 +303,10 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://cache/works/"
   end
 
+  match "/complex-works/*path", %{ accept: [:json], layer: :resources } do
+    Proxy.forward conn, path, "http://cache/complex-works/"
+  end
+
   # NOTE (12/06/2026): This rule ensures requests for the `/expressions` route that
   # have `text/html` as accept-header are forwarded to the hvt frontend instead of
   # to resources.  Otherwise, requests meant for the frontend are matched by the

@@ -12,10 +12,11 @@
 
 (read-domain-file "user.lisp")
 (read-domain-file "org.lisp")
+(read-domain-file "annotation.lisp")
 (read-domain-file "eli.lisp")
 (read-domain-file "eli-dl.lisp")
+(read-domain-file "eli-extra.lisp")
 (read-domain-file "dcat.lisp")
-(read-domain-file "annotation.lisp")
 (read-domain-file "file.json")
 (read-domain-file "log.json")
 (read-domain-file "report.json")
