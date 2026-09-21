@@ -55,7 +55,7 @@ services:
   ### Smart search
   ##################################
   frontend-smart-search:
-    image: lblod/frontend-decide-question-answering:0.0.8
+    image: lblod/frontend-decide-question-answering:0.0.9
     labels:
       - 'logging=true'
     restart: always
