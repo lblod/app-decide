@@ -53,7 +53,7 @@ services:
     restart: always
     logging: *default-logging
   frontend-yasgui:
-    image: lblod/frontend-decide-yasgui:0.0.4
+    image: lblod/frontend-decide-yasgui:0.0.5
     environment:
       # The following are environment-specific and should be set in the
       # environment's appropriate override file.
@@ -67,7 +67,7 @@ services:
     restart: always
     logging: *default-logging
   frontend-dcat:
-    image: lblod/frontend-decide-dcat:0.0.13
+    image: lblod/frontend-decide-dcat:0.0.14
     labels:
       - 'logging=true'
     restart: always
