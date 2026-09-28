@@ -40,10 +40,7 @@
                            :as "is-embodied-by")
               (specific-resource :via ,(s-prefix "oa:hasSource")
                            :inverse t
-                           :as "is-source-of")
-              (annotation :via ,(s-prefix "oa:hasTarget")
-                           :as "annotations"
-                           :inverse t))
+                           :as "is-source-of"))
   :features '(include-uri)
   :resource-base (s-url "http://data.lblod.info/id/expressions/")
   :on-path "expressions")
