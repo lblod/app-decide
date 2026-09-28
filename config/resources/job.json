@@ -69,10 +69,6 @@
                     "type": "url",
                     "predicate": "ext:codelist"
                 },
-                "graph-for-targets": {
-                    "type": "url",
-                    "predicate": "ext:graphForTargets"
-                },
                 "property-path-for-text": {
                     "type": "string",
                     "predicate": "ext:propertyPathForText"
@@ -80,13 +76,6 @@
                 "confidence-threshold": {
                     "type": "number",
                     "predicate": "ext:confidenceThreshold"
-                }
-            },
-            "relationships": {
-                "shape-for-targets": {
-                    "predicate": "ext:shapeForTargets",
-                    "target": "node-shape",
-                    "cardinality": "many"
                 }
             },
             "features": [
@@ -105,10 +94,6 @@
                     "type": "url",
                     "predicate": "ext:codelist"
                 },
-                "graph-for-targets": {
-                    "type": "url",
-                    "predicate": "ext:graphForTargets"
-                },
                 "property-path-for-text": {
                     "type": "string",
                     "predicate": "ext:propertyPathForText"
@@ -116,13 +101,6 @@
                 "confidence-threshold": {
                     "type": "number",
                     "predicate": "ext:confidenceThreshold"
-                }
-            },
-            "relationships": {
-                "shape-for-targets": {
-                    "predicate": "ext:shapeForTargets",
-                    "target": "node-shape",
-                    "cardinality": "many"
                 }
             },
             "features": [
