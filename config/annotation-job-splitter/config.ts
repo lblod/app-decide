@@ -50,4 +50,11 @@ export default [
     nextOperation:
       'http://lblod.data.gift/id/jobs/concept/TaskOperation/translating',
   },
+  {
+    currentOperation:
+      'http://lblod.data.gift/id/jobs/concept/TaskOperation/pdf-to-eli-scraping-split',
+    nextOperation:
+      'http://lblod.data.gift/id/jobs/concept/TaskOperation/pdf-scraping',
+    harvestingCollection: true,
+  },
 ];
