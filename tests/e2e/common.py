@@ -7,6 +7,7 @@ import re
 import shlex
 import subprocess
 import sys
+import tempfile
 import time
 import urllib.error
 import urllib.parse
@@ -26,7 +27,8 @@ MAX_NEW_RESTARTS = 3
 JOBS_GRAPH = "http://mu.semte.ch/graphs/harvesting"
 PUBLIC_GRAPH = "http://mu.semte.ch/graphs/public/pdf"
 MIGRATIONS_DIR = Path(__file__).resolve().parents[2] / "config" / "migrations"
-STATE_FILE = Path(__file__).resolve().parents[2] / "data" / "e2e" / "state.json"
+# Not under data/e2e: docker creates that as root when the labeling stack mounts it.
+STATE_FILE = Path(tempfile.gettempdir()) / "app-decide-e2e-state.json"
 MIGRATIONS_GRAPH = "http://mu.semte.ch/application"
 MIGRATION_CLASS = "http://mu.semte.ch/vocabularies/migrations/Migration"
 MIGRATION_FILENAME = "http://mu.semte.ch/vocabularies/migrations/filename"
@@ -279,7 +281,6 @@ def migrations_step():
 
 def seed_step(seed):
     state = seed()
-    STATE_FILE.parent.mkdir(parents=True, exist_ok=True)
     STATE_FILE.write_text(json.dumps(state), encoding="utf-8")
     print(f"Seeded job {state['job']}")
     return 0
