@@ -19,6 +19,7 @@ from pathlib import Path
 ENDPOINT = os.environ.get("E2E_SPARQL_ENDPOINT", "http://localhost:8891/sparql")
 MIGRATIONS_TIMEOUT = int(os.environ.get("E2E_MIGRATIONS_TIMEOUT", "900"))
 PIPELINE_TIMEOUT = int(os.environ.get("E2E_PIPELINE_TIMEOUT", "1200"))
+DATABASE_TIMEOUT = int(os.environ.get("E2E_DATABASE_TIMEOUT", "300"))
 POLL_INTERVAL = 15
 COMPOSE = os.environ.get(
     "COMPOSE", "docker compose -p app-decide-e2e -f docker-compose.yml -f docker-compose.e2e.yml")
@@ -229,16 +230,21 @@ def wait_for_stage(job, stage, same_count_as=None):
     deadline = time.monotonic() + PIPELINE_TIMEOUT
     rows = []
     baseline = restart_counts()
+    unreachable_since = None
     while time.monotonic() < deadline:
         check_containers(baseline)
         try:
             rows = job_tasks(job)
+            unreachable_since = None
             state = stage_state(rows, stage, same_count_as)
             print(f"[{state}] {summary(rows)}")
             if state != "running":
                 return state, rows
         except (urllib.error.URLError, ConnectionError, TimeoutError) as error:
-            print(f"Database not reachable yet: {error}")
+            print(f"Database not reachable: {error}")
+            unreachable_since = unreachable_since or time.monotonic()
+            if time.monotonic() - unreachable_since > DATABASE_TIMEOUT:
+                return "unreachable", rows
         time.sleep(POLL_INTERVAL)
     return "timeout", rows
 
@@ -292,7 +298,10 @@ def stage_step(stage, checks, fan_out):
     result, rows = wait_for_stage(state["job"], stage, same_count_as)
     if result != "done":
         print(f"FAIL: {stage} ended as {result}: {summary(rows)}")
-        print_errors(state["job"])
+        try:
+            print_errors(state["job"])
+        except (urllib.error.URLError, ConnectionError, TimeoutError) as error:
+            print(f"Could not read the task errors: {error}")
         return 1
     failed = False
     for name, check in checks.get(stage, {}).items():

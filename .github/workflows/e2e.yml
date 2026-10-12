@@ -28,6 +28,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
+  PYTHONUNBUFFERED: "1"
   COMPOSE: docker compose -p app-decide-e2e -f docker-compose.yml -f docker-compose.e2e.yml
   PIPELINE_SERVICES: >-
     virtuoso database deltanotifier migrations job-controller
