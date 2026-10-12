@@ -1,21 +1,19 @@
 #!/usr/bin/env python3
-"""Run a few decisions through the codelist-matching/evaluation job and check the labeling output."""
-import sys
-from datetime import datetime, timezone
+"""Run a few decisions through the codelist-matching/evaluation job, one workflow step per stage.
 
-from common import (
-    JOBS_GRAPH, LAST_MIGRATION, PUBLIC_GRAPH, STATUS, TASK_OP, ask, new_resource,
-    print_errors, run_guarded, sparql, summary, wait_for_migrations, wait_for_pipeline)
+Usage: run_labeling_eval_test.py migrations | seed | wait <stage>
+"""
+from common import JOBS_GRAPH, PUBLIC_GRAPH, ask, job_triples, new_resource, run_cli, sparql
 
 JOB_OP = "http://lblod.data.gift/id/jobs/concept/JobOperation/codelist-matching/evaluation"
-LABELING_OP = TASK_OP + "codelist-matching/"
 CHAIN = [
     "singleton-job",
     "codelist-matching/evaluation-split-tasks",
     "codelist-matching/annotate",
     "codelist-matching/assess-impact",
 ]
-JOB_CREATOR_SELF_SERVICE = "http://lblod.data.gift/services/job-self-service"
+# One annotate task per split batch; done when each batch reached impact assessment.
+FAN_OUT = ("codelist-matching/annotate", "codelist-matching/assess-impact")
 
 CODELIST = "http://lblod.data.gift/id/conceptscheme/sdg-simple"
 CODELIST_GRAPH = "http://mu.semte.ch/graphs/public"
@@ -36,11 +34,8 @@ MATCHABLE = ["solar", "meals"]
 
 
 def seed():
-    job, job_id = new_resource("http://redpencil.data.gift/id/job/")
-    first_task, task_id = new_resource("http://redpencil.data.gift/id/task/")
     container, container_id = new_resource("http://redpencil.data.gift/id/dataContainers/")
     shape, shape_id = new_resource("http://data.lblod.info/id/shapes/")
-    now = f'"{datetime.now(timezone.utc).isoformat()}"^^xsd:dateTime'
     expressions = {}
     decisions = []
     for key, text in DECISIONS.items():
@@ -55,51 +50,22 @@ def seed():
       mu:uuid "{expression_id}" ;
       epvoc:expressionContent "{text}" .""")
     resources = ", ".join(f"<{expression}>" for expression in expressions.values())
+    job, triples = job_triples(JOB_OP, [container], [
+        f"ext:codelist <{CODELIST}>", f"ext:shapeForTargets <{shape}>", f"ext:graphForTargets <{PUBLIC_GRAPH}>"])
     sparql(f"""
 INSERT DATA {{
   GRAPH <{PUBLIC_GRAPH}> {{{"".join(decisions)}
   }}
-  GRAPH <{JOBS_GRAPH}> {{
-    <{job}> a cogs:Job ;
-      mu:uuid "{job_id}" ;
-      dct:created {now} ;
-      dct:modified {now} ;
-      dct:creator <{JOB_CREATOR_SELF_SERVICE}> ;
-      adms:status <{STATUS}busy> ;
-      task:operation <{JOB_OP}> ;
-      ext:codelist <{CODELIST}> ;
-      ext:shapeForTargets <{shape}> ;
-      ext:graphForTargets <{PUBLIC_GRAPH}> .
+  GRAPH <{JOBS_GRAPH}> {{{triples}
     <{shape}> a sh:NodeShape ;
       mu:uuid "{shape_id}" ;
       sh:targetNode {resources} .
     <{container}> a nfo:DataContainer ;
       mu:uuid "{container_id}" ;
       task:hasResource <{shape}> .
-    <{first_task}> a task:Task ;
-      mu:uuid "{task_id}" ;
-      dct:created {now} ;
-      dct:modified {now} ;
-      adms:status <{STATUS}scheduled> ;
-      task:operation <{TASK_OP}singleton-job> ;
-      task:index "0" ;
-      task:inputContainer <{container}> ;
-      dct:isPartOf <{job}> .
   }}
 }}""", update=True)
-    return job, expressions
-
-
-def pipeline_state(rows):
-    statuses = [row["status"] for row in rows]
-    if STATUS + "failed" in statuses:
-        return "failed"
-    annotating = sum(row["op"] == LABELING_OP + "annotate" for row in rows)
-    assessing = sum(row["op"] == LABELING_OP + "assess-impact" for row in rows)
-    # One annotate task per split batch; done when each batch reached impact assessment.
-    if annotating and assessing == annotating and all(s == STATUS + "success" for s in statuses):
-        return "done"
-    return "running"
+    return {"job": job, "expressions": expressions}
 
 
 def classifying(expression, body_condition):
@@ -124,49 +90,37 @@ GRAPH <{PUBLIC_GRAPH}> {{
 GRAPH <{CODELIST_GRAPH}> {{ ?body skos:inScheme <{CODELIST}> . }}"""
 
 
-def checks(rows, expressions):
-    matchable = [expressions[key] for key in MATCHABLE]
-    any_matched = " UNION ".join(f"{{ {in_codelist(expression)} }}" for expression in matchable)
-    return {
-        "every step of the chain ran": all(
-            any(row["op"] == TASK_OP + step for row in rows) for step in CHAIN),
-        **{f"annotate labeled the {key} decision (a concept or no-match)": ask(
-            classifying(expression, f'?body = <{NO_MATCH}> || EXISTS {{ '
-                                    f'GRAPH <{CODELIST_GRAPH}> {{ ?body skos:inScheme <{CODELIST}> }} }}'))
-           for key, expression in expressions.items()},
-        "annotate matched a codelist concept for at least one SDG-related decision": ask(any_matched),
-        "assess-impact added an impact to a matched annotation": ask(f"""
+def labeled(key):
+    return lambda state: ask(classifying(
+        state["expressions"][key],
+        f'?body = <{NO_MATCH}> || EXISTS {{ GRAPH <{CODELIST_GRAPH}> {{ ?body skos:inScheme <{CODELIST}> }} }}'))
+
+
+def matched_any(state):
+    return ask(" UNION ".join(f"{{ {in_codelist(state['expressions'][key])} }}" for key in MATCHABLE))
+
+
+def impact_added(state):
+    return ask(f"""
 GRAPH <{PUBLIC_GRAPH}> {{
   ?annotation a oa:Annotation ;
     oa:motivatedBy oa:classifying ;
     oa:hasTarget ?expression ;
     oa:hasBody ?impact .
 }}
-FILTER(STRSTARTS(STR(?impact), "{IMPACT_PREFIX}"))"""),
-    }
+FILTER(STRSTARTS(STR(?impact), "{IMPACT_PREFIX}"))""")
 
 
-def run_test():
-    print(f"Waiting for migrations to finish, up to {LAST_MIGRATION}")
-    if not wait_for_migrations():
-        print(f"FAIL: migrations did not reach {LAST_MIGRATION} before the migrations timeout")
-        return 1
-
-    job, expressions = seed()
-    print(f"Seeded job {job} with {len(expressions)} decisions")
-
-    state, rows = wait_for_pipeline(job, pipeline_state)
-    if state != "done":
-        print(f"FAIL: pipeline ended as {state}: {summary(rows)}")
-        print_errors(job)
-        return 1
-
-    failed = False
-    for name, passed in checks(rows, expressions).items():
-        print(f"{'PASS' if passed else 'FAIL'}: {name}")
-        failed = failed or not passed
-    return 1 if failed else 0
+CHECKS = {
+    "codelist-matching/annotate": {
+        **{f"annotate labeled the {key} decision (a concept or no-match)": labeled(key) for key in DECISIONS},
+        "annotate matched a codelist concept for at least one SDG-related decision": matched_any,
+    },
+    "codelist-matching/assess-impact": {
+        "assess-impact added an impact to a matched annotation": impact_added,
+    },
+}
 
 
 if __name__ == "__main__":
-    sys.exit(run_guarded(run_test))
+    run_cli(CHAIN, seed, CHECKS, FAN_OUT)

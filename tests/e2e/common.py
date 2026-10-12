@@ -1,15 +1,18 @@
 #!/usr/bin/env python3
 """Helpers shared by the e2e pipeline tests."""
+import argparse
 import json
 import os
 import re
 import shlex
 import subprocess
+import sys
 import time
 import urllib.error
 import urllib.parse
 import urllib.request
 import uuid
+from datetime import datetime, timezone
 from pathlib import Path
 
 ENDPOINT = os.environ.get("E2E_SPARQL_ENDPOINT", "http://localhost:8891/sparql")
@@ -23,12 +26,14 @@ MAX_NEW_RESTARTS = 3
 JOBS_GRAPH = "http://mu.semte.ch/graphs/harvesting"
 PUBLIC_GRAPH = "http://mu.semte.ch/graphs/public/pdf"
 MIGRATIONS_DIR = Path(__file__).resolve().parents[2] / "config" / "migrations"
+STATE_FILE = Path(__file__).resolve().parents[2] / "data" / "e2e" / "state.json"
 MIGRATIONS_GRAPH = "http://mu.semte.ch/application"
 MIGRATION_CLASS = "http://mu.semte.ch/vocabularies/migrations/Migration"
 MIGRATION_FILENAME = "http://mu.semte.ch/vocabularies/migrations/filename"
 
 STATUS = "http://redpencil.data.gift/id/concept/JobStatus/"
 TASK_OP = "http://lblod.data.gift/id/jobs/concept/TaskOperation/"
+JOB_CREATOR_SELF_SERVICE = "http://lblod.data.gift/services/job-self-service"
 
 PREFIXES = """
 PREFIX adms: <http://www.w3.org/ns/adms#>
@@ -179,7 +184,46 @@ def summary(rows):
     return ", ".join(f"{key} x{count}" for key, count in sorted(counts.items())) or "no tasks yet"
 
 
-def wait_for_pipeline(job, pipeline_state):
+def job_triples(job_op, input_containers, extra_job_triples=()):
+    """A busy job and its scheduled singleton-job task, to insert into the jobs graph."""
+    job, job_id = new_resource("http://redpencil.data.gift/id/job/")
+    task, task_id = new_resource("http://redpencil.data.gift/id/task/")
+    now = f'"{datetime.now(timezone.utc).isoformat()}"^^xsd:dateTime'
+    extra = "".join(f" ;\n      {triple}" for triple in extra_job_triples)
+    containers = ", ".join(f"<{container}>" for container in input_containers)
+    return job, f"""
+    <{job}> a cogs:Job ;
+      mu:uuid "{job_id}" ;
+      dct:created {now} ;
+      dct:modified {now} ;
+      dct:creator <{JOB_CREATOR_SELF_SERVICE}> ;
+      adms:status <{STATUS}busy> ;
+      task:operation <{job_op}>{extra} .
+    <{task}> a task:Task ;
+      mu:uuid "{task_id}" ;
+      dct:created {now} ;
+      dct:modified {now} ;
+      adms:status <{STATUS}scheduled> ;
+      task:operation <{TASK_OP}singleton-job> ;
+      task:index "0" ;
+      task:inputContainer {containers} ;
+      dct:isPartOf <{job}> ."""
+
+
+def stage_state(rows, stage, same_count_as=None):
+    """done when every task of the stage succeeded, failed when any task of the job failed."""
+    if any(row["status"] == STATUS + "failed" for row in rows):
+        return "failed"
+    tasks = [row for row in rows if row["op"] == TASK_OP + stage]
+    if not tasks or any(row["status"] != STATUS + "success" for row in tasks):
+        return "running"
+    # A fan-out stage has one task per split batch, so wait until it caught up with the stage that split.
+    if same_count_as and len(tasks) != sum(row["op"] == TASK_OP + same_count_as for row in rows):
+        return "running"
+    return "done"
+
+
+def wait_for_stage(job, stage, same_count_as=None):
     deadline = time.monotonic() + PIPELINE_TIMEOUT
     rows = []
     baseline = restart_counts()
@@ -187,7 +231,7 @@ def wait_for_pipeline(job, pipeline_state):
         check_containers(baseline)
         try:
             rows = job_tasks(job)
-            state = pipeline_state(rows)
+            state = stage_state(rows, stage, same_count_as)
             print(f"[{state}] {summary(rows)}")
             if state != "running":
                 return state, rows
@@ -223,3 +267,56 @@ def run_guarded(run_test):
             print(f"FAIL: {service} keeps crashing ({detail}). Last log lines:")
             print(compose("logs", "--no-color", "--tail", "30", service))
         return 1
+
+
+def migrations_step():
+    print(f"Waiting for migrations to finish, up to {LAST_MIGRATION}")
+    if wait_for_migrations():
+        return 0
+    print(f"FAIL: migrations did not reach {LAST_MIGRATION} before the migrations timeout")
+    return 1
+
+
+def seed_step(seed):
+    state = seed()
+    STATE_FILE.parent.mkdir(parents=True, exist_ok=True)
+    STATE_FILE.write_text(json.dumps(state), encoding="utf-8")
+    print(f"Seeded job {state['job']}")
+    return 0
+
+
+def stage_step(stage, checks, fan_out):
+    state = json.loads(STATE_FILE.read_text(encoding="utf-8"))
+    same_count_as = fan_out[0] if fan_out and stage == fan_out[1] else None
+    result, rows = wait_for_stage(state["job"], stage, same_count_as)
+    if result != "done":
+        print(f"FAIL: {stage} ended as {result}: {summary(rows)}")
+        print_errors(state["job"])
+        return 1
+    failed = False
+    for name, check in checks.get(stage, {}).items():
+        passed = check(state)
+        print(f"{'PASS' if passed else 'FAIL'}: {name}")
+        failed = failed or not passed
+    return 1 if failed else 0
+
+
+def run_cli(chain, seed, checks, fan_out=None):
+    """One command per workflow step: migrations, seed, or wait <stage> (with that stage's checks).
+
+    seed() returns the state dict later steps read, including the job. checks maps a stage to
+    {name: check(state)}. fan_out is (split stage, last stage) when one task per batch is created.
+    """
+    parser = argparse.ArgumentParser()
+    commands = parser.add_subparsers(dest="command", required=True)
+    commands.add_parser("migrations")
+    commands.add_parser("seed")
+    commands.add_parser("wait").add_argument("stage", choices=chain)
+    args = parser.parse_args()
+    if args.command == "migrations":
+        step = migrations_step
+    elif args.command == "seed":
+        step = lambda: seed_step(seed)
+    else:
+        step = lambda: stage_step(args.stage, checks, fan_out)
+    sys.exit(run_guarded(step))

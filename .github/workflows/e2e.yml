@@ -98,8 +98,35 @@ jobs:
           MISTRAL_API_KEY: ${{ secrets.MISTRAL_API_KEY }}
         run: $COMPOSE up -d $PIPELINE_SERVICES
 
-      - name: Run the pipeline test
-        run: python3 tests/e2e/run_pipeline_test.py
+      - name: Wait for the migrations
+        run: python3 tests/e2e/run_pipeline_test.py migrations
+
+      - name: Seed the pdf-to-enriched job
+        run: python3 tests/e2e/run_pipeline_test.py seed
+
+      - name: Stage singleton-job
+        run: python3 tests/e2e/run_pipeline_test.py wait singleton-job
+
+      - name: Stage pdf-scraping
+        run: python3 tests/e2e/run_pipeline_test.py wait pdf-scraping
+
+      - name: Stage pdf-to-eli
+        run: python3 tests/e2e/run_pipeline_test.py wait pdf-to-eli
+
+      - name: Stage split-task-pdf-to-enriched-translating
+        run: python3 tests/e2e/run_pipeline_test.py wait split-task-pdf-to-enriched-translating
+
+      - name: Stage translating
+        run: python3 tests/e2e/run_pipeline_test.py wait translating
+
+      - name: Stage segmenting
+        run: python3 tests/e2e/run_pipeline_test.py wait segmenting
+
+      - name: Stage entity-extracting
+        run: python3 tests/e2e/run_pipeline_test.py wait entity-extracting
+
+      - name: Stage named-entity-linking
+        run: python3 tests/e2e/run_pipeline_test.py wait named-entity-linking
 
       - name: Dump service logs on failure
         if: failure()
@@ -131,8 +158,23 @@ jobs:
           MISTRAL_API_KEY: ${{ secrets.MISTRAL_API_KEY }}
         run: $COMPOSE up -d $LABELING_SERVICES
 
-      - name: Run the labeling evaluation test
-        run: python3 tests/e2e/run_labeling_eval_test.py
+      - name: Wait for the migrations
+        run: python3 tests/e2e/run_labeling_eval_test.py migrations
+
+      - name: Seed the codelist-matching evaluation job
+        run: python3 tests/e2e/run_labeling_eval_test.py seed
+
+      - name: Stage singleton-job
+        run: python3 tests/e2e/run_labeling_eval_test.py wait singleton-job
+
+      - name: Stage codelist-matching/evaluation-split-tasks
+        run: python3 tests/e2e/run_labeling_eval_test.py wait codelist-matching/evaluation-split-tasks
+
+      - name: Stage codelist-matching/annotate
+        run: python3 tests/e2e/run_labeling_eval_test.py wait codelist-matching/annotate
+
+      - name: Stage codelist-matching/assess-impact
+        run: python3 tests/e2e/run_labeling_eval_test.py wait codelist-matching/assess-impact
 
       - name: Dump service logs on failure
         if: failure()
