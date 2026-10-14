@@ -1,0 +1,28 @@
+PREFIX eli: <http://data.europa.eu/eli/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX epvoc:   <https://data.europarl.europa.eu/def/epvoc#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+
+DELETE {
+  GRAPH <http://mu.semte.ch/graphs/public/wingene> {
+    ?expr <https://data.europarl.europa.eu/def/epvoc#expressionContent> ?content.
+  }
+}
+INSERT {
+  GRAPH <http://mu.semte.ch/graphs/public/wingene> {
+    ?expr epvoc:expressionContent ?fallbackContentWithLang . 
+  }
+}
+WHERE {
+  GRAPH <http://mu.semte.ch/graphs/public/wingene> {
+    ?expr a eli:Expression ;
+      eli:title ?title .
+    ?expr <https://data.europarl.europa.eu/def/epvoc#expressionContent> ?content.
+    FILTER(STRLEN(REPLACE(?content, " ", "")) < 10)
+    OPTIONAL {
+      ?expr eli:description ?description .
+    }
+    BIND(strlang(if(bound(?description), str(?description), str(?title)), 'nl') as ?fallbackContentWithLang)
+  }
+}

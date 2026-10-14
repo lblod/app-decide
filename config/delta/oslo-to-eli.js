@@ -1,6 +1,6 @@
 const TARGETS = [
   "http://lokaal-beslist-consumer/delta",
-  "http://decisions-ghent-filter/delta",
+  "http://oslo-filter/delta",
   "http://oslo-eli-transformer/delta",
 ];
 

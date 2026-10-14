@@ -51,8 +51,8 @@ services:
   ## Alternatively, comment the oslo.yml line in `pipeline.yml`
   lokaal-beslist-consumer:
     entrypoint: ["echo", "Service lokaal-beslist-consumer is disabled"]
-  decisions-ghent-filter:
-    entrypoint: ["echo", "Service decisions-ghent-filter is disabled"]
+  oslo-filter:
+    entrypoint: ["echo", "Service oslo-filter is disabled"]
   oslo-eli-transformer:
     entrypoint: ["echo", "Service oslo-eli-transformer is disabled"]
 

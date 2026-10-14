@@ -79,9 +79,9 @@ services:
   lokaal-beslist-consumer:
     restart: no
     entrypoint: ["echo", "Service lokaal-beslist-consumer is disabled"]
-  decisions-ghent-filter:
+  oslo-filter:
     restart: no
-    entrypoint: ["echo", "Service decisions-ghent-filter is disabled"]
+    entrypoint: ["echo", "Service oslo-filter is disabled"]
   oslo-eli-transformer:
     restart: no
     entrypoint: ["echo", "Service oslo-eli-transformer is disabled"]

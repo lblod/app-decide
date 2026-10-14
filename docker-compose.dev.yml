@@ -50,7 +50,7 @@ services:
     restart: "no"
   lokaal-beslist-consumer:
     restart: no
-  decisions-ghent-filter:
+  oslo-filter:
     restart: no
   oslo-eli-transformer:
     restart: no

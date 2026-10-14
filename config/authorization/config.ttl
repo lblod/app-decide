@@ -46,6 +46,7 @@ ext:decideAuthorizationPolicy a odrl:Set ;
     ext:allowReadForOrganizations ,
     ext:allowReadForHarvestedFreiburg ,
     ext:allowReadForHarvestedGent ,
+    ext:allowReadForHarvestedWingene ,
     ext:allowReadForHarvestedPdf ,
     ext:allowReadForHarvestingPublic ,
     ext:allowReadForHarvesting ,
@@ -63,11 +64,13 @@ ext:decideAuthorizationPolicy a odrl:Set ;
     ext:allowReadOsloOrgsForQuestionAnswering,
     ext:allowReadPublicForQuestionAnswering,
     ext:allowReadGhentForQuestionAnswering,
+    ext:allowReadWingeneForQuestionAnswering,
     ext:allowReadFreiburgForQuestionAnswering,
     ext:allowReadPdfForQuestionAnswering,
     ext:allowReadAiSliceForQuestionAnswering,
     ext:allowReadAnnotationForPublic ,
     ext:allowReadAnnotationForGhent ,
+    ext:allowReadAnnotationForWingene ,
     ext:allowReadAnnotationForFreiburg ,
     ext:allowReadAnnotationForPdf ,
     ext:allowAnnotationReadForAiSlice ,
@@ -156,6 +159,10 @@ ext:decideHarvestedGentSlice a odrl:AssetCollection ;
   vcard:fn "harvested-gent" ;
   ext:graphPrefix <http://mu.semte.ch/graphs/public/gent> .
 
+ext:decideHarvestedWingeneSlice a odrl:AssetCollection ;
+  vcard:fn "harvested-wingene" ;
+  ext:graphPrefix <http://mu.semte.ch/graphs/public/wingene> .
+
 ext:decideHarvestedPdfSlice a odrl:AssetCollection ;
   vcard:fn "harvested-pdf" ;
   ext:graphPrefix <http://mu.semte.ch/graphs/public/pdf> .
@@ -203,6 +210,12 @@ ext:allowReadForHarvestedFreiburg a odrl:Permission ;
 ext:allowReadForHarvestedGent a odrl:Permission ;
   odrl:action odrl:read ;
   odrl:target ext:decideHarvestedGentSlice ;
+  odrl:assigner ext:decideSystem ;
+  odrl:assignee ext:publicParty .
+
+ext:allowReadForHarvestedWingene a odrl:Permission ;
+  odrl:action odrl:read ;
+  odrl:target ext:decideHarvestedWingeneSlice ;
   odrl:assigner ext:decideSystem ;
   odrl:assignee ext:publicParty .
 
@@ -335,6 +348,12 @@ ext:allowReadAnnotationForGhent a odrl:Permission ;
   odrl:assignee ext:publicParty ;
   ext:scope "http://services.semantic.works/annotation-review-service" .
 
+ext:allowReadAnnotationForWingene a odrl:Permission ;
+  odrl:action odrl:read ;
+  odrl:target ext:decideHarvestedWingeneSlice ;
+  odrl:assignee ext:publicParty ;
+  ext:scope "http://services.semantic.works/annotation-review-service" .
+
 ext:allowReadAnnotationForFreiburg a odrl:Permission ;
   odrl:action odrl:read ;
   odrl:target ext:decideHarvestedFreiburgSlice ;
@@ -370,6 +389,12 @@ ext:allowReadPublicForQuestionAnswering a odrl:Permission ;
 ext:allowReadGhentForQuestionAnswering a odrl:Permission ;
   odrl:action odrl:read ;
   odrl:target ext:decideHarvestedGentSlice ;
+  odrl:assignee ext:publicParty ;
+  ext:scope "http://services.semantic.works/decide-question-answering-service" .
+
+ext:allowReadWingeneForQuestionAnswering a odrl:Permission ;
+  odrl:action odrl:read ;
+  odrl:target ext:decideHarvestedWingeneSlice ;
   odrl:assignee ext:publicParty ;
   ext:scope "http://services.semantic.works/decide-question-answering-service" .
 
@@ -423,6 +448,7 @@ ext:ElidlActivityAsset a odrl:Asset, sh:NodeShape ;
     ext:decideHarvestingPublicSlice ,
     ext:decideHarvestedFreiburgSlice ,
     ext:decideHarvestedGentSlice ,
+    ext:decideHarvestedWingeneSlice ,
     ext:decideHarvestedPdfSlice ;
   sh:targetClass eli-dl:Activity .
 
@@ -471,6 +497,7 @@ ext:EliExpressionAsset a odrl:Asset, sh:NodeShape ;
     ext:decideHarvestingPublicSlice ,
     ext:decideHarvestedFreiburgSlice ,
     ext:decideHarvestedGentSlice ,
+    ext:decideHarvestedWingeneSlice ,
     ext:decideHarvestedPdfSlice ;
   sh:targetClass eli:Expression .
 
@@ -484,6 +511,7 @@ ext:EliManifestationAsset a odrl:Asset, sh:NodeShape ;
     ext:decideHarvestingPublicSlice ,
     ext:decideHarvestedFreiburgSlice ,
     ext:decideHarvestedGentSlice ,
+    ext:decideHarvestedWingeneSlice ,
     ext:decideHarvestedPdfSlice ;
   sh:targetClass eli:Manifestation .
 
@@ -491,6 +519,7 @@ ext:EliWorkAsset a odrl:Asset, sh:NodeShape ;
   odrl:partOf ext:decidePublicSlice ,
     ext:decideHarvestedFreiburgSlice ,
     ext:decideHarvestedGentSlice ,
+    ext:decideHarvestedWingeneSlice ,
     ext:decideHarvestedPdfSlice ;
   sh:targetClass eli:Work .
 
@@ -524,6 +553,7 @@ ext:OrgOrganizationAsset a odrl:Asset, sh:NodeShape ;
     ext:decideOrganizationsSlice ,
     ext:decideHarvestedFreiburgSlice ,
     ext:decideHarvestedGentSlice ,
+    ext:decideHarvestedWingeneSlice ,
     ext:decideHarvestedPdfSlice ;
   sh:targetClass org:Organization .
 
@@ -665,6 +695,7 @@ ext:NfoRemoteDataObjectAsset a odrl:Asset, sh:NodeShape ;
     ext:decideHarvestingPublicSlice ,
     ext:decideHarvestedFreiburgSlice ,
     ext:decideHarvestedGentSlice ,
+    ext:decideHarvestedWingeneSlice ,
     ext:decideHarvestedPdfSlice ;
   sh:targetClass nfo:RemoteDataObject .
 
@@ -673,6 +704,7 @@ ext:NfoFileDataObjectAsset a odrl:Asset, sh:NodeShape ;
     ext:decideHarvestingPublicSlice ,
     ext:decideHarvestedFreiburgSlice ,
     ext:decideHarvestedGentSlice ,
+    ext:decideHarvestedWingeneSlice ,
     ext:decideHarvestedPdfSlice ;
   sh:targetClass nfo:FileDataObject .
 
