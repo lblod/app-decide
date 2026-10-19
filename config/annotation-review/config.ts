@@ -64,10 +64,15 @@ export default {
                 ?bodyT rdf:predicate eli:title .
                 ?bodyT rdf:object ?search.
                 ?search bif:contains """'$search'"""
-              } UNION {
-                ?target <https://data.europarl.europa.eu/def/epvoc#expressionContent> ?search.
-                ?search bif:contains """'$search'"""
               }
+            `,
+            variable: 'search',
+            type: 'search',
+          },
+          content: {
+            query: `
+              ?target <https://data.europarl.europa.eu/def/epvoc#expressionContent> ?search.
+              ?search bif:contains """'$search'"""
             `,
             variable: 'search',
             type: 'search',
@@ -234,10 +239,15 @@ export default {
                 ?bodyT rdf:predicate eli:title .
                 ?bodyT rdf:object ?title.
                 ?title bif:contains """'$search'"""
-              } UNION {
-                ?target <https://data.europarl.europa.eu/def/epvoc#expressionContent> ?search.
-                ?search bif:contains """'$search'"""
               }
+            `,
+            variable: 'search',
+            type: 'search',
+          },
+          content: {
+            query: `
+              ?target <https://data.europarl.europa.eu/def/epvoc#expressionContent> ?search.
+              ?search bif:contains """'$search'"""
             `,
             variable: 'search',
             type: 'search',
