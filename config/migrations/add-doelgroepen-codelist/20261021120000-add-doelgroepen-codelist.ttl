@@ -1,0 +1,100 @@
+@prefix skos: <http://www.w3.org/2004/02/skos/core#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+
+<http://lblod.data.gift/id/conceptscheme/doelgroepen> a skos:ConceptScheme;
+    <http://mu.semte.ch/vocabularies/core/uuid> "0f9c9346-bd6d-4677-9ffa-5b5089b60934";
+    skos:prefLabel "Doelgroepen"@nl, "Target groups"@en;
+    skos:definition "Doelgroepen waarop een besluit zich richt."@nl;
+    <http://mu.semte.ch/vocabularies/ext/showInHVT> "true"^^xsd:boolean.
+
+<http://lblod.data.gift/id/concept/d2b67dac-6a8c-4314-990e-8fa87a12edfc> a skos:Concept;
+    <http://mu.semte.ch/vocabularies/core/uuid> "d2b67dac-6a8c-4314-990e-8fa87a12edfc";
+    skos:prefLabel "Lokaal Bestuur";
+    skos:inScheme <http://lblod.data.gift/id/conceptscheme/doelgroepen>;
+    skos:topConceptOf <http://lblod.data.gift/id/conceptscheme/doelgroepen>;
+    skos:definition """Overheidsentiteiten binnen het lokaal bestuursniveau.
+
+### Samenvatting:
+Alle lokale overheden, wanneer het besluit zich tot hen richt, bv. als aanvrager of begunstigde. Een organisatie die hieronder valt is nooit een vereniging, ook niet als 'vereniging' in de naam staat (bv. een welzijnsvereniging of projectvereniging is juridisch een lokaal bestuur).
+### Binnen scope:
+- Gemeenten, districten en provincies: De overheid zelf, bv. een gemeentebestuur of provinciebestuur als aanvrager of begunstigde.
+- Openbare centra voor maatschappelijk welzijn (OCMW): Het OCMW als bestuur.
+- Samenwerkingsvormen van lokale besturen: Intergemeentelijke samenwerkingsverbanden volgens het decreet over het lokaal bestuur, zoals interlokale verenigingen, projectverenigingen, dienstverlenende verenigingen en opdrachthoudende verenigingen.
+- Interlokale onderwijsvereniging (ILOV): Volgens het decreet van 28 november 2008 betreffende de interlokale onderwijsvereniging.
+- Welzijnsverenigingen en autonome verzorgingsinstellingen: Blijven een lokaal bestuur, ook al staat 'vereniging' in de naam.
+- Verzelfstandigde agentschappen opgericht door een provincie of gemeente: Agentschappen die het bestuur zelf oprichtte; reglementen noemen ze vaak samen met het gemeentebestuur ('gemeentebesturen of hun verzelfstandigde agentschappen').
+- Polders en wateringen: Deze besturen zelf.
+- Besturen van erkende kerk- of geloofsgemeenschappen van de erkende erediensten: Het bestuur van een erkende eredienst, niet de gelovigen.
+
+### Buiten scope:
+- Het bestuur dat het besluit neemt: Een gemeenteraad, college of provincieraad die een besluit neemt, is daardoor zelf niet de doelgroep.
+- De Vlaamse en federale overheid en hun verzelfstandigde agentschappen: Dit zijn geen lokale besturen.
+
+### Voorbeelden:
+- Een lokaal bestuur als aanvrager of begunstigde: Het besluit richt zich tot lokale besturen, bv. een provinciaal reglement waarin een 'lokaal bestuur gelegen op het grondgebied van de provincie' een subsidie kan aanvragen.
+- Lokale besturen naast andere doelgroepen: Bv. een subsidie aan te vragen door 'een openbaar bestuur (behalve provinciebesturen) of hun verzelfstandigde agentschappen, een stichting of een vereniging zonder winstoogmerk'; hier gelden zowel Lokaal Bestuur als Vereniging.""".
+
+<http://lblod.data.gift/id/concept/44a75e92-3733-4d1d-8737-ca81cc608678> a skos:Concept;
+    <http://mu.semte.ch/vocabularies/core/uuid> "44a75e92-3733-4d1d-8737-ca81cc608678";
+    skos:prefLabel "Vereniging";
+    skos:inScheme <http://lblod.data.gift/id/conceptscheme/doelgroepen>;
+    skos:topConceptOf <http://lblod.data.gift/id/conceptscheme/doelgroepen>;
+    skos:definition """Juridische of organisatorische entiteiten die onder een van volgende categorieën vallen: verenigingen zonder winstoogmerk, internationale verenigingen zonder winstoogmerk, stichtingen, feitelijke verenigingen en afdelingen van koepelorganisaties.
+
+### Samenvatting:
+Organisaties met een belangeloos, niet-commercieel doel, in een van de genoemde juridische vormen. In besluiten verschijnen ze meestal als ontvanger van een toelage of subsidie voor hun werking (bv. senioren, jeugd, erfgoed).
+
+### Binnen scope:
+- Verenigingen zonder winstoogmerk (vzw) en internationale vzw's: Verenigingen met rechtspersoonlijkheid volgens het Wetboek van vennootschappen en verenigingen.
+- Stichtingen: Een private stichting of een stichting van openbaar nut.
+- Feitelijke verenigingen: Verenigingen zonder rechtspersoonlijkheid, bv. een informeel samenwerkende groep.
+- Koepelorganisaties en hun afdelingen: Een vzw, internationale vzw of stichting die zich in afdelingen vertakt of de werking van andere verenigingen ondersteunt; een afdeling is een onderdeel daarvan.
+
+### Buiten scope:
+- Organisaties die onder Lokaal Bestuur vallen: Ook als 'vereniging' in de naam staat, bv. een welzijnsvereniging, projectvereniging of interlokale vereniging.
+- Vennootschappen en verenigingen met winstoogmerk: Deze vallen onder Onderneming.
+
+### Voorbeelden:
+- Seniorenverenigingen: Bv. een jaarlijkse toelage voor seniorenverenigingen ter ondersteuning van hun werking.
+- Particuliere jeugdverenigingen en jeugdwerk: Jeugdwerk dat opgericht is door een privé-initiatief, zonder beroepsdoeleinden of winstoogmerk.
+- Lokale verenigingen als aanvrager van een subsidie: Bv. een subsidie voor een publicatie over geschiedenis of erfgoed, aan te vragen door een vereniging zonder winst of commercieel belang.""".
+
+<http://lblod.data.gift/id/concept/2242298b-7f1b-4bc2-b685-5771522987b7> a skos:Concept;
+    <http://mu.semte.ch/vocabularies/core/uuid> "2242298b-7f1b-4bc2-b685-5771522987b7";
+    skos:prefLabel "Onderneming";
+    skos:inScheme <http://lblod.data.gift/id/conceptscheme/doelgroepen>;
+    skos:topConceptOf <http://lblod.data.gift/id/conceptscheme/doelgroepen>;
+    skos:definition """Entiteiten die economische activiteiten uitoefenen.
+
+### Samenvatting:
+Natuurlijke personen, rechtspersonen en organisaties zonder rechtspersoonlijkheid die een economische activiteit uitoefenen, d.w.z. op duurzame wijze goederen of diensten aanbieden op een markt: een industriële, ambachtelijke, handels-, diensten-, landbouw- of tuinbouwactiviteit. Het Wetboek van economisch recht rekent ook vzw's, stichtingen en sommige overheden tot de ondernemingen; voor deze codelijst vallen entiteiten die onder Vereniging of Lokaal Bestuur vallen echter niet onder Onderneming.
+
+### Binnen scope:
+- Zelfstandigen en eenmanszaken: Natuurlijke personen die zelfstandig een beroepsactiviteit uitoefenen, doorgaans met een ondernemingsnummer, bv. een eenmanszaak, een zaakvoerder of een kunstenaar.
+- Vennootschappen: Bv. een bv, nv of coöperatieve vennootschap (cv), ook een burgercoöperatie.
+- Vennootschappen zonder rechtspersoonlijkheid: Bv. een maatschap.
+- Verenigingen met winstoogmerk: Verenigingen die winst nastreven, in tegenstelling tot een vzw.
+
+### Voorbeelden:
+- Handelaars: Wie een nieuwe handelszaak uitbaat of een bestaande overneemt, bv. een premie voor lokale handel met een voor het publiek toegankelijke winkel.
+- Starters en startende ondernemers: Zelfstandigen of eenmanszaken in de eerste periode na inschrijving of oprichting, bv. een starterspremie.
+- Rechtspersonen en natuurlijke personen met een ondernemingsnummer en een vestiging in de gemeente: Bv. de doelgroep van een subsidiereglement voor ondernemers in de gemeente.""".
+
+<http://lblod.data.gift/id/concept/9aa8c940-4a25-4571-8063-9412494a10a7> a skos:Concept;
+    <http://mu.semte.ch/vocabularies/core/uuid> "9aa8c940-4a25-4571-8063-9412494a10a7";
+    skos:prefLabel "Burger";
+    skos:inScheme <http://lblod.data.gift/id/conceptscheme/doelgroepen>;
+    skos:topConceptOf <http://lblod.data.gift/id/conceptscheme/doelgroepen>;
+    skos:definition """Een natuurlijke persoon die als individu gebruikmaakt van publieke dienstverlening, in een persoonlijke of niet-professionele hoedanigheid.
+
+### Samenvatting:
+Enkel de natuurlijke persoon zelf, als individu of als lid van een gezin. Niet een persoon die optreedt als ondernemer, of die bevoegd is om te handelen namens een vereniging of een lokaal bestuur.
+
+### Binnen scope:
+- Natuurlijke personen als individu: Inwoners, eigenaars, vruchtgebruikers of andere particulieren die in eigen naam handelen.
+- Gezinnen: Personen als lid van een gezin.
+
+### Voorbeelden:
+- Natuurlijke personen die als eigenaar of vruchtgebruiker een aanvraag indienen: Particulieren die in eigen naam een tegemoetkoming of toelating aanvragen, bv. voor een belendend perceel.
+- Gezinnen: Een alleenstaande, samenwonende personen of bewoners van een collectieve woongelegenheid, bv. wanneer een reglement per gezin geldt.
+- Inwoners die identiteits- of verblijfsdocumenten aanvragen: Dienstverlening aan personen, bv. de aflevering van identiteitskaarten, verblijfsdocumenten of attesten van immatriculatie.""".
