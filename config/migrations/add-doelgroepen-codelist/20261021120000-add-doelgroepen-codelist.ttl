@@ -1,17 +1,17 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#>.
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
 
-<http://lblod.data.gift/id/conceptscheme/doelgroepen> a skos:ConceptScheme;
+<http://lblod.data.gift/id/conceptscheme/0f9c9346-bd6d-4677-9ffa-5b5089b60934> a skos:ConceptScheme;
     <http://mu.semte.ch/vocabularies/core/uuid> "0f9c9346-bd6d-4677-9ffa-5b5089b60934";
-    skos:prefLabel "Doelgroepen"@nl, "Target groups"@en;
+    skos:prefLabel "Target groups"@en;
     skos:definition "Doelgroepen waarop een besluit zich richt."@nl;
     <http://mu.semte.ch/vocabularies/ext/showInHVT> "true"^^xsd:boolean.
 
 <http://lblod.data.gift/id/concept/d2b67dac-6a8c-4314-990e-8fa87a12edfc> a skos:Concept;
     <http://mu.semte.ch/vocabularies/core/uuid> "d2b67dac-6a8c-4314-990e-8fa87a12edfc";
     skos:prefLabel "Lokaal Bestuur";
-    skos:inScheme <http://lblod.data.gift/id/conceptscheme/doelgroepen>;
-    skos:topConceptOf <http://lblod.data.gift/id/conceptscheme/doelgroepen>;
+    skos:inScheme <http://lblod.data.gift/id/conceptscheme/0f9c9346-bd6d-4677-9ffa-5b5089b60934>;
+    skos:topConceptOf <http://lblod.data.gift/id/conceptscheme/0f9c9346-bd6d-4677-9ffa-5b5089b60934>;
     skos:definition """Overheidsentiteiten binnen het lokaal bestuursniveau.
 
 ### Samenvatting:
@@ -37,8 +37,8 @@ Alle lokale overheden, wanneer het besluit zich tot hen richt, bv. als aanvrager
 <http://lblod.data.gift/id/concept/44a75e92-3733-4d1d-8737-ca81cc608678> a skos:Concept;
     <http://mu.semte.ch/vocabularies/core/uuid> "44a75e92-3733-4d1d-8737-ca81cc608678";
     skos:prefLabel "Vereniging";
-    skos:inScheme <http://lblod.data.gift/id/conceptscheme/doelgroepen>;
-    skos:topConceptOf <http://lblod.data.gift/id/conceptscheme/doelgroepen>;
+    skos:inScheme <http://lblod.data.gift/id/conceptscheme/0f9c9346-bd6d-4677-9ffa-5b5089b60934>;
+    skos:topConceptOf <http://lblod.data.gift/id/conceptscheme/0f9c9346-bd6d-4677-9ffa-5b5089b60934>;
     skos:definition """Juridische of organisatorische entiteiten die onder een van volgende categorieën vallen: verenigingen zonder winstoogmerk, internationale verenigingen zonder winstoogmerk, stichtingen, feitelijke verenigingen en afdelingen van koepelorganisaties.
 
 ### Samenvatting:
@@ -62,8 +62,8 @@ Organisaties met een belangeloos, niet-commercieel doel, in een van de genoemde 
 <http://lblod.data.gift/id/concept/2242298b-7f1b-4bc2-b685-5771522987b7> a skos:Concept;
     <http://mu.semte.ch/vocabularies/core/uuid> "2242298b-7f1b-4bc2-b685-5771522987b7";
     skos:prefLabel "Onderneming";
-    skos:inScheme <http://lblod.data.gift/id/conceptscheme/doelgroepen>;
-    skos:topConceptOf <http://lblod.data.gift/id/conceptscheme/doelgroepen>;
+    skos:inScheme <http://lblod.data.gift/id/conceptscheme/0f9c9346-bd6d-4677-9ffa-5b5089b60934>;
+    skos:topConceptOf <http://lblod.data.gift/id/conceptscheme/0f9c9346-bd6d-4677-9ffa-5b5089b60934>;
     skos:definition """Entiteiten die economische activiteiten uitoefenen.
 
 ### Samenvatting:
@@ -83,8 +83,8 @@ Natuurlijke personen, rechtspersonen en organisaties zonder rechtspersoonlijkhei
 <http://lblod.data.gift/id/concept/9aa8c940-4a25-4571-8063-9412494a10a7> a skos:Concept;
     <http://mu.semte.ch/vocabularies/core/uuid> "9aa8c940-4a25-4571-8063-9412494a10a7";
     skos:prefLabel "Burger";
-    skos:inScheme <http://lblod.data.gift/id/conceptscheme/doelgroepen>;
-    skos:topConceptOf <http://lblod.data.gift/id/conceptscheme/doelgroepen>;
+    skos:inScheme <http://lblod.data.gift/id/conceptscheme/0f9c9346-bd6d-4677-9ffa-5b5089b60934>;
+    skos:topConceptOf <http://lblod.data.gift/id/conceptscheme/0f9c9346-bd6d-4677-9ffa-5b5089b60934>;
     skos:definition """Een natuurlijke persoon die als individu gebruikmaakt van publieke dienstverlening, in een persoonlijke of niet-professionele hoedanigheid.
 
 ### Samenvatting:
