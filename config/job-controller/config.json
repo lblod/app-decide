@@ -79,16 +79,6 @@
         "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/translating",
         "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/segmenting",
         "nextIndex": "5"
-      },
-      {
-        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/segmenting",
-        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/entity-extracting",
-        "nextIndex": "6"
-      },
-      {
-        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/entity-extracting",
-        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/named-entity-linking",
-        "nextIndex": "7"
       }
     ]
   },
@@ -266,6 +256,26 @@
         "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/codelist-matching/annotate",
         "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/codelist-matching/assess-impact",
         "nextIndex": "3"
+      }
+    ]
+  },
+  "http://lblod.data.gift/id/jobs/concept/JobOperation/shape-ner": {
+    "tasksConfiguration": [
+      {
+        "currentOperation": null,
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/singleton-job",
+        "nextIndex": "0"
+      },
+      {
+        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/singleton-job",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/annotation-split-tasks",
+        "nextIndex": "1"
+      },
+      {
+        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/annotation-split-tasks",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/shape-ner",
+        "nextIndex": "2",
+        "external": true
       }
     ]
   }

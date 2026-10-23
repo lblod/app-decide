@@ -27,9 +27,6 @@
       "callback_url": null
     },
     "langchain": {
-      "provider": "ollama",
-      "model_name": "mistral-nemo",
-      "base_url": "http://ollama:11434",
       "temperature": 0.1,
       "max_text_length": 6000
     }
