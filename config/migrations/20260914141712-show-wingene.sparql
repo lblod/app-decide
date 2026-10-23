@@ -1,0 +1,7 @@
+PREFIX ext: <http://mu.semte.ch/vocabularies/ext/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+INSERT DATA {
+  GRAPH <http://mu.semte.ch/graphs/public> {
+    <http://data.lblod.info/id/bestuurseenheden/99ed6eee81a7aca47517cbffb46eaba38f3987eeb4ad32c020898644769eb615> ext:showInHVT "true"^^xsd:boolean .
+  }
+}

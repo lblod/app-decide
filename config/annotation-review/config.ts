@@ -26,7 +26,7 @@ export default {
       // can use to filter annotations for a given target, need to fix the set of agents once we have final uris for them
       annotationFilter: `
         FILTER(?agent NOT IN (<http://lblod.data.gift/id/components/named-entity-linking/v1.0.0>,<http://lblod.data.gift/id/components/translation/v1.0.0>))
-        
+
         FILTER(?type NOT IN (<http://www.w3.org/ns/locn#Address>, <https://data.vlaanderen.be/ns/adres#Straatnaam>, <http://www.wikidata.org/entity/Q2785216>, <http://www.wikidata.org/entity/Q123705>, <https://data.vlaanderen.be/ns/omgevingsvergunning#NormatieveBepaling> ))
         FILTER(!BOUND(?typeClass) || ?typeClass NOT IN ( <http://mu.semte.ch/vocabularies/ext/AnnotationBody> ))
       `,
@@ -55,16 +55,22 @@ export default {
           },
           title: {
             query: `
-              {
                 ?target <http://data.europa.eu/eli/ontology#title> ?search.
                     ?search bif:contains """'$search'"""
-              } UNION {
+              } || EXISTS {
                 ?annotationT oa:hasTarget / oa:hasSource ?target.
                 ?annotationT oa:hasBody ?bodyT.
                 ?bodyT rdf:predicate eli:title .
                 ?bodyT rdf:object ?search.
                 ?search bif:contains """'$search'"""
-              }
+            `,
+            variable: 'search',
+            type: 'search',
+          },
+          content: {
+            query: `
+              ?target <https://data.europarl.europa.eu/def/epvoc#expressionContent> ?search.
+              ?search bif:contains """'$search'"""
             `,
             variable: 'search',
             type: 'search',
@@ -111,7 +117,7 @@ export default {
           },
           aiModels: {
             query: `
-              ?action prov:wasAssociatedWith / prov:specializationOf ?aiModel . 
+              ?action prov:wasAssociatedWith / prov:specializationOf ?aiModel .
             `,
             variable: 'aiModel',
             type: 'uri',
@@ -162,7 +168,7 @@ export default {
       // can use to filter annotations for a given target, need to fix the set of agents once we have final uris for them
       annotationFilter: `
         FILTER(?agent NOT IN (<http://lblod.data.gift/id/components/impact-assessment/v1.0.0>, <http://lblod.data.gift/id/components/codelist-labeling/v1.0.0/impact_annotator>))
-       
+
         ?object a skos:Concept .
         FILTER(!BOUND(?typeClass) || ?typeClass NOT IN ( <http://mu.semte.ch/vocabularies/ext/AnnotationBody>, <http://mu.semte.ch/vocabularies/ext/NoMatchFound> ) )
         FILTER NOT EXISTS {
@@ -173,7 +179,7 @@ export default {
       // these annotations are linking directly to the expression
       annotationPath: `
         ?annotation oa:hasTarget ?target .
-        ?target a eli:Expression . 
+        ?target a eli:Expression .
       `,
       bodyType: 'direct',
       filters: {
@@ -222,16 +228,22 @@ export default {
           },
           title: {
             query: `
-              {
                 ?target <http://data.europa.eu/eli/ontology#title> ?title.
                     ?title bif:contains """'$search'"""
-              } UNION {
+              } || EXISTS {
                 ?annotationT oa:hasTarget / oa:hasSource ?target.
                 ?annotationT oa:hasBody ?bodyT.
                 ?bodyT rdf:predicate eli:title .
                 ?bodyT rdf:object ?title.
                 ?title bif:contains """'$search'"""
-              }
+            `,
+            variable: 'search',
+            type: 'search',
+          },
+          content: {
+            query: `
+              ?target <https://data.europarl.europa.eu/def/epvoc#expressionContent> ?search.
+              ?search bif:contains """'$search'"""
             `,
             variable: 'search',
             type: 'search',
