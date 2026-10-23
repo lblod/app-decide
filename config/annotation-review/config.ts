@@ -55,16 +55,14 @@ export default {
           },
           title: {
             query: `
-              {
                 ?target <http://data.europa.eu/eli/ontology#title> ?search.
                     ?search bif:contains """'$search'"""
-              } UNION {
+              } || EXISTS {
                 ?annotationT oa:hasTarget / oa:hasSource ?target.
                 ?annotationT oa:hasBody ?bodyT.
                 ?bodyT rdf:predicate eli:title .
                 ?bodyT rdf:object ?search.
                 ?search bif:contains """'$search'"""
-              }
             `,
             variable: 'search',
             type: 'search',
@@ -230,16 +228,14 @@ export default {
           },
           title: {
             query: `
-              {
                 ?target <http://data.europa.eu/eli/ontology#title> ?title.
                     ?title bif:contains """'$search'"""
-              } UNION {
+              } || EXISTS {
                 ?annotationT oa:hasTarget / oa:hasSource ?target.
                 ?annotationT oa:hasBody ?bodyT.
                 ?bodyT rdf:predicate eli:title .
                 ?bodyT rdf:object ?title.
                 ?title bif:contains """'$search'"""
-              }
             `,
             variable: 'search',
             type: 'search',
