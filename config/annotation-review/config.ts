@@ -328,7 +328,7 @@ export default {
       // note have to put filter inside the bind's if because otherwise virtuoso doesn't want to include others as results anymore
       textPath: `
         ?object <http://www.w3.org/2004/02/skos/core#prefLabel> ?prefLabel .
-        FILTER(LANG(?prefLabel) = "en")
+        BIND(LANG(?prefLabel) AS ?objectLang)
         OPTIONAL {
           ?object skos:notation ?notation .
         }
