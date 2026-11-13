@@ -145,3 +145,7 @@ services:
     restart: no
   dsp-auth-wrapper:
     restart: no
+  overview-query:
+    restart: no
+  datadumps:
+    restart: no
