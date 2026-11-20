@@ -28,7 +28,7 @@ services:
     restart: always
     logging: *default-logging
   login:
-    image: semtech/mu-login-service:3.0.0
+    image: semtech/mu-login-service:3.0.1
     links:
       - database:database
     environment:
