@@ -6,17 +6,18 @@ This repository contains all configuration to get the DECIDe microservices stack
 
 This repository contains multiple docker-compose files
 
-- _docker-compose.yml_ provides the backend components included through separate configuration files:
-  - _compose/base-compose.yml_ provides the base services of a semantic.works app along with (very) common additional services.
-  - _compose/data-space.yml_ provides services services relevant for the app operating in a larger data space.
-  - _compose/pipeline.yml_ provides the services that govern the data harvesting and processing pipelines. Specific pipelines are further configured in separate files:
-    - _compose/oparl.yml_ provides services specific to harvesting data from OParl endpoints.
-    - _compose/oslo.yml_ provides services specific to harvesting data for Flemish local authorities.
-    - _compose/ai.yml_ provides AI-based services that are used to enrich the arvested data.
-  - _compose/validation.yml_ provides services for the human validation of the AI generated annotations.
-  - _compose/policy-impact-report.yml_ provides services for generating and showing policy impact reports.
-  - _compose/search.yml_ provides most services for smart searching through decisions.
-  - _compose/reporting.yml_ provides a service to (periodically) generate reports on the data in the app.
+- _docker-compose.yml_ provides the backend components, grouped by section:
+  - _Base_ provides the base services of a semantic.works app along with (very) common additional services.
+  - _Data space_ provides services relevant for the app operating in a larger data space.
+  - _Generic pipeline components_ provides the services that govern the data harvesting and processing pipelines.
+  - _OPARL_ provides services specific to harvesting data from OParl endpoints.
+  - _Ghent decisions_ provides services specific to harvesting data for Flemish local authorities.
+  - _JSON_ provides services specific to harvesting data from JSON sources.
+  - _AI pipelines_ provides AI-based services that are used to enrich the harvested data.
+  - _Validation_ provides services for the human validation of the AI generated annotations.
+  - _Policy impact report_ provides services for generating and showing policy impact reports.
+  - _Search_ provides most services for smart searching through decisions.
+  - _Reporting_ provides a service to (periodically) generate reports on the data in the app.
 - _docker-compose.dev.yml_ provides small changes for development purposes.
   - Publishes the entrypoint to the services on port 80, so all endpoints can be reached easily.
 
@@ -251,7 +252,7 @@ To update a system to the latest version, you can perform the following steps:
 
 The DECIDe project is designed to address a set of pre-defined use cases. This README outlines each service individually, allowing cities to select and deploy only the specific components required for their unique needs.
 
-The services defined in the `compose/base-compose.yml` file are the core _Semantic.Works_ services required for running the project. In addition to the core service, we also need the generic pipeline components to run the pipelines. To configure the dashboard for your pipelines, see [below](##configuring-the-dashboard).
+The services defined in the _Base_ section of `docker-compose.yml` are the core _Semantic.Works_ services required for running the project. In addition to the core service, we also need the generic pipeline components to run the pipelines. To configure the dashboard for your pipelines, see [below](##configuring-the-dashboard).
 
 In DECIDe, four use cases are defined. The first use case (0.0) is about converting and publishing decisions with Linked Data standards so these can be reused interoperable in the data space. The three other use cases (0.1, 1, and 2) are AI-enabled services to enrich the decisions with related things, such as policies, themes, and locations.
 
@@ -260,7 +261,7 @@ In DECIDe, four use cases are defined. The first use case (0.0) is about convert
 This use case retrieves decisions from a data source, and maps the decisions to the European Legislation Identifier (ELI) standard. Because the input data sources are heterogeneous a specific conversion pipeline is defined for each city.
 
 > [!IMPORTANT]
-> Be sure to add a folder "[nel](https://github.com/lblod/app-decide/blob/7f9bc93afb2ff1c3bb009a51ff6a88f2b2b73c41/compose/ai.yml#L31)" to your local data folder containing the [queries/local folder](https://github.com/semantic-ai/entity-linking-backend/tree/master/data/queries/local) and [endpoints_metadata.json file](https://github.com/semantic-ai/entity-linking-backend/blob/master/data/endpoints_metadata.json) from the [entity-linking service](https://github.com/semantic-ai/entity-linking-backend).
+> Be sure to add a folder `config/nel` to your repository (mounted as `/config` for the `entity-linking` service in `docker-compose.yml`) containing the [queries/local folder](https://github.com/semantic-ai/entity-linking-backend/tree/master/data/queries/local) and [endpoints_metadata.json file](https://github.com/semantic-ai/entity-linking-backend/blob/master/data/endpoints_metadata.json) from the [entity-linking service](https://github.com/semantic-ai/entity-linking-backend).
 
 #### Background
 

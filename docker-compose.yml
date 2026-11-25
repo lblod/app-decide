@@ -1,8 +1,706 @@
-include:
-  - compose/base-compose.yml
-  - compose/data-space.yml
-  - compose/pipeline.yml
-  - compose/search.yml
-  - compose/validation.yml
-  - compose/reporting.yml
-  - compose/policy-impact-report.yml
+x-logging: &default-logging
+  driver: 'json-file'
+  options:
+    max-size: '10m'
+    max-file: '3'
+services:
+  ##############################################################################
+  # BASE
+  ##############################################################################
+  identifier:
+    image: semtech/mu-identifier:1.11.0
+    environment:
+      DEFAULT_MU_AUTH_ALLOWED_GROUPS_HEADER: '[{"variables":[],"name":"public"}]'
+      DEFAULT_ACCESS_CONTROL_ALLOW_ORIGIN_HEADER: '*'
+      SESSION_COOKIE_SECURE: 'true'
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging
+  dispatcher:
+    image: semtech/mu-dispatcher:2.1.0-beta.2
+    volumes:
+      - ./config/dispatcher:/config
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging
+  database:
+    image: semtech/sparql-parser:feature-odrl-configuration
+    environment:
+      LISP_DYNAMIC_SPACE_SIZE: 8192
+    volumes:
+      - ./config/authorization:/config
+      - ./data/authorization:/data
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging
+  virtuoso:
+    image: redpencil/virtuoso:1.4.0
+    environment:
+      SPARQL_UPDATE: 'true'
+    volumes:
+      - ./config/virtuoso/virtuoso.ini:/data/virtuoso.ini
+      - ./data/db:/data
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging
+  resource:
+    image: semtech/mu-cl-resources:1.27.2
+    environment:
+      CACHE_CLEAR_PATH: 'http://cache/.mu/clear-keys'
+    volumes:
+      - ./config/resources:/config
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging
+  cache:
+    image: semtech/mu-cache:2.0.1
+    links:
+      - resource:backend
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging
+  file:
+    image: semtech/mu-file-service:3.4.0
+    volumes:
+      - ./data/files:/share
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging
+  project-scripts:
+    image: semtech/simple-script-store:1.0.0
+    volumes:
+      - ./scripts/project:/app/scripts/
+    restart: 'no'
+  migrations:
+    image: semtech/mu-migrations-service:0.9.0
+    environment:
+      MU_SPARQL_ENDPOINT: http://virtuoso:8890/sparql
+    volumes:
+      - ./config/migrations:/data/migrations
+  deltanotifier:
+    image: semtech/mu-delta-notifier:0.4.0
+    volumes:
+      - ./config/delta:/config
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging
+  sink:
+    image: nginx:1.15.2
+    volumes:
+      - ./config/sink/sink.conf:/etc/nginx/conf.d/default.conf
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging
+  ##############################################################################
+  # DATA SPACE
+  ##############################################################################
+  dcat:
+    image: lblod/dcat-service:0.0.3
+    logging: *default-logging
+    labels:
+      - logging=true
+    restart: always
+  datadumps:
+    image: nginx:1.30.0-alpine
+    restart: always
+    volumes:
+      - ./data/datadumps:/usr/share/nginx/html:ro
+  vc-issuer:
+    image: lblod/oid4vc-login-service:0.0.6
+    environment:
+      ISSUER_DID: did:web:example.com:some:did
+      ISSUER_KEY_ID: did:web:example.com:some:did#somekey
+      VERIFIER_DID: did:web:example.com:some:did
+      VERIFIER_KEY_ID: did:web:example.com:some:did#id
+      ISSUER_PUBLIC_KEY: notatallsecretkey
+      ISSUER_PRIVATE_KEY: superultrasecretkey
+      ISSUER_URL: https://example.com/vc-issuer
+      VERIFIER_URL: https://example.com/vc-verifier
+      LOGO_URL: https://example.com/assets/logo.png
+      CREDENTIAL_TYPE: DecideCredential
+      NO_DID_PREFIX: true
+      SINGLE_CREDENTIAL_RESPONSE: true
+    restart: always
+    logging: *default-logging
+    labels:
+      - 'logging=true'
+  acmidm-login:
+    image: lblod/acmidm-login-service:0.12.0
+    environment:
+      LOG_SINK_URL: 'http://sink'
+      MU_APPLICATION_AUTH_JWK_PRIVATE_KEY: /config/jwk_private_key.json
+      MU_APPLICATION_AUTH_USERID_CLAIM: vo_id
+      MU_APPLICATION_AUTH_ROLE_CLAIM: 'abb_decide_rol_3d'
+      MU_APPLICATION_GRAPH: 'http://mu.semte.ch/graphs/bestuurseenheden-bestuursorganen'
+      # The following are environment-specific and should be set in the
+      # environment's appropriate override file.
+      MU_APPLICATION_AUTH_CLIENT_ID: '<AUTH_CLIENT_ID>'
+      MU_APPLICATION_AUTH_DISCOVERY_URL: '<AUTH_DISCOVERY_URL>'
+      MU_APPLICATION_AUTH_REDIRECT_URI: '<AUTH_REDIRECT_URI>'
+    volumes:
+      - ./config/login:/config
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging
+  frontend-yasgui:
+    image: lblod/frontend-decide-yasgui:0.0.5
+    environment:
+      # The following are environment-specific and should be set in the
+      # environment's appropriate override file.
+      EMBER_OAUTH_API_KEY: '<OAUTH_API_KEY>'
+      EMBER_OAUTH_API_REDIRECT_URL: '<OAUTH_API_REDIRECT_URL>'
+      EMBER_OAUTH_API_BASE_URL: '<OAUTH_API_BASE_URL>'
+      EMBER_OAUTH_API_LOGOUT_URL: '<OAUTH_API_LOGOUT_URL'
+      EMBER_OAUTH_API_SCOPE: '<OAUTH_API_SCOPE>'
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging
+  frontend-dcat:
+    image: lblod/frontend-decide-dcat:0.0.14
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging
+  dsp-auth-wrapper:
+    image: lblod/decide-dsp-authorization-wrapper:0.0.1
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging
+    environment:
+      DEFAULT_MU_AUTH_SCOPE: http://services.semantic.works/sessions
+  ##############################################################################
+  # LDES
+  ##############################################################################
+  ldes-delta-pusher:
+    image: redpencil/ldes-delta-pusher:1.2.14
+    environment:
+      LDES_BASE: 'https://ds.decide.lblod.info/ldes/'
+      LDES_FOLDER: 'public'
+      WRITE_INITIAL_STATE: 'false'
+      AUTO_HEALING: 'true'
+      CRON_HEALING: '0 16 3 * * *' # Every day at 03:16
+    volumes:
+      - ./config/ldes-delta-pusher/:/config/
+      - ./data/ldes-feed/:/data/
+    restart: always
+    logging: *default-logging
+    labels:
+      - 'logging=true'
+    links:
+      - virtuoso:database
+  ldes-serve-feed:
+    image: lblod/ldes-serve-feed-service:0.4.0
+    environment:
+      BASE_URL: 'https://ds.decide.lblod.info/ldes/'
+    volumes:
+      - ./data/ldes-feed/:/data/
+    logging: *default-logging
+    restart: always
+    labels:
+      - 'logging=true'
+  ##############################################################################
+  # GENERIC PIPELINE COMPONENTS (USED IN OPARL, OSLO, PDF, AND AI PIPELINES)
+  ##############################################################################
+  frontend-harvesting:
+    image: lblod/frontend-harvesting-self-service:feature-oparl-harvesting
+    environment:
+      EMBER_AUTHENTICATION_ENABLED: 'true'
+      EMBER_LOGIN_ROUTE: 'login'
+      EMBER_OPARL_HARVESTING_ENABLED: true
+      EMBER_PDF_HARVESTING_ENABLED: true
+      EMBER_NER_AND_NEL_ANNOTATIONS_ENABLED: true
+      EMBER_CODELIST_MAPPING_ENABLED: true
+      EMBER_OSLO_HARVESTING_ENABLED: true
+      EMBER_RESOURCE_TYPES_ENABLED: true
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging
+  login:
+    image: semtech/mu-login-service:3.0.1
+    links:
+      - database:database
+    environment:
+      USERS_GRAPH: 'http://mu.semte.ch/graphs/users'
+      SESSIONS_GRAPH: 'http://mu.semte.ch/graphs/sessions'
+    restart: always
+    logging: *default-logging
+    labels:
+      - 'logging=true'
+  job-controller:
+    image: lblod/job-controller-service:1.4.2
+    volumes:
+      - ./config/job-controller:/config
+    environment:
+      MU_APPLICATION_GRAPH: 'http://mu.semte.ch/graphs/harvesting'
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging
+  scheduled-job-controller:
+    image: lblod/scheduled-job-controller-service:1.3.1
+    environment:
+      LOG_SPARQL_ALL: 'false'
+      DEBUG_AUTH_HEADERS: 'false'
+      MAX_CONCURRENT_JOBS: 1
+      MU_APPLICATION_GRAPH: 'http://mu.semte.ch/graphs/harvesting'
+    labels:
+      - 'logging=true'
+    volumes:
+      - ./config/scheduled-job-controller:/config
+    restart: always
+    logging: *default-logging
+  annotation-job-splitter:
+    image: lblod/annotation-job-splitter-service:0.0.9
+    restart: always
+    logging: *default-logging
+    volumes:
+      - ./config/annotation-job-splitter:/config
+    labels:
+      - 'logging=true'
+  harvest_singleton-job:
+    image: lblod/harvesting-singleton-job-service:1.0.0
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging
+
+  resource-type-service:
+    image: lblod/resource-type-service:0.0.1
+    environment:
+      DEFAULT_MU_AUTH_SCOPE: 'http://services.semantic.works/resource-type-service'
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging
+  ##############################################################################
+  # OPARL HARVESTING PIPELINE
+  ##############################################################################
+  harvest_diff:
+    image: lblod/harvesting-diff-service:0.3.0
+    environment:
+      TARGET_GRAPH: 'http://mu.semte.ch/graphs/harvesting'
+      PUBLICATION_GRAPH: 'http://mu.semte.ch/graphs/public'
+      LIMIT_SIZE: 2000
+      LOGGING_LEVEL: 'INFO'
+    volumes:
+      - ./data/files:/share
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging
+  harvest_sameas:
+    image: lblod/import-with-sameas-service:4.8.0
+    environment:
+      RENAME_DOMAIN: 'http://data.lblod.info/id/'
+      TARGET_GRAPH: 'http://mu.semte.ch/graphs/public/freiburg'
+      HIGH_LOAD_DATABASE_ENDPOINT: 'http://virtuoso:8890/sparql'
+      ROLLBACK_ENABLED: 'false'
+      TASK_TIMEOUT_HOURS: '20'
+      LOG_SPARQL_ALL: 'false'
+      DEBUG_AUTH_HEADERS: 'false'
+    volumes:
+      - ./config/same-as-service:/config
+      - ./data/files:/share
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging
+  oparl-to-eli:
+    image: lblod/oparl-to-eli-service:0.0.3
+    volumes:
+      - ./data/files:/share
+    environment:
+      OPARL_ENDPOINT: 'https://ris.freiburg.de/oparl'
+      TARGET_GRAPH: 'http://mu.semte.ch/graphs/public/freiburg'
+    restart: always
+    labels:
+      - logging=true
+    logging: *default-logging
+  ##############################################################################
+  # GHENT DECISIONS PIPELINE
+  ##############################################################################
+  lokaal-beslist-consumer:
+    image: lblod/decide-harvester-consumer-service:1.0.0
+    environment:
+      SYNC_BASE_URL: https://lokaalbeslist-harvester-1.s.redhost.be/ # Harvester 1 hosts Ghent decisions
+      SYNC_FILES_PATH: /sync/besluiten/files
+      SYNC_DATASET_SUBJECT: http://data.lblod.info/datasets/delta-producer/dumps/lblod-harvester/BesluitenCacheGraphDump
+      LANDING_GRAPH: http://mu.semte.ch/graphs/oslo-decisions/landing
+      BATCH_SIZE: 5000
+      OPERATION_URI: http://lblod.data.gift/id/jobs/concept/TaskOperation/oslo-eli/consume
+      HIGH_LOAD_DATABASE_ENDPOINT: http://virtuoso:8890/sparql
+    labels:
+      - logging=true
+    restart: always
+    logging: *default-logging
+  decisions-ghent-filter:
+    image: lblod/decide-harvester-filter-service:1.0.0
+    environment:
+      INPUT_GRAPH: http://mu.semte.ch/graphs/oslo-decisions/landing
+      BYPASS_MU_SPARQL_ENDPOINT: true
+      BATCH_SIZE: 1000
+      SLEEP_BETWEEN_BATCHES: 5
+      OPERATION_URI: http://lblod.data.gift/id/jobs/concept/TaskOperation/oslo-eli/filter
+    labels:
+      - logging=true
+    restart: always
+    logging: *default-logging
+  oslo-eli-transformer:
+    image: lblod/decide-harvester-transformation-service:1.0.0
+    environment:
+      INPUT_GRAPH: http://mu.semte.ch/graphs/oslo-decisions/landing
+      OUTPUT_GRAPH: http://mu.semte.ch/graphs/public/gent
+      ORGANIZATIONS_GRAPH: http://mu.semte.ch/graphs/bestuurseenheden-bestuursorganen
+      BYPASS_MU_SPARQL_ENDPOINT: true
+      BATCH_SIZE: 1000
+      SLEEP_BETWEEN_BATCHES: 5
+      DROP_INPUT_GRAPH: true
+      OPERATION_URI: http://lblod.data.gift/id/jobs/concept/TaskOperation/oslo-eli/transform
+    labels:
+      - logging=true
+    restart: always
+    logging: *default-logging
+  ##############################################################################
+  # JSON PIPELINE
+  ##############################################################################
+  json-to-eli:
+    image: lblod/decide-json-to-eli-service:0.0.4
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging
+  ##############################################################################
+  # AI PIPELINES
+  ##############################################################################
+  entity-linking:
+    image: semanticai/entity-linking-backend:1.0.0
+    environment:
+      TARGET_GRAPH: 'http://mu.semte.ch/graphs/public'
+      DEFAULT_GRAPH: 'http://mu.semte.ch/graphs/harvesting'
+      ALLOW_MU_AUTH_SUDO: 'true'
+      OLLAMA_HOST: 'http://ollama:11434'
+      NOMINATIM_ENDPOINT: 'http://nominatim:8080/'
+      MCP_SERVER_URL: 'http://localhost:80/mcp/sse'
+      ENABLED_TOOLS: 'search_sparql_docs,execute_sparql_query,search_location'
+      JOB_GRAPH: 'http://mu.semte.ch/graphs/harvesting'
+      AI_GRAPH: 'http://mu.semte.ch/graphs/public/pdf'
+      LLM_PROVIDER: 'mistral'
+      LLM_MAX_RETRIES: 3
+      MISTRAL_MODEL: 'ministral-14b-2512'
+      CONFIG_PATH: '/config/config.json'
+      COMPOSE_FILE: /tmp/docker-compose.yaml
+      COMPOSE_SERVICE: entity-linking
+    logging: *default-logging
+    labels:
+      - logging=true
+    links:
+      - database:database
+    volumes:
+      - ./config/nel/config:/config
+      - ./docker-compose.yml:/tmp/docker-compose.yaml
+    restart: always
+  pdf-scraper:
+    image: semanticai/decide-pdf-scraper:1.0.0
+    environment:
+      TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
+      JOB_GRAPH: http://mu.semte.ch/graphs/harvesting
+      DATA_CONTAINER_GRAPH: http://mu.semte.ch/graphs/harvesting
+      HARVEST_COLLECTIONS_GRAPH: http://mu.semte.ch/graphs/harvesting
+      REMOTE_OBJECT_GRAPH: http://mu.semte.ch/graphs/harvesting
+      FILES_GRAPH: http://mu.semte.ch/graphs/harvesting
+      OPARL_TEMP_GRAPH: http://mu.semte.ch/graphs/harvesting
+      OSLO_TEMP_GRAPH: http://mu.semte.ch/graphs/harvesting
+
+      PUBLICATION_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      EXPRESSIONS_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      WORKS_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      MANIFESTATIONS_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      AI_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      ALLOW_MU_AUTH_SUDO: true
+    labels:
+      - logging=true
+    restart: always
+    logging: *default-logging
+  pdf-content:
+    image: semanticai/decide-pdf-content-extraction:1.0.0
+    environment:
+      APACHE_TIKA_URL: 'http://apache-tika:9998/tika'
+      TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
+      JOB_GRAPH: http://mu.semte.ch/graphs/harvesting
+      DATA_CONTAINER_GRAPH: http://mu.semte.ch/graphs/harvesting
+      HARVEST_COLLECTIONS_GRAPH: http://mu.semte.ch/graphs/harvesting
+      REMOTE_OBJECT_GRAPH: http://mu.semte.ch/graphs/harvesting
+      FILES_GRAPH: http://mu.semte.ch/graphs/harvesting
+      OPARL_TEMP_GRAPH: http://mu.semte.ch/graphs/harvesting
+      OSLO_TEMP_GRAPH: http://mu.semte.ch/graphs/harvesting
+
+      PUBLICATION_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      EXPRESSIONS_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      WORKS_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      MANIFESTATIONS_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      AI_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      ALLOW_MU_AUTH_SUDO: true
+      MOUNTED_SHARE_FOLDER: '/mnt/share'
+      CONFIG_PATH: '/config/config.json'
+      COMPOSE_FILE: /tmp/docker-compose.yaml
+      COMPOSE_SERVICE: pdf-content
+      IGNORE_MOUNT_REGEX: '^(/data)|(/app)|(/mnt)'
+    volumes:
+      - ./data/files:/mnt/share
+      - ./config/pdf-content/config.json:/config/config.json:ro # Mount config as read-only
+      - ./docker-compose.yml:/tmp/docker-compose.yaml
+    labels:
+      - logging=true
+    restart: always
+    logging: *default-logging
+  apache-tika:
+    image: lblod/apache-tika-service:0.0.3
+    restart: always
+    logging: *default-logging
+    labels:
+      - logging=true
+  question-answering:
+    image: docker.io/semanticai/decide-question-answering:1.0.0
+    environment:
+      SEARCH_API_URL: 'http://search/expressions/large-search'
+      LOG_SPARQL_ALL: 'false'
+      EMBEDDING_API_URL: 'http://embedding/embed'
+      MU_SPARQL_ENDPOINT: 'http://database:8890/sparql'
+      MU_SPARQL_TIMEOUT: '30'
+      GENERATION_PROVIDER: 'ollama'
+      GENERATION_ENDPOINT: 'http://ollama:11434'
+      GENERATION_MODEL: 'mistral-nemo'
+      GENERATION_TIMEOUT: '300.0'
+      MAX_CONTENT_CHARS: '50000'
+      REQUEST_TIMEOUT: '10.0'
+      ALLOW_MU_AUTH_SUDO: 'true'
+      DEFAULT_MU_AUTH_SCOPE: 'http://services.semantic.works/decide-question-answering-service'
+    restart: always
+    logging: *default-logging
+    labels:
+      - logging=true
+  nominatim:
+    image: mediagis/nominatim:5.1
+    restart: always
+    environment:
+      PBF_PATH: /data/merged.osm.pbf
+      PBF_URL: ''
+    volumes:
+      - ./data/nominatim/db:/var/lib/postgresql/16/main
+      - ./data/nominatim/src:/data
+
+    logging: *default-logging
+    labels:
+      - logging=true
+  named-entity-recognition:
+    image: semanticai/decide-geocoding-service:1.0.0
+    environment:
+      TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
+      JOB_GRAPH: http://mu.semte.ch/graphs/harvesting
+      DATA_CONTAINER_GRAPH: http://mu.semte.ch/graphs/harvesting
+      HARVEST_COLLECTIONS_GRAPH: http://mu.semte.ch/graphs/harvesting
+      REMOTE_OBJECT_GRAPH: http://mu.semte.ch/graphs/harvesting
+      FILES_GRAPH: http://mu.semte.ch/graphs/harvesting
+      OPARL_TEMP_GRAPH: http://mu.semte.ch/graphs/harvesting
+      OSLO_TEMP_GRAPH: http://mu.semte.ch/graphs/harvesting
+
+      PUBLICATION_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      EXPRESSIONS_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      WORKS_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      MANIFESTATIONS_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      AI_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      ALLOW_MU_AUTH_SUDO: true
+      CONFIG_PATH: '/config/config.json'
+      COMPOSE_FILE: /tmp/docker-compose.yaml
+      COMPOSE_SERVICE: named-entity-recognition
+    volumes:
+      - ./config/ner/config.json:/config/config.json:ro # Mount config as read-only
+      - ./docker-compose.yml:/tmp/docker-compose.yaml
+    depends_on:
+      - virtuoso
+    labels:
+      - logging=true
+    restart: always
+    logging: *default-logging
+
+  ollama:
+    image: ollama/ollama:0.21.2
+    volumes:
+      - ./data/ollama:/root/.ollama
+    labels:
+      - logging=true
+    restart: always
+    logging: *default-logging
+    # in case you have an nvidia gpu available, like on our server
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
+    entrypoint:
+      - /bin/sh
+      - -c
+      - ollama serve & pid=$$! && sleep 5 && ollama pull embeddinggemma && wait $$pid
+
+  codelist-labeling:
+    image: semanticai/codelist-labeling-service:1.0.0
+    environment:
+      TARGET_GRAPH: http://mu.semte.ch/graphs/harvesting
+      JOB_GRAPH: http://mu.semte.ch/graphs/harvesting
+      DATA_CONTAINER_GRAPH: http://mu.semte.ch/graphs/harvesting
+      HARVEST_COLLECTIONS_GRAPH: http://mu.semte.ch/graphs/harvesting
+      REMOTE_OBJECT_GRAPH: http://mu.semte.ch/graphs/harvesting
+      FILES_GRAPH: http://mu.semte.ch/graphs/harvesting
+      OPARL_TEMP_GRAPH: http://mu.semte.ch/graphs/harvesting
+      OSLO_TEMP_GRAPH: http://mu.semte.ch/graphs/harvesting
+
+      PUBLICATION_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      EXPRESSIONS_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      WORKS_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      MANIFESTATIONS_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      AI_GRAPH: http://mu.semte.ch/graphs/public/pdf
+      ALLOW_MU_AUTH_SUDO: true
+      NOMINATIM_ENDPOINT: http://nominatim:8080/
+      CONFIG_PATH: '/config/config.json'
+      COMPOSE_FILE: /tmp/docker-compose.yaml
+      COMPOSE_SERVICE: codelist-labeling
+    restart: always
+    labels:
+      - logging=true
+    logging: *default-logging
+    volumes:
+      - ./config/codelist/config.json:/config/config.json:ro # Mount config as read-only
+      - ./docker-compose.yml:/tmp/docker-compose.yaml
+  ##################################
+  ### elastic and embeddings
+  ##################################
+  search:
+    image: semtech/mu-search:feature-large-dense-vector
+    environment:
+      INCLUDE_SCORE: true
+    labels:
+      - logging=true
+    restart: always
+    logging: *default-logging
+    volumes:
+      - ./config/search:/config
+      - ./data/search:/data
+  elasticsearch:
+    image: semtech/mu-search-elastic-backend:1.3.1
+    labels:
+      - logging=true
+    restart: always
+    logging: *default-logging
+    volumes:
+      - ./data/elasticsearch:/usr/share/elasticsearch/data
+    environment:
+      - discovery.type=single-node
+  embedding:
+    image: semanticai/embedding-service:0.0.4
+    labels:
+      - logging=true
+    restart: always
+    logging: *default-logging
+    environment:
+      TZ: Europe/Brussels
+      OLLAMA_HOST: 'http://ollama:11434'
+      LOG_SPARQL_ALL: 'false'
+      ALLOW_MU_AUTH_SUDO: true
+    volumes:
+      - ./config/embedding/config.py:/app/config.py
+    depends_on:
+      - ollama
+  municipality-linker:
+    image: lblod/decide-municipality-linker-service:0.0.2
+    labels:
+      - logging=true
+    restart: always
+    logging: *default-logging
+    volumes:
+      - ./config/municipality-linker:/config
+  ##################################
+  ### Smart search
+  ##################################
+  frontend-smart-search:
+    image: lblod/frontend-decide-question-answering:0.0.9
+    labels:
+      - 'logging=true'
+    restart: always
+    # The backend question-answering service is configured in the AI
+    # pipelines section of this file.
+  ##############################################################################
+  # VALIDATION
+  ##############################################################################
+  annotation-review:
+    image: lblod/annotation-review-service:0.0.14
+    restart: always
+    labels:
+      - logging=true
+    logging: *default-logging
+    environment:
+      DEFAULT_MU_AUTH_SCOPE: "http://services.semantic.works/annotation-review-service"
+      ANNOTATION_TARGET_TYPES: "http://www.w3.org/ns/oa#Annotation,http://mu.semte.ch/vocabularies/ext/AnnotationTarget"
+      TZ: Europe/Brussels
+    volumes:
+      - ./config/annotation-review:/config
+  frontend-human-validator:
+    image: lblod/frontend-decide-human-validator:0.0.21
+    labels:
+      - "logging=true"
+    restart: always
+    logging: *default-logging
+  ##############################################################################
+  # REPORTING
+  ##############################################################################
+  report-generation:
+    image: lblod/loket-report-generation-service:0.8.10
+    environment:
+      DEFAULT_GRAPH: 'http://mu.semte.ch/graphs/reports'
+      RUN_SPARQL_VALIDATIONS: false
+      ONLY_KEEP_LATEST_REPORT: true
+      RUN_REPORT_NOW: true
+      SAMPLING_ENABLED: true
+      SAMPLING_SIZE: 100
+    volumes:
+      - ./config/reports:/config
+    restart: always
+    labels:
+      - logging=true
+    logging: *default-logging
+  overview-query:
+    image: semtech/mu-javascript-template:1.9.1
+    restart: always
+    environment:
+      NODE_ENV: "development"
+    volumes:
+      - "./config/overview-query:/app"
+  ##############################################################################
+  # POLICY IMPACT REPORT
+  ##############################################################################
+  policy-impact-report:
+    image: lblod/policy-impact-report-service:0.0.7
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging
+  frontend-policy-impact-report:
+    image: lblod/frontend-decide-policy-impact-report:0.0.6
+    labels:
+      - 'logging=true'
+    restart: always
+    logging: *default-logging
